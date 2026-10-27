@@ -1,0 +1,14 @@
+/build/
+/out/
+/.vs/
+/.idea/
+*.user
+*.suo
+*.pdb
+*.ilk
+*.obj
+*.exe
+*.zip
+*.dmt
+/artifacts/
+TestResults/
