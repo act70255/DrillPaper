@@ -1,5 +1,9 @@
 # DrillPaper 最終交接
 
+> 最新主題平台續作：原生 `.dmt`／資料夾 CLI 匯入、已安裝主題列舉與熱切換、逾時回復已接入 app 並有整合測試。100／300 次切換協定通過，但記憶體與 handles 的成長仍需長時間分析。請以 [theme-platform/REPORT.md](acceptance/2026-10-28/theme-platform/REPORT.md) 及 STATUS 的最新階段為準；下列舊版「尚無原生匯入器」為歷史狀態。
+
+> 2026-10-28 13:05 更新：最新 Windows 11 驗收請以 [acceptance/2026-10-28/REPORT.md](acceptance/2026-10-28/REPORT.md) 為準。Release build、CTest 22/22 與 SDK 18/18 已實測通過；GUI 工具通訊不可用，畫面等待人工檢查。下文 Windows 10、舊 Git 限制與 SDK hash 為先前環境的歷史紀錄，不能套用到目前工作樹。原生主題管理已增目錄安裝雛型，尚未接入 app；整體仍不可發行。
+
 **交付狀態：開發原型已能在目前 Windows 10 x64 環境編譯、啟動並完成 WebView2 protocol smoke；整體工作尚未完成，DrillPaper app Release Candidate 未產生、不可安裝或發布。** Theme SDK `1.0.0-rc3` ZIP 已實際封裝、解壓、測試及驗證，可供本機評估。此文件只把實測範圍標為通過；未做 GUI、安全、長時間效能與乾淨安裝的項目保持未驗收。
 
 專案名稱依使用者決定為 **DrillPaper**。執行檔為 `DrillPaper.exe`；SDK 主要入口為 `DrillPaper`/`DrillPaperClient`，並保留 DesktopMonitor 相容別名。原始規格名稱、C++ namespace/include 路徑及部分檔名仍沿用 DesktopMonitor。

@@ -56,8 +56,8 @@ window.addEventListener('pagehide', () => {
 
 `sdk/javascript/mock-host.js` 提供瀏覽器介面模擬 host，會產生 CPU 數據、提供固定 RAM/網路值、歷史記錄與狀態事件。兩個示範來源在 `sdk/examples/minimal/` 與 `sdk/examples/dashboard/`。可用本機靜態開發伺服器提供 repository 檔案，再開啟範例入口；瀏覽器通常會禁止從 `file://` URL 載入 ES module。這是開發預覽，不是 DrillPaper WebView2 host；應用程式不會附帶 HTTP server。
 
-示範來源的 `.dmt` 封裝會把 SDK 與 MockHost 模組放進套件，並將範例的相對匯入改成套件內路徑。正式原生匯入器、安裝器、主題切換尚未實作。
+示範來源的 `.dmt` 封裝會把 SDK 與 MockHost 模組放進套件，並將範例的相對匯入改成套件內路徑。可透過 EXE 的 `--import-theme` 匯入，並由原生「主題」功能表切換；操作見 `USER_GUIDE.md`。
 
 ## 目前驗證範圍
 
-`npm run test:sdk` 使用 Node 內建測試執行器測 SDK、MockHost、manifest 與負面案例，18/18 通過。Windows Release app 已透過 WebView2 啟動 minimal 和 dashboard 並完成 protocol smoke；這不是截圖或視覺 layout 檢查。尚未測試 TypeScript 編譯、應用程式匯入 `.dmt`、熱切換或切換 100 次的資源變化。原生 Theme Manager 尚未實作，`.dmt` 現階段只由作者工具封裝/驗證。
+`npm run test:sdk` 的 Node SDK／MockHost／manifest 測試曾 18/18 通過。原生 ZIP 驗證、CLI 匯入及已安裝主題載入均有整合證據；100 次切換協定通過，資源增加及長時間穩定性仍保留限制。最新結果見 `acceptance/2026-10-28/theme-platform/REPORT.md`。TypeScript compiler 與完整瀏覽器安全負面整合尚未驗證。

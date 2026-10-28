@@ -17,9 +17,6 @@ namespace {
 using Microsoft::WRL::Callback;
 using Microsoft::WRL::ComPtr;
 
-constexpr wchar_t kHostName[] = L"drillpaper.local";
-constexpr wchar_t kHostOrigin[] = L"https://drillpaper.local/";
-constexpr wchar_t kPreviewUrl[] = L"https://drillpaper.local/index.html";
 constexpr UINT kWebViewFailureMessage = WM_APP + 0x31;
 constexpr std::size_t kMaximumHistory = 120;
 constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
@@ -36,12 +33,22 @@ unsigned __int64 CurrentUnixTimeMilliseconds() {
     return (ticks.QuadPart - kWindowsToUnixEpoch100ns) / 10000ULL;
 }
 
-bool IsLocalThemeUrl(PCWSTR url) {
-    if (url == nullptr) {
+bool IsLocalThemeUrl(PCWSTR url, const std::wstring& origin) {
+    if (url == nullptr || origin.empty()) {
         return false;
     }
-    constexpr std::size_t originLength = std::size(kHostOrigin) - 1;
-    return _wcsnicmp(url, kHostOrigin, originLength) == 0;
+    return _wcsnicmp(url, origin.c_str(), origin.size()) == 0;
+}
+
+/** 為每次主題載入產生獨立來源，避免舊頁面訊息及儲存跨主題重用。
+ * Returns:
+ *     GUID DNS 主機名稱；失敗時為空字串。
+ */
+std::wstring NewThemeHost() {
+    GUID id{};
+    wchar_t text[40]{};
+    if (FAILED(CoCreateGuid(&id)) || StringFromGUID2(id, text, 40) == 0) return {};
+    return L"theme-" + std::wstring(text + 1, 36) + L".drillpaper.local";
 }
 
 bool Utf8ToWide(std::string_view input, std::wstring* output) {
@@ -127,6 +134,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
     }
     parentWindow_ = parentWindow;
     themeName_ = themeName;
+    hostName_ = NewThemeHost();
+    if (hostName_.empty()) return E_FAIL;
+    hostOrigin_ = L"https://" + hostName_ + L"/";
 
     wchar_t localAppData[MAX_PATH]{};
     const DWORD localAppDataLength = GetEnvironmentVariableW(
@@ -174,7 +184,7 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 return S_OK;
                             }
                             result = webview3->SetVirtualHostNameToFolderMapping(
-                                kHostName, themeDirectory.c_str(),
+                                hostName_.c_str(), themeDirectory.c_str(),
                                 COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS);
                             if (FAILED(result)) {
                                 ReportFailure(result);
@@ -205,7 +215,7 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                             LPWSTR uri = nullptr;
                                             requestResult = request->get_Uri(&uri);
                                             if (FAILED(requestResult) || uri == nullptr) return S_OK;
-                                            const bool allowed = IsLocalThemeUrl(uri);
+                                            const bool allowed = IsLocalThemeUrl(uri, hostOrigin_);
                                             CoTaskMemFree(uri);
                                             if (allowed) return S_OK;
 
@@ -221,12 +231,12 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                             if (SUCCEEDED(result)) {
                                 result = webview_->add_NavigationStarting(
                                     Callback<ICoreWebView2NavigationStartingEventHandler>(
-                                        [](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
+                                        [this](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
                                             if (args == nullptr) return E_INVALIDARG;
                                             LPWSTR uri = nullptr;
                                             const HRESULT uriResult = args->get_Uri(&uri);
                                             if (FAILED(uriResult) || uri == nullptr) return S_OK;
-                                            const bool allowed = IsLocalThemeUrl(uri);
+                                            const bool allowed = IsLocalThemeUrl(uri, hostOrigin_);
                                             CoTaskMemFree(uri);
                                             return allowed ? S_OK : args->put_Cancel(TRUE);
                                         }).Get(), &navigationStartingToken_);
@@ -251,13 +261,49 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 return S_OK;
                             }
                             Resize();
-                            return webview_->Navigate(kPreviewUrl);
+                            return webview_->Navigate((hostOrigin_ + L"index.html").c_str());
                         }).Get());
                 if (FAILED(controllerResult)) {
                     ReportFailure(controllerResult);
                 }
                 return S_OK;
             }).Get());
+}
+
+HRESULT WebView2Host::LoadTheme(const std::wstring& themeDirectory, const std::wstring& themeName,
+                              const std::wstring& entry) {
+    if (webview_ == nullptr || controller_ == nullptr) return E_PENDING;
+    if (themeDirectory.empty() || themeName.empty() || entry.empty()) return E_INVALIDARG;
+    const auto nextHost = NewThemeHost();
+    if (nextHost.empty()) return E_FAIL;
+    ComPtr<ICoreWebView2_3> webview3;
+    HRESULT result = webview_.As(&webview3);
+    if (FAILED(result)) return result;
+    result = webview3->SetVirtualHostNameToFolderMapping(nextHost.c_str(), themeDirectory.c_str(),
+        COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS);
+    if (FAILED(result)) return result;
+    const auto oldHost = hostName_;
+    const auto oldOrigin = hostOrigin_;
+    const auto oldName = themeName_;
+    webview_->Stop();
+    hostName_ = nextHost;
+    hostOrigin_ = L"https://" + nextHost + L"/";
+    themeName_ = themeName;
+    handshakeComplete_ = false;
+    subscribed_ = false;
+    lastBroadcastTick_ = 0;
+    updateIntervalMilliseconds_ = 1000;
+    result = webview_->Navigate((hostOrigin_ + entry).c_str());
+    if (FAILED(result)) {
+        webview3->ClearVirtualHostNameToFolderMapping(nextHost.c_str());
+        hostName_ = oldHost;
+        hostOrigin_ = oldOrigin;
+        themeName_ = oldName;
+        return result;
+    }
+    webview3->ClearVirtualHostNameToFolderMapping(oldHost.c_str());
+    SetWindowTextW(parentWindow_, (L"DrillPaper Preview — " + themeName_ + L" — 載入中").c_str());
+    return S_OK;
 }
 
 void WebView2Host::Resize() {
@@ -295,7 +341,7 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
     if (FAILED(args->get_Source(&source)) || source == nullptr) {
         return;
     }
-    const bool trustedSource = IsLocalThemeUrl(source);
+    const bool trustedSource = IsLocalThemeUrl(source, hostOrigin_);
     CoTaskMemFree(source);
     if (!trustedSource) {
         return;

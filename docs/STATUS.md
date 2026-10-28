@@ -1,5 +1,49 @@
 # 開發狀態
 
+## 2026-10-28 Phase 5 續作 — 原生匯入與熱切換
+
+- Scope：原生 `.dmt`／目錄驗證與 staging/atomic install、CLI 匯入／列舉、Win32 主題功能表、已安裝版本熱切換、逾時回復 Minimal。隔離 GUID origin 避免沿用舊來源。新依賴授權納入建置。
+- Files：`src/themes/theme_manager.cpp`、`src/app/{main,theme_commands}.cpp`、WebView2 host 與對應 headers、`tests/unit/theme_manager_test.cpp`、`scripts/test-theme-{cli,switch}.ps1`、CMake、第三方 notices/licenses、README 及架構／使用者／驗收文件。
+- Red／Green：ZIP、CLI、內建切換、已安裝主題與 junction 日誌寫入邊界均先有失敗證據再修正。原生主題 8 案例／71 斷言 PASS；CLI CTest PASS。相關命令、檔案範圍及原始證據見 [主題平台驗收報告](acceptance/2026-10-28/theme-platform/REPORT.md)。
+- Windows 整合 PASS（程序／協定）：100 次內建切換後載入已匯入主題，正常退出；損壞主題逾時回復 Minimal 並重新訂閱。非畫面截圖驗收。
+- 資源 PARTIAL：100 次 Private Bytes 約 197→331 MiB；追加 300 次峰值約 404 MiB、閒置後約 331 MiB，handles 234→257。不得宣稱無洩漏，長時間矩陣保留。
+- NOT RUN：瀏覽器完整安全負面、Shell GUI、電源實機與乾淨安裝／CI；未具備完整產品整合或證據。發行閘門維持阻擋。
+- Commit：待本階段提交。下一步：Runtime 背景 worker／生命週期，並持續補安全與效能驗證。
+
+## 2026-10-28 14:05 Dashboard 初始效能基線
+
+- 使用者授權由 agent 直接開啟 Dashboard 實機 Preview，執行 600 秒任務、每輪等待 5 秒，並正常關閉。未修改產品行為；未提交。
+- **PASS（量測與退出）**：113 樣本皆包含 app 與 WebView2，共 7 程序；CPU 平均 0.116%、p95 0.422%（14 邏輯處理器整機容量）；Private Bytes 平均 240.54 MiB，首分鐘後趨勢 -0.018 MiB/min；正常退出碼 0，觀察到的 6 個子程序全退出。
+- 原始 CSV 實際跨度 594.971 秒，不能宣稱 CSV 覆蓋至少 600 秒。原始資料、退出證據、方法與限制見 [performance/REPORT.md](acceptance/2026-10-28/performance/REPORT.md)。
+- **PARTIAL（A13）**：只有初始 Preview 基線；30 分鐘、Minimal／休眠對照、GPU engine 及 100 次切換 NOT RUN，尚無相應證據及完整產品整合。不能由此宣稱沒有洩漏或產品效能驗收完成。
+
+## 2026-10-28 續驗：原生主題負面案例
+
+- 範圍：公開 ThemeManager manifest 與安裝行為；延續既有主題分支。Files：原生主題管理實作／header、主題測試及驗收紀錄。Commit：尚未提交。
+- **FAIL → PASS**：新增 101 字元名稱案例，先重現原生驗證器錯誤接受（exit 1），再修正 UTF-8 字元長度判斷。名稱／作者／說明採 manifest 字元上限；不以放大的 bytes 限制代替字元數。
+- **PASS**：主題測試 target 建置；`DrillPaperThemeTests.exe '[themes]'` 6 案例／16 斷言；`ctest --preset windows-msvc-release --output-on-failure` 22/22，14.53 秒。原始紀錄與命令見 `docs/acceptance/2026-10-28/REPORT.md`。SDK 未更動，未重跑。
+- **PARTIAL（Dashboard 實機人工驗收）**：使用者後續回報持續更新、有 CPU 圖表且可正常關閉，此三項 PASS。GPU unavailable、個別版面／縮放、可追溯程序樹的長時間效能及退出後子程序清理仍未驗證；已提供 10 分鐘 Dashboard 程序樹採樣命令。
+- 發行阻擋保留：Theme Manager 未接入 app、無原生 ZIP／熱切換、背景採樣／休眠與網路策略整合缺漏，以及桌布、安全、效能與安裝矩陣未驗收。下一步：取得程序樹 CSV 與 metadata 後分析；補齊產品整合後再驗收相應項目。
+
+## 2026-10-28 13:05 Windows 11 驗收
+
+- 範圍：目前工作樹的 Release 建置、完整自動回歸、產物存在檢查與 GUI 工具可用性；未修改產品行為。分支 `feature/theme-manager`，本次未提交。
+- **PASS**：`cmake --build --preset windows-msvc-release --parallel 8`、`scripts/test.ps1 -Configuration Release`，均 exit 0。CTest 22/22（含 Windows collector 與主題管理入口），SDK 18/18、環境回歸、主題 ZIP 正負案例及 SDK ZIP 解壓／重封全通過。
+- **PARTIAL（人工 Preview）**：2026-10-28 13:18 使用者回報 Dashboard mock 文字與數值皆符合預期。13:19 再回報 Minimal 實機數值及時間持續更新（CPU 83%、RAM 81%、RX 18 KB/s、Host active），此範圍 PASS。Dashboard 個別版面、硬體精度及實機 GPU unavailable 仍待確認；Minimal 縮放與正常關閉已獲後續確認。Computer Use 管道不可用（os error 2），沒有工具截圖。
+- **NOT RUN**：桌布／Explorer 復原、硬體精度、WebView2 安全負面整合、Windows 休眠、長時間效能、CI、乾淨安裝；原因及未完成產品功能見[本次驗收報告](acceptance/2026-10-28/REPORT.md)。整體產品仍未驗收通過，app RC 阻擋保留。
+- **PASS（本輪基本 Preview 操作結案）**：使用者接續回報「1.2 OK」，確認目前 Minimal 視窗縮放無重疊／裁切，正常關閉無卡住。連同 Dashboard mock 文字／數值與 Minimal 實機更新，完成此次基本操作驗收；不外推到 Dashboard 個別版面、GPU、硬體精度、退出後子程序清理或桌布整合。
+- 原始原生測試 log 已保存至 `docs/acceptance/2026-10-28/ctest.log`。後續：補齊主題管理、背景採樣／休眠、網路策略等未接入功能及其整合驗證。
+
+## 2026-10-28 本機環境與續作
+
+- 目前工作樹在 `feature/theme-manager`；`5697bf7` 已提交先前原型，起始工作樹乾淨。下文「只有 be5cb92、工作樹未提交」是舊環境紀錄，已過期。
+- 本機為 Windows 11 Pro 25H2 build 26200.8737、VS 2022 Professional 17.14.17、MSVC 19.44、Windows SDK 10.0.26100.0、Node 24.17.0、Intel GPU。已用 uv 安裝 CMake/CTest 3.31.6，並安裝 WebView2 SDK 1.0.2478.35 到使用者 NuGet 目錄；Runtime 155.0.4283.62 原已存在。詳細步驟見 `docs/ENVIRONMENT.md`。
+- **PASS**：`cmake --preset windows-msvc-release` 設定完成；Release `DrillPaper.exe` 已編譯；`scripts/test.ps1 -SkipNative` 的 SDK 18/18、主題封裝及 SDK 封裝驗證成功。
+- **進行中**：依 `docs/IMPLEMENTATION_PLAN.md` 補原生主題管理。已建立獨立的目錄驗證、staging 安裝及列舉雛型，尚未接入 app，也不支援 `.dmt`；不應認為 Phase 5 已完成。發行腳本明確維持阻擋。
+- **Phase 5 測試**：主題安裝起始測試先以佔位實作執行，結果 FAIL（預期）；實作後 `ctest --test-dir build/windows-msvc-release -C Release -R '^DrillPaperThemeTests$' --output-on-failure` PASS（2 個案例：安裝列舉、自身子目錄拒絕）。後者是預先辨識的安全修正，未另外取得失敗測試紀錄。原生主題負面測試、安全審查及 ZIP 解壓均未完成，尚不能宣稱可安全安裝不可信主題。
+- **建置修正**：Catch2 自動發現遇到中文測試名稱 JSON 編碼錯誤；改以 CTest 單一入口執行主題測試，重新編譯成功。Phase commit：尚未提交。
+- **NOT RUN**：本機 GUI 桌面附掛、外連安全、Windows 休眠及硬體精度驗收；Shell inventory 只列舉視窗，不代表附掛成功。
+
 本紀錄更新至 2026-10-28。`PASS` 僅表示所列命令或明確範圍已在本機執行成功，不外推到未測 GUI、硬體功能、發行流程或安全性。原始規格仍見根目錄 `DesktopMonitor_Codex_Handoff.md`。
 
 ## 已確認決策

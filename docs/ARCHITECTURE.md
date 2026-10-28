@@ -20,6 +20,6 @@
 
 ## 目前實作邊界
 
-目前的 Release app 可建置並以 WebView2 Preview 載入 `minimal` 或 `dashboard`，完成 protocol handshake、snapshot request 與 subscribe。metrics 由 UI timer 同步採樣；core scheduler/mailbox 尚未接成背景 worker。C++ collectors、native protocol parser/serializer、WebView2 host、JS SDK 與 package validator 有不同範圍的自動化測試。
+目前的 Release app 可建置並以 WebView2 Preview 載入內建及已安裝主題，完成 protocol handshake、snapshot request 與 subscribe。原生 CLI 經 ThemeManager 限額驗證、暫存及原子安裝主題；Win32 功能表選擇版本，WebView2 adapter 在既有 controller 建立每次載入獨立的 GUID 來源、解除舊 mapping 並重設握手，不重新啟動採集程序。metrics 目前仍由 UI timer 同步採樣，背景 worker 尚未接入。
 
-原生 Theme Manager、`.dmt` 匯入/安裝/切換、使用者網路提示與全域 allow switch、Windows power/session integration、Explorer/WebView recovery、Shell attach GUI 驗收及 app 長時間效能測試未完成。實際可重現證據與限制以 `docs/STATUS.md` 和 `docs/FINAL_HANDOFF.md` 為準。
+`.dmt` 支援原生匯入與主題切換，但圖形化匯入、移除、持久化目前選擇尚未提供。網路提示／開關、Windows power/session integration、Explorer/WebView recovery、Shell GUI 與完整效能矩陣仍待完成。套件驗證不等於 WebView2 沙箱；同使用者並行修改檔案不在檔案系統隔離保證內。證據與限制以 `docs/STATUS.md` 為準。

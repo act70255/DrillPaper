@@ -7,6 +7,8 @@
 #include <string>
 
 #include "desktopmonitor/monitoring/windows_metrics_collector.h"
+#include "desktopmonitor/app/theme_commands.h"
+#include "desktopmonitor/themes/theme_manager.h"
 #include "desktopmonitor/platform/windows/desktop_host.h"
 #include "desktopmonitor/web/webview2_host.h"
 
@@ -16,6 +18,14 @@ constexpr wchar_t kNotificationClass[] = L"DrillPaperShellNotifications";
 constexpr wchar_t kWindowTitle[] = L"DrillPaper Preview";
 constexpr wchar_t kExperimentalWindowTitle[] = L"DrillPaper Shell Host POC — Experimental";
 constexpr UINT_PTR kMetricsTimer = 1;
+constexpr UINT kMinimalThemeCommand = 10001;
+constexpr UINT kDashboardThemeCommand = 10002;
+constexpr UINT kRefreshThemesCommand = 10003;
+constexpr UINT kInstalledThemeCommand = 11000;
+HMENU gThemeMenu = nullptr;
+std::vector<desktopmonitor::themes::ThemeInfo> gInstalledThemes;
+unsigned __int64 gThemeLoadStarted = 0;
+bool gThemeFallbackAttempted = false;
 constexpr UINT kWebViewFailedMessage = WM_APP + 0x31;
 constexpr wchar_t kApplicationVersion[] = L"0.1.0-dev";
 const wchar_t* gStatusText = L"Starting the local WebView2 preview…";
@@ -175,8 +185,76 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM wParam,
     return DefWindowProcW(window, message, wParam, lParam);
 }
 
+/** 以原生功能表切換可信的內建主題。
+ * Args:
+ *     name: 已固定為 minimal 或 dashboard 的名稱。
+ * Returns:
+ *     已啟動導覽時為 true。
+ */
+bool SwitchBuiltinTheme(const std::wstring& name) {
+    if (gWebViewHost == nullptr) return false;
+    std::array<wchar_t, 32768> executable{};
+    const auto length = GetModuleFileNameW(nullptr, executable.data(), static_cast<DWORD>(executable.size()));
+    if (length == 0 || length >= executable.size()) return false;
+    const auto directory = std::filesystem::path(executable.data()).parent_path() / L"resources/themes" / name;
+    const HRESULT result = gWebViewHost->LoadTheme(directory.wstring(), name);
+    if (FAILED(result)) {
+        OutputDebugStringW(L"無法切換內建主題；原生預覽視窗仍可關閉。\n");
+        return false;
+    }
+    gThemeLoadStarted = GetTickCount64();
+    return true;
+}
+
+/** 重新列舉合法安裝版本並更新原生功能表。 */
+void RefreshThemeMenu() {
+    desktopmonitor::themes::ThemeManager manager(desktopmonitor::app::ThemeStoreDirectory());
+    gInstalledThemes = manager.List();
+    while (GetMenuItemCount(gThemeMenu) > 0) DeleteMenu(gThemeMenu, 0, MF_BYPOSITION);
+    AppendMenuW(gThemeMenu, MF_STRING, kMinimalThemeCommand, L"Minimal");
+    AppendMenuW(gThemeMenu, MF_STRING, kDashboardThemeCommand, L"Dashboard");
+    AppendMenuW(gThemeMenu, MF_SEPARATOR, 0, nullptr);
+    AppendMenuW(gThemeMenu, MF_STRING, kRefreshThemesCommand, L"重新整理已安裝主題");
+    for (std::size_t index = 0; index < gInstalledThemes.size(); ++index) {
+        const auto& info = gInstalledThemes[index];
+        const auto label = info.id + "@" + info.version;
+        const std::wstring wide(label.begin(), label.end());
+        AppendMenuW(gThemeMenu, MF_STRING, kInstalledThemeCommand + index, wide.c_str());
+    }
+    DrawMenuBar(gWallpaperWindow);
+}
+
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
+    case WM_COMMAND:
+        if (LOWORD(wParam) == kRefreshThemesCommand ||
+            (LOWORD(wParam) >= kInstalledThemeCommand && LOWORD(wParam) - kInstalledThemeCommand < gInstalledThemes.size())) {
+            try {
+                if (LOWORD(wParam) == kRefreshThemesCommand) RefreshThemeMenu();
+                else if (gWebViewHost != nullptr) {
+                    const auto info = desktopmonitor::themes::ThemeManager::ValidateDirectory(
+                        gInstalledThemes[LOWORD(wParam) - kInstalledThemeCommand].directory);
+                    const std::wstring name(info.id.begin(), info.id.end());
+                    if (SUCCEEDED(gWebViewHost->LoadTheme(info.directory.wstring(), name, std::filesystem::path(info.entry).wstring()))) {
+                        gThemeLoadStarted = GetTickCount64();
+                        gThemeFallbackAttempted = false;
+                    }
+                }
+            } catch (const std::exception&) {
+                MessageBoxW(window, L"無法載入或列舉主題，請確認安裝資料完整，或改用內建主題。", L"DrillPaper", MB_OK | MB_ICONWARNING);
+            }
+            return 0;
+        }
+        if (LOWORD(wParam) == kMinimalThemeCommand || LOWORD(wParam) == kDashboardThemeCommand) {
+            gThemeFallbackAttempted = false;
+            try {
+                SwitchBuiltinTheme(LOWORD(wParam) == kDashboardThemeCommand ? L"dashboard" : L"minimal");
+            } catch (const std::exception&) {
+                OutputDebugStringW(L"主題切換發生錯誤。\n");
+            }
+            return 0;
+        }
+        break;
     case WM_SIZE:
         if (gWebViewHost != nullptr) {
             gWebViewHost->Resize();
@@ -184,6 +262,19 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         return 0;
     case WM_TIMER:
         if (wParam == kMetricsTimer) {
+            if (gThemeLoadStarted != 0 && gWebViewHost != nullptr) {
+                if (gWebViewHost->IsReady()) gThemeLoadStarted = 0;
+                else if (GetTickCount64() - gThemeLoadStarted >= 20000) {
+                    gThemeLoadStarted = 0;
+                    if (!gThemeFallbackAttempted) {
+                        gThemeFallbackAttempted = true;
+                        try { SwitchBuiltinTheme(L"minimal"); } catch (const std::exception&) { }
+                    } else {
+                        gStatusText = L"主題載入失敗，請重新選擇內建主題或關閉視窗。";
+                        OutputDebugStringW(gStatusText);
+                    }
+                }
+            }
             if (gMockMetrics) {
                 gLatestSnapshot = MakeMockSnapshot();
             } else if (gMetricsCollector != nullptr) {
@@ -250,6 +341,7 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
 } // namespace
 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCommand) {
+    if (const auto result = desktopmonitor::app::RunThemeCommand()) return *result;
     if (HasFlag(commandLine, L"--version")) {
         RunVersion();
         return 0;
@@ -283,6 +375,16 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
         return static_cast<int>(GetLastError());
     }
     gWallpaperWindow = window;
+    HMENU menu = CreateMenu();
+    gThemeMenu = CreatePopupMenu();
+    AppendMenuW(menu, MF_POPUP, reinterpret_cast<UINT_PTR>(gThemeMenu), L"主題");
+    SetMenu(window, menu);
+    try { RefreshThemeMenu(); }
+    catch (const std::exception&) {
+        MessageBoxW(window, L"無法初始化主題目錄，請確認 LOCALAPPDATA 設定與檔案權限。", L"DrillPaper", MB_OK | MB_ICONERROR);
+        DestroyWindow(window);
+        return 1;
+    }
 
     const HRESULT apartmentResult = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     const bool comInitialized = SUCCEEDED(apartmentResult);

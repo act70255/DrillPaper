@@ -25,6 +25,21 @@ public:
     void Resize();
     void SetSnapshot(const core::MetricsSnapshot& snapshot);
     void Shutdown();
+    /** 在既有 controller 載入另一個已驗證的主題。
+     * Args:
+     *     themeDirectory: 主題資產目錄。
+     *     themeName: 顯示名稱。
+     *     entry: 已驗證的相對 HTML 入口。
+     * Returns:
+     *     導覽啟動結果；初始 controller 尚未建立時為 E_PENDING。
+     */
+    HRESULT LoadTheme(const std::wstring& themeDirectory, const std::wstring& themeName,
+                      const std::wstring& entry = L"index.html");
+    /** 回報目前主題是否完成握手與訂閱。
+     * Returns:
+     *     通訊流程已就緒時為 true。
+     */
+    bool IsReady() const { return handshakeComplete_ && subscribed_; }
 
 private:
     void OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args);
@@ -44,6 +59,8 @@ private:
     core::MetricsSnapshot currentSnapshot_{};
     std::vector<core::MetricsSnapshot> history_;
     std::wstring themeName_;
+    std::wstring hostName_;
+    std::wstring hostOrigin_;
     unsigned int updateIntervalMilliseconds_ = 1000;
     unsigned __int64 lastBroadcastTick_ = 0;
     bool handshakeComplete_ = false;

@@ -26,4 +26,6 @@ JavaScript manifest validator 會拒絕未知欄位、不支援的 API 版本、
 
 PowerShell `.dmt` 驗證器已在本機對正常封裝、路徑穿越、大小寫重複路徑、錯誤副檔名、未知 API 版本與超大檔案執行負面測試。它不會安裝或執行主題。
 
-WebView2 virtual host mapping 和最小的非本機 navigation/resource、新視窗拒絕已寫入 host 並編入 Release build；目前只由內建 theme 的正常流程做 smoke，沒有把外部網路 request 當成 security regression 實測。原生 `.dmt` 匯入、download/permission 拒絕、完整訊息 origin/source 驗證測試、CSP 注入、renderer 復原與主題沙箱都尚未完成。因此第三方主題**尚未沙箱化**，也沒有證據能阻止網路外傳。不要安裝不信任的主題，也不要把目前原型描述成可安全載入任意社群主題。公開發行若要接受第三方主題，必須先完成並測試原生控制；否則應停用匯入並明確說明限制。
+原生 `.dmt` 已加入限額／路徑／連結屬性／CRC／manifest 驗證、暫存及原子安裝，並以真實 ZIP 及 Windows junction 做負面測試。每次 WebView2 載入使用獨立 GUID origin，解除舊 mapping 並重設握手；此設計仍須進一步做惡意舊頁面訊息與跨主題 storage 測試。詳細證據見 `acceptance/2026-10-28/theme-platform/REPORT.md`。
+
+WebView2 的非本機 navigation/resource 與新視窗拒絕已編入 Release，但外部網路負面整合、download/permission 拒絕、CSP、renderer 復原仍未完成。因此第三方主題**尚未沙箱化**，沒有完整阻止網路外傳的證據。僅匯入信任的內容；發行閘門保持阻擋。同使用者並行替換檔案不在目前檔案系統隔離保證內。

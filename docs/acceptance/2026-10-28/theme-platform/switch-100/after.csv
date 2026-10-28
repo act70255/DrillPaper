@@ -1,0 +1,2 @@
+"TimestampUtc","ElapsedSeconds","RootProcessId","ProcessCount","ProcessIds","ProcessNames","CpuTimeSeconds","WorkingSetBytes","PrivateBytes"
+"2026-10-28T06:50:50.3521349Z","0.314","100380","7","100380;77144;91376;92012;93756;95776;95788","DrillPaper;msedgewebview2","14.875","562827264","346681344"

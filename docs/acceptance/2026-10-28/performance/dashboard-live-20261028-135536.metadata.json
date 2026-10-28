@@ -1,0 +1,12 @@
+{
+  "RootProcessId": 86000,
+  "RootProcessName": "DrillPaper.exe",
+  "OsCaption": null,
+  "OsVersion": "10.0.26200.0",
+  "OsBuild": "26200",
+  "DurationSeconds": 600,
+  "IntervalSeconds": 5,
+  "SampleCount": 113,
+  "Csv": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\dashboard-live-20261028-135536.csv",
+  "IncludesDescendantProcesses": true
+}

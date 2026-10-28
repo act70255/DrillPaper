@@ -1,0 +1,22 @@
+{
+  "RootProcessId": 86000,
+  "StartedUtc": "2026-10-28T05:55:37.3962844Z",
+  "Csv": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\dashboard-live-20261028-135536.csv",
+  "LogicalProcessors": 14,
+  "Mode": "dashboard-live-preview",
+  "Shutdown": "NORMAL_CLOSE",
+  "ReadyTitle": "DrillPaper Preview — dashboard — Live metrics",
+  "CompletedUtc": "2026-10-28T06:05:56.2524633Z",
+  "FinalTitle": "DrillPaper Preview — dashboard — Live metrics",
+  "Sampling": "COMPLETED",
+  "ObservedLiveChildIdsBeforeClose": [
+    31536,
+    76108,
+    85552,
+    85952,
+    88548,
+    91868
+  ],
+  "ExitCode": 0,
+  "SurvivingObservedChildIds": []
+}

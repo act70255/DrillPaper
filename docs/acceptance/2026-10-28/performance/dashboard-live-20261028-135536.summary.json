@@ -1,0 +1,40 @@
+{
+  "Csv": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\dashboard-live-20261028-135536.csv",
+  "SampleCount": 113,
+  "FirstElapsedSeconds": 0.476,
+  "LastElapsedSeconds": 595.447,
+  "ObservedSpanSeconds": 594.971,
+  "LogicalProcessors": 14,
+  "MissingRootSamples": 0,
+  "MissingWebViewSamples": 0,
+  "ProcessCountMinimum": 7.0,
+  "ProcessCounts": [
+    7
+  ],
+  "UniqueProcessSets": 1,
+  "CpuValidIntervals": 112,
+  "CpuExcludedIntervals": 0,
+  "CpuMachinePercentMean": 0.1159360228121563,
+  "CpuMachinePercentP95": 0.4218382412590228,
+  "CpuMachinePercentMaximum": 0.8205542103847177,
+  "PrivateMiB": {
+    "Start": 226.484375,
+    "End": 240.42578125,
+    "Minimum": 226.484375,
+    "Maximum": 245.49609375,
+    "Mean": 240.54137859513276,
+    "EndMinusStart": 13.94140625
+  },
+  "WorkingMiB": {
+    "Start": 422.82421875,
+    "End": 451.12109375,
+    "Minimum": 422.82421875,
+    "Maximum": 457.67578125,
+    "Mean": 451.37448147123894,
+    "EndMinusStart": 28.296875
+  },
+  "PrivateMiBPerMinuteAfterFirstMinute": -0.017554354257975992,
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0,
+  "SurvivingObservedChildIds": []
+}

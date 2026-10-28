@@ -1,0 +1,12 @@
+{
+  "RootProcessId": 100380,
+  "RootProcessName": "DrillPaper.exe",
+  "OsCaption": null,
+  "OsVersion": "10.0.26200.0",
+  "OsBuild": "26200",
+  "DurationSeconds": 1,
+  "IntervalSeconds": 1,
+  "SampleCount": 1,
+  "Csv": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\theme-switch-20261028-145021-c61fa9\\after.csv",
+  "IncludesDescendantProcesses": true
+}

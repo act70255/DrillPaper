@@ -1,0 +1,13 @@
+{
+  "Cycles": 100,
+  "InstalledTheme": true,
+  "BrokenInstalled": false,
+  "Result": "PASS_PROTOCOL",
+  "RootProcessId": 100380,
+  "StartedUtc": "2026-10-28T06:50:25.2290067Z",
+  "HandlesBefore": 234,
+  "HandlesAfter": 234,
+  "CompletedUtc": "2026-10-28T06:50:51.4193801Z",
+  "ExitCode": 0,
+  "Shutdown": "NORMAL_CLOSE"
+}

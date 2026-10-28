@@ -26,6 +26,7 @@ $app = if ($LocalToolchain) {
     Join-Path $repoRoot "build/windows-msvc-$($Configuration.ToLowerInvariant())/$Configuration/DrillPaper.exe"
 }
 $blockers = [System.Collections.Generic.List[string]]::new()
+$blockers.Add('Release readiness is not established: native theme management, security, lifecycle and installation acceptance remain incomplete. See docs/STATUS.md.')
 
 if (-not (Test-Path -LiteralPath $app -PathType Leaf)) { $blockers.Add("Built application is missing: $app") }
 if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'LICENSE') -PathType Leaf)) {

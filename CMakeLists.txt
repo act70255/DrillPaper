@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(DrillPaper VERSION 0.1.0 LANGUAGES CXX)
+project(DrillPaper VERSION 0.1.0 LANGUAGES C CXX)
 
 if(NOT WIN32)
     message(FATAL_ERROR "DrillPaper is a Windows-only application.")
@@ -28,8 +28,27 @@ add_library(desktopmonitor_core INTERFACE)
 target_include_directories(desktopmonitor_core INTERFACE include)
 target_compile_features(desktopmonitor_core INTERFACE cxx_std_20)
 
+include(FetchContent)
+set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(nlohmann_json
+    URL https://codeload.github.com/nlohmann/json/tar.gz/refs/tags/v3.11.3
+    URL_HASH SHA256=0d8ef5af7f9794e3263480193c491549b2ba6cc74bb018906202ada498a79406)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(miniz
+    URL https://codeload.github.com/richgel999/miniz/tar.gz/refs/tags/3.0.2
+    URL_HASH SHA256=c4b4c25a4eb81883448ff8924e6dba95c800094a198dc9ce66a292ac2ef8e018)
+FetchContent_MakeAvailable(nlohmann_json miniz)
+
+add_library(desktopmonitor_themes src/themes/theme_manager.cpp)
+target_link_libraries(desktopmonitor_themes PUBLIC desktopmonitor_core PRIVATE nlohmann_json::nlohmann_json miniz)
+target_compile_definitions(desktopmonitor_themes PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+if(MSVC)
+    target_compile_options(desktopmonitor_themes PRIVATE /W4 /permissive- /utf-8)
+endif()
+
 add_executable(DrillPaper WIN32
     src/app/main.cpp
+    src/app/theme_commands.cpp
     src/platform/windows/desktop_host.cpp
     src/monitoring/windows_metrics_collector.cpp
     src/monitoring/nvml_gpu_collector.cpp
@@ -40,7 +59,7 @@ target_include_directories(DrillPaper PRIVATE
     "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/include"
 )
 target_compile_definitions(DrillPaper PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
-target_link_libraries(DrillPaper PRIVATE desktopmonitor_core)
+target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes shell32)
 if(MSVC)
     target_compile_options(DrillPaper PRIVATE /W4 /permissive- /utf-8)
 endif()
@@ -55,6 +74,9 @@ set_target_properties(DrillPaper PROPERTIES
 )
 
 add_custom_command(TARGET DrillPaper POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_directory
+        "${PROJECT_SOURCE_DIR}/third_party/licenses"
+        "$<TARGET_FILE_DIR:DrillPaper>/resources/licenses"
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
         "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/x64/WebView2Loader.dll"
         "$<TARGET_FILE_DIR:DrillPaper>/WebView2Loader.dll"
@@ -82,9 +104,8 @@ if(BUILD_TESTING)
     include(FetchContent)
     FetchContent_Declare(
         Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v3.8.1
-        GIT_SHALLOW TRUE
+        URL https://codeload.github.com/catchorg/Catch2/tar.gz/refs/tags/v3.8.1
+        URL_HASH SHA256=18b3f70ac80fccc340d8c6ff0f339b2ae64944782f8d2fca2bd705cf47cadb79
     )
     FetchContent_MakeAvailable(Catch2)
     list(APPEND CMAKE_MODULE_PATH "${catch2_SOURCE_DIR}/extras")
@@ -97,6 +118,15 @@ if(BUILD_TESTING)
     )
     target_link_libraries(DrillPaperTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain)
     catch_discover_tests(DrillPaperTests)
+
+    add_executable(DrillPaperThemeTests tests/unit/theme_manager_test.cpp)
+    target_link_libraries(DrillPaperThemeTests PRIVATE desktopmonitor_themes Catch2::Catch2WithMain miniz)
+    if(MSVC)
+        target_compile_options(DrillPaperThemeTests PRIVATE /utf-8)
+    endif()
+    add_test(NAME DrillPaperThemeTests COMMAND DrillPaperThemeTests)
+    add_test(NAME DrillPaperThemeCli COMMAND powershell.exe -NoProfile -ExecutionPolicy Bypass
+        -File "${PROJECT_SOURCE_DIR}/scripts/test-theme-cli.ps1" -ApplicationPath "$<TARGET_FILE:DrillPaper>")
 
     add_executable(DrillPaperWindowsMetricsIntegrationTests
         tests/integration/windows_metrics_collector_test.cpp
