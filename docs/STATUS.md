@@ -1,11 +1,17 @@
 # 開發狀態
 
+## 2026-10-28 階段提交與遠端同步
+
+- 使用者已指定每階段完成後直接 commit＋push；規則已加入 repository `AGENTS.md`，後續依此執行。
+- 已推送並用 `git ls-remote --heads origin` 核對：`feature/theme-manager` → `66edcbb`、`feature/runtime-lifecycle` → `3bdca3f`、`bugfix/performance-sampling` → `a41261e`。`main` 維持 `5697bf7`，未合併開發分支。
+- 渲染器復原尚在開發：目前只有故障注入腳本與新握手診斷；已觀察失敗，實際自動復原未完成。這些 WIP 尚未推送，未當作驗收通過。
+
 ## 2026-10-28 效能工具修正與長測啟動
 
 - `bugfix/performance-sampling`：要求 2 秒只覆蓋 1.205 秒的 regression 先 FAIL，修正以 CSV 首末跨度判定結束後 PASS。新增身分／狀態／handles、原始 Handle 身分保留、根程序退出 FAILED 與部分資料保存，不記為成功的零資源樣本。
 - PASS：`scripts/test-performance-sampler.ps1`，完整跨度 2.467 秒、缺身分欄位修正、提前退出及不存在 PID 皆驗證。觀測 runner 短測亦確認正常退出、已觀察子程序全退出及暫時電源需求還原。
 - 17:50 啟動 Minimal 30 分鐘實機觀測，60 秒暖機，獨立 profile／EXE 副本；尚未預判結果。證據與命令見 [sampler/REPORT.md](acceptance/2026-10-28/sampler/REPORT.md)。
-- Commit 待本階段提交；後續繼續 renderer 復原、安全及桌布整合。長測與其他開發工作可能同時執行，保留環境限制。
+- Commit `a41261e fix(perf): 修正採樣跨度並保留失敗證據`，已推送。後續繼續 renderer 復原、安全及桌布整合。長測與其他開發工作可能同時執行，保留環境限制。
 
 ## 2026-10-28 Phase 3／6 續作 — 背景採樣與生命週期
 
