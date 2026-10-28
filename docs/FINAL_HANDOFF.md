@@ -1,5 +1,7 @@
 # DrillPaper 最終交接
 
+> Runtime 最新續作：背景採樣、世代化 latest-wins mailbox、WTS／顯示器通知與 WebView2 暫停／恢復已接入。完整回歸 27/27、SDK 18/18；受控事件與快速競態回歸通過，使用者回報真實鎖定／解鎖 5 次恢復正常。GPU 實機 unavailable 契約已由非 mock SDK 探針確認。證據與版本範圍見 [runtime/REPORT.md](acceptance/2026-10-28/runtime/REPORT.md)，不得沿用下文舊版「UI timer 採集／未整合」狀態。
+
 > 最新主題平台續作：原生 `.dmt`／資料夾 CLI 匯入、已安裝主題列舉與熱切換、逾時回復已接入 app 並有整合測試。100／300 次切換協定通過，但記憶體與 handles 的成長仍需長時間分析。請以 [theme-platform/REPORT.md](acceptance/2026-10-28/theme-platform/REPORT.md) 及 STATUS 的最新階段為準；下列舊版「尚無原生匯入器」為歷史狀態。
 
 > 2026-10-28 13:05 更新：最新 Windows 11 驗收請以 [acceptance/2026-10-28/REPORT.md](acceptance/2026-10-28/REPORT.md) 為準。Release build、CTest 22/22 與 SDK 18/18 已實測通過；GUI 工具通訊不可用，畫面等待人工檢查。下文 Windows 10、舊 Git 限制與 SDK hash 為先前環境的歷史紀錄，不能套用到目前工作樹。原生主題管理已增目錄安裝雛型，尚未接入 app；整體仍不可發行。

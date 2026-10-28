@@ -1,0 +1,21 @@
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  miniz.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_themes.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+  DrillPaperWindowsMetricsIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsMetricsIntegrationTests.exe
+  sampling_worker_test.cpp
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaper.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe
+  DrillPaperThemeTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperThemeTests.exe
+  DrillPaperTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt

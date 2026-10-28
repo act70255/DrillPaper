@@ -50,4 +50,4 @@ npm run test:sdk
 
 ## 限制
 
-第三方 theme 未沙箱化。外部網路提示與使用者全域開關尚未接線；網路 policy 源碼不足以證明封鎖。桌布、Explorer recovery、鎖定/顯示器電源休眠、安全負面案例與長時間效能均未驗收。請勿把這個 prototype 描述為可安全安裝社群主題的動態桌布產品。
+第三方 theme 未沙箱化。網路提示／開關尚未接線，policy 源碼不足以證明封鎖。背景採樣、WebView2 暫停／恢復已接入；本機真實鎖定／解鎖 5 次由使用者確認恢復正常。真實 display-off／待機、桌布、Explorer recovery、安全負面與完整長時間效能仍待驗收。`--no-smart-sleep` 可停用節能政策供除錯，不是硬體支援聲明。

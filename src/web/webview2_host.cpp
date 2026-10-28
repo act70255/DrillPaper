@@ -18,8 +18,26 @@ using Microsoft::WRL::Callback;
 using Microsoft::WRL::ComPtr;
 
 constexpr UINT kWebViewFailureMessage = WM_APP + 0x31;
+constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
 constexpr std::size_t kMaximumHistory = 120;
 constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
+
+/** 將已確認的 runtime 狀態轉成協定名稱。
+ * Args:
+ *     state: 電源狀態。
+ * Returns:
+ *     穩定的協定狀態名稱。
+ */
+const char* StateName(runtime::PowerState state) {
+    switch (state) {
+    case runtime::PowerState::Active: return "active";
+    case runtime::PowerState::Obscured: return "obscured";
+    case runtime::PowerState::Locked: return "locked";
+    case runtime::PowerState::DisplayOff: return "display-off";
+    case runtime::PowerState::Recovering: return "recovering";
+    }
+    return "recovering";
+}
 
 unsigned __int64 CurrentUnixTimeMilliseconds() {
     FILETIME fileTime{};
@@ -33,6 +51,13 @@ unsigned __int64 CurrentUnixTimeMilliseconds() {
     return (ticks.QuadPart - kWindowsToUnixEpoch100ns) / 10000ULL;
 }
 
+/** 確認 URI 屬於目前主題的完整來源。
+ * Args:
+ *     url: 待檢查的 URI。
+ *     origin: 含結尾斜線的允許來源。
+ * Returns:
+ *     來源符合時為 true。
+ */
 bool IsLocalThemeUrl(PCWSTR url, const std::wstring& origin) {
     if (url == nullptr || origin.empty()) {
         return false;
@@ -137,6 +162,7 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
     hostName_ = NewThemeHost();
     if (hostName_.empty()) return E_FAIL;
     hostOrigin_ = L"https://" + hostName_ + L"/";
+    lifetime_ = std::make_shared<bool>(true);
 
     wchar_t localAppData[MAX_PATH]{};
     const DWORD localAppDataLength = GetEnvironmentVariableW(
@@ -155,7 +181,8 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
     return CreateCoreWebView2EnvironmentWithOptions(
         nullptr, userDataPath.c_str(), nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
-            [this, themeDirectory](HRESULT result, ICoreWebView2Environment* environment) -> HRESULT {
+            [this, themeDirectory, lifetime = lifetime_](HRESULT result, ICoreWebView2Environment* environment) -> HRESULT {
+                if (!*lifetime) return S_OK;
                 if (FAILED(result) || environment == nullptr) {
                     ReportFailure(FAILED(result) ? result : E_FAIL);
                     return S_OK;
@@ -164,8 +191,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                 const HRESULT controllerResult = environment_->CreateCoreWebView2Controller(
                     parentWindow_,
                     Callback<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler>(
-                        [this, themeDirectory](HRESULT createResult,
+                        [this, themeDirectory, lifetime](HRESULT createResult,
                                                ICoreWebView2Controller* controller) -> HRESULT {
+                            if (!*lifetime) return S_OK;
                             if (FAILED(createResult) || controller == nullptr) {
                                 ReportFailure(FAILED(createResult) ? createResult : E_FAIL);
                                 return S_OK;
@@ -261,7 +289,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 return S_OK;
                             }
                             Resize();
-                            return webview_->Navigate((hostOrigin_ + L"index.html").c_str());
+                            const HRESULT navigate = webview_->Navigate((hostOrigin_ + L"index.html").c_str());
+                            if (SUCCEEDED(navigate)) SetRuntimeState(state_);
+                            return navigate;
                         }).Get());
                 if (FAILED(controllerResult)) {
                     ReportFailure(controllerResult);
@@ -303,7 +333,79 @@ HRESULT WebView2Host::LoadTheme(const std::wstring& themeDirectory, const std::w
     }
     webview3->ClearVirtualHostNameToFolderMapping(oldHost.c_str());
     SetWindowTextW(parentWindow_, (L"DrillPaper Preview — " + themeName_ + L" — 載入中").c_str());
+    if (state_ != runtime::PowerState::Active) {
+        suspended_ = false;
+        SetRuntimeState(state_);
+    }
     return S_OK;
+}
+
+HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
+    const auto previous = state_;
+    const auto epoch = ++runtimeEpoch_;
+    state_ = state;
+    const bool active = state == runtime::PowerState::Active;
+    if (controller_ == nullptr || webview_ == nullptr) return S_OK;
+    ComPtr<ICoreWebView2_3> webview3;
+    HRESULT result = webview_.As(&webview3);
+    if (FAILED(result)) return result;
+    if (active) {
+        result = webview3->Resume();
+        suspended_ = false;
+        resumeSnapshotPending_ = resumeSnapshotPending_ || previous != runtime::PowerState::Active;
+        controller_->put_IsVisible(TRUE);
+    }
+    if (handshakeComplete_ && !suspended_) {
+        const std::string payload = std::string("{\"state\":\"") + StateName(state_) + "\"}";
+        PostJson(SerializeProtocolMessage("host.stateChanged", CurrentUnixTimeMilliseconds(), nullptr, payload));
+    }
+    if (!active) {
+        controller_->put_IsVisible(FALSE);
+        if (!suspended_ && !suspendPending_) {
+            suspendPending_ = true;
+            result = webview3->TrySuspend(Callback<ICoreWebView2TrySuspendCompletedHandler>(
+                [this, lifetime = lifetime_, epoch](HRESULT error, BOOL success) -> HRESULT {
+                    if (!*lifetime) return S_OK;
+                    suspendPending_ = false;
+                    suspended_ = SUCCEEDED(error) && success;
+                    if (state_ != runtime::PowerState::Active && epoch != runtimeEpoch_) {
+                        // 過期的暫停可能已被 Resume 取消；返回 UI 迴圈後重套最新狀態。
+                        suspended_ = false;
+                        PostMessageW(parentWindow_, kRuntimeStateRefreshMessage, 0, 0);
+                        return S_OK;
+                    }
+                    if (state_ == runtime::PowerState::Active && webview_ != nullptr) {
+                        ComPtr<ICoreWebView2_3> current;
+                        if (SUCCEEDED(webview_.As(&current))) current->Resume();
+                        suspended_ = false;
+                        resumeSnapshotPending_ = true;
+                    } else if (webview_ != nullptr) {
+                        suspended_ = false;
+                        ComPtr<ICoreWebView2_3> current;
+                        BOOL actual = FALSE;
+                        if (SUCCEEDED(webview_.As(&current)) && SUCCEEDED(current->get_IsSuspended(&actual)))
+                            suspended_ = actual != FALSE;
+                    }
+                    UpdateCaption();
+                    return S_OK;
+                }).Get());
+            if (FAILED(result)) suspendPending_ = false;
+        }
+    }
+    UpdateCaption();
+    return result;
+}
+
+void WebView2Host::UpdateCaption() {
+    if (!IsReady() || parentWindow_ == nullptr) return;
+    std::wstring suffix;
+    if (state_ == runtime::PowerState::Active) suffix = resumeSnapshotPending_ ? L"恢復中" : L"Live metrics";
+    else {
+        const std::string name = StateName(state_);
+        suffix.assign(name.begin(), name.end());
+        suffix += suspended_ ? L" — 已暫停" : L" — 低頻模式";
+    }
+    SetWindowTextW(parentWindow_, (L"DrillPaper Preview — " + themeName_ + L" — " + suffix).c_str());
 }
 
 void WebView2Host::Resize() {
@@ -322,7 +424,15 @@ void WebView2Host::SetSnapshot(const core::MetricsSnapshot& snapshot) {
     if (history_.size() > kMaximumHistory) {
         history_.erase(history_.begin());
     }
-    if (!handshakeComplete_ || !subscribed_) {
+    if (!handshakeComplete_ || !subscribed_ || state_ != runtime::PowerState::Active) {
+        return;
+    }
+    if (resumeSnapshotPending_) {
+        PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.snapshot", nullptr));
+        PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.changed", nullptr));
+        resumeSnapshotPending_ = false;
+        lastBroadcastTick_ = GetTickCount64();
+        UpdateCaption();
         return;
     }
     const unsigned __int64 now = GetTickCount64();
@@ -399,8 +509,7 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
         updateIntervalMilliseconds_ = parsed.message.intervalMilliseconds;
         lastBroadcastTick_ = 0;
         PostJson(SerializeMetricsSnapshotMessage(currentSnapshot_, "metrics.changed", nullptr));
-        const std::wstring title = L"DrillPaper Preview — " + themeName_ + L" — Live metrics";
-        SetWindowTextW(parentWindow_, title.c_str());
+        UpdateCaption();
         break;
     }
     case ClientMessageType::Unsubscribe:
@@ -410,8 +519,9 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
 }
 
 void WebView2Host::SendReady() {
-    constexpr std::string_view payload =
-        R"({"hostVersion":"0.1.0-dev","capabilities":["cpu","gpu","memory","disk","network","clock"],"state":"active","limits":{"history":120,"messageBytes":65536}})";
+    const std::string payload =
+        std::string(R"({"hostVersion":"0.1.0-dev","capabilities":["cpu","gpu","memory","disk","network","clock"],"state":")") +
+        StateName(state_) + R"(","limits":{"history":120,"messageBytes":65536}})";
     if (SUCCEEDED(PostJson(SerializeProtocolMessage(
             "host.ready", CurrentUnixTimeMilliseconds(), nullptr, payload)))) {
         const std::wstring title = L"DrillPaper Preview — " + themeName_ + L" — WebView2 ready";
@@ -451,6 +561,7 @@ void WebView2Host::ReportFailure(HRESULT error) {
 }
 
 void WebView2Host::Shutdown() {
+    *lifetime_ = false;
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);

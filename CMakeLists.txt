@@ -50,6 +50,7 @@ add_executable(DrillPaper WIN32
     src/app/main.cpp
     src/app/theme_commands.cpp
     src/platform/windows/desktop_host.cpp
+    src/platform/windows/power_notifications.cpp
     src/monitoring/windows_metrics_collector.cpp
     src/monitoring/nvml_gpu_collector.cpp
     src/web/protocol_v1.cpp
@@ -59,7 +60,7 @@ target_include_directories(DrillPaper PRIVATE
     "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/include"
 )
 target_compile_definitions(DrillPaper PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
-target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes shell32)
+target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes shell32 wtsapi32)
 if(MSVC)
     target_compile_options(DrillPaper PRIVATE /W4 /permissive- /utf-8)
 endif()
@@ -113,11 +114,15 @@ if(BUILD_TESTING)
 
     add_executable(DrillPaperTests
         tests/unit/core_contracts_test.cpp
+        tests/unit/sampling_worker_test.cpp
         tests/unit/protocol_v1_test.cpp
         src/web/protocol_v1.cpp
     )
     target_link_libraries(DrillPaperTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain)
-    catch_discover_tests(DrillPaperTests)
+    if(MSVC)
+        target_compile_options(DrillPaperTests PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperTests PROPERTIES TIMEOUT 20)
 
     add_executable(DrillPaperThemeTests tests/unit/theme_manager_test.cpp)
     target_link_libraries(DrillPaperThemeTests PRIVATE desktopmonitor_themes Catch2::Catch2WithMain miniz)
@@ -125,8 +130,10 @@ if(BUILD_TESTING)
         target_compile_options(DrillPaperThemeTests PRIVATE /utf-8)
     endif()
     add_test(NAME DrillPaperThemeTests COMMAND DrillPaperThemeTests)
+    set_tests_properties(DrillPaperThemeTests PROPERTIES TIMEOUT 60)
     add_test(NAME DrillPaperThemeCli COMMAND powershell.exe -NoProfile -ExecutionPolicy Bypass
         -File "${PROJECT_SOURCE_DIR}/scripts/test-theme-cli.ps1" -ApplicationPath "$<TARGET_FILE:DrillPaper>")
+    set_tests_properties(DrillPaperThemeCli PROPERTIES TIMEOUT 60)
 
     add_executable(DrillPaperWindowsMetricsIntegrationTests
         tests/integration/windows_metrics_collector_test.cpp
@@ -144,5 +151,5 @@ if(BUILD_TESTING)
             /W4 /permissive- /utf-8
         )
     endif()
-    catch_discover_tests(DrillPaperWindowsMetricsIntegrationTests)
+    catch_discover_tests(DrillPaperWindowsMetricsIntegrationTests PROPERTIES TIMEOUT 60)
 endif()

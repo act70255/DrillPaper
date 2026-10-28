@@ -1,0 +1,542 @@
+Start testing: Oct 28 16:25 台北標準時間
+----------------------------------------------------------
+1/27 Testing: CPU sampling marks the first reading as warm-up
+1/27 Test: CPU sampling marks the first reading as warm-up
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "CPU sampling marks the first reading as warm-up"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"CPU sampling marks the first reading as warm-up" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "CPU sampling marks the first reading as warm-up"
+Randomness seeded to: 513444047
+===============================================================================
+All tests passed (2 assertions in 1 test case)
+
+<end of output>
+Test time =   1.80 sec
+----------------------------------------------------------
+Test Passed.
+"CPU sampling marks the first reading as warm-up" end time: Oct 28 16:25 台北標準時間
+"CPU sampling marks the first reading as warm-up" time elapsed: 00:00:01
+----------------------------------------------------------
+
+2/27 Testing: CPU sampling derives busy time from GetSystemTimes deltas
+2/27 Test: CPU sampling derives busy time from GetSystemTimes deltas
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "CPU sampling derives busy time from GetSystemTimes deltas"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"CPU sampling derives busy time from GetSystemTimes deltas" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "CPU sampling derives busy time from GetSystemTimes deltas"
+Randomness seeded to: 34237199
+===============================================================================
+All tests passed (2 assertions in 1 test case)
+
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"CPU sampling derives busy time from GetSystemTimes deltas" end time: Oct 28 16:25 台北標準時間
+"CPU sampling derives busy time from GetSystemTimes deltas" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/27 Testing: CPU sampling resets its baseline after counters decrease
+3/27 Test: CPU sampling resets its baseline after counters decrease
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "CPU sampling resets its baseline after counters decrease"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"CPU sampling resets its baseline after counters decrease" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "CPU sampling resets its baseline after counters decrease"
+Randomness seeded to: 2701658763
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"CPU sampling resets its baseline after counters decrease" end time: Oct 28 16:25 台北標準時間
+"CPU sampling resets its baseline after counters decrease" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/27 Testing: A real zero metric differs from an unavailable metric
+4/27 Test: A real zero metric differs from an unavailable metric
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "A real zero metric differs from an unavailable metric"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"A real zero metric differs from an unavailable metric" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "A real zero metric differs from an unavailable metric"
+Randomness seeded to: 603261939
+===============================================================================
+All tests passed (5 assertions in 1 test case)
+
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"A real zero metric differs from an unavailable metric" end time: Oct 28 16:25 台北標準時間
+"A real zero metric differs from an unavailable metric" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/27 Testing: Snapshot units describe byte counts and byte rates
+5/27 Test: Snapshot units describe byte counts and byte rates
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Snapshot units describe byte counts and byte rates"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Snapshot units describe byte counts and byte rates" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Snapshot units describe byte counts and byte rates"
+Randomness seeded to: 1027054185
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"Snapshot units describe byte counts and byte rates" end time: Oct 28 16:25 台北標準時間
+"Snapshot units describe byte counts and byte rates" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/27 Testing: Network rate uses monotonic counter deltas and elapsed time
+6/27 Test: Network rate uses monotonic counter deltas and elapsed time
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Network rate uses monotonic counter deltas and elapsed time"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Network rate uses monotonic counter deltas and elapsed time" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Network rate uses monotonic counter deltas and elapsed time"
+Randomness seeded to: 63414102
+===============================================================================
+All tests passed (3 assertions in 1 test case)
+
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"Network rate uses monotonic counter deltas and elapsed time" end time: Oct 28 16:25 台北標準時間
+"Network rate uses monotonic counter deltas and elapsed time" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/27 Testing: An idle network interface is a valid zero rate
+7/27 Test: An idle network interface is a valid zero rate
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "An idle network interface is a valid zero rate"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"An idle network interface is a valid zero rate" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "An idle network interface is a valid zero rate"
+Randomness seeded to: 2484595830
+===============================================================================
+All tests passed (2 assertions in 1 test case)
+
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"An idle network interface is a valid zero rate" end time: Oct 28 16:25 台北標準時間
+"An idle network interface is a valid zero rate" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/27 Testing: Network rate rejects resets and zero-length intervals
+8/27 Test: Network rate rejects resets and zero-length intervals
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Network rate rejects resets and zero-length intervals"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Network rate rejects resets and zero-length intervals" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Network rate rejects resets and zero-length intervals"
+Randomness seeded to: 900207461
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"Network rate rejects resets and zero-length intervals" end time: Oct 28 16:25 台北標準時間
+"Network rate rejects resets and zero-length intervals" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/27 Testing: Metrics history retains only the newest 120 snapshots
+9/27 Test: Metrics history retains only the newest 120 snapshots
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Metrics history retains only the newest 120 snapshots"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Metrics history retains only the newest 120 snapshots" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Metrics history retains only the newest 120 snapshots"
+Randomness seeded to: 2847234237
+===============================================================================
+All tests passed (5 assertions in 1 test case)
+
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"Metrics history retains only the newest 120 snapshots" end time: Oct 28 16:25 台北標準時間
+"Metrics history retains only the newest 120 snapshots" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/27 Testing: Snapshot coalescing keeps one latest pending value
+10/27 Test: Snapshot coalescing keeps one latest pending value
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Snapshot coalescing keeps one latest pending value"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Snapshot coalescing keeps one latest pending value" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Snapshot coalescing keeps one latest pending value"
+Randomness seeded to: 1126148061
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"Snapshot coalescing keeps one latest pending value" end time: Oct 28 16:25 台北標準時間
+"Snapshot coalescing keeps one latest pending value" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/27 Testing: Metric change detection uses units, quality, and a numeric threshold
+11/27 Test: Metric change detection uses units, quality, and a numeric threshold
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Metric change detection uses units\, quality\, and a numeric threshold"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Metric change detection uses units, quality, and a numeric threshold" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Metric change detection uses units\, quality\, and a numeric threshold"
+Randomness seeded to: 937173276
+===============================================================================
+All tests passed (3 assertions in 1 test case)
+
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"Metric change detection uses units, quality, and a numeric threshold" end time: Oct 28 16:25 台北標準時間
+"Metric change detection uses units, quality, and a numeric threshold" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/27 Testing: Power state transitions debounce obscured changes and request fresh data on resume
+12/27 Test: Power state transitions debounce obscured changes and request fresh data on resume
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Power state transitions debounce obscured changes and request fresh data on resume"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Power state transitions debounce obscured changes and request fresh data on resume" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Power state transitions debounce obscured changes and request fresh data on resume"
+Randomness seeded to: 3338651833
+===============================================================================
+All tests passed (8 assertions in 1 test case)
+
+<end of output>
+Test time =   0.14 sec
+----------------------------------------------------------
+Test Passed.
+"Power state transitions debounce obscured changes and request fresh data on resume" end time: Oct 28 16:25 台北標準時間
+"Power state transitions debounce obscured changes and request fresh data on resume" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/27 Testing: Sampling scheduler pauses and resumes without catch-up loops
+13/27 Test: Sampling scheduler pauses and resumes without catch-up loops
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Sampling scheduler pauses and resumes without catch-up loops"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Sampling scheduler pauses and resumes without catch-up loops" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Sampling scheduler pauses and resumes without catch-up loops"
+Randomness seeded to: 1754557731
+===============================================================================
+All tests passed (7 assertions in 1 test case)
+
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"Sampling scheduler pauses and resumes without catch-up loops" end time: Oct 28 16:25 台北標準時間
+"Sampling scheduler pauses and resumes without catch-up loops" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/27 Testing: Sampling worker collects outside the caller thread and stops while paused
+14/27 Test: Sampling worker collects outside the caller thread and stops while paused
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Sampling worker collects outside the caller thread and stops while paused"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Sampling worker collects outside the caller thread and stops while paused" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Sampling worker collects outside the caller thread and stops while paused"
+Randomness seeded to: 3651733090
+===============================================================================
+All tests passed (5 assertions in 1 test case)
+
+<end of output>
+Test time =   0.22 sec
+----------------------------------------------------------
+Test Passed.
+"Sampling worker collects outside the caller thread and stops while paused" end time: Oct 28 16:25 台北標準時間
+"Sampling worker collects outside the caller thread and stops while paused" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/27 Testing: Sampling worker resumes immediately with a fresh baseline
+15/27 Test: Sampling worker resumes immediately with a fresh baseline
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Sampling worker resumes immediately with a fresh baseline"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Sampling worker resumes immediately with a fresh baseline" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Sampling worker resumes immediately with a fresh baseline"
+Randomness seeded to: 3679752355
+===============================================================================
+All tests passed (8 assertions in 1 test case)
+
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"Sampling worker resumes immediately with a fresh baseline" end time: Oct 28 16:25 台北標準時間
+"Sampling worker resumes immediately with a fresh baseline" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/27 Testing: Sampling worker reports collector failure without terminating the process
+16/27 Test: Sampling worker reports collector failure without terminating the process
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Sampling worker reports collector failure without terminating the process"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Sampling worker reports collector failure without terminating the process" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Sampling worker reports collector failure without terminating the process"
+Randomness seeded to: 2365825182
+===============================================================================
+All tests passed (3 assertions in 1 test case)
+
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"Sampling worker reports collector failure without terminating the process" end time: Oct 28 16:25 台北標準時間
+"Sampling worker reports collector failure without terminating the process" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/27 Testing: Sampling worker discards an in-flight snapshot from the previous generation
+17/27 Test: Sampling worker discards an in-flight snapshot from the previous generation
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Sampling worker discards an in-flight snapshot from the previous generation"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Sampling worker discards an in-flight snapshot from the previous generation" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Sampling worker discards an in-flight snapshot from the previous generation"
+Randomness seeded to: 1207301823
+===============================================================================
+All tests passed (5 assertions in 1 test case)
+
+<end of output>
+Test time =   0.34 sec
+----------------------------------------------------------
+Test Passed.
+"Sampling worker discards an in-flight snapshot from the previous generation" end time: Oct 28 16:25 台北標準時間
+"Sampling worker discards an in-flight snapshot from the previous generation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/27 Testing: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+18/27 Test: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 serializes a complete snapshot with units and UTC timestamp" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+Randomness seeded to: 2788938738
+===============================================================================
+All tests passed (1 assertion in 1 test case)
+
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 serializes a complete snapshot with units and UTC timestamp" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 serializes a complete snapshot with units and UTC timestamp" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/27 Testing: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+19/27 Test: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 echoes request identifiers and serializes unavailable memory as null" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+Randomness seeded to: 2117062089
+===============================================================================
+All tests passed (1 assertion in 1 test case)
+
+<end of output>
+Test time =   0.25 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 echoes request identifiers and serializes unavailable memory as null" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 echoes request identifiers and serializes unavailable memory as null" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/27 Testing: Protocol v1 parses bounded history requests and preserves request IDs
+20/27 Test: Protocol v1 parses bounded history requests and preserves request IDs
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 parses bounded history requests and preserves request IDs"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 parses bounded history requests and preserves request IDs" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 parses bounded history requests and preserves request IDs"
+Randomness seeded to: 3350450417
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 parses bounded history requests and preserves request IDs" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 parses bounded history requests and preserves request IDs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/27 Testing: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+21/27 Test: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+Randomness seeded to: 19976148
+===============================================================================
+All tests passed (5 assertions in 1 test case)
+
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/27 Testing: Protocol v1 subscription removes unknown and duplicate metric names
+22/27 Test: Protocol v1 subscription removes unknown and duplicate metric names
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 subscription removes unknown and duplicate metric names"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 subscription removes unknown and duplicate metric names" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 subscription removes unknown and duplicate metric names"
+Randomness seeded to: 2796775172
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.25 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 subscription removes unknown and duplicate metric names" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 subscription removes unknown and duplicate metric names" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/27 Testing: Protocol v1 serializes control envelopes without changing their payload
+23/27 Test: Protocol v1 serializes control envelopes without changing their payload
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 serializes control envelopes without changing their payload"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 serializes control envelopes without changing their payload" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 serializes control envelopes without changing their payload"
+Randomness seeded to: 3760730257
+===============================================================================
+All tests passed (1 assertion in 1 test case)
+
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 serializes control envelopes without changing their payload" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 serializes control envelopes without changing their payload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/27 Testing: Protocol v1 history snapshots carry their own timestamps
+24/27 Test: Protocol v1 history snapshots carry their own timestamps
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe" "Protocol v1 history snapshots carry their own timestamps"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Protocol v1 history snapshots carry their own timestamps" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Protocol v1 history snapshots carry their own timestamps"
+Randomness seeded to: 4005502758
+===============================================================================
+All tests passed (2 assertions in 1 test case)
+
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"Protocol v1 history snapshots carry their own timestamps" end time: Oct 28 16:25 台北標準時間
+"Protocol v1 history snapshots carry their own timestamps" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/27 Testing: Windows metrics collector reports typed readings and warms up CPU/network rates
+25/27 Test: Windows metrics collector reports typed readings and warms up CPU/network rates
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperWindowsMetricsIntegrationTests.exe" "Windows metrics collector reports typed readings and warms up CPU/network rates"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"Windows metrics collector reports typed readings and warms up CPU/network rates" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Filters: "Windows metrics collector reports typed readings and warms up CPU/network rates"
+Randomness seeded to: 3423442635
+===============================================================================
+All tests passed (23 assertions in 1 test case)
+
+<end of output>
+Test time =   9.76 sec
+----------------------------------------------------------
+Test Passed.
+"Windows metrics collector reports typed readings and warms up CPU/network rates" end time: Oct 28 16:25 台北標準時間
+"Windows metrics collector reports typed readings and warms up CPU/network rates" time elapsed: 00:00:09
+----------------------------------------------------------
+
+26/27 Testing: DrillPaperThemeTests
+26/27 Test: DrillPaperThemeTests
+Command: "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperThemeTests.exe"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"DrillPaperThemeTests" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3789369439
+===============================================================================
+All tests passed (71 assertions in 8 test cases)
+
+<end of output>
+Test time =   6.03 sec
+----------------------------------------------------------
+Test Passed.
+"DrillPaperThemeTests" end time: Oct 28 16:25 台北標準時間
+"DrillPaperThemeTests" time elapsed: 00:00:06
+----------------------------------------------------------
+
+27/27 Testing: DrillPaperThemeCli
+27/27 Test: DrillPaperThemeCli
+Command: "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" "-NoProfile" "-ExecutionPolicy" "Bypass" "-File" "C:/WorkSpace/-James/DrillPaper/scripts/test-theme-cli.ps1" "-ApplicationPath" "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaper.exe"
+Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+"DrillPaperThemeCli" start time: Oct 28 16:25 台北標準時間
+Output:
+----------------------------------------------------------
+銝駁???憭望?嚗迨銝駁??撌脣?鋆?
+銝駁???憭望?嚗撩撠?閬身摰?LOCALAPPDATA嚗瘜捱摰蜓憿????
+銝駁???憭望?嚗瘜?DrillPaper.exe --import-theme <頝臬?> ??--list-themes??
+銝駁???憭望?嚗蜓憿????敺????啗圾??嚗撖怠摰??隤???
+PASS嚗??蜓憿?CLI ?臬?亙蝛箇頝臬?????銝行?蝯?????撩撠身摰?蝻箏????
+<end of output>
+Test time =   3.20 sec
+----------------------------------------------------------
+Test Passed.
+"DrillPaperThemeCli" end time: Oct 28 16:25 台北標準時間
+"DrillPaperThemeCli" time elapsed: 00:00:03
+----------------------------------------------------------
+
+End testing: Oct 28 16:25 台北標準時間

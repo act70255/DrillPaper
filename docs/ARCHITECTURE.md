@@ -20,6 +20,6 @@
 
 ## 目前實作邊界
 
-目前的 Release app 可建置並以 WebView2 Preview 載入內建及已安裝主題，完成 protocol handshake、snapshot request 與 subscribe。原生 CLI 經 ThemeManager 限額驗證、暫存及原子安裝主題；Win32 功能表選擇版本，WebView2 adapter 在既有 controller 建立每次載入獨立的 GUID 來源、解除舊 mapping 並重設握手，不重新啟動採集程序。metrics 目前仍由 UI timer 同步採樣，背景 worker 尚未接入。
+目前 Release app 可載入內建及已安裝主題。原生 CLI 經 ThemeManager 驗證及原子安裝；Win32 功能表選擇版本，WebView2 adapter 使用每次載入獨立的 GUID 來源。metrics 已移到 SamplingWorker，透過帶設定世代的 latest-wins mailbox 交給 UI；UI timer 僅處理政策與回復。Windows PowerNotifications 與 WebView2 adapter 分別負責 OS 通知及 hide/suspend/resume，純 Runtime 政策不呼叫 Win32 或 COM。
 
-`.dmt` 支援原生匯入與主題切換，但圖形化匯入、移除、持久化目前選擇尚未提供。網路提示／開關、Windows power/session integration、Explorer/WebView recovery、Shell GUI 與完整效能矩陣仍待完成。套件驗證不等於 WebView2 沙箱；同使用者並行修改檔案不在檔案系統隔離保證內。證據與限制以 `docs/STATUS.md` 為準。
+`.dmt` 支援原生匯入與主題切換，但圖形化匯入、移除、持久化目前選擇尚未提供。WTS／電源通知及 renderer 暫停已接線並有有限整合證據；網路提示／開關、Explorer/WebView crash recovery、Shell GUI 與完整效能矩陣仍待完成。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。

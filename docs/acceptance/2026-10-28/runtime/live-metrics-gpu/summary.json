@@ -1,0 +1,16 @@
+{
+  "Cycles": 2,
+  "InstalledTheme": true,
+  "BrokenInstalled": false,
+  "SettlingSeconds": 0,
+  "LiveMetrics": true,
+  "ExpectGpuUnavailable": true,
+  "Result": "PASS_PROTOCOL",
+  "RootProcessId": 101344,
+  "StartedUtc": "2026-10-28T08:04:46.2719483Z",
+  "HandlesBefore": 252,
+  "HandlesAfter": 335,
+  "CompletedUtc": "2026-10-28T08:04:57.6057164Z",
+  "ExitCode": 0,
+  "Shutdown": "NORMAL_CLOSE"
+}

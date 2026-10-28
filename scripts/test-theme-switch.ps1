@@ -1,13 +1,17 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$ApplicationPath,
     [ValidateRange(1, 300)][int]$Cycles = 2,
     [switch]$IncludeInstalled,
     [switch]$BrokenInstalled,
-    [ValidateRange(0, 300)][int]$SettlingSeconds = 0
+    [ValidateRange(0, 300)][int]$SettlingSeconds = 0,
+    [switch]$LiveMetrics,
+    [switch]$ExpectGpuUnavailable
 )
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
+if ($ExpectGpuUnavailable -and (-not $LiveMetrics -or $BrokenInstalled)) { throw 'GPU 退化驗證必須使用實機模式，且不可同時注入損壞主題。' }
+if ($ExpectGpuUnavailable) { $IncludeInstalled = $true }
 Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
@@ -39,7 +43,7 @@ $testRoot = Join-Path ([IO.Path]::GetTempPath()) ('DrillPaperThemeSwitch-' + [Gu
 New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
 $evidence = Join-Path $PSScriptRoot ('../artifacts/acceptance/theme-switch-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,6))
 New-Item -ItemType Directory -Path $evidence -Force | Out-Null
-$summary = [ordered]@{ Cycles = $Cycles; InstalledTheme = [bool]$IncludeInstalled; BrokenInstalled = [bool]$BrokenInstalled; SettlingSeconds = $SettlingSeconds; Result = 'RUNNING' }
+$summary = [ordered]@{ Cycles = $Cycles; InstalledTheme = [bool]$IncludeInstalled; BrokenInstalled = [bool]$BrokenInstalled; SettlingSeconds = $SettlingSeconds; LiveMetrics = [bool]$LiveMetrics; ExpectGpuUnavailable = [bool]$ExpectGpuUnavailable; Result = 'RUNNING' }
 $previousAppData = $env:LOCALAPPDATA
 try {
     $env:LOCALAPPDATA = Join-Path $testRoot 'appdata'
@@ -54,8 +58,35 @@ try {
         if ($BrokenInstalled) {
             Set-Content -LiteralPath (Join-Path $env:LOCALAPPDATA 'DrillPaper/themes/minimal-monitor@1.0.0/main.js') -Value 'throw new Error("故障注入");' -Encoding utf8
         }
+        if ($ExpectGpuUnavailable) {
+            $probe = @'
+import { DrillPaperClient } from './desktop-monitor-sdk.js';
+const client = new DrillPaperClient(window.chrome.webview);
+await client.ready();
+let valid = false;
+for (let attempt = 0; attempt < 180; attempt++) {
+  const snapshot = await client.getSnapshot();
+  const cpu = snapshot.cpu?.usage;
+  const gpu = snapshot.gpu?.usage;
+  const memory = snapshot.memory;
+  if (cpu?.quality === 'available' && cpu.value >= 0 && cpu.value <= 100 &&
+      memory?.totalBytes > 0 && memory.usedBytes > 0 && memory.usedBytes <= memory.totalBytes &&
+      gpu?.quality === 'unavailable' && gpu.value === null && gpu.unit === 'percent') {
+    valid = true;
+    break;
+  }
+  await new Promise((resolve) => setTimeout(resolve, 250));
+}
+if (!valid) throw new Error('實機讀值或 GPU unavailable 未符合預期。');
+// 只有在原生快照符合實機條件後才訂閱，宿主標題因此成為可觀察的整合結果。
+await client.subscribe({ metrics: ['cpu', 'gpu', 'memory'], intervalMs: 1000 });
+'@
+            Set-Content -LiteralPath (Join-Path $env:LOCALAPPDATA 'DrillPaper/themes/minimal-monitor@1.0.0/main.js') -Value $probe -Encoding utf8
+        }
     }
-    $app = Start-Process -FilePath $application -ArgumentList '--preview','--mock-metrics','--theme=minimal' -WindowStyle Normal -PassThru
+    $arguments = @('--preview','--theme=minimal')
+    if (-not $LiveMetrics) { $arguments += '--mock-metrics' }
+    $app = Start-Process -FilePath $application -ArgumentList $arguments -WindowStyle Normal -PassThru
     $appHandle = $app.Handle
 } finally { $env:LOCALAPPDATA = $previousAppData }
 try {
@@ -90,7 +121,7 @@ try {
             if ($app.MainWindowTitle -notlike '*minimal-monitor*') { throw '沒有觀察到損壞主題的實際載入嘗試。' }
             Wait-ThemeReady $app 'minimal' 45
         }
-        else { Wait-ThemeReady $app 'minimal-monitor' }
+        else { Wait-ThemeReady $app 'minimal-monitor' 50 }
     }
     & (Join-Path $PSScriptRoot 'measure-process-tree.ps1') -ProcessId $app.Id -DurationSeconds 1 -IntervalSeconds 1 -OutputFile (Join-Path $evidence 'after.csv') | Out-Null
     if ($SettlingSeconds -gt 0) {
@@ -100,6 +131,7 @@ try {
     $summary.HandlesAfter = $app.HandleCount
     $summary.CompletedUtc = [DateTime]::UtcNow.ToString('o')
     $summary.Result = 'PASS_PROTOCOL'
+    if ($ExpectGpuUnavailable) { Write-Output 'PASS：實機 CPU 與 RAM 已取得可用資料，SDK GPU 為 unavailable/null，沒有回報假 0。' }
     Write-Output "PASS：同一原生宿主完成 $Cycles 次主題切換與協定握手（不等於畫面或洩漏驗收）。"
 } finally {
     $app.Refresh()

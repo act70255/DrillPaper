@@ -1,0 +1,9 @@
+{
+  "recordKind": "由工具執行結果整理的失敗紀錄，非原始 stderr 位元組副本",
+  "command": "scripts/test-runtime-lifecycle.ps1 -ApplicationPath build/windows-msvc-release/Release/DrillPaper.exe -Cycles 0 -Rapid -RapidIterations 50 -StateTimeoutSeconds 8",
+  "exitCode": 1,
+  "expectedCaption": "*locked*已暫停",
+  "actualCaption": "DrillPaper Preview — minimal — locked — 低頻模式",
+  "binary": "加入 runtimeEpoch 回復邏輯前的本機工作樹；該失敗版本 SHA 未另行記錄",
+  "comparison": "一般 5 輪與單次快速往返可通過；快速往返負載曾重現未暫停，不能把舊 callback 的成功回報當作目前狀態"
+}

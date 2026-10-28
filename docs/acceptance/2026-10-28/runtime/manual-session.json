@@ -1,0 +1,11 @@
+{
+  "ProcessId": 87788,
+  "Directory": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\manual-runtime-20261028-161149",
+  "Sha256": "FD162E408FC3D2EEC878735C037E9E4CAAAAA19F2F674E76D5D7E912B09EB42E",
+  "State": "USER_CONFIRMED_PHYSICAL_SESSION_PASS",
+  "StartedUtc": "2026-10-28T08:11:51.4059625Z",
+  "UserReport": "5 次都恢復更新，且能正常關閉",
+  "PhysicalLockUnlockCycles": 5,
+  "ProcessExitedWhenChecked": true,
+  "RecordedUtc": "2026-10-28T08:26:07.7479903Z"
+}

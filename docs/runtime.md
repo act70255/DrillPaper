@@ -4,7 +4,8 @@
 
 - `MetricsHistory` 保存 120 筆 snapshot，超量時覆寫最舊項目。
 - `LatestValueCoalescer<T>` 是單執行緒政策 seam；每次 publish 取代唯一待處理值。
-- `WindowsSnapshotMailbox<T>` 是 worker/UI 配對預計使用的 SRW-lock adapter。它最多送一個 UI 通知，並取代待處理 snapshot；目前 app 沒有接上此 mailbox 或背景採樣 worker。
+- `WindowsSnapshotMailbox<T>` 已接入 app，是 worker/UI 的 SRW-lock adapter；取代待處理 snapshot，最多一個待通知狀態。資料附設定世代，UI 不會把恢復前排隊的樣本當作新快照。
+- `SamplingWorker` 使用背景執行緒及條件變數，不在 UI timer 採集。0 間隔停止採樣，恢復即刻要求新基準；Stop 等待進行中的 callback 返回，不強制終止同步硬體 API。
 - `MetricChangeDetector` 在可用性、品質、單位改變，或值超過呼叫者設定門檻時通知；預設 CPU 顯示門檻為一個百分點。
 
 ## 電源狀態政策
@@ -23,4 +24,6 @@
 
 ## 整合界線
 
-TDD CTest 覆蓋純 C++ 值型別政策，包括 bounded history/coalescing、state transition 與 scheduler。app 目前在 UI timer 同步採集，採樣 thread、取消/清理、Windows session/power event 註冊、renderer suspend/resume 與即時 mailbox 傳送仍未整合或驗證；核心單元測試不代表這些整合行為已通過。
+WTS／顯示器通知在獨立 Win32 視窗接收，再交給純 runtime 政策；UI 只更新 renderer。WebView2 API 維持於 UI 執行緒，非 active 狀態不發送一般 metrics；Resume 後等待新世代快照。非同步 TrySuspend 以狀態世代處理取消／晚到 callback，並查詢 IsSuspended 後才顯示已暫停。
+
+本機已通過 worker 行為、受控 Windows 事件整合、實際 WebView2 暫停／恢復及使用者真實鎖定／解鎖 5 次。`--no-smart-sleep` 可停用政策。真實 display-off／待機、全螢幕／多螢幕與長時間效能仍待驗收；證據見 `acceptance/2026-10-28/runtime/REPORT.md`。

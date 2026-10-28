@@ -5,10 +5,14 @@
 #include <filesystem>
 #include <memory>
 #include <string>
+#include <fstream>
 
 #include "desktopmonitor/monitoring/windows_metrics_collector.h"
 #include "desktopmonitor/app/theme_commands.h"
 #include "desktopmonitor/themes/theme_manager.h"
+#include "desktopmonitor/runtime/sampling_worker.h"
+#include "desktopmonitor/runtime/windows_snapshot_mailbox.h"
+#include "desktopmonitor/platform/windows/power_notifications.h"
 #include "desktopmonitor/platform/windows/desktop_host.h"
 #include "desktopmonitor/web/webview2_host.h"
 
@@ -27,10 +31,21 @@ std::vector<desktopmonitor::themes::ThemeInfo> gInstalledThemes;
 unsigned __int64 gThemeLoadStarted = 0;
 bool gThemeFallbackAttempted = false;
 constexpr UINT kWebViewFailedMessage = WM_APP + 0x31;
+constexpr UINT kSnapshotReadyMessage = WM_APP + 0x34;
+constexpr UINT kSamplingFailedMessage = WM_APP + 0x35;
+constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
 constexpr wchar_t kApplicationVersion[] = L"0.1.0-dev";
 const wchar_t* gStatusText = L"Starting the local WebView2 preview…";
 desktopmonitor::platform::windows::Win32DesktopHost* gDesktopHost = nullptr;
-std::unique_ptr<desktopmonitor::monitoring::WindowsMetricsCollector> gMetricsCollector;
+std::unique_ptr<desktopmonitor::runtime::SamplingWorker> gSamplingWorker;
+struct UiSnapshot { desktopmonitor::core::MetricsSnapshot snapshot; unsigned long long generation = 0; };
+desktopmonitor::runtime::WindowsSnapshotMailbox<UiSnapshot> gSnapshotMailbox;
+unsigned long long gSamplingGeneration = 0;
+std::unique_ptr<desktopmonitor::platform::windows::PowerNotifications> gPowerNotifications;
+desktopmonitor::runtime::PowerStateMachine gPowerState;
+desktopmonitor::runtime::PowerState gAppliedPowerState = desktopmonitor::runtime::PowerState::Active;
+bool gRuntimePolicyInitialized = false;
+bool gSmartSleep = true;
 std::unique_ptr<desktopmonitor::web::WebView2Host> gWebViewHost;
 desktopmonitor::core::MetricsSnapshot gLatestSnapshot{};
 HWND gWallpaperWindow = nullptr;
@@ -158,6 +173,21 @@ bool HasFlag(const wchar_t* commandLine, const wchar_t* flag) {
     return false;
 }
 
+/** 將 runtime 政策接到背景採樣與 UI adapter；僅於 UI 執行緒執行。 */
+void ApplyRuntimePolicy() {
+    const auto state = gSmartSleep ? gPowerState.State() : desktopmonitor::runtime::PowerState::Active;
+    if (gRuntimePolicyInitialized && state == gAppliedPowerState) return;
+    const bool reset = !gRuntimePolicyInitialized || gPowerState.RequiresFullSnapshot();
+    gRuntimePolicyInitialized = true;
+    gAppliedPowerState = state;
+    if (gSamplingWorker != nullptr) {
+        const auto interval = gSmartSleep ? gPowerState.SamplingIntervalMilliseconds() : 1000;
+        gSamplingGeneration = gSamplingWorker->Configure(interval, reset);
+    }
+    if (gWebViewHost != nullptr && FAILED(gWebViewHost->SetRuntimeState(state)))
+        OutputDebugStringW(L"WebView2 電源策略未完整套用，保留降低採樣的退化策略。\n");
+}
+
 void RecoverDesktopHost() {
     if (!gExperimentalDesktop || gDesktopHost == nullptr || !IsWindow(gWallpaperWindow)) {
         return;
@@ -226,6 +256,22 @@ void RefreshThemeMenu() {
 
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
+    case kRuntimeStateRefreshMessage:
+        if (gWebViewHost != nullptr) gWebViewHost->SetRuntimeState(gAppliedPowerState);
+        return 0;
+    case kSnapshotReadyMessage: {
+        UiSnapshot reading;
+        if (gSnapshotMailbox.TryTake(&reading) && reading.generation == gSamplingGeneration && gWebViewHost != nullptr) {
+            gLatestSnapshot = reading.snapshot;
+            gWebViewHost->SetSnapshot(gLatestSnapshot);
+            if (gPowerState.State() == desktopmonitor::runtime::PowerState::Active) gPowerState.MarkFullSnapshotDelivered();
+        }
+        return 0;
+    }
+    case kSamplingFailedMessage:
+        SetWindowTextW(window, L"DrillPaper — 採樣已停止");
+        MessageBoxW(window, L"系統指標採樣失敗，已停止採樣。請查看日誌後重新啟動。", L"DrillPaper", MB_OK | MB_ICONWARNING);
+        return 0;
     case WM_COMMAND:
         if (LOWORD(wParam) == kRefreshThemesCommand ||
             (LOWORD(wParam) >= kInstalledThemeCommand && LOWORD(wParam) - kInstalledThemeCommand < gInstalledThemes.size())) {
@@ -262,6 +308,10 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         return 0;
     case WM_TIMER:
         if (wParam == kMetricsTimer) {
+            if (gSmartSleep) {
+                gPowerState.ObserveObscured(desktopmonitor::platform::windows::PowerNotifications::ForegroundIsFullscreen(window), GetTickCount64(), 1000);
+                ApplyRuntimePolicy();
+            }
             if (gThemeLoadStarted != 0 && gWebViewHost != nullptr) {
                 if (gWebViewHost->IsReady()) gThemeLoadStarted = 0;
                 else if (GetTickCount64() - gThemeLoadStarted >= 20000) {
@@ -274,14 +324,6 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
                         OutputDebugStringW(gStatusText);
                     }
                 }
-            }
-            if (gMockMetrics) {
-                gLatestSnapshot = MakeMockSnapshot();
-            } else if (gMetricsCollector != nullptr) {
-                gMetricsCollector->Collect(gLatestSnapshot);
-            }
-            if (gWebViewHost != nullptr) {
-                gWebViewHost->SetSnapshot(gLatestSnapshot);
             }
         }
         return 0;
@@ -327,10 +369,14 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         break;
     case WM_DESTROY:
         KillTimer(window, kMetricsTimer);
+        if (gSamplingWorker != nullptr) {
+            gSamplingWorker->Stop();
+            gSamplingWorker.reset();
+        }
+        gPowerNotifications.reset();
         if (gWebViewHost != nullptr) {
             gWebViewHost->Shutdown();
         }
-        gMetricsCollector.reset();
         PostQuitMessage(0);
         return 0;
     default:
@@ -353,6 +399,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
 
     const bool forcePreview = HasFlag(commandLine, L"--preview");
     gMockMetrics = HasFlag(commandLine, L"--mock-metrics");
+    gSmartSleep = !HasFlag(commandLine, L"--no-smart-sleep");
     const bool dashboardTheme = HasFlag(commandLine, L"--theme=dashboard");
     const std::wstring themeName = dashboardTheme ? L"dashboard" : L"minimal";
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
@@ -393,9 +440,6 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     } else {
         if (gMockMetrics) {
             gLatestSnapshot = MakeMockSnapshot();
-        } else {
-            gMetricsCollector = std::make_unique<desktopmonitor::monitoring::WindowsMetricsCollector>();
-            gMetricsCollector->Collect(gLatestSnapshot);
         }
         gWebViewHost = std::make_unique<desktopmonitor::web::WebView2Host>();
 
@@ -420,8 +464,60 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
                 gWebViewHost->SetSnapshot(gLatestSnapshot);
             }
         }
+        try {
+        gSamplingWorker = std::make_unique<desktopmonitor::runtime::SamplingWorker>(
+            [mock = gMockMetrics, collector = std::shared_ptr<desktopmonitor::monitoring::WindowsMetricsCollector>()](bool reset) mutable {
+                if (mock) return MakeMockSnapshot();
+                if (reset || !collector) collector = std::make_shared<desktopmonitor::monitoring::WindowsMetricsCollector>();
+                desktopmonitor::core::MetricsSnapshot snapshot;
+                collector->Collect(snapshot);
+                return snapshot;
+            },
+            [window](const auto& snapshot, unsigned long long generation) {
+                if (gSnapshotMailbox.Publish(UiSnapshot{snapshot, generation}) && !PostMessageW(window, kSnapshotReadyMessage, 0, 0))
+                    gSnapshotMailbox.NotificationPostFailed();
+            },
+            [window](std::exception_ptr error) {
+                try {
+                    try { std::rethrow_exception(error); }
+                    catch (const std::exception& detail) {
+                        const auto logs = desktopmonitor::app::ThemeStoreDirectory().parent_path() / L"logs";
+                        std::filesystem::create_directories(logs);
+                        std::ofstream(logs / L"sampling.log", std::ios::binary | std::ios::app) << detail.what() << '\n';
+                    }
+                } catch (...) { OutputDebugStringW(L"無法記錄採樣失敗詳情。\n"); }
+                PostMessageW(window, kSamplingFailedMessage, 0, 0);
+            });
+        } catch (const std::exception& error) {
+            OutputDebugStringA(error.what());
+            MessageBoxW(window, L"無法啟動背景採樣工作者，請確認系統資源後重新啟動。", L"DrillPaper", MB_OK | MB_ICONERROR);
+            if (gWebViewHost != nullptr) { gWebViewHost->Shutdown(); gWebViewHost.reset(); }
+            DestroyWindow(window);
+            if (comInitialized) CoUninitialize();
+            return 1;
+        }
         SetTimer(window, kMetricsTimer, 1000, nullptr);
     }
+
+    gPowerNotifications = std::make_unique<desktopmonitor::platform::windows::PowerNotifications>();
+    if (gSmartSleep && !gPowerNotifications->Initialize([](auto event) {
+        using desktopmonitor::platform::windows::PowerEvent;
+        switch (event) {
+        case PowerEvent::Locked: gPowerState.SetLocked(true); break;
+        case PowerEvent::Unlocked: gPowerState.SetLocked(false); break;
+        case PowerEvent::DisplayOff:
+        case PowerEvent::SystemSuspend: gPowerState.SetDisplayOff(true); break;
+        case PowerEvent::DisplayOn:
+        case PowerEvent::SystemResume: gPowerState.SetDisplayOff(false); break;
+        }
+        ApplyRuntimePolicy();
+    })) {
+        const auto error = gPowerNotifications->LastError();
+        OutputDebugStringW((L"無法註冊電源通知，Win32 代碼：" + std::to_wstring(error) + L"\n").c_str());
+        gSmartSleep = false;
+        MessageBoxW(window, L"無法註冊工作階段或電源通知，智慧休眠已停用。基本 Preview 可繼續使用。", L"DrillPaper", MB_OK | MB_ICONWARNING);
+    }
+    ApplyRuntimePolicy();
 
     desktopmonitor::platform::windows::Win32DesktopHost desktopHost;
     gExperimentalDesktop = HasFlag(commandLine, L"--experimental-desktop") &&

@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-28 Phase 3／6 續作 — 背景採樣與生命週期
+
+- 分支 `feature/runtime-lifecycle`，承接 `66edcbb`；Commit 待本階段提交。Files：SamplingWorker、Windows PowerNotifications、App composition、WebView2 host、runtime unit／原生整合腳本及驗收文件。
+- Scope：採集移出 UI、條件等待／可停止工作者、latest-wins mailbox 與設定世代、恢復基準重設、WTS／顯示器通知、前景全螢幕防抖、WebView2 hide/TrySuspend/Resume、非同步 callback lifetime／狀態世代。
+- Red／Green：背景樣本未送出、Windows 通知宿主缺失、快速狀態往返後未暫停皆有失敗證據再修正。Worker 4 案例／21 斷言；完整回歸初次 CTest 27/27、SDK 18/18、封裝檢查通過，最終紀錄見 [runtime/REPORT.md](acceptance/2026-10-28/runtime/REPORT.md)。
+- PASS（受控原生整合）：5 次往返、50 次快速往返、暫停期間正常退出。實際查詢 IsSuspended，不以 callback 成功代替目前狀態。
+- PASS（人工實機）：使用者回報 Windows 真實鎖定／解鎖 5 次均恢復更新、可正常關閉；受測 EXE hash 與 PID 退出紀錄保存在 manual-session.json。
+- PASS（實機 GPU 退化）：非 mock SDK 探針確認 CPU／RAM 已可用，GPU unavailable/null，沒有假 0；非 Intel GPU 支援或讀值精度聲明。
+- NOT RUN：真實 display-off／待機、完整全螢幕／多螢幕、renderer／Explorer 復原、安全、長時間與安裝／CI矩陣。下一步：補齊效能採樣邊界、復原與安全驗證；發行閘門不變。
+
 ## 2026-10-28 Phase 5 續作 — 原生匯入與熱切換
 
 - Scope：原生 `.dmt`／目錄驗證與 staging/atomic install、CLI 匯入／列舉、Win32 主題功能表、已安裝版本熱切換、逾時回復 Minimal。隔離 GUID origin 避免沿用舊來源。新依賴授權納入建置。
@@ -8,7 +18,7 @@
 - Windows 整合 PASS（程序／協定）：100 次內建切換後載入已匯入主題，正常退出；損壞主題逾時回復 Minimal 並重新訂閱。非畫面截圖驗收。
 - 資源 PARTIAL：100 次 Private Bytes 約 197→331 MiB；追加 300 次峰值約 404 MiB、閒置後約 331 MiB，handles 234→257。不得宣稱無洩漏，長時間矩陣保留。
 - NOT RUN：瀏覽器完整安全負面、Shell GUI、電源實機與乾淨安裝／CI；未具備完整產品整合或證據。發行閘門維持阻擋。
-- Commit：待本階段提交。下一步：Runtime 背景 worker／生命週期，並持續補安全與效能驗證。
+- Commit：`66edcbb feat(themes): 新增原生主題匯入與熱切換驗證`。下一步：在 `feature/runtime-lifecycle` 實作背景 worker／生命週期，並持續補安全與效能驗證。
 
 ## 2026-10-28 14:05 Dashboard 初始效能基線
 

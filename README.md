@@ -39,6 +39,8 @@ ctest --preset windows-msvc-release --output-on-failure
 
 `--version` 和 `--diagnostics` 顯示 build/runtime 資訊。`scripts/test-webview2-smoke.ps1` 會以視窗標題確認 hello、snapshot、subscribe 流程；它不是截圖或 visual QA。Preview 不代表 `--experimental-desktop` 桌面附掛獲得支援。
 
+採集已在背景執行，Windows 工作階段與電源事件會調整採樣及 WebView2 暫停／恢復；`--no-smart-sleep` 可停用這項政策供除錯。鎖定／解鎖已有本機人工與受控事件證據，真實顯示器電源、待機及完整相容性仍待驗收，見 [`docs/runtime.md`](docs/runtime.md)。
+
 ## Theme SDK
 
 SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與作者指南位於 `sdk/`。執行 `npm run test:sdk` 驗證 JS API。安裝與列舉主題：
