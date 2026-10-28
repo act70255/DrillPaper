@@ -22,8 +22,17 @@ public:
     WebView2Host(const WebView2Host&) = delete;
     WebView2Host& operator=(const WebView2Host&) = delete;
 
+    /** 在擁有 UI 執行緒的視窗內初始化主題宿主。
+     * Args:
+     *     parentWindow: 宿主視窗。
+     *     themeDirectory: 已驗證或可信內建的資產目錄。
+     *     themeName: 原生狀態顯示名稱。
+     *     entry: 已驗證的相對 HTML 入口。
+     * Returns:
+     *     非同步初始化的啟動結果。
+     */
     HRESULT Initialize(HWND parentWindow, const std::wstring& themeDirectory,
-                       const std::wstring& themeName);
+                       const std::wstring& themeName, const std::wstring& entry = L"index.html");
     void Resize();
     void SetSnapshot(const core::MetricsSnapshot& snapshot);
     void Shutdown();
@@ -49,6 +58,16 @@ public:
      *     WebView2 API 的啟動結果；非暫停成功保證。
      */
     HRESULT SetRuntimeState(runtime::PowerState state);
+    /** 重建同一主題的 renderer；每次選擇主題最多自動嘗試 3 次。
+     * Returns:
+     *     初始化啟動結果或已達重試上限的錯誤。
+     */
+    HRESULT Recover();
+    /** 取得目前主題載入世代，以忽略舊 controller 排隊中的失敗通知。
+     * Returns:
+     *     遞增的載入世代。
+     */
+    unsigned long long LoadEpoch() const { return loadEpoch_; }
 
 private:
     void OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args);
@@ -67,11 +86,14 @@ private:
     EventRegistrationToken webMessageReceivedToken_{};
     EventRegistrationToken webResourceRequestedToken_{};
     EventRegistrationToken newWindowRequestedToken_{};
+    EventRegistrationToken processFailedToken_{};
     core::MetricsSnapshot currentSnapshot_{};
     std::vector<core::MetricsSnapshot> history_;
     std::wstring themeName_;
     std::wstring hostName_;
     std::wstring hostOrigin_;
+    std::wstring themeDirectory_;
+    std::wstring themeEntry_ = L"index.html";
     unsigned int updateIntervalMilliseconds_ = 1000;
     unsigned __int64 lastBroadcastTick_ = 0;
     bool handshakeComplete_ = false;
@@ -81,6 +103,9 @@ private:
     bool suspendPending_ = false;
     bool resumeSnapshotPending_ = false;
     unsigned long long runtimeEpoch_ = 0;
+    unsigned long long readySequence_ = 0;
+    unsigned long long loadEpoch_ = 0;
+    unsigned recoveryAttempts_ = 0;
     std::shared_ptr<bool> lifetime_ = std::make_shared<bool>(true);
 };
 

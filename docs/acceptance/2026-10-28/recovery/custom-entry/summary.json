@@ -1,0 +1,24 @@
+{
+  "ProcessKind": "renderer",
+  "RequestedCrashes": 1,
+  "ExpectBoundedFallback": false,
+  "CustomEntry": true,
+  "SmartSleepEnabled": false,
+  "SourceSha256": "CB250605460AC30EC00E782B0FF79E640EE294FCC98CD8E841ECF8E84A1422B9",
+  "Result": "PASS_PROTOCOL_RECOVERY",
+  "Rounds": [
+    {
+      "Round": 1,
+      "Victims": [
+        32280
+      ],
+      "BeforeEpoch": 2,
+      "AfterEpoch": 3,
+      "RecoverySeconds": 2.13269,
+      "RootProcessId": 85816
+    }
+  ],
+  "RootProcessId": 85816,
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0
+}

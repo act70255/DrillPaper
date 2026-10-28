@@ -19,6 +19,7 @@ using Microsoft::WRL::ComPtr;
 
 constexpr UINT kWebViewFailureMessage = WM_APP + 0x31;
 constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
+constexpr UINT kRendererFailedMessage = WM_APP + 0x38;
 constexpr std::size_t kMaximumHistory = 120;
 constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
 
@@ -152,13 +153,16 @@ WebView2Host::~WebView2Host() {
 }
 
 HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDirectory,
-                                 const std::wstring& themeName) {
+                                 const std::wstring& themeName, const std::wstring& entry) {
     if (parentWindow == nullptr || !IsWindow(parentWindow) || themeDirectory.empty() ||
-        themeName.empty()) {
+        themeName.empty() || entry.empty()) {
         return E_INVALIDARG;
     }
     parentWindow_ = parentWindow;
     themeName_ = themeName;
+    themeDirectory_ = themeDirectory;
+    themeEntry_ = entry;
+    ++loadEpoch_;
     hostName_ = NewThemeHost();
     if (hostName_.empty()) return E_FAIL;
     hostOrigin_ = L"https://" + hostName_ + L"/";
@@ -234,8 +238,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                             if (SUCCEEDED(result)) {
                                 result = webview_->add_WebResourceRequested(
                                     Callback<ICoreWebView2WebResourceRequestedEventHandler>(
-                                        [this](ICoreWebView2*,
+                                        [this, lifetime](ICoreWebView2*,
                                                ICoreWebView2WebResourceRequestedEventArgs* args) -> HRESULT {
+                                            if (!*lifetime) return E_ABORT;
                                             if (args == nullptr) return E_INVALIDARG;
                                             ComPtr<ICoreWebView2WebResourceRequest> request;
                                             HRESULT requestResult = args->get_Request(&request);
@@ -259,8 +264,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                             if (SUCCEEDED(result)) {
                                 result = webview_->add_NavigationStarting(
                                     Callback<ICoreWebView2NavigationStartingEventHandler>(
-                                        [this](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
+                                        [this, lifetime](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
                                             if (args == nullptr) return E_INVALIDARG;
+                                            if (!*lifetime) return args->put_Cancel(TRUE);
                                             LPWSTR uri = nullptr;
                                             const HRESULT uriResult = args->get_Uri(&uri);
                                             if (FAILED(uriResult) || uri == nullptr) return S_OK;
@@ -279,17 +285,34 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                             if (SUCCEEDED(result)) {
                                 result = webview_->add_WebMessageReceived(
                                     Callback<ICoreWebView2WebMessageReceivedEventHandler>(
-                                        [this](ICoreWebView2*, ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT {
+                                        [this, lifetime](ICoreWebView2*, ICoreWebView2WebMessageReceivedEventArgs* args) -> HRESULT {
+                                            if (!*lifetime) return S_OK;
                                             OnMessage(args);
                                             return S_OK;
                                         }).Get(), &webMessageReceivedToken_);
+                            }
+                            if (SUCCEEDED(result)) {
+                                result = webview_->add_ProcessFailed(
+                                    Callback<ICoreWebView2ProcessFailedEventHandler>(
+                                        [this, lifetime](ICoreWebView2*, ICoreWebView2ProcessFailedEventArgs* args) -> HRESULT {
+                                            if (!*lifetime || args == nullptr) return S_OK;
+                                            COREWEBVIEW2_PROCESS_FAILED_KIND kind{};
+                                            if (SUCCEEDED(args->get_ProcessFailedKind(&kind)) &&
+                                                (kind == COREWEBVIEW2_PROCESS_FAILED_KIND_BROWSER_PROCESS_EXITED ||
+                                                 kind == COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_EXITED ||
+                                                 kind == COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_UNRESPONSIVE)) {
+                                                PostMessageW(parentWindow_, kRendererFailedMessage,
+                                                    static_cast<WPARAM>(loadEpoch_), static_cast<LPARAM>(kind));
+                                            }
+                                            return S_OK;
+                                        }).Get(), &processFailedToken_);
                             }
                             if (FAILED(result)) {
                                 ReportFailure(result);
                                 return S_OK;
                             }
                             Resize();
-                            const HRESULT navigate = webview_->Navigate((hostOrigin_ + L"index.html").c_str());
+                            const HRESULT navigate = webview_->Navigate((hostOrigin_ + themeEntry_).c_str());
                             if (SUCCEEDED(navigate)) SetRuntimeState(state_);
                             return navigate;
                         }).Get());
@@ -332,12 +355,28 @@ HRESULT WebView2Host::LoadTheme(const std::wstring& themeDirectory, const std::w
         return result;
     }
     webview3->ClearVirtualHostNameToFolderMapping(oldHost.c_str());
+    themeDirectory_ = themeDirectory;
+    themeEntry_ = entry;
+    ++loadEpoch_;
+    recoveryAttempts_ = 0;
     SetWindowTextW(parentWindow_, (L"DrillPaper Preview — " + themeName_ + L" — 載入中").c_str());
     if (state_ != runtime::PowerState::Active) {
         suspended_ = false;
         SetRuntimeState(state_);
     }
     return S_OK;
+}
+
+HRESULT WebView2Host::Recover() {
+    if (parentWindow_ == nullptr || !IsWindow(parentWindow_) || recoveryAttempts_ >= 3)
+        return HRESULT_FROM_WIN32(ERROR_RETRY);
+    ++recoveryAttempts_;
+    const HWND parent = parentWindow_;
+    const auto directory = themeDirectory_;
+    const auto name = themeName_;
+    const auto entry = themeEntry_;
+    Shutdown();
+    return Initialize(parent, directory, name, entry);
 }
 
 HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
@@ -506,6 +545,8 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
             return;
         }
         subscribed_ = true;
+        // 原生診斷屬性只在真正訂閱後前進，供整合測試辨認新的握手。
+        SetPropW(parentWindow_, L"DrillPaper.ReadyEpoch", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(++readySequence_)));
         updateIntervalMilliseconds_ = parsed.message.intervalMilliseconds;
         lastBroadcastTick_ = 0;
         PostJson(SerializeMetricsSnapshotMessage(currentSnapshot_, "metrics.changed", nullptr));
@@ -562,11 +603,13 @@ void WebView2Host::ReportFailure(HRESULT error) {
 
 void WebView2Host::Shutdown() {
     *lifetime_ = false;
+    if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.ReadyEpoch");
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);
         if (webResourceRequestedToken_.value != 0) webview_->remove_WebResourceRequested(webResourceRequestedToken_);
         if (newWindowRequestedToken_.value != 0) webview_->remove_NewWindowRequested(newWindowRequestedToken_);
+        if (processFailedToken_.value != 0) webview_->remove_ProcessFailed(processFailedToken_);
     }
     if (controller_ != nullptr) {
         controller_->Close();
@@ -574,9 +617,17 @@ void WebView2Host::Shutdown() {
     webview_.Reset();
     controller_.Reset();
     environment_.Reset();
+    navigationStartingToken_ = {};
+    webMessageReceivedToken_ = {};
+    webResourceRequestedToken_ = {};
+    newWindowRequestedToken_ = {};
+    processFailedToken_ = {};
     parentWindow_ = nullptr;
     handshakeComplete_ = false;
     subscribed_ = false;
+    suspended_ = false;
+    suspendPending_ = false;
+    resumeSnapshotPending_ = true;
 }
 
 } // namespace desktopmonitor::web

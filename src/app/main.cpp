@@ -34,6 +34,7 @@ constexpr UINT kWebViewFailedMessage = WM_APP + 0x31;
 constexpr UINT kSnapshotReadyMessage = WM_APP + 0x34;
 constexpr UINT kSamplingFailedMessage = WM_APP + 0x35;
 constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
+constexpr UINT kRendererFailedMessage = WM_APP + 0x38;
 constexpr wchar_t kApplicationVersion[] = L"0.1.0-dev";
 const wchar_t* gStatusText = L"Starting the local WebView2 preview…";
 desktopmonitor::platform::windows::Win32DesktopHost* gDesktopHost = nullptr;
@@ -256,6 +257,32 @@ void RefreshThemeMenu() {
 
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
+    case kRendererFailedMessage:
+        if (gWebViewHost != nullptr && gWebViewHost->LoadEpoch() == static_cast<unsigned long long>(wParam)) {
+            SetWindowTextW(window, L"DrillPaper — 正在恢復主題");
+            try {
+                if (SUCCEEDED(gWebViewHost->Recover())) {
+                    gThemeLoadStarted = GetTickCount64();
+                } else if (!gThemeFallbackAttempted) {
+                    gThemeFallbackAttempted = true;
+                    if (!SwitchBuiltinTheme(L"minimal")) {
+                        gWebViewHost->Shutdown();
+                        gStatusText = L"主題渲染無法恢復，請關閉後重新啟動。";
+                        SetWindowTextW(window, L"DrillPaper — 原生預覽（渲染已停止）");
+                    }
+                } else {
+                    gWebViewHost->Shutdown();
+                    gStatusText = L"渲染器已達自動復原上限，請關閉後重新啟動。";
+                    SetWindowTextW(window, L"DrillPaper — 原生預覽（渲染已停止）");
+                }
+            } catch (const std::exception&) {
+                gWebViewHost->Shutdown();
+                gStatusText = L"主題復原失敗，請關閉後重新啟動。";
+                SetWindowTextW(window, L"DrillPaper — 原生預覽（渲染已停止）");
+            }
+            InvalidateRect(window, nullptr, TRUE);
+        }
+        return 0;
     case kRuntimeStateRefreshMessage:
         if (gWebViewHost != nullptr) gWebViewHost->SetRuntimeState(gAppliedPowerState);
         return 0;
@@ -314,6 +341,7 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
             }
             if (gThemeLoadStarted != 0 && gWebViewHost != nullptr) {
                 if (gWebViewHost->IsReady()) gThemeLoadStarted = 0;
+                else if (gAppliedPowerState != desktopmonitor::runtime::PowerState::Active) gThemeLoadStarted = GetTickCount64();
                 else if (GetTickCount64() - gThemeLoadStarted >= 20000) {
                     gThemeLoadStarted = 0;
                     if (!gThemeFallbackAttempted) {

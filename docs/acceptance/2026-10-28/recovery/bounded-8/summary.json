@@ -1,0 +1,94 @@
+{
+  "ProcessKind": "renderer",
+  "RequestedCrashes": 8,
+  "ExpectBoundedFallback": true,
+  "SmartSleepEnabled": false,
+  "SourceSha256": "CB250605460AC30EC00E782B0FF79E640EE294FCC98CD8E841ECF8E84A1422B9",
+  "Result": "PASS_PROTOCOL_RECOVERY",
+  "Rounds": [
+    {
+      "Round": 1,
+      "Victims": [
+        77660
+      ],
+      "BeforeEpoch": 1,
+      "AfterEpoch": 2,
+      "RecoverySeconds": 2.9096758,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 2,
+      "Victims": [
+        99956
+      ],
+      "BeforeEpoch": 2,
+      "AfterEpoch": 3,
+      "RecoverySeconds": 2.4589657,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 3,
+      "Victims": [
+        87632
+      ],
+      "BeforeEpoch": 3,
+      "AfterEpoch": 4,
+      "RecoverySeconds": 2.5787704,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 4,
+      "Victims": [
+        56672
+      ],
+      "BeforeEpoch": 4,
+      "AfterEpoch": 5,
+      "RecoverySeconds": 1.7518994,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 5,
+      "Victims": [
+        95432
+      ],
+      "BeforeEpoch": 5,
+      "AfterEpoch": 6,
+      "RecoverySeconds": 2.4212395,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 6,
+      "Victims": [
+        2464
+      ],
+      "BeforeEpoch": 6,
+      "AfterEpoch": 7,
+      "RecoverySeconds": 2.4656553,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 7,
+      "Victims": [
+        10916
+      ],
+      "BeforeEpoch": 7,
+      "AfterEpoch": 8,
+      "RecoverySeconds": 2.5933331,
+      "RootProcessId": 64976
+    },
+    {
+      "Round": 8,
+      "Victims": [
+        70216
+      ],
+      "BeforeEpoch": 8,
+      "AfterEpoch": 0,
+      "RootProcessId": 64976,
+      "Fallback": "NATIVE_PREVIEW"
+    }
+  ],
+  "RootProcessId": 64976,
+  "BoundedFallback": true,
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0
+}

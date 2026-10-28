@@ -1,0 +1,12 @@
+{
+  "ProcessKind": "renderer",
+  "RequestedCrashes": 1,
+  "SmartSleepEnabled": false,
+  "SourceSha256": "81E7AAF2D2ED29C6C13F0A8346848E3B2EA1C9D3BEAE84FD361F5CC0AB9139D5",
+  "Result": "FAILED",
+  "Rounds": [],
+  "RootProcessId": 88752,
+  "FailureReason": "故障後未觀察到新的 SDK 握手與即時資料，不能以舊標題判定恢復。",
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0
+}
