@@ -1,0 +1,20 @@
+{
+  "RootProcessId": 93556,
+  "RootProcessName": "DrillPaper.exe",
+  "RootProcessStartedUtc": "2026-10-28T09:47:22.5472270Z",
+  "LogicalProcessorCount": 14,
+  "ObserverAvailableProcessorCount": 14,
+  "RunStatus": "COMPLETED",
+  "FailureReason": null,
+  "FailureDetails": null,
+  "TotalSkippedProcessReads": 0,
+  "OsCaption": null,
+  "OsVersion": "10.0.26200.0",
+  "OsBuild": "26200",
+  "DurationSeconds": 2,
+  "ObservedSpanSeconds": 5.373,
+  "IntervalSeconds": 5,
+  "SampleCount": 2,
+  "Csv": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\observation-20261028-174720-999126\\samples.csv",
+  "IncludesDescendantProcesses": true
+}

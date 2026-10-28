@@ -1,0 +1,4 @@
+Samples: 3; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\smoke.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\smoke.metadata.json
+Samples: 4; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\partial.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\partial.metadata.json
+Samples: 0; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\unknown.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-e204116581004818aa0a2d528f414291\unknown.metadata.json
+PASS：3 筆完整樣本，實際跨度 2.467 秒；metadata／狀態／handles 完整，提前退出會標記失敗並保留部分資料。此為工具驗證，非產品效能通過。

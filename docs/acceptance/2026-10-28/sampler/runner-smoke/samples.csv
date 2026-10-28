@@ -1,0 +1,3 @@
+"TimestampUtc","ElapsedSeconds","RootProcessId","ProcessCount","SelectedProcessCount","ProcessIds","ProcessNames","CpuTimeSeconds","WorkingSetBytes","PrivateBytes","TotalHandles","RootHandles","RootWindowTitle","SkippedProcessIds"
+"2026-10-28T09:47:25.8178275Z","0.569","93556","7","7","10816;69892;83940;89512;93556;96940;99020","DrillPaper;msedgewebview2","4.391","413794304","207978496","2934","255","DrillPaper Preview — minimal — Live metrics",""
+"2026-10-28T09:47:31.1711894Z","5.942","93556","7","7","10816;69892;83940;89512;93556;96940;99020","DrillPaper;msedgewebview2","6.625","429195264","213729280","3093","257","DrillPaper Preview — minimal — Live metrics",""

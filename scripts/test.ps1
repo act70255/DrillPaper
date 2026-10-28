@@ -16,6 +16,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "SDK tests failed with exit code $LASTEXITCODE." }
 
     & (Join-Path $PSScriptRoot 'test-environment-check.ps1')
+    & (Join-Path $PSScriptRoot 'test-performance-sampler.ps1')
     & (Join-Path $PSScriptRoot 'test-theme-package.ps1')
     & (Join-Path $PSScriptRoot 'test-sdk-package.ps1')
 

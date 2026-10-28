@@ -1,5 +1,9 @@
 # 效能量測
 
+## 新版採樣器
+
+`measure-process-tree.ps1` 以 CSV 第一筆至最後一筆的實際跨度達到要求才結束；新增 RunStatus、RootProcessStartedUtc、RootWindowTitle、handles 及略過讀值的明確紀錄，提前退出保存部分資料並失敗。CPU 容量來自所有 processor groups 的作用中處理器數。工具驗證與觀測 runner 操作見 [sampler/REPORT.md](acceptance/2026-10-28/sampler/REPORT.md)；下方 594.971 秒基線是修正前的歷史資料，不改寫成 600 秒。
+
 ## 2026-10-28 已取得的本機基線
 
 Windows 11 的 Dashboard 實機 Preview 已執行 600 秒任務，113 筆樣本、實際資料跨度 594.971 秒，全部含 app 與 WebView2。程序樹 CPU 平均 0.116%、p95 0.422%（整機容量）、Private Bytes 平均 240.54 MiB；正常關閉後觀察到的子程序全退出。原始資料、分析方法及限制見 [驗收量測報告](acceptance/2026-10-28/performance/REPORT.md)。只有這個初始基線，尚無 30 分鐘、Minimal、locked／display-off 或熱切換對照。
