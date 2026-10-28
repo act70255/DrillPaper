@@ -1,0 +1,8 @@
+{
+  "name": "drillpaper-theme-sdk-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:sdk": "node --test tests/sdk/*.test.mjs"
+  }
+}

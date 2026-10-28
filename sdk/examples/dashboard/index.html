@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+  <title>DrillPaper — Dashboard Monitor</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">SYSTEM OVERVIEW</p><h1>Desktop Monitor</h1></div><time id="clock">--:--:--</time></header>
+    <section class="grid" aria-label="Current metrics">
+      <article><h2>CPU</h2><strong id="cpu">--</strong><canvas id="cpu-chart" width="360" height="90" aria-label="CPU history"></canvas></article>
+      <article><h2>MEMORY</h2><strong id="memory">--</strong><p id="memory-detail">--</p></article>
+      <article><h2>GPU</h2><strong id="gpu">--</strong><p>Usage</p></article>
+      <article><h2>NETWORK</h2><strong id="network">--</strong><p>Receive</p></article>
+      <article><h2>DISK ACTIVITY</h2><strong id="disk">--</strong><p>Active time</p></article>
+    </section>
+    <p id="host-state" role="status">Connecting…</p>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

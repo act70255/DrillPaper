@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drillpaper.local/schemas/protocol-v1.schema.json",
+  "title": "DrillPaper Protocol v1 message envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "type", "requestId", "timestamp", "payload"],
+  "properties": {
+    "apiVersion": { "const": "1" },
+    "type": {
+      "enum": ["theme.hello", "host.ready", "metrics.subscribe", "metrics.unsubscribe", "metrics.getSnapshot", "metrics.getHistory", "metrics.snapshot", "metrics.history", "metrics.changed", "host.stateChanged", "host.error"]
+    },
+    "requestId": { "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 1, "maxLength": 128 }] },
+    "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "payload": { "type": "object" }
+  }
+}

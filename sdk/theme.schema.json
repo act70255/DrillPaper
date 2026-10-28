@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drillpaper.local/schemas/theme-v1.schema.json",
+  "title": "DrillPaper Theme Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "version", "apiVersion", "entry", "author", "description", "capabilities", "permissions"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 63, "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$" },
+    "apiVersion": { "const": "1" },
+    "entry": { "type": "string", "minLength": 1, "maxLength": 240, "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\\\:?%#\\u0000-\\u001F\\u007F])[A-Za-z0-9._/-]+\\.html$" },
+    "author": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["cpu", "gpu", "memory", "disk", "network", "clock"] }
+    },
+    "permissions": { "type": "array", "maxItems": 0 }
+  }
+}

@@ -1,5 +1,16 @@
-# License decision
+# 專案授權決策
 
-No project license has been selected. The user has not authorized a project-wide open-source license, so this repository does not include a `LICENSE` file and must not publish a public release until the owner chooses a license.
+## 已選授權
 
-Before release, decide separately whether the application and theme SDK share a license. Review attribution, patent, notice, and redistribution obligations for each pinned dependency, and record the selected SPDX identifiers here.
+- 決策日期：2026-10-28。
+- 權利人確認：使用者確認其為 DrillPaper 原創程式碼的專案擁有者，並授權本專案採用以下授權。
+- 授權：Apache License 2.0。
+- SPDX identifier：`Apache-2.0`。
+- 著作權標示：`Copyright 2026 DrillPaper Project`。
+- 範圍：DrillPaper 第一方 app 原始碼、Theme SDK、文件與示範主題。專案內其他第一方程式碼、測試與開發工具也依此授權。
+- 第三方相依套件、素材與社群主題不會因本專案授權而改變其授權；散布前須逐項保留其 license、copyright、NOTICE 與其他要求。Theme 作者可為自己的主題另選授權。
+- 品牌：Apache 2.0 不授予 `DrillPaper` 名稱或標誌的商標使用權；本專案保留品牌，衍生版本須使用自己的品牌，僅可依授權合理描述其來源。
+
+Apache 2.0 允許商業使用、修改、再散布及再授權，並授予授權人可提供的特定專利權。散布時須附授權、保留適用的原始聲明、標示修改檔案，並保留套件已有的 `NOTICE` 歸屬資訊。它不要求衍生作品公開原始碼。正式散布前仍須確認第三方檔案可依各自條款散布。
+
+RC 發行決策仍為本機評估，不公開發布。選定 Apache 2.0 不代表 app RC 發行閘門已通過。

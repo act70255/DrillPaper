@@ -1,0 +1,11 @@
+{
+  "id": "dashboard-monitor",
+  "name": "Dashboard Monitor",
+  "version": "1.0.0",
+  "apiVersion": "1",
+  "entry": "index.html",
+  "author": "DrillPaper contributors",
+  "description": "A dashboard example with a rolling CPU chart and resource cards.",
+  "capabilities": ["cpu", "gpu", "memory", "disk", "network", "clock"],
+  "permissions": []
+}

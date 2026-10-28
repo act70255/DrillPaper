@@ -1,0 +1,69 @@
+name: DrillPaper Windows build and contract tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_release_candidate:
+        description: Run release-readiness gate and package if it passes
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  windows-build-test:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          package-manager-cache: false
+      - name: JavaScript SDK and manifest tests
+        run: npm run test:sdk
+      - name: Theme ZIP validation and sample packaging
+        shell: pwsh
+        run: |
+          ./scripts/test-theme-package.ps1
+          New-Item -ItemType Directory -Force artifacts/theme-sdk | Out-Null
+          ./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/minimal -OutputFile artifacts/theme-sdk/minimal.dmt
+          ./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/dashboard -OutputFile artifacts/theme-sdk/dashboard.dmt
+      - name: Configure native build
+        run: cmake --preset windows-msvc-release
+      - name: Build native targets
+        run: cmake --build --preset windows-msvc-release --config Release
+      - name: Run native tests
+        run: ctest --preset windows-msvc-release --output-on-failure
+      - uses: actions/upload-artifact@v7
+        with:
+          name: drillpaper-theme-sdk-examples
+          path: artifacts/theme-sdk/*.dmt
+          if-no-files-found: error
+
+  release-candidate:
+    if: github.event_name == 'workflow_dispatch' && inputs.build_release_candidate
+    needs: windows-build-test
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          package-manager-cache: false
+      - name: Build, test, and apply release gates
+        shell: pwsh
+        run: ./scripts/package.ps1 -Configuration Release -Version 0.1.0-rc1
+      - uses: actions/upload-artifact@v7
+        with:
+          name: drillpaper-release-candidate-unsigned
+          path: artifacts/DrillPaper-*-win-x64-unsigned.zip
+          if-no-files-found: error

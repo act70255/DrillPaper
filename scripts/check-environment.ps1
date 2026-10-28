@@ -75,8 +75,19 @@ $webViewHeader = if (Test-Path $webViewSdk) {
 }
 Write-Check 'WebView2 SDK' $(if ($webViewHeader) { $webViewHeader } else { 'WebView2.h not found in NuGet cache' }) ([bool]$webViewHeader)
 
-$gpu = Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name
-Write-Check 'Display adapters' ($gpu -join '; ') ([bool]$gpu)
+$gpu = @()
+$gpuInventoryError = $null
+try {
+    $gpu = @(Get-CimInstance Win32_VideoController -ErrorAction Stop | Select-Object -ExpandProperty Name)
+} catch {
+    $gpuInventoryError = $_.Exception.Message
+}
+if ($gpu.Count -gt 0) {
+    Write-Check 'Display adapters' ($gpu -join '; ') $true
+} else {
+    $inventoryStatus = if ($gpuInventoryError) { "inventory unavailable ($gpuInventoryError)" } else { 'no adapters reported' }
+    Write-Check 'Display adapters' $inventoryStatus $false
+}
 $nvidiaSmi = Get-Command nvidia-smi -ErrorAction SilentlyContinue
 if ($nvidiaSmi) {
     $gpuQuery = (& nvidia-smi --query-gpu=name,utilization.gpu --format=csv,noheader 2>&1 | Select-Object -First 1) -join ''

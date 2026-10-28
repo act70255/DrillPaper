@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+  <title>DrillPaper — Minimal Monitor</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main aria-label="System metrics">
+    <p class="eyebrow">DRILLPAPER</p>
+    <time id="clock">--:--:--</time>
+    <dl>
+      <div><dt>CPU</dt><dd id="cpu">--</dd></div>
+      <div><dt>MEMORY</dt><dd id="memory">--</dd></div>
+      <div><dt>NETWORK RX</dt><dd id="network">--</dd></div>
+    </dl>
+    <p id="host-state" role="status">Connecting…</p>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

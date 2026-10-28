@@ -1,0 +1,11 @@
+{
+  "id": "minimal-monitor",
+  "name": "Minimal Monitor",
+  "version": "1.0.0",
+  "apiVersion": "1",
+  "entry": "index.html",
+  "author": "DrillPaper contributors",
+  "description": "A compact, low-motion system metrics example.",
+  "capabilities": ["cpu", "memory", "network", "clock"],
+  "permissions": []
+}
