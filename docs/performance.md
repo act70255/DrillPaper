@@ -1,5 +1,9 @@
 # 效能量測
 
+## 已完成的 30 分鐘觀測
+
+Minimal Runtime 版本已取得 343 筆、1804.606 秒的混合狀態資料；active／locked 平均 CPU 約 0.1159%／0.00628%，全程 7 程序，已正常清理。實際 active 穩定區間為 596.194 秒，仍不宣稱達到完整 600 秒或全部效能矩陣。原始資料、方法及圖表見 [30 分鐘報告](acceptance/2026-10-28/long-observation/REPORT.md)。
+
 ## 新版採樣器
 
 `measure-process-tree.ps1` 以 CSV 第一筆至最後一筆的實際跨度達到要求才結束；新增 RunStatus、RootProcessStartedUtc、RootWindowTitle、handles 及略過讀值的明確紀錄，提前退出保存部分資料並失敗。CPU 容量來自所有 processor groups 的作用中處理器數。工具驗證與觀測 runner 操作見 [sampler/REPORT.md](acceptance/2026-10-28/sampler/REPORT.md)；下方 594.971 秒基線是修正前的歷史資料，不改寫成 600 秒。

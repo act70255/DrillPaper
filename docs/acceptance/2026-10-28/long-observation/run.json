@@ -1,0 +1,27 @@
+{
+  "Theme": "minimal",
+  "RequestedDurationSeconds": 1800,
+  "WarmupSeconds": 60,
+  "Result": "COMPLETED",
+  "SourceExecutable": "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+  "SourceSha256": "0015E2FD2F58CA792A7C98F4E8020CC6E5C64E8A5CAB23B0383784BCF7D77EB9",
+  "StartedUtc": "2026-10-28T09:50:23.2667767Z",
+  "InitialSession": "unlocked",
+  "RootProcessId": 84444,
+  "ReadyTitle": "DrillPaper Preview — minimal — Live metrics",
+  "CompletedUtc": "2026-10-28T10:21:36.0844522Z",
+  "ChildCheck": "OBSERVED_CURRENT_SUBTREE",
+  "ObservedChildIdsBeforeClose": [
+    72960,
+    89884,
+    92656,
+    55556,
+    84116,
+    96224
+  ],
+  "UnknownChildIds": [],
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0,
+  "SurvivingObservedChildIds": [],
+  "PowerRequestRestored": true
+}

@@ -1,0 +1,95 @@
+{
+  "SourceSha256": "0015E2FD2F58CA792A7C98F4E8020CC6E5C64E8A5CAB23B0383784BCF7D77EB9",
+  "SampleCount": 343,
+  "ObservedSpanSeconds": 1804.606,
+  "LogicalProcessors": 14,
+  "MissingRootSamples": 0,
+  "MissingWebViewSamples": 0,
+  "IncompleteSubtreeSamples": 0,
+  "UniqueProcessSets": 1,
+  "ProcessCounts": [
+    7
+  ],
+  "ExcludedCpuIntervals": [],
+  "Cpu": {
+    "Intervals": 342,
+    "Seconds": 1804.606,
+    "MeanMachinePercent": 0.046567347268996265,
+    "P95MachinePercent": 0.18885741265344888,
+    "MaximumMachinePercent": 0.33813942164633465
+  },
+  "States": {
+    "active": {
+      "Samples": 118,
+      "Cpu": {
+        "Intervals": 113,
+        "Seconds": 596.1939999999998,
+        "MeanMachinePercent": 0.11587790934782018,
+        "P95MachinePercent": 0.251943178772446,
+        "MaximumMachinePercent": 0.33813942164633465
+      },
+      "PrivateMeanMiB": 250.61258606991527,
+      "WorkingMeanMiB": 332.1005362817797,
+      "PrivateSlopeMiBPerMinute": 0.12198205422028664
+    },
+    "locked": {
+      "Samples": 223,
+      "Cpu": {
+        "Intervals": 219,
+        "Seconds": 1154.701,
+        "MeanMachinePercent": 0.006278681667375356,
+        "P95MachinePercent": 0.021785305811230424,
+        "MaximumMachinePercent": 0.168590850237378
+      },
+      "PrivateMeanMiB": 244.61872897982062,
+      "WorkingMeanMiB": 82.97500350336323,
+      "PrivateSlopeMiBPerMinute": 0.19093658287589502
+    },
+    "obscured": {
+      "Samples": 2,
+      "Cpu": null,
+      "PrivateMeanMiB": 245.125,
+      "WorkingMeanMiB": 462.00390625,
+      "PrivateSlopeMiBPerMinute": 7.775273445960581
+    }
+  },
+  "Metrics": {
+    "PrivateMiB": {
+      "Start": 237.9453125,
+      "End": 247.33203125,
+      "Minimum": 235.359375,
+      "Maximum": 259.37109375,
+      "Mean": 246.68370763483966,
+      "EndMinusStart": 9.38671875
+    },
+    "WorkingMiB": {
+      "Start": 453.49609375,
+      "End": 63.78515625,
+      "Minimum": 49.30859375,
+      "Maximum": 474.19921875,
+      "Mean": 170.89007835276968,
+      "EndMinusStart": -389.7109375
+    },
+    "TotalHandles": {
+      "Start": 3335,
+      "End": 3297,
+      "Minimum": 3273.0,
+      "Maximum": 3345.0,
+      "Mean": 3298.1078717201167,
+      "EndMinusStart": -38
+    },
+    "RootHandles": {
+      "Start": 363,
+      "End": 361,
+      "Minimum": 357.0,
+      "Maximum": 369.0,
+      "Mean": 363.1457725947522,
+      "EndMinusStart": -2
+    }
+  },
+  "PrivateSlopeMiBPerMinute": -0.04637489227660979,
+  "Shutdown": "NORMAL_CLOSE",
+  "ExitCode": 0,
+  "SurvivingObservedChildIds": [],
+  "PowerRequestRestored": true
+}

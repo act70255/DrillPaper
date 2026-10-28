@@ -1,11 +1,18 @@
 # 開發狀態
 
+## 2026-10-28 Phase 7 — 30 分鐘觀測與狀態分析
+
+- Scope：Runtime 版本 Minimal 實機 Preview，60 秒暖機、1800 秒要求，獨立 EXE／profile，CPU／Private Bytes／Working Set／handles／原生狀態分組；不冒充最新 renderer 復原版本的效能。
+- PASS（收集與分析）：343 筆，實際 1804.606 秒，固定 7 程序且全含 app＋WebView2，無略過或不完整資料。active CPU 平均 0.1159%、locked 0.00628%；此觀測差約 94.6%，非普遍功耗保證。
+- PASS（清理）：正常退出 0、6 個已觀察子程序全退出、暫時電源需求還原。原始資料、圖表、版本、方法與限制見 [long-observation/REPORT.md](acceptance/2026-10-28/long-observation/REPORT.md)。
+- PARTIAL（A13）：active 穩定區間僅 596.194 秒，未寫成 600 秒；還缺 Dashboard／GPU Engine／display-off／全螢幕等對照。Private Bytes 起訖 +9.39 MiB，長時間洩漏不能由有限觀測排除。Commit 待本觀測階段提交推送。
+
 ## 2026-10-28 Phase 4／6 續作 — 程序退出型渲染復原
 
 - Scope：ProcessFailed 通知、UI 迴圈重建 renderer／environment、來源與載入世代、callback lifetime、保留原生採集與快照、自訂入口保留、有界 Minimal／原生 Preview 退化。Files：WebView2 host/header、App event composition、`scripts/test-renderer-recovery.ps1` 與驗收紀錄。
 - Red／Green：已辨認新握手世代後，renderer 故障未恢復的測試先 FAIL；修正後 renderer 3 次、browser 3 次、8 次故障達上限後原生退化、非 index 入口各 PASS，app 正常退出碼 0。見 [recovery/REPORT.md](acceptance/2026-10-28/recovery/REPORT.md)。
 - Scope 限制：程序／協定整合，非每次像素畫面；測試以 `--no-smart-sleep` 隔離其他政策。unresponsive／無限迴圈、crash 與電源交錯、其他 process kinds、Explorer、安全與發行條件仍 NOT RUN，原因為對應情境或功能尚未完成。
-- Commit 待本階段完成相關檢查後提交推送。
+- Commit `1a0bad1 feat(web): 新增有界程序故障復原與握手驗證`，已推送 `feature/renderer-recovery`。
 
 ## 2026-10-28 階段提交與遠端同步
 
