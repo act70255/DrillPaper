@@ -136,6 +136,9 @@ void Win32DesktopHost::RestorePreview(HWND window) {
     SetParent(window, nullptr);
     const LONG_PTR style = GetWindowLongPtrW(window, GWL_STYLE);
     SetWindowStyle(window, (style & ~WS_CHILD) | WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+    const LONG_PTR extendedStyle = GetWindowLongPtrW(window, GWL_EXSTYLE);
+    SetWindowLongPtrW(window, GWL_EXSTYLE,
+                      extendedStyle & ~WS_EX_NOACTIVATE & ~WS_EX_TOOLWINDOW);
     SetWindowPos(window, HWND_TOP, 0, 0, 760, 480,
                  SWP_NOACTIVATE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
     wallpaperLayer_ = nullptr;

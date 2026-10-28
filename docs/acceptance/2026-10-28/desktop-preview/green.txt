@@ -1,0 +1,4 @@
+Filters: [desktop]
+Randomness seeded to: 2936243300
+===============================================================================
+All tests passed (7 assertions in 1 test case)

@@ -1,11 +1,19 @@
 # 開發狀態
 
+## 2026-10-28 Phase 1 續作 — Preview 回復樣式
+
+- Scope：只修正 `Win32DesktopHost::RestorePreview`，解除父視窗後清除桌布專用的 `WS_EX_NOACTIVATE`／`WS_EX_TOOLWINDOW`，恢復一般預覽視窗。新增專屬 Win32 父子視窗整合測試，不操作 Explorer。
+- Red：`DrillPaperWindowsHostIntegrationTests.exe '[desktop]'`，1 案例失敗／6 斷言中 5 通過；`WS_EX_NOACTIVATE` 仍為 `0x08000000`，重現樣式未回復。
+- Green：Release 主程式及整合測試 target 建置成功；`ctest --test-dir build/windows-msvc-release -C Release -R 'Desktop fallback' --output-on-failure` 通過。最終測試輸出與二進位雜湊見 [desktop-preview/REPORT.md](acceptance/2026-10-28/desktop-preview/REPORT.md)。
+- NOT RUN：真正桌布附掛、桌面圖示／工作列互動、Explorer 重啟及視覺驗收。此階段只證明本程序視窗的回復樣式，沒有操作使用者的 Shell；其餘項目仍須獨立整合驗證。完整套件留至整體收尾，這次只跑直接相關測試。
+- Commit：`fix(desktop): 修正預覽回復時殘留桌布視窗樣式`；分支 `bugfix/desktop-preview-fallback`，依階段規則提交並推送至 origin。
+
 ## 2026-10-28 Phase 7 — 30 分鐘觀測與狀態分析
 
 - Scope：Runtime 版本 Minimal 實機 Preview，60 秒暖機、1800 秒要求，獨立 EXE／profile，CPU／Private Bytes／Working Set／handles／原生狀態分組；不冒充最新 renderer 復原版本的效能。
 - PASS（收集與分析）：343 筆，實際 1804.606 秒，固定 7 程序且全含 app＋WebView2，無略過或不完整資料。active CPU 平均 0.1159%、locked 0.00628%；此觀測差約 94.6%，非普遍功耗保證。
 - PASS（清理）：正常退出 0、6 個已觀察子程序全退出、暫時電源需求還原。原始資料、圖表、版本、方法與限制見 [long-observation/REPORT.md](acceptance/2026-10-28/long-observation/REPORT.md)。
-- PARTIAL（A13）：active 穩定區間僅 596.194 秒，未寫成 600 秒；還缺 Dashboard／GPU Engine／display-off／全螢幕等對照。Private Bytes 起訖 +9.39 MiB，長時間洩漏不能由有限觀測排除。Commit 待本觀測階段提交推送。
+- PARTIAL（A13）：active 穩定區間僅 596.194 秒，未寫成 600 秒；還缺 Dashboard／GPU Engine／display-off／全螢幕等對照。Private Bytes 起訖 +9.39 MiB，長時間洩漏不能由有限觀測排除。Commit `6551113 test(perf): 保存混合狀態長測與資源分析`，已推送 `feature/performance-observation`。
 
 ## 2026-10-28 Phase 4／6 續作 — 程序退出型渲染復原
 

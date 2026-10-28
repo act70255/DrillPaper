@@ -152,4 +152,13 @@ if(BUILD_TESTING)
         )
     endif()
     catch_discover_tests(DrillPaperWindowsMetricsIntegrationTests PROPERTIES TIMEOUT 60)
+    add_executable(DrillPaperWindowsHostIntegrationTests
+        tests/integration/desktop_host_test.cpp
+        src/platform/windows/desktop_host.cpp)
+    target_compile_definitions(DrillPaperWindowsHostIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperWindowsHostIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain user32 gdi32)
+    if(MSVC)
+        target_compile_options(DrillPaperWindowsHostIntegrationTests PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperWindowsHostIntegrationTests PROPERTIES TIMEOUT 20)
 endif()
