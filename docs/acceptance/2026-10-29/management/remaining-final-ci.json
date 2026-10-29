@@ -1,0 +1,19 @@
+{
+  "databaseId": 40840814142,
+  "headSha": "667261078afba3612f59afcb493186b55299b068",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/act70255/DrillPaper/actions/runs/40840814142",
+  "jobs": [
+    {
+      "name": "windows-build-test",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "release-candidate",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ]
+}

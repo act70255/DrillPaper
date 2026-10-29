@@ -15,6 +15,8 @@ Status: implemented
 
 ## Comments
 
+- 2026-10-29 最後 CI 結案：6672610 的 run 40840814142 完整 PASS，CTest 33/33／SDK 18/18、SDK 還原／封裝，RC skipped。後續僅文件；產品仍 62f01ab，精確未驗範圍與原桌布保留見 REMAINING.md。不合併 main、不宣稱整體 MVP／RC 或完整沙箱完成。
+
 - 2026-10-29 本輪結案：62f01ab 完整本機 CTest 33/33／SDK 18/18 及 CI 40839289477 通過；管理原生、50 次快速生命週期、3 次 renderer、100 次主題切換通過。使用者另確認新版真正 Explorer 畫面恢復／持續更新與圖示／工作列可用；前版鍵盤／取消／唯一視窗正常。追加 preconnect 真實 TCP 負面（含開啟時瀏覽器正向控制）通過，產品未再變更。完整 DPI／DNS／其他未測矩陣及 RC gate 保留；原持續桌布未關閉或替換，見 REMAINING.md。
 
 - 2026-10-29 擴充續驗：拒絕外部導覽可能提交 chrome-error 空白頁，經獨立導覽主題先 Red，再加入原生失敗導覽的可信 Minimal 回復而 Green；不保存此回復至偏好。IndexedDB／Cache Storage、三類 worker、camera／microphone 權限狀態與 STUN／TURN-TCP 指定矩陣亦通過。完整範圍、失敗嘗試及原生／CDP hash 界線見 REMAINING.md、ADR 0004；本版完整回歸／CI 接續執行。

@@ -4,6 +4,8 @@
 
 本輪最新：產品 62f01ab，新增獨立可註冊來源隔離 Cookie、Connection-Allowlist 阻止 WebRTC，並回復遭政策拒絕的空白錯誤頁。本機完整 CTest 33/33／SDK 18/18、原生回歸與 [CI 40839289477](https://github.com/act70255/DrillPaper/actions/runs/40839289477) 通過；新版真正 Explorer 的畫面恢復／持續更新／圖示與工作列由使用者確認 PASS。鍵盤／取消／唯一視窗亦有前版人工結果。精確 hash、最終 preconnect／儲存／worker／TURN-TCP 範圍與剩餘 NOT RUN 見 [剩餘續驗](acceptance/2026-10-29/management/REMAINING.md)。原持續桌布 PID 83428 保持固定 a241856 副本，未關閉或替換。
 
+含新增測試的 6672610 亦通過 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142)，CTest 33/33／SDK 18/18，RC job skipped。其後文件結案不改產品；未合併 main，未發行。
+
 **整體 MVP 尚未驗收通過，app RC 不可發行。** 本機與乾淨 CI 的建置／自動測試已通過，Preview 基本操作與修正版的真正 Explorer 重啟復原也已由使用者確認；完整桌面互動、瀏覽器安全政策、部分省電情境與乾淨安裝仍有實作或驗證缺口。
 
 管理功能較早收尾：三階段均已實作並推送 feature/tray-management，未合併 main。63e86ff 的 CI 40832496506 與人工匯入／移除等歷史證據保留於 [前次續驗報告](acceptance/2026-10-29/management/FOLLOWUP.md)，各 hash 不混用。新版 Explorer 像素與鍵盤已由上列本輪結果補足；完整 DPI 與其他未測矩陣仍保留，不能宣稱完整沙箱或 RC 通過。

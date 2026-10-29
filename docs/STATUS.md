@@ -1,5 +1,13 @@
 # 開發狀態
 
+## 2026-10-29 本輪驗收結案 — 最後新增測試 CI 通過
+
+- 驗收／測試提交 `6672610` 的 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142) 完成且 PASS：Windows configure／build、CTest 33/33（1.95 秒）、SDK 18/18、固定 SDK bootstrap／封裝及 artifact。release-candidate job 預期 skipped，未發行、未合併 main。
+- metadata／節錄：management/remaining-final-ci.json／log；完整原始 log：artifacts/acceptance/6672610-ci.log。產品程式仍為 62f01ab（hash 8AACD0…），後續測試與文件提交未改產品，所有原生／人工 hash 界線見 REMAINING.md。
+- 本輪三項修正、指定擴充安全、真正新版 Explorer 人工結果與完整回歸均已各階段提交推送。完整 DPI／DNS／其他安全與 MVP 未驗矩陣照列 NOT RUN，A12／RC gate 保留，不宣稱完整沙箱。
+- 收尾只留下原持續桌布 PID 83428，固定 a241856 程序路徑未變；測試 app 已正常退出。Nowledge Mem 無法連線，ADR 0002–0004 與驗收文件為本輪可接續紀錄。
+- 本次僅保存 CI 結果及更新交接，產品測試 NOT RUN（沒有產品改動；已核對實際 CI）。Commit：`docs(acceptance): 記錄剩餘驗收 CI 通過`，依 commit-msg skill 產生後 commit＋push。
+
 ## 2026-10-29 剩餘驗收收尾 — 新版 Explorer 人工通過
 
 - 使用者確認「新版畫面恢復且持續更新，圖示／工作列可用」。受測產品 62f01ab，EXE hash `8AACD05B50BEDF89E2F191B14986E3A1AB380A60B075C0CA5097DDAE539176D1`，Windows 11 Pro 25H2 build 26200.8737、Dashboard mock／no-smart-sleep。隔離資產僅 h1 增加「新版管理驗收 62f01ab」識別，hash 另存，沒有修改原桌布。

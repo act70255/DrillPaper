@@ -15,6 +15,8 @@
 
 ## 結果
 
+最後新增測試／驗收提交 `6672610` 的 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142) 已 PASS：CTest 33/33（1.95 秒）、SDK 18/18、固定 SDK 還原與封裝 artifact。RC job skipped。remaining-final-ci.json／log 保存 metadata／節錄，完整 log 在 artifacts/acceptance/6672610-ci.log；最後文件提交不改產品，產品程式與受測 EXE 仍對應 62f01ab。
+
 ### 本輪結案總表
 
 | 範圍 | 實際結果與證據 |
