@@ -2,13 +2,36 @@
 #include <windowsx.h>
 #include <algorithm>
 #include <array>
+#include <commdlg.h>
+#include <stdexcept>
 
 namespace desktopmonitor::platform::windows {
 namespace {
 constexpr wchar_t kClass[] = L"DrillPaperManagementWindow";
 constexpr UINT kStatus = 20100;
-constexpr std::array<UINT, 7> kControls{kStatus, kManagePause, kManageDesktop,
-    kManagePreview, 10001, 10002, kManageLogs};
+constexpr UINT kThemeList = 20101;
+constexpr UINT kModeList = 20102;
+constexpr UINT kSmartSleep = 20103;
+struct Control { UINT id; const wchar_t* cls; const wchar_t* label; int x; int y; int width; int height; DWORD style; };
+constexpr std::array<Control, 17> kControls{{
+    {kStatus, L"STATIC", L"正在初始化…", 20, 16, 560, 104, SS_LEFT},
+    {kManagePause, L"BUTTON", L"暫停桌布", 20, 128, 180, 36, BS_PUSHBUTTON},
+    {kManageDesktop, L"BUTTON", L"桌布模式", 210, 128, 180, 36, BS_PUSHBUTTON},
+    {kManagePreview, L"BUTTON", L"預覽模式", 400, 128, 180, 36, BS_PUSHBUTTON},
+    {20104, L"STATIC", L"主題（名稱／版本）：", 20, 180, 560, 24, SS_LEFT},
+    {kThemeList, L"LISTBOX", L"", 20, 204, 560, 100, LBS_NOTIFY | WS_BORDER | WS_VSCROLL},
+    {kManageThemePreview, L"BUTTON", L"預覽所選主題", 20, 316, 180, 36, BS_PUSHBUTTON},
+    {kManageThemeApply, L"BUTTON", L"套用為桌布", 210, 316, 180, 36, BS_PUSHBUTTON},
+    {kManageImport, L"BUTTON", L"匯入 .dmt…", 400, 316, 180, 36, BS_PUSHBUTTON},
+    {kManageRemove, L"BUTTON", L"移除所選主題…", 20, 360, 180, 36, BS_PUSHBUTTON},
+    {kManageRefresh, L"BUTTON", L"重新整理主題", 210, 360, 180, 36, BS_PUSHBUTTON},
+    {kManageLogs, L"BUTTON", L"開啟日誌", 400, 360, 180, 36, BS_PUSHBUTTON},
+    {20105, L"STATIC", L"保存的顯示模式：", 20, 412, 150, 26, SS_LEFT},
+    {kModeList, L"COMBOBOX", L"", 190, 408, 200, 120, CBS_DROPDOWNLIST | WS_VSCROLL},
+    {kSmartSleep, L"BUTTON", L"啟用智慧休眠（全螢幕／鎖定／顯示器關閉）", 20, 450, 560, 30, BS_AUTOCHECKBOX},
+    {kManageApply, L"BUTTON", L"套用並儲存設定", 20, 506, 180, 36, BS_PUSHBUTTON},
+    {kManageCancel, L"BUTTON", L"取消設定變更", 210, 506, 180, 36, BS_PUSHBUTTON}
+}};
 }
 
 ManagementShell::~ManagementShell() { Shutdown(); }
@@ -23,9 +46,13 @@ bool ManagementShell::Initialize(HWND owner, std::function<void(UINT)> command) 
     cls.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
     cls.lpszClassName = kClass;
     if (RegisterClassW(&cls) == 0 && GetLastError() != ERROR_CLASS_ALREADY_EXISTS) return false;
+    const auto dpi = GetDpiForSystem();
+    RECT bounds{0, 0, MulDiv(600, dpi, 96), MulDiv(570, dpi, 96)};
+    AdjustWindowRectExForDpi(&bounds, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, FALSE, WS_EX_APPWINDOW, dpi);
     window_ = CreateWindowExW(WS_EX_APPWINDOW, kClass, L"DrillPaper 管理",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, 680, 430, nullptr, nullptr, cls.hInstance, this);
+        CW_USEDEFAULT, CW_USEDEFAULT, bounds.right - bounds.left, bounds.bottom - bounds.top,
+        nullptr, nullptr, cls.hInstance, this);
     if (!window_) return false;
     icon_ = CreateTrayIcon();
     if (!icon_) { Shutdown(); return false; }
@@ -154,6 +181,9 @@ void ManagementShell::ShowMenu() {
     AppendMenuW(menu, MF_SEPARATOR, 0, nullptr);
     AppendMenuW(menu, MF_STRING, 10001, L"主題：Minimal");
     AppendMenuW(menu, MF_STRING, 10002, L"主題：Dashboard");
+    for (std::size_t index = 2; index < themes_.size(); ++index)
+        AppendMenuW(menu, MF_STRING, 11000 + index - 2, themes_[index].label.c_str());
+    AppendMenuW(menu, MF_STRING, kManageOpen, L"設定…");
     AppendMenuW(menu, MF_STRING, kManageLogs, L"開啟日誌資料夾");
     AppendMenuW(menu, MF_SEPARATOR, 0, nullptr);
     AppendMenuW(menu, MF_STRING, kManageExit, L"結束 DrillPaper");
@@ -183,16 +213,17 @@ void ManagementShell::Layout() {
     RECT client{};
     GetClientRect(window_, &client);
     const int width = MulDiv(client.right, 96, dpi);
-    for (std::size_t index = 0; index < kControls.size(); ++index) {
-        const HWND control = GetDlgItem(window_, kControls[index]);
+    for (const auto& item : kControls) {
+        const HWND control = GetDlgItem(window_, item.id);
         SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font_), TRUE);
-        if (index == 0) MoveWindow(control, scale(20), scale(16), scale(width - 40), scale(106), TRUE);
-        else MoveWindow(control, scale(20 + static_cast<int>((index - 1) % 3) * ((width - 40) / 3)),
-            scale(136 + static_cast<int>((index - 1) / 3) * 48), scale((width - 52) / 3), scale(36), TRUE);
+        const bool column = item.width == 180;
+        const int x = column ? 20 + (item.x - 20) / 190 * ((width - 40) / 3) : item.x;
+        const int itemWidth = column ? (width - 52) / 3 : item.width == 560 ? width - 40 : item.width;
+        MoveWindow(control, scale(x), scale(item.y), scale(itemWidth), scale(item.height), TRUE);
     }
     const HWND exit = GetDlgItem(window_, kManageExit);
     SendMessageW(exit, WM_SETFONT, reinterpret_cast<WPARAM>(font_), TRUE);
-    MoveWindow(exit, scale(20), scale(242), scale(160), scale(36), TRUE);
+    MoveWindow(exit, scale(20 + 2 * ((width - 40) / 3)), scale(506), scale((width - 52) / 3), scale(36), TRUE);
 }
 
 LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM value, LPARAM data) {
@@ -205,12 +236,13 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
     if (!self) return DefWindowProcW(window, message, value, data);
     switch (message) {
     case WM_CREATE: {
-        const std::array<const wchar_t*, 7> labels{L"正在初始化…", L"暫停桌布", L"桌布模式", L"預覽模式", L"Minimal", L"Dashboard", L"開啟日誌"};
-        for (std::size_t index = 0; index < kControls.size(); ++index) {
-            if (!CreateWindowExW(0, index == 0 ? L"STATIC" : L"BUTTON", labels[index], WS_CHILD | WS_VISIBLE |
-                (index == 0 ? SS_LEFT : WS_TABSTOP | BS_PUSHBUTTON), 0, 0, 0, 0, window,
-                reinterpret_cast<HMENU>(static_cast<UINT_PTR>(kControls[index])), GetModuleHandleW(nullptr), nullptr)) return -1;
+        for (const auto& item : kControls) {
+            if (!CreateWindowExW(0, item.cls, item.label, WS_CHILD | WS_VISIBLE | item.style |
+                (std::wstring(item.cls) == L"STATIC" ? 0 : WS_TABSTOP), 0, 0, 0, 0, window,
+                reinterpret_cast<HMENU>(static_cast<UINT_PTR>(item.id)), GetModuleHandleW(nullptr), nullptr)) return -1;
         }
+        SendDlgItemMessageW(window, kModeList, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"桌布"));
+        SendDlgItemMessageW(window, kModeList, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"預覽"));
         if (!CreateWindowExW(0, L"BUTTON", L"結束 DrillPaper", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
             0, 0, 0, 0, window, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(kManageExit)), GetModuleHandleW(nullptr), nullptr)) return -1;
         self->Layout();
@@ -225,7 +257,11 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
         return 0;
     }
     case WM_COMMAND:
-        if (self->command_) self->command_(LOWORD(value));
+        if (LOWORD(value) == kThemeList) {
+            const auto selected = SendDlgItemMessageW(window, kThemeList, LB_GETCURSEL, 0, 0);
+            const bool removable = selected >= 0 && static_cast<std::size_t>(selected) < self->themes_.size() && !self->themes_[selected].builtin;
+            EnableWindow(GetDlgItem(window, kManageRemove), removable);
+        } else if (self->command_) self->command_(LOWORD(value));
         return 0;
     case WM_CLOSE:
         if (self->present_) ShowWindow(window, SW_HIDE);
@@ -237,6 +273,61 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
         break;
     }
     return DefWindowProcW(window, message, value, data);
+}
+
+void ManagementShell::SetThemes(std::vector<ManagementTheme> themes) {
+    const auto selected = Preferences().theme;
+    themes_ = std::move(themes);
+    SendDlgItemMessageW(window_, kThemeList, LB_RESETCONTENT, 0, 0);
+    for (std::size_t index = 0; index < themes_.size(); ++index) {
+        SendDlgItemMessageW(window_, kThemeList, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themes_[index].label.c_str()));
+        if (themes_[index].key == selected) SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, index, 0);
+    }
+    if (SendDlgItemMessageW(window_, kThemeList, LB_GETCURSEL, 0, 0) == LB_ERR)
+        SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, 0, 0);
+    SendMessageW(window_, WM_COMMAND, MAKEWPARAM(kThemeList, LBN_SELCHANGE), 0);
+}
+
+void ManagementShell::SetPreferences(const app::AppSettings& settings) {
+    preferences_ = settings;
+    for (std::size_t index = 0; index < themes_.size(); ++index)
+        if (themes_[index].key == settings.theme) SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, index, 0);
+    SendDlgItemMessageW(window_, kModeList, CB_SETCURSEL, settings.desktop ? 0 : 1, 0);
+    SendDlgItemMessageW(window_, kSmartSleep, BM_SETCHECK, settings.smartSleep ? BST_CHECKED : BST_UNCHECKED, 0);
+    SendMessageW(window_, WM_COMMAND, MAKEWPARAM(kThemeList, LBN_SELCHANGE), 0);
+}
+
+app::AppSettings ManagementShell::Preferences() const {
+    auto result = preferences_;
+    const auto selected = SendDlgItemMessageW(window_, kThemeList, LB_GETCURSEL, 0, 0);
+    if (selected >= 0 && static_cast<std::size_t>(selected) < themes_.size()) result.theme = themes_[selected].key;
+    result.desktop = SendDlgItemMessageW(window_, kModeList, CB_GETCURSEL, 0, 0) == 0;
+    result.smartSleep = SendDlgItemMessageW(window_, kSmartSleep, BM_GETCHECK, 0, 0) == BST_CHECKED;
+    return result;
+}
+
+std::filesystem::path ManagementShell::PickPackage() const {
+    std::array<wchar_t, 32768> path{};
+    OPENFILENAMEW dialog{};
+    dialog.lStructSize = sizeof(dialog);
+    dialog.hwndOwner = window_;
+    dialog.lpstrFilter = L"DrillPaper 主題 (*.dmt)\0*.dmt\0\0";
+    dialog.lpstrFile = path.data();
+    dialog.nMaxFile = static_cast<DWORD>(path.size());
+    dialog.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+    if (GetOpenFileNameW(&dialog)) return path.data();
+    if (CommDlgExtendedError() != 0) throw std::runtime_error("無法開啟主題檔案選擇器。");
+    return {};
+}
+
+bool ManagementShell::ConfirmRemoval() const {
+    return MessageBoxW(window_, L"確定要移除所選的使用者主題版本？使用中的主題會先切換至 Minimal。",
+        L"移除主題", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES;
+}
+
+bool ManagementShell::Translate(MSG* message) {
+    return message && window_ && (message->hwnd == window_ || IsChild(window_, message->hwnd)) &&
+        IsDialogMessageW(window_, message) != FALSE;
 }
 
 void ManagementShell::Shutdown() {

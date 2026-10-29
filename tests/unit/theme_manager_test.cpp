@@ -68,6 +68,17 @@ TEST_CASE("DMT import validates and installs compressed theme assets", "[themes]
     REQUIRE(manager.List().size() == 1);
 }
 
+TEST_CASE("Only the selected installed theme version can be removed", "[themes][remove]") {
+    ThemeFixture fixture;
+    desktopmonitor::themes::ThemeManager manager(fixture.root / "installed");
+    const auto installed = manager.Install(fixture.Package());
+    manager.Remove(installed.id, installed.version);
+    REQUIRE(manager.List().empty());
+    REQUIRE(std::filesystem::exists(fixture.root / "source/index.html"));
+    REQUIRE_THROWS(manager.Remove("../source", "1.0.0"));
+    REQUIRE_THROWS(manager.Remove("minimal", "1.0.0"));
+}
+
 TEST_CASE("DMT rejection preserves the installation boundary", "[themes][zip][security]") {
     ThemeFixture fixture;
     std::vector<std::pair<std::string, std::string>> extras;

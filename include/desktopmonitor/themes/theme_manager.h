@@ -35,6 +35,12 @@ public:
      *     安裝資訊；損壞或暫存目錄不列入。
      */
     std::vector<ThemeInfo> List() const;
+    /** 移除安裝目錄內的指定版本，不接受任意檔案路徑。
+     * Args:
+     *     id: 已安裝主題 ID。
+     *     version: 已安裝版本。
+     */
+    void Remove(const std::string& id, const std::string& version);
     /** 驗證完整主題資料夾與配額。
      * Args:
      *     source: 主題資料夾。

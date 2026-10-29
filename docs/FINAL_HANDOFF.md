@@ -4,6 +4,8 @@
 
 **整體 MVP 尚未驗收通過，app RC 不可發行。** 本機與乾淨 CI 的建置／自動測試已通過，Preview 基本操作與修正版的真正 Explorer 重啟復原也已由使用者確認；完整桌面互動、瀏覽器安全政策、部分省電情境與乾淨安裝仍有實作或驗證缺口。
 
+2026-10-29 console 交接：使用者已確認 [.scratch/tray-management/spec.md](../.scratch/tray-management/spec.md) 完整三階段範圍。分支 `feature/tray-management`；階段 1 系統匣／生命週期已推送 `7622045`，階段 2 主題／設定實作與相關檢查已完成，仍有原生人工驗收，見 [PHASE2.md](acceptance/2026-10-29/management/PHASE2.md)。使用者要求本階段收尾後暫停；下一步接 [第三階段票](../.scratch/tray-management/issues/03-network-security.md)，不再要求範圍確認。新管理版本的完整回歸與 CI 尚未執行，舊版 PASS 不外推。持續桌布 PID 83428 保持原固定副本，勿關閉。
+
 ## A01–A16
 
 | ID | 目前結果 | 證據與界線 |
@@ -18,7 +20,7 @@
 | A08 | PARTIAL | 受控暫停／恢復、50 次快速競態與使用者真實鎖定／解鎖 5 次通過。真實 display-off／待機、完整全螢幕／多螢幕未完成。 |
 | A09 | PASS（協定與基本操作） | 兩個內建主題、原生功能表熱切換、100／300 次協定切換及損壞主題回復有證據；不推論每次切換的像素畫面或無資源成長。 |
 | A10 | PARTIAL | JS SDK／宣告／MockHost／文件、Node 18/18、SDK ZIP 解壓重測與重封一致通過；TypeScript compiler 與完整第三方作者流程未實測。 |
-| A11 | PASS（原生匯入邊界） | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證；圖形化匯入、移除及目前選擇持久化尚未提供。套件驗證不等於瀏覽器沙箱。 |
+| A11 | PASS（原生匯入邊界）；管理 UI 人工待驗 | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證。圖形化匯入／移除及設定持久化已實作；保存／取消／重啟通過原生整合，檔案選擇器／確認與移除 junction 尚待驗。套件驗證不等於瀏覽器沙箱。 |
 | A12 | PARTIAL／發行阻擋 | navigation／message／resource／popup baseline 與 native parser 有測試或實作；完整 CSP、下載／權限拒絕、全域網路開關／首次提示及實際外連負面整合未完成。不得宣稱第三方主題已沙箱化。 |
 | A13 | PARTIAL | 含 WebView2 的 343 筆／1804.606 秒觀測與正常清理已有報告；版本、主題、GPU engine、display-off 等對照與長期資源成長判定未完成。 |
 | A14 | PARTIAL | 最新 GitHub Windows runner CTest 29/29、Node 18/18、SDK 還原及封裝 artifact 通過；同一 commit 首次因測試腳本逾時，重跑成功並保留失敗紀錄。app RC gate 保持阻擋，乾淨一般使用者安裝／解除安裝未做。 |

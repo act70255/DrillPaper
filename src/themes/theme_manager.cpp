@@ -182,6 +182,27 @@ ThemeManager::ThemeManager(fs::path root) : root_(std::move(root)) {
 
 ThemeInfo ThemeManager::ValidateDirectory(const fs::path& source) { return ReadDirectory(source); }
 
+void ThemeManager::Remove(const std::string& id, const std::string& version) {
+    if (!SafePath(id) || id.find('/') != std::string::npos || version.empty() ||
+        version.find_first_not_of("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-+") != std::string::npos)
+        throw std::runtime_error("移除主題的識別或版本不合法。");
+    const auto root = fs::absolute(root_).lexically_normal();
+    const auto target = (root / (id + "@" + version)).lexically_normal();
+    if (target.parent_path() != root) throw std::runtime_error("移除目標不在主題安裝目錄內。");
+    auto ancestor = target;
+    while (!ancestor.empty()) {
+        const auto attributes = GetFileAttributesW(ancestor.c_str());
+        if (attributes != INVALID_FILE_ATTRIBUTES && (attributes & FILE_ATTRIBUTE_REPARSE_POINT))
+            throw std::runtime_error("主題移除路徑不得經過重新解析點。");
+        const auto parent = ancestor.parent_path();
+        if (parent == ancestor) break;
+        ancestor = parent;
+    }
+    const auto info = ReadDirectory(target);
+    if (info.id != id || info.version != version) throw std::runtime_error("安裝目錄與主題識別不符，未移除。");
+    fs::remove_all(target);
+}
+
 ThemeInfo ThemeManager::Install(const fs::path& source) {
     const bool package = fs::is_regular_file(source);
     if (package && source.extension() != ".dmt") throw std::runtime_error("主題壓縮檔必須使用 .dmt 副檔名。");

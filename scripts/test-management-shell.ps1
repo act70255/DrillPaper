@@ -2,12 +2,16 @@
 param([Parameter(Mandatory)][string]$ApplicationPath, [switch]$Desktop)
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
-Add-Type -TypeDefinition @'
+Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 public static class DrillPaperManagementProbe {
+    [StructLayout(LayoutKind.Sequential)] private struct Rect { public int left, top, right, bottom; }
+    [DllImport("user32.dll")] private static extern bool GetWindowRect(IntPtr window, out Rect rect);
+    [DllImport("user32.dll")] private static extern bool PrintWindow(IntPtr window, IntPtr dc, uint flags);
+    [DllImport("user32.dll")] private static extern IntPtr SetThreadDpiAwarenessContext(IntPtr value);
     private delegate bool Callback(IntPtr window, IntPtr data);
     [DllImport("user32.dll")] private static extern bool EnumWindows(Callback cb, IntPtr data);
     [DllImport("user32.dll")] private static extern bool EnumChildWindows(IntPtr parent, Callback cb, IntPtr data);
@@ -15,8 +19,11 @@ public static class DrillPaperManagementProbe {
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder text, int length);
     [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr window);
     [DllImport("user32.dll")] public static extern IntPtr GetParent(IntPtr window);
+    [DllImport("user32.dll")] public static extern IntPtr GetDlgItem(IntPtr window, int id);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern int GetWindowText(IntPtr window, StringBuilder text, int size);
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr GetProp(IntPtr window, string name);
     [DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode, EntryPoint="SendMessageW")] public static extern IntPtr ReadText(IntPtr window, uint message, UIntPtr value, StringBuilder text);
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern uint RegisterWindowMessage(string name);
     public static IntPtr[] Find(uint process, string name) {
         var found = new HashSet<IntPtr>();
@@ -29,6 +36,29 @@ public static class DrillPaperManagementProbe {
         EnumWindows((window, data) => { check(window, data); EnumChildWindows(window, check, data); return true; }, IntPtr.Zero);
         var result = new IntPtr[found.Count]; found.CopyTo(result); return result;
     }
+    /** 擷取本次受測程序的原生管理視窗供版面檢查。
+     * Args:
+     *     process: 受測程序識別。
+     *     window: 本程序擁有的管理視窗。
+     *     path: 本次隔離觀測的 PNG 路徑。
+     */
+    public static void Capture(uint process, IntPtr window, string path) {
+        uint owner; GetWindowThreadProcessId(window, out owner);
+        if (owner != process) throw new InvalidOperationException("視窗不屬於受測程序。");
+        var previous = SetThreadDpiAwarenessContext(new IntPtr(-4));
+        try {
+            Rect rect;
+            if (!GetWindowRect(window, out rect)) throw new InvalidOperationException("無法取得管理視窗範圍。");
+            using (var bitmap = new System.Drawing.Bitmap(rect.right-rect.left, rect.bottom-rect.top)) {
+                using (var graphics = System.Drawing.Graphics.FromImage(bitmap)) {
+                    var dc = graphics.GetHdc();
+                    try { if (!PrintWindow(window, dc, 2)) throw new InvalidOperationException("無法擷取管理視窗。"); }
+                    finally { graphics.ReleaseHdc(dc); }
+                }
+                bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+            }
+        } finally { SetThreadDpiAwarenessContext(previous); }
+    }
 }
 '@
 function Wait-Condition([scriptblock]$Condition, [string]$Message) {
@@ -39,11 +69,15 @@ function Wait-Condition([scriptblock]$Condition, [string]$Message) {
     #>
     $timer = [Diagnostics.Stopwatch]::StartNew()
     do {
-        if ($app.HasExited) { throw '管理介面測試期間程序提前退出。' }
+        if ($app.HasExited) { throw "管理介面測試期間程序提前退出，退出碼：$($app.ExitCode)。" }
         if (& $Condition) { return }
         Start-Sleep -Milliseconds 100
     } while ($timer.Elapsed.TotalSeconds -lt 30)
-    throw $Message
+    $caption = [Text.StringBuilder]::new(1024)
+    if ($wallpaper -ne [IntPtr]::Zero) { [void][DrillPaperManagementProbe]::GetWindowText($wallpaper, $caption, $caption.Capacity) }
+    $status = [Text.StringBuilder]::new(2048)
+    if ($manager -ne [IntPtr]::Zero) { [void][DrillPaperManagementProbe]::ReadText([DrillPaperManagementProbe]::GetDlgItem($manager, 20100), 0xD, [UIntPtr]::new([uint32]$status.Capacity), $status) }
+    throw "$Message 目前宿主：$caption；管理狀態：$status"
 }
 function Send-Command([int]$Command) {
     <# 透過本程序唯一的可信原生入口執行公開命令。
@@ -102,6 +136,26 @@ try {
         Wait-Condition { [DrillPaperManagementProbe]::GetParent($wallpaper) -eq [IntPtr]::Zero } '預覽模式未解除附掛。'
         Write-Output 'PASS：原生命令完成桌布／預覽切換；畫面與桌面互動另行確認。'
     }
+    $themeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20101)
+    $modeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20102)
+    $sleepCheck = [DrillPaperManagementProbe]::GetDlgItem($manager, 20103)
+    [void][DrillPaperManagementProbe]::SendMessage($themeList, 0x186, [UIntPtr]::Zero, [IntPtr]::Zero)
+    [void][DrillPaperManagementProbe]::SendMessage($modeList, 0x14E, [UIntPtr]::new([uint32]1), [IntPtr]::Zero)
+    [void][DrillPaperManagementProbe]::SendMessage($sleepCheck, 0xF1, [UIntPtr]::Zero, [IntPtr]::Zero)
+    $readyBefore = [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
+    Send-Command 20010
+    $settingsFile = Join-Path $session 'appdata/DrillPaper/settings.json'
+    if (-not (Test-Path -LiteralPath $settingsFile)) { throw '套用後沒有保存設定。' }
+    $settings = Get-Content -Raw -LiteralPath $settingsFile | ConvertFrom-Json
+    if ($settings.theme -ne 'minimal' -or $settings.displayMode -ne 'preview' -or $settings.smartSleep) { throw '保存內容與使用者控制項不符。' }
+    Wait-Condition { [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $readyBefore } '套用主題後未完成新握手。'
+    $savedHash = (Get-FileHash -LiteralPath $settingsFile).Hash
+    [void][DrillPaperManagementProbe]::SendMessage($themeList, 0x186, [UIntPtr]::new([uint32]1), [IntPtr]::Zero)
+    Send-Command 20011
+    if ([DrillPaperManagementProbe]::SendMessage($themeList, 0x188, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0 -or
+        (Get-FileHash -LiteralPath $settingsFile).Hash -ne $savedHash) { throw '取消未還原草稿或改寫了偏好。' }
+    Write-Output 'PASS：可信設定控制項套用／保存、主題新握手與取消不改寫偏好。'
+    [DrillPaperManagementProbe]::Capture($app.Id, $manager, [IO.Path]::GetFullPath((Join-Path $session 'management.png')))
     $all = @(Get-CimInstance Win32_Process)
     $parents = [Collections.Generic.HashSet[int]]::new()
     [void]$parents.Add($app.Id)
@@ -119,6 +173,26 @@ try {
         $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
         if ($child -and -not $child.WaitForExit(15000)) { throw "已觀察子程序未退出：$childId" }
     }
+    $app.Dispose()
+    $env:LOCALAPPDATA = [IO.Path]::GetFullPath((Join-Path $session 'appdata'))
+    $app = Start-Process -FilePath $application -ArgumentList '--management','--mock-metrics' -WindowStyle Normal -PassThru
+    $appHandle = $app.Handle
+    $env:LOCALAPPDATA = $previousLocal
+    Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperShellNotifications')).Count -eq 1 } '重啟後沒有通知入口。'
+    $notification = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperShellNotifications')[0]
+    $manager = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperManagementWindow')[0]
+    $wallpaper = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')[0]
+    Wait-Condition { [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '重啟後未完成握手。'
+    $themeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20101)
+    $modeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20102)
+    $sleepCheck = [DrillPaperManagementProbe]::GetDlgItem($manager, 20103)
+    if ([DrillPaperManagementProbe]::SendMessage($themeList, 0x188, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0 -or
+        [DrillPaperManagementProbe]::SendMessage($modeList, 0x147, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 1 -or
+        [DrillPaperManagementProbe]::SendMessage($sleepCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0 -or
+        (Get-FileHash -LiteralPath $settingsFile).Hash -ne $savedHash) { throw '重啟未恢復已保存偏好，或啟動時自行改寫設定。' }
+    Send-Command 20006
+    if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '重啟驗證程序無法正常退出。' }
+    Write-Output 'PASS：重啟恢復主題／模式／智慧休眠，未自動改寫設定。'
     @{ result='PASS'; application=$application; appId=$app.Id; manager=$manager.ToInt64();
         observedChildren=@($observed); realExplorerRestart='NOT RUN'; visibleTrayClick='NOT RUN'; timestamp=(Get-Date -Format o) } |
         ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8

@@ -31,7 +31,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test.ps1 -Configur
 
 以 `DrillPaper.exe --management --preview --theme=dashboard` 開啟管理視窗與系統匣。單擊／雙擊圖示開啟同一管理視窗，右鍵提供快捷操作；圖示可能在 Windows 隱藏圖示區。可暫停／繼續、切換桌布／預覽或內建主題，以及開啟日誌。
 
-關閉管理視窗會隱藏；關閉管理模式的 Preview 則暫停並隱藏桌布，程式繼續留在系統匣。請用管理介面或系統匣的「結束 DrillPaper」正式退出。圖示註冊失敗時管理視窗保持可用。圖形化匯入／移除與設定保存屬下一階段。
+關閉管理視窗會隱藏；關閉管理模式的 Preview 則暫停並隱藏桌布，程式繼續留在系統匣。請用管理介面或系統匣的「結束 DrillPaper」正式退出。圖示註冊失敗時管理視窗保持可用。
+
+從主題清單選擇後，可暫時預覽或套用為桌布，並以檔案選擇器匯入 `.dmt`。移除只允許使用者主題且需確認；使用中的版本會先切換至 Minimal 並關閉舊 controller。「套用並儲存設定」保存所選主題、顯示模式與智慧休眠；「取消設定變更」只還原未套用草稿，不撤銷已執行的主題預覽或匯入／移除。
+
+設定檔位於 `%LOCALAPPDATA%\DrillPaper\settings.json`。無參數啟動恢復偏好，首次預設 Minimal 桌布與啟用智慧休眠。CLI 的 `--preview`、`--theme`、`--no-smart-sleep` 為暫時覆寫，不自動保存；明確按保存才寫入。設定損毀時程式顯示友善錯誤並保留原檔，請先備份修正。網路開關仍在後續階段，不因設定檔欄位存在就表示已接入 host。
 
 ## 原生主題安裝與切換
 
@@ -42,7 +46,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test.ps1 -Configur
 .\build\windows-msvc-release\Release\DrillPaper.exe --list-themes
 ```
 
-只匯入信任的內容；主題尚未沙箱化。套件會限額驗證、暫存安裝到 `%LOCALAPPDATA%\DrillPaper\themes\<id>@<version>`，同版本不覆蓋。啟動 Preview 後，以「主題」功能表選擇內建及已安裝版本；執行中 CLI 匯入新版本後，按「重新整理已安裝主題」。切換不重啟宿主；握手逾時會嘗試回復 Minimal。目前沒有圖形化匯入或移除介面。
+只匯入信任的內容；主題尚未沙箱化。套件會限額驗證、暫存安裝到 `%LOCALAPPDATA%\DrillPaper\themes\<id>@<version>`，同版本不覆蓋。啟動 Preview 後，以「主題」功能表選擇內建及已安裝版本；執行中 CLI 匯入新版本後，按「重新整理已安裝主題」。切換不重啟採集工作者；握手逾時會嘗試回復 Minimal。圖形化匯入與移除位於管理視窗。
 
 ## Theme 作者檢查
 

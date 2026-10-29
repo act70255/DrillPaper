@@ -1,0 +1,17 @@
+﻿{
+    "timestamp":  "2026-10-29T14:09:22.1093396+08:00",
+    "manager":  1773176,
+    "visibleTrayClick":  "NOT RUN",
+    "result":  "PASS",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+    "appId":  57916,
+    "observedChildren":  [
+                             100192,
+                             99592,
+                             98660,
+                             37028,
+                             76716,
+                             93120
+                         ],
+    "realExplorerRestart":  "NOT RUN"
+}

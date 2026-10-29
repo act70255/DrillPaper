@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-29 管理介面階段 2 — 主題與設定；使用者要求交接暫停
+
+- 實作：原生主題清單、預覽／套用、`.dmt` 檔案選擇器、確認移除、模式與智慧休眠設定、套用／取消；`SettingsStore` schema 驗證、同目錄暫存／flush／原子保存、損毀原檔保留，CLI 暫時覆寫不自動保存。ThemeManager 只允許移除安裝目錄中驗證吻合的版本；使用中的版本先換 Minimal 並關閉舊 controller。
+- Red／Green：保存往返、移除所選版本、prerelease 主題名稱各先失敗再實作；新流程誤將內建 `.d.ts` 送入匯入限制的回歸亦由真實啟動抓到並修正，未放寬第三方政策。
+- PASS：Release build；Settings 3 案例／15 斷言、ThemeManager 9 案例／75 斷言；管理生命週期、模式切換、保存／取消／重啟恢復；Dashboard mock Preview smoke。150% 管理視窗 PNG 已檢視，控制項未裁切。命令、版本 hash 與界線見 [PHASE2.md](acceptance/2026-10-29/management/PHASE2.md)。
+- NOT RUN：檔案選擇器與移除確認的人工作業、真正圖示點擊、新介面的真正 Explorer 重啟、完整 DPI／鍵盤、移除 junction 負面案例；原因為尚需針對性原生互動驗證。完整套件與本版 CI 尚未重跑，留待剩餘實作收尾，不沿用舊版 PASS。
+- 使用者因 console 過長要求告一段落停止，故本階段提交推送後暫停；第三階段尚未開始。`allowNetwork` 僅保存欄位，沒有可用開關或 host 接線。續作票：`.scratch/tray-management/issues/03-network-security.md`；01／02 為 implemented、仍有人工待驗。
+- 現有持續桌布 PID 83428 仍使用固定 `a241856` EXE；先前 A04 人工 PASS 有效，新介面的實機驗收另計。不要關閉此程序、不要再用會逾時關閉的觀測 runner 作為持續桌布。
+- Commit：`feat(management): 新增主題管理與設定原子保存`，分支 `feature/tray-management`，依既有規則 commit＋push。未合併 main，整體 MVP／RC 仍未通過。
+
 ## 2026-10-29 管理介面階段 1 — 系統匣與生命週期
 
 - 使用者已明確確認完整三階段 spec；第一階段實作 `ManagementShell`，由穩定通知視窗持有圖示，獨立可信管理視窗可重複開啟／隱藏，提供主題、模式、暫停／繼續、日誌與退出。

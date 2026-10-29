@@ -4,6 +4,8 @@
 #include <shellapi.h>
 #include <functional>
 #include <string>
+#include <vector>
+#include "desktopmonitor/app/settings_store.h"
 #include "desktopmonitor/runtime/desktop_recovery_retry.h"
 
 namespace desktopmonitor::platform::windows {
@@ -15,6 +17,14 @@ inline constexpr UINT kManageDesktop = 20003;
 inline constexpr UINT kManagePreview = 20004;
 inline constexpr UINT kManageLogs = 20005;
 inline constexpr UINT kManageExit = 20006;
+inline constexpr UINT kManageApply = 20010;
+inline constexpr UINT kManageCancel = 20011;
+inline constexpr UINT kManageThemePreview = 20012;
+inline constexpr UINT kManageThemeApply = 20013;
+inline constexpr UINT kManageImport = 20014;
+inline constexpr UINT kManageRemove = 20015;
+inline constexpr UINT kManageRefresh = 20016;
+struct ManagementTheme { std::string key; std::wstring label; bool builtin = false; };
 
 class ManagementShell final {
 public:
@@ -51,6 +61,38 @@ public:
     void OnTrayCallback(WPARAM value, LPARAM data);
     /** 移除圖示並關閉管理視窗；可重複呼叫。 */
     void Shutdown();
+    /** 更新已驗證的主題清單，保留草稿選擇。
+     * Args:
+     *     themes: 內建及已安裝的合法主題。
+     */
+    void SetThemes(std::vector<ManagementTheme> themes);
+    /** 將有效設定放入可取消的編輯控制項。
+     * Args:
+     *     settings: 目前有效設定。
+     */
+    void SetPreferences(const app::AppSettings& settings);
+    /** 讀取使用者草稿，不套用或保存。
+     * Returns:
+     *     草稿設定。
+     */
+    app::AppSettings Preferences() const;
+    /** 讓原生檔案選擇器取得匯入包。
+     * Returns:
+     *     選擇的路徑，取消時為空。
+     */
+    std::filesystem::path PickPackage() const;
+    /** 確認移除所選的使用者主題。
+     * Returns:
+     *     使用者明確同意時為 true。
+     */
+    bool ConfirmRemoval() const;
+    /** 處理管理視窗的 Tab／方向鍵導覽。
+     * Args:
+     *     message: 目前 UI 訊息。
+     * Returns:
+     *     已處理管理視窗訊息時為 true。
+     */
+    bool Translate(MSG* message);
 
 private:
     /** 管理視窗的原生訊息入口。
@@ -85,6 +127,8 @@ private:
     bool desktop_ = false;
     bool present_ = false;
     bool version4_ = false;
+    std::vector<ManagementTheme> themes_;
+    app::AppSettings preferences_;
 };
 
 } // namespace desktopmonitor::platform::windows

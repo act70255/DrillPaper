@@ -1,6 +1,6 @@
 # DrillPaper
 
-DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題宿主原型。Preview 可載入兩個內建主題、以原生功能表熱切換，並透過 CLI 安裝與列舉資料夾／`.dmt` 主題。目前**不是可安裝產品或 app Release Candidate**；桌布附掛、完整瀏覽器安全、省電整合與發行驗收仍未完成。
+DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題宿主原型。可載入兩個內建主題，以原生功能表／系統匣管理主題、模式與設定，並透過 CLI 安裝與列舉資料夾／`.dmt` 主題。目前**不是可安裝產品或 app Release Candidate**；完整桌布相容性、瀏覽器安全、省電整合與發行驗收仍未完成。
 
 專案品牌為 DrillPaper；C++ namespace/include 與部分相容 API 沿用原始 DesktopMonitor 規格。JS SDK 主要入口為 `DrillPaper`，另保留 DesktopMonitor 相容別名。
 
@@ -47,7 +47,9 @@ ctest --preset windows-msvc-release --output-on-failure
 .\build\windows-msvc-release\Release\DrillPaper.exe --management --preview --theme=dashboard
 ```
 
-右下角系統匣圖示（可能在隱藏圖示區）可開啟同一個管理視窗，提供暫停／繼續、內建主題、桌布／預覽與日誌入口。關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊與 Explorer 重啟仍依 STATUS 另行驗收；設定保存、圖形化主題管理及網路開關分階段補齊。
+右下角系統匣圖示（可能在隱藏圖示區）可開啟同一個管理視窗，提供暫停／繼續、主題清單、預覽／套用、`.dmt` 匯入、使用者主題移除、智慧休眠與日誌入口。「套用並儲存設定」將主題、模式與智慧休眠保存至 `%LOCALAPPDATA%\DrillPaper\settings.json`；「取消設定變更」還原尚未套用的草稿，直接預覽則不保存。無參數啟動使用保存偏好，首次為 Minimal 桌布與啟用智慧休眠。
+
+關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊、檔案選擇器、移除確認與 Explorer 重啟依 STATUS 另行驗收；網路開關尚未交付。
 
 ## Theme SDK
 
@@ -58,6 +60,6 @@ SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與�
 .\build\windows-msvc-release\Release\DrillPaper.exe --list-themes
 ```
 
-主題安裝到 `%LOCALAPPDATA%\DrillPaper\themes\<id>@<version>`，同版本禁止覆蓋；失敗會清除本次暫存安裝。Preview 的「主題」功能表可選擇內建及已安裝版本；執行中從 CLI 匯入後，選「重新整理已安裝主題」即可列出。主題未於 20 秒內完成握手時會嘗試回復 Minimal。原生採集程序不因切換而重啟；目前沒有圖形化匯入器或移除介面。
+主題安裝到 `%LOCALAPPDATA%\DrillPaper\themes\<id>@<version>`，同版本禁止覆蓋；失敗會清除本次暫存安裝。Preview 的「主題」功能表可選擇內建及已安裝版本；執行中從 CLI 匯入後，選「重新整理已安裝主題」即可列出。管理視窗另提供匯入與確認移除；內建主題不提供移除。主題未於 20 秒內完成握手時會嘗試回復 Minimal。原生採集程序不因切換而重啟。
 
 詳見 [`docs/theme-sdk.md`](docs/theme-sdk.md)、[`docs/protocol-v1.md`](docs/protocol-v1.md) 和 [`docs/theme-security.md`](docs/theme-security.md)。第一方內容依 Apache-2.0 授權，見根目錄 [`LICENSE`](LICENSE)。

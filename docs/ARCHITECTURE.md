@@ -17,6 +17,7 @@
 2. Runtime 狀態轉換、有界歷史與 latest-wins 傳送。
 3. Theme manifest/封裝驗證與 Protocol/SDK 行為。
 4. Win32 Shell 與 WebView2 在原生環境可用時用 GUI/整合測試；單元測試不能證明這些結果。
+5. 已於系統匣 spec 確認 AppSettings／SettingsStore、runtime 管理命令與有效狀態、ThemeManager 移除契約；原生檔案選擇器／確認視窗仍以 Windows 實機驗收。
 
 ## 目前實作邊界
 
@@ -24,4 +25,8 @@
 
 目前 Release app 可載入內建及已安裝主題。原生 CLI 經 ThemeManager 驗證及原子安裝；Win32 功能表選擇版本，WebView2 adapter 使用每次載入獨立的 GUID 來源。metrics 已移到 SamplingWorker，透過帶設定世代的 latest-wins mailbox 交給 UI；UI timer 僅處理政策與回復。Windows PowerNotifications 與 WebView2 adapter 分別負責 OS 通知及 hide/suspend/resume，純 Runtime 政策不呼叫 Win32 或 COM。
 
-`.dmt` 支援原生匯入與主題切換，但圖形化匯入、移除、持久化目前選擇尚未提供。WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、Explorer、網路提示／開關、Shell GUI 與完整效能矩陣仍待驗證或完成。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。
+`ManagementShell` 位於 platform/windows，透過原生命令接回 app composition，不讓 HTML 主題執行管理操作。系統匣由穩定通知 HWND 持有，與桌布 HWND 分離，使用有界 Shell 就緒重試。`ManagedPlayback` 在純 runtime 合成手動暫停與電源政策；採集與 WebView2 各自套用有效結果。
+
+`SettingsStore` 位於 app，管理版本化非敏感偏好、內容及路徑檢查、同目錄暫存／flush／原子取代；損毀原檔不覆蓋。原生管理視窗提供圖形化匯入／確認移除及設定草稿，沿用 ThemeManager 驗證與安裝邊界；移除目前主題先載入 Minimal 並關閉舊 controller。可信內建資產含 SDK 型別宣告，與受限制的第三方安裝內容分開載入，沒有放寬匯入副檔名政策。
+
+WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、新管理介面的 Explorer 實機復原／檔案選擇器／移除確認、網路提示／開關及完整效能矩陣仍待驗證或完成。設定中的 allowNetwork 欄位尚未接入 host，介面尚未提供此開關。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。
