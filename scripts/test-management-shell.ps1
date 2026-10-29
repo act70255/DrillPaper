@@ -1,6 +1,7 @@
 ﻿[CmdletBinding()]
 param([Parameter(Mandatory)][string]$ApplicationPath, [switch]$Desktop,
-    [switch]$ObserveExplorerRestart, [ValidateRange(30, 900)][int]$ObservationSeconds = 120)
+    [switch]$ObserveExplorerRestart, [ValidateRange(30, 900)][int]$ObservationSeconds = 120,
+    [ValidateRange(0, 600)][int]$VisualObservationSeconds = 0)
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
@@ -200,23 +201,53 @@ try {
             Start-Sleep -Milliseconds 200
         } while ([DateTime]::UtcNow -lt $deadline)
         if (-not $actualExplorer) { throw '期限內沒有觀察到新版真正 Explorer 復原。' }
+        if ($VisualObservationSeconds -gt 0) {
+            Write-Output "真正復原後保留 $VisualObservationSeconds 秒供人工觀察；尚未將畫面標為通過。"
+            $visualDeadline = [DateTime]::UtcNow.AddSeconds($VisualObservationSeconds)
+            while ([DateTime]::UtcNow -lt $visualDeadline) {
+                if ($app.HasExited) { throw '人工觀察期間受測程序提前退出。' }
+                Start-Sleep -Milliseconds 250
+            }
+        }
     }
     $all = @(Get-CimInstance Win32_Process)
     $parents = [Collections.Generic.HashSet[int]]::new()
+    $births = [Collections.Generic.Dictionary[int,DateTime]]::new()
+    $births[$app.Id] = $app.StartTime.ToUniversalTime()
     [void]$parents.Add($app.Id)
     do {
         $added = $false
         foreach ($candidate in $all) {
-            if ($parents.Contains([int]$candidate.ParentProcessId) -and $parents.Add([int]$candidate.ProcessId)) {
-                [void]$observed.Add([int]$candidate.ProcessId); $added = $true
+            $parentId = [int]$candidate.ParentProcessId
+            $created = $candidate.CreationDate.ToUniversalTime()
+            if ($parents.Contains($parentId) -and $created -ge $births[$parentId] -and $parents.Add([int]$candidate.ProcessId)) {
+                $births[[int]$candidate.ProcessId] = $created
+                $added = $true
             }
         }
     } while ($added)
+    $children = @(
+        foreach ($childId in $parents) {
+            if ($childId -eq $app.Id) { continue }
+            $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
+            if ($child) {
+                try {
+                    # 先持有真正程序的 handle，避免退出後將重用 PID 的其他程序列入。
+                    $childHandle = $child.Handle
+                    if ([Math]::Abs(($child.StartTime.ToUniversalTime() - $births[$childId]).TotalMilliseconds) -lt 1) {
+                        [void]$observed.Add($child.Id)
+                        $child
+                    } else { $child.Dispose() }
+                } catch { $child.Dispose() }
+            }
+        }
+    )
+    if ($children.Count -eq 0) { throw '沒有觀察到真正 WebView2 子程序，不能宣稱清理通過。' }
     Send-Command 20006
     if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '正式結束未正常退出 0。' }
-    foreach ($childId in $observed) {
-        $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
-        if ($child -and -not $child.WaitForExit(15000)) { throw "已觀察子程序未退出：$childId" }
+    foreach ($child in $children) {
+        if (-not $child.WaitForExit(15000)) { throw "已觀察子程序未退出：$($child.Id)" }
+        $child.Dispose()
     }
     $app.Dispose()
     $env:LOCALAPPDATA = [IO.Path]::GetFullPath((Join-Path $session 'appdata'))
@@ -238,7 +269,7 @@ try {
     Send-Command 20006
     if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '重啟驗證程序無法正常退出。' }
     Write-Output 'PASS：重啟恢復主題／模式／智慧休眠，未自動改寫設定。'
-    @{ result='PASS'; application=$application; appId=$app.Id; manager=$manager.ToInt64();
+    @{ result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; appId=$app.Id; manager=$manager.ToInt64();
         observedChildren=@($observed); realExplorerRestart=$(if ($actualExplorer) { $actualExplorer } else { 'NOT RUN' }); visibleTrayClick='NOT RUN'; timestamp=(Get-Date -Format o) } |
         ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：正式退出及已觀察子程序清理；紀錄：$session"

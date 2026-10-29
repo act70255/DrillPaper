@@ -148,12 +148,17 @@ try {
     } finally { $udp.Dispose() }
     $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $securePort)
     $control.Dispose()
+    $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $serverConfig.preconnectPort)
+    $control.Dispose()
     Start-Sleep -Milliseconds 200
     $secureLog = Join-Path $session 'secure-connections.jsonl'
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 連線接收端的正向控制未通過。' }
+    $preconnectLog = Join-Path $session 'preconnect-connections.jsonl'
+    if (@(Get-Content -LiteralPath $preconnectLog).Count -ne 1) { throw 'Preconnect 接收端的正向控制未通過。' }
     $stunLog = Join-Path $session 'stun-packets.jsonl'
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw 'STUN UDP 接收端的正向控制未通過。' }
     $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket").Replace('__STUN__', "stun:127.0.0.1:$($serverConfig.stunPort)").Replace('__TURN__', "turn:127.0.0.1:$securePort`?transport=tcp")
+    $probe = $probe.Replace('__PRECONNECT__', "http://127.0.0.1:$($serverConfig.preconnectPort)")
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
     '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
     '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
@@ -188,6 +193,7 @@ try {
     Wait-Security { Test-ProbeComplete $ready } '預設封鎖的真實資源測試未通過。'
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.DownloadBlocked').ToInt64() -eq 1 } '沒有觀察到真實下載拒絕事件。'
     if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { throw '預設封鎖時測試伺服器仍收到請求。' }
+    if (@(Get-Content -LiteralPath $preconnectLog).Count -ne 1) { throw '預設網路關閉時仍建立 preconnect TCP 連線。' }
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw '預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。' }
     Test-NavigationRecovery
     $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
@@ -207,10 +213,15 @@ try {
         [void][SecurityProbe]::SendMessage($networkCheck, 0xF1, [UIntPtr]::new([uint32][int]$enabled), [IntPtr]::Zero)
         $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
         $before = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
+        $preconnectBefore = @(Get-Content -LiteralPath $preconnectLog).Count
         [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20010), [IntPtr]::Zero)
         Wait-Security { Test-ProbeComplete $ready } "實際網路切換測試未通過，allowNetwork=$enabled。"
         $after = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
         if (($enabled -and $after -le $before) -or (-not $enabled -and $after -ne $before)) { throw '瀏覽器結果與伺服器實際請求不一致。' }
+        if (-not $enabled -and @(Get-Content -LiteralPath $preconnectLog).Count -ne $preconnectBefore) { throw '關閉網路後仍建立 preconnect TCP 連線。' }
+        if ($enabled) {
+            Wait-Security { @(Get-Content -LiteralPath $preconnectLog).Count -gt $preconnectBefore } '開啟網路時沒有觀察到瀏覽器 preconnect 正向控制。'
+        }
         $settings = Get-Content -Raw -LiteralPath (Join-Path $session 'appdata/DrillPaper/settings.json') | ConvertFrom-Json
         if ($settings.allowNetwork -ne $enabled) { throw '網路設定未正確保存。' }
         if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) {
@@ -246,7 +257,14 @@ try {
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 在設定切換或重啟期間仍嘗試 TCP／TLS 連線。' }
     $packets = @(Get-Content -LiteralPath $stunLog | ForEach-Object { $_ | ConvertFrom-Json })
     if ($packets.Count -ne 1 -or -not $packets[0].control) { throw 'WebRTC 在設定切換或重啟期間仍傳送 UDP／STUN 封包。' }
-    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; observedChildren=$children; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; webrtc='PASS (UDP/STUN，控制封包 1，主題封包 0)'; storage='PASS (local/session storage、host-only 與父網域 Cookie)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
+    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash;
+      observedChildren=$children; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)';
+      webrtc='PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)';
+      preconnect='PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)';
+      storage='PASS (local/session storage、Cookie、IndexedDB、Cache Storage)';
+      workers='PASS (Dedicated、Shared、Service)'; permissions='PASS (通知、定位；camera/microphone 狀態 denied)';
+      navigation='PASS (原頁面繼續或可信 Minimal 回復)'; timestamp=(Get-Date -Format o)} |
+        ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"
 } finally {
     $env:LOCALAPPDATA = $previousLocal

@@ -1,5 +1,17 @@
 # 開發狀態
 
+## 2026-10-29 剩餘驗收收尾 — 新版 Explorer 人工通過
+
+- 使用者確認「新版畫面恢復且持續更新，圖示／工作列可用」。受測產品 62f01ab，EXE hash `8AACD05B50BEDF89E2F191B14986E3A1AB380A60B075C0CA5097DDAE539176D1`，Windows 11 Pro 25H2 build 26200.8737、Dashboard mock／no-smart-sleep。隔離資產僅 h1 增加「新版管理驗收 62f01ab」識別，hash 另存，沒有修改原桌布。
+- 真正 Explorer：Shell 98068→93396，同一受測 app PID 85932，HWND 1376352→1054746，DesktopEpoch 2→3、ReadyEpoch 2→4、新 metrics 1493736796、TrayRegistered=1。人工結果補足畫面與圖示／工作列，不外推 Alt+Tab／虛擬桌面或其他 Windows。腳本原始 visual=NOT RUN 是自動腳本的範圍，人工結論另存 remaining-user-confirmation.json。
+- PASS：最終管理生命週期／設定／重啟及已觀察子程序清理；新增 VisualObservationSeconds 供真正重啟後保留人工觀察時間，並以父子建立時間及預先持有 handle 排除 PID 重用。150% 管理 PNG 已檢視，控制項／文字未裁切；先前人工鍵盤／取消／唯一視窗的原始回報與 hash 一併保存。
+- PASS：62f01ab 完整 Release build、`test.ps1 -Configuration Release`，CTest 33/33（26.08 秒）、SDK 18/18 及封裝／環境／採樣器／負面 oracle。原生受控 runtime 1 次＋50 次快速往返、custom-entry renderer crash 3 次、主題切換 100 次＋已安裝主題握手皆通過；不是新一輪真實鎖定／睡眠、像素切換或洩漏結論。
+- PASS：62f01ab [CI 40839289477](https://github.com/act70255/DrillPaper/actions/runs/40839289477)，CTest 33/33、SDK 18/18、SDK 還原與封裝。metadata／節錄另存 62f01ab-ci.json／log；完整原始 log 位於 artifacts/acceptance/remaining-final-ci.log。
+- 追加 preconnect 負面回歸：舊 F0238D… 在網路預設關閉仍多一筆 loopback TCP；現有 Connection-Allowlist 的同測試通過，開啟時另有瀏覽器正向控制、再次關閉時無新增 TCP。未再更改產品。安全 session security-afe8952ca34242c28adce0b05c1e2c0c，含既有 HTTP／HTTPS／WS／WSS／STUN／TURN-TCP、儲存／worker／導覽回復及兩種重啟，詳見 remaining-security-result.json。
+- NOT RUN：完整 DPI（使用者回報固定視窗無法拖曳縮放，沒有做 Windows DPI 更動）、全部 DNS／推測連線／瀏覽器背景流量、TURN-UDP／TLS、其他 Runtime／權限設備 API／scheme／舊頁面競態，以及其他 MVP 硬體／電源／相容性與乾淨安裝 gate。A12 與 RC gate 保留，不宣稱完整沙箱。
+- 原持續桌布 83428 路徑仍為固定 a241856 副本；真正重啟後 ReadyEpoch=4、parent=93396、兩秒 metrics 1493809578→1493811593。未關閉／替換，舊 A04 PASS 保留；新管理程序正常退出。證據、命令與限制見 REMAINING.md。
+- Commit：`test(acceptance): 補齊新版管理與安全回歸證據`；依 commit-msg skill 產生後立即 commit＋push。新增測試檔的 CI 會在推送後另觸發，不把上述產品版本 CI 寫成尚未執行的提交。
+
 ## 2026-10-29 安全續驗 — 失敗導覽回復與擴充矩陣
 
 - Scope／Red→Green：worker 遭拒後外部頂層導覽雖無流量，WebView2 卻提交 chrome-error 空白頁。獨立 security-z-navigation 先訂閱、導覽、再次訂閱，舊 DF658C… 固定副本精確 FAIL。改監聽失敗 NavigationCompleted 與實際 Source，以載入世代通知 app 切回可信 Minimal，不寫回保存偏好；Minimal 自身失敗則停止 renderer，保留管理與友善錯誤，避免迴圈。詳見 ADR 0004。

@@ -4,4 +4,3 @@ At C:\WorkSpace\-James\DrillPaper\scripts\test-webview2-security.ps1:151 char:61
 +                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : OperationStopped: (預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。:String) [], RuntimeException
     + FullyQualifiedErrorId : 預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。
- 

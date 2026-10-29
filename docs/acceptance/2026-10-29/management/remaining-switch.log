@@ -1,0 +1,3 @@
+已完成 100 次切換。
+PASS：同一原生宿主完成 100 次主題切換與協定握手（不等於畫面或洩漏驗收）。
+切換測試證據：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\theme-switch-20261029-160810-2803c0

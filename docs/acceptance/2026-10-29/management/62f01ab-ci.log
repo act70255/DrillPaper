@@ -1,0 +1,46 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T08:02:28.7651398Z # tests 18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T08:02:28.7652418Z # pass 18
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.6201791Z PASS accepted: valid.dmt (3 files)
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.6848860Z PASS rejected: traversal.dmt — Invalid DrillPaper theme package: unsafe archive path '../escape.js'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.7061076Z PASS rejected: duplicate-case.dmt — Invalid DrillPaper theme package: duplicate path (case-insensitive): 'INDEX.HTML'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.7408542Z PASS rejected: unsupported-extension.dmt — Invalid DrillPaper theme package: unsupported file type in 'payload.exe'.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.7924798Z PASS rejected: wrong-api.dmt — Invalid DrillPaper theme package: apiVersion must be the string "1".
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.8300053Z PASS rejected: oversized-file.dmt — Invalid DrillPaper theme package: file 'large.js' exceeds 10 MiB.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:29.9650547Z PASS packaged and revalidated example: minimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T08:02:35.7270059Z PASS：隔離副本刻意停用路徑檢查後，主題負面測試正確失敗；正式 validator 未修改。
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T08:02:39.1789978Z PASS：官方 SDK 還原、含空白路徑、竄改封包拒絕、既有目錄保留及 staging 清理。
+windows-build-test	Run native tests	2026-10-29T08:05:27.9541296Z  1/33 Test  #1: CPU sampling marks the first reading as warm-up .......................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:27.9700826Z  2/33 Test  #2: CPU sampling derives busy time from GetSystemTimes deltas .............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:27.9776608Z  3/33 Test  #3: CPU sampling resets its baseline after counters decrease ..............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:27.9853042Z  4/33 Test  #4: A real zero metric differs from an unavailable metric .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:27.9928444Z  5/33 Test  #5: Snapshot units describe byte counts and byte rates ....................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0002971Z  6/33 Test  #6: Network rate uses monotonic counter deltas and elapsed time ...........................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0077665Z  7/33 Test  #7: An idle network interface is a valid zero rate ........................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0152406Z  8/33 Test  #8: Network rate rejects resets and zero-length intervals .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0227068Z  9/33 Test  #9: Metrics history retains only the newest 120 snapshots .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0301996Z 10/33 Test #10: Snapshot coalescing keeps one latest pending value ....................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0376832Z 11/33 Test #11: Metric change detection uses units, quality, and a numeric threshold ..................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0451606Z 12/33 Test #12: Power state transitions debounce obscured changes and request fresh data on resume ....   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0528825Z 13/33 Test #13: Sampling scheduler pauses and resumes without catch-up loops ..........................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0612194Z 14/33 Test #14: Sampling worker collects outside the caller thread and stops while paused .............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0694942Z 15/33 Test #15: Sampling worker resumes immediately with a fresh baseline .............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0783187Z 16/33 Test #16: Sampling worker reports collector failure without terminating the process .............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0868826Z 17/33 Test #17: Sampling worker discards an in-flight snapshot from the previous generation ...........   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.0963452Z 18/33 Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget ................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1042149Z 19/33 Test #19: Manual pause survives power changes and resumes the current policy ....................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1118996Z 20/33 Test #20: Protocol v1 serializes a complete snapshot with units and UTC timestamp ...............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1195636Z 21/33 Test #21: Protocol v1 echoes request identifiers and serializes unavailable memory as null ......   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1276756Z 22/33 Test #22: Protocol v1 parses bounded history requests and preserves request IDs .................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1352468Z 23/33 Test #23: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ...   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1429548Z 24/33 Test #24: Protocol v1 subscription removes unknown and duplicate metric names ...................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1503409Z 25/33 Test #25: Protocol v1 serializes control envelopes without changing their payload ...............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1578983Z 26/33 Test #26: Protocol v1 history snapshots carry their own timestamps ..............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.1883361Z 27/33 Test #27: Settings preserve the chosen theme mode and sleep preference ..........................   Passed    0.03 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.3105681Z 28/33 Test #28: Invalid settings and failed atomic replacement preserve existing preferences ..........   Passed    0.12 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.3413630Z 29/33 Test #29: Settings accept installed theme identifiers supported by the manifest .................   Passed    0.03 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.6756270Z 30/33 Test #30: Windows metrics collector reports typed readings and warms up CPU/network rates .......   Passed    0.33 sec
+windows-build-test	Run native tests	2026-10-29T08:05:28.6935892Z 31/33 Test #31: Desktop fallback restores a normal top-level preview ..................................   Passed    0.02 sec
+windows-build-test	Run native tests	2026-10-29T08:05:29.1994101Z 32/33 Test #32: DrillPaperThemeTests ..................................................................   Passed    0.51 sec
+windows-build-test	Run native tests	2026-10-29T08:05:29.8468089Z 33/33 Test #33: DrillPaperThemeCli ....................................................................   Passed    0.65 sec
+windows-build-test	Run native tests	2026-10-29T08:05:29.8478047Z 100% tests passed, 0 tests failed out of 33
+windows-build-test	Run native tests	2026-10-29T08:05:29.8479100Z Total Test time (real) =   1.96 sec

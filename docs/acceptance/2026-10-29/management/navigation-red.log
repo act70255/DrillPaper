@@ -3,6 +3,5 @@ At C:\WorkSpace\-James\DrillPaper\scripts\test-webview2-security.ps1:52 char:5
 +     throw "$Failure 目前宿主：$caption"
 +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : OperationStopped: (外部導覽雖遭封鎖，但原頁面未繼... — Live metrics:String) [], RuntimeException
-    + FullyQualifiedErrorId : 外部導覽雖遭封鎖，但原頁面未繼續且沒有回復可信主題。 目前宿主：DrillPaper Preview — security-z-navigation — Live metric 
+    + FullyQualifiedErrorId : 外部導覽雖遭封鎖，但原頁面未繼續且沒有回復可信主題。 目前宿主：DrillPaper Preview — security-z-navigation — Live metric
    s
- 

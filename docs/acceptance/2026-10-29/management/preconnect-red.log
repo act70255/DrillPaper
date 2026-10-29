@@ -1,0 +1,6 @@
+預設網路關閉時仍建立 preconnect TCP 連線。
+At C:\WorkSpace\-James\DrillPaper\scripts\test-webview2-security.ps1:196 char:67
++ ... preconnectLog).Count -ne 1) { throw '預設網路關閉時仍建立 preconnect TCP 連線。' }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (預設網路關閉時仍建立 preconnect TCP 連線。:String) [], RuntimeException
+    + FullyQualifiedErrorId : 預設網路關閉時仍建立 preconnect TCP 連線。

@@ -4,4 +4,3 @@ At C:\WorkSpace\-James\DrillPaper\scripts\test-webview2-security.ps1:49 char:5
 +     ~~~~~~~~~~~~~~
     + CategoryInfo          : OperationStopped: (預設封鎖的真實資源測試未通過。:String) [], RuntimeException
     + FullyQualifiedErrorId : 預設封鎖的真實資源測試未通過。
- 

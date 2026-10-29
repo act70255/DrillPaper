@@ -1,0 +1,31 @@
+﻿{
+    "appId":  83488,
+    "realExplorerRestart":  {
+                                "metrics":  1493736796,
+                                "ready":  4,
+                                "appId":  85932,
+                                "parentOwner":  93396,
+                                "desktop":  3,
+                                "trayRegistered":  1,
+                                "actualTrayClick":  "NOT RUN",
+                                "visual":  "NOT RUN",
+                                "shellBefore":  98068,
+                                "window":  1054746,
+                                "shellAfter":  93396
+                            },
+    "visibleTrayClick":  "NOT RUN",
+    "manager":  6295002,
+    "timestamp":  "2026-10-29T16:07:09.1953069+08:00",
+    "observedChildren":  [
+                             71648,
+                             30360,
+                             76760,
+                             71228,
+                             82776,
+                             90216,
+                             91312
+                         ],
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\remaining-explorer-20261029-155140\\binary\\DrillPaper.exe",
+    "result":  "PASS",
+    "hash":  "8AACD05B50BEDF89E2F191B14986E3A1AB380A60B075C0CA5097DDAE539176D1"
+}

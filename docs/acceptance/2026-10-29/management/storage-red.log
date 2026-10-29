@@ -4,4 +4,3 @@ At C:\WorkSpace\-James\DrillPaper\scripts\test-webview2-security.ps1:49 char:5
 +     ~~~~~~~~~~~~~~
     + CategoryInfo          : OperationStopped: (實際網路切換測試未通過，allowNetwork=True。:String) [], RuntimeException
     + FullyQualifiedErrorId : 實際網路切換測試未通過，allowNetwork=True。
- 

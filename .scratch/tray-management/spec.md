@@ -77,7 +77,7 @@ Approval: 使用者於 2026-10-29 回覆「確認」，同意完整三階段範�
 
 三階段實作均已提交推送 feature/tray-management；階段 3 與續驗提交為 3871e72、bcb6d2c、63e86ff。最終產品程式的 CI 40832496506 通過 CTest 33/33、SDK 18/18。使用者已回報系統匣開啟、匯入及移除測試，細節見 docs/acceptance/2026-10-29/management/FOLLOWUP.md 與 user-management-confirmation.json。
 
-implemented 表示實作完成，不將未執行矩陣改成 PASS。新版 Explorer 有真正程序重啟的附掛／bridge／圖示註冊證據，但像素人工確認仍 NOT RUN；完整鍵盤／DPI 與安全未測通訊面亦保留。整體 MVP／RC gate 未解除，沒有合併 main。
+implemented 表示實作完成，不將未執行矩陣改成 PASS。續驗產品 62f01ab 另修正 Cookie、WebRTC 與失敗導覽，真正新版 Explorer 的畫面／持續更新／圖示及工作列已人工確認；前版鍵盤／取消／唯一視窗也正常。完整 DPI 與安全未測通訊面仍保留，精確 hash／CI／證據見 REMAINING.md。整體 MVP／RC gate 未解除，沒有合併 main。
 
 ## 參考
 

@@ -1,0 +1,2 @@
+PASS：50 次快速受控往返後仍可暫停／恢復，未卡在非同步 TrySuspend。
+PASS：1 次受控工作階段訊息完成 TrySuspend 成功回報、Resume 與新快照；未鎖定真實桌面。

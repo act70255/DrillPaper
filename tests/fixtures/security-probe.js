@@ -8,6 +8,10 @@ async function runSecurityProbe() {
   const enabled = __ENABLED__;
   const client = new DrillPaperClient(window.chrome.webview);
   await client.ready();
+  const preconnect = document.createElement('link');
+  preconnect.rel = 'preconnect';
+  preconnect.href = '__PRECONNECT__';
+  document.head.append(preconnect);
   const local = await fetch('./download.json').then(r => r.json());
   if (local.download !== '必須拒絕') throw new Error('離線主題不能讀取自己的 JSON 資產');
   /** 斷言真實瀏覽器可觀察行為。

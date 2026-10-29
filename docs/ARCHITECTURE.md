@@ -31,4 +31,6 @@
 
 `web` 使用每次載入獨立的 GUID HTTPS 來源，透過 WebView2 資源事件提供含宿主 CSP 的本機回應；不啟動 HTTP server。HTTP／HTTPS 全域偏好同時接入 CSP 與 request policy，原生管理介面處理首次提示，通知不授權連網。外部導覽、框架、下載、權限及彈窗各自拒絕。由 folder mapping 改為宿主回應的理由、效能代價及限制見 `docs/adr/0001-host-controlled-theme-responses.md`。
 
-WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。新管理版本真正 Explorer 重啟已有原生附掛／bridge／圖示註冊證據，像素人工結論仍未驗；使用者已回報檔案選擇器匯入正常與移除測試完成。無限迴圈、完整 DPI／鍵盤與效能矩陣仍待驗證。已測 HTTP／WebSocket 不代表完整阻止外傳；WebRTC、DNS／推測連線、跨來源 storage 仍未驗。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。
+每次載入採不同可註冊 .invalid 網域，隔離父網域 Cookie；宿主 Connection-Allowlist 補足 WebRTC 與推測連線的政策。本機已證實 STUN／TURN-TCP 與單一 loopback preconnect，不推論所有 Runtime／DNS。失敗頂層導覽若提交來源外的錯誤頁，Web adapter 以世代通知 app 切回可信 Minimal；不寫回偏好，Minimal 也失敗則停止 renderer、保留原生管理入口。詳見 ADR 0002–0004。
+
+WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。新管理 62f01ab 真正 Explorer 重啟已有原生與人工畫面／持續更新／圖示／工作列結果，另有鍵盤／取消／唯一視窗及匯入／移除人工回報。無限迴圈、完整 DPI 與效能矩陣仍待驗證。已測 WebRTC、preconnect、IndexedDB／Cache Storage 等範圍不代表完整阻止外傳；完整 DNS／推測連線、其他 Runtime 與舊頁面競態仍未驗。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。

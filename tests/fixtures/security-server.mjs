@@ -27,6 +27,11 @@ stunProbe.on('message', packet => {
   })}\n`);
 });
 await new Promise(resolve => stunProbe.bind(0, '127.0.0.1', resolve));
+const preconnectProbe = net.createServer(socket => {
+  fs.appendFileSync(path.join(directory, 'preconnect-connections.jsonl'), '{"connection":true}\n');
+  socket.destroy();
+});
+await new Promise(resolve => preconnectProbe.listen(0, '127.0.0.1', resolve));
 const server = http.createServer((request, response) => {
   record({ method: request.method, url: request.url });
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -50,5 +55,5 @@ server.on('upgrade', (request, socket) => {
   socket.destroy();
 });
 server.listen(0, '127.0.0.1', () => {
-  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port, stunPort: stunProbe.address().port }));
+  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port, stunPort: stunProbe.address().port, preconnectPort: preconnectProbe.address().port }));
 });

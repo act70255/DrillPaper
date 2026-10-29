@@ -24,6 +24,8 @@
 
 另已測 IndexedDB／Cache Storage 的當前來源讀寫與每次載入隔離、Dedicated／Shared／ServiceWorker、camera／microphone 權限查詢 denied、TURN-TCP 接收端無主題連線。證據及精確範圍見 [續驗](acceptance/2026-10-29/management/REMAINING.md)。
 
+另以獨立 TCP 接收端實測單一 loopback HTTP preconnect：舊版在關閉時仍連線；目前政策下，開啟時有瀏覽器正向連線，關閉時無新增連線。這不等於完整 DNS／TLS preconnect 或背景流量驗收。
+
 NOT RUN：完整 WebRTC（含 TURN-UDP／TLS）、完整 DNS／preconnect／推測連線、瀏覽器自身背景流量、舊頁面訊息競態、完整權限種類／設備 API、所有 scheme 組合、瀏覽器漏洞與 OS sandbox 逃逸。STUN 與 X-DNS-Prefetch-Control 不等於已量測所有 WebRTC／DNS 流量，不能證明完全阻止網路外傳。
 
 檔案檢查不是 OS 隔離，無法保證同使用者並行替換路徑的安全性。無限迴圈與資源耗盡另屬復原／效能矩陣。這些限制及未完成的 Windows 相容性、乾淨安裝等 gate 仍阻擋 app RC；不得將套件驗證或目前通訊測試稱為完整沙箱。
