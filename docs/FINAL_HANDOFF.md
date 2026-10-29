@@ -2,6 +2,8 @@
 
 更新：2026-10-29。這份總表整合目前證據；先前 Windows 10 工具鏈與早期限制保留在 STATUS 歷史，不再作為目前工作樹狀態。
 
+後續工作已拆成 [9 張本機 Markdown tickets](../.scratch/rc-delivery/spec.md)：多螢幕 → 固定 800×600 設定介面 → 首次試用打包（7A）→ 安全／桌面電源／硬體效能／作者流程 → 交付重新打包（7B）→ RC 回歸。新票均 open，未開始產品實作或首次打包；既有 PASS 證據與 RC gate 保留。此 ticket 規劃分支不自動合併 main 或公開發布。
+
 目前整合狀態：使用者已授權將完成分支合併 main，main 已從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋現有功能／修正分支歷史。後續整合文件不改產品，分支保留；下文先前「未合併／不合併 main」描述為當時紀錄，已由此次明確授權取代。多螢幕仍 planned、RC gate 保留，這次整合不是發行。
 
 main 整合提交 0f548ae 的 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) 已通過 CTest 33/33／SDK 18/18、SDK 還原與封裝，RC job skipped。metadata／節錄保存於 acceptance/2026-10-29/main-integration/；此後的結果文件提交不變更產品。

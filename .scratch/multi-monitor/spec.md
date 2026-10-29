@@ -2,6 +2,7 @@
 
 Status: planned
 日期：2026-10-29
+實作追蹤：[RC 工作票 01](../rc-delivery/issues/01-multi-monitor.md)；整體順序見 [RC 工作規格](../rc-delivery/spec.md)。本 spec 仍未實作。
 需求來源：使用者指定多螢幕為必要完整性功能，並收斂為「可以設定在哪些螢幕上套用，有套用的螢幕都顯示一份完整的桌布」。
 
 ## 已指定的功能範圍

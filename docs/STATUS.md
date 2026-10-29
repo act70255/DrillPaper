@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 建立剩餘工作 9 張 tickets — 先試用打包再補驗收
+
+- Scope：使用者指示「建立ticket」，依已確認順序 1 → 2 → 7A → 3～6 → 7B → 8 建立 .scratch/rc-delivery/spec.md 與 issues/01～09。每票列出範圍、前置依賴、驗收與 Comments，初始 open；保留多螢幕既有 spec 並連結唯一實作票。
+- 明確化：設定用戶區固定 800×600 邏輯尺寸；7A 為完成多螢幕／設定後的首次試用 ZIP，7B 沿用流程納入修正並驗乾淨一般使用者交付，09 才判定 RC。打包與 CI 綠燈不代替安全／實機 gate。
+- 基準：main b4616ec，工作樹原乾淨；新建 feature/rc-delivery-plan。已完成的舊功能分支先前已清理，不因多螢幕規劃誤稱有未完成程式分支；本輪不合併 main、不發行。
+- PASS：核對 issue-tracker／triage 慣例、既有 spec／架構／交接與驗收缺口；git diff --check 通過。9 票數量／open 狀態／必要欄位及前置票順序均有效，20 個本機 Markdown 連結存在；無產品變更。
+- NOT RUN：產品／GUI／多螢幕／安全／硬體／打包與完整測試（本輪僅文件與工作規格，無產品變更）；未啟動或操作桌布／Explorer／顯示配置。新票未完成，RC gate 保留。
+- Commit：`docs(plan): 建立功能打包與驗收九張工作票`，依 commit-msg skill 檢視實際差異產生後立即 commit＋push origin feature/rc-delivery-plan。
+
 ## 2026-10-29 完成分支整合至 main — 使用者授權合併
 
 - main 整合與交接提交 `0f548ae` 已推送 origin/main；實際 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) PASS：乾淨 Windows configure／build、CTest 33/33（1.96 秒）、SDK 18/18、SDK 還原／封裝與 artifact，RC job skipped。證據為 acceptance/2026-10-29/main-integration/ci.json／log，完整原始 log 在 artifacts/acceptance/main-integration-ci.log。最後僅保存結果的文件提交不改產品，使用 commit-msg skill 產生 `docs(ci): 保存 main 分支整合驗證結果` 後推送。
