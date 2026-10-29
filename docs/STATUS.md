@@ -1,5 +1,13 @@
 # 開發狀態
 
+## 2026-10-29 Phase 8 續作 — 乾淨 Windows CI 的 SDK 還原
+
+- Scope：官方 NuGet WebView2 SDK 1.0.2478.35、固定 SHA-256、驗證後解壓、拒絕覆寫既有目錄、staging 清理；CI 及選配 RC job 都先還原 SDK 並設定 WEBVIEW2_SDK_ROOT，沒有移除 CMake 的必填檢查。
+- Red（真正 GitHub runner）：[run 40801046281](https://github.com/act70255/DrillPaper/actions/runs/40801046281)，SDK／主題封裝通過，但 Configure 因 WebView2 headers 不存在失敗，證據見 `acceptance/2026-10-29/ci/before-fix.log`。
+- PASS（本機腳本）：`powershell -NoProfile -File scripts/test-webview2-bootstrap.ps1 -ArchivePath C:/WorkSpace/-James/DrillPaper/.toolchain/webview2/sdk.zip`，官方包／空白路徑／竄改包拒絕／既有檔保留／staging 清理通過。
+- 後續遠端驗證：先提交並推送 `bugfix/ci-webview2-bootstrap` 的具體修正，才可用 workflow_dispatch 執行該版本；新 runner build／CTest 結果尚待執行，不預先標為 PASS。真正 RC job 保持 opt-in，發行閘門未解除。
+- Commit：`fix(ci): 還原固定雜湊的 WebView2 SDK`；來源包與版本固定方式見 `docs/ENVIRONMENT.md`。
+
 ## 2026-10-29 Phase 1 續作 — Windows 11 桌布附掛與受控重掛
 
 - Scope：使用 `GetShellWindow` 錨定目前 Shell PID，排除其他程序的同名 WorkerW；支援新版 Progman 子 WorkerW，保留舊頂層搜尋與 Preview fallback。修正 SetParent 已回傳成功但殘留 LastError 導致誤判的重掛缺陷。附掛世代／最後失敗碼可由原生視窗屬性診斷。

@@ -1,0 +1,29 @@
+windows-build-test	Configure native build	﻿2026-10-29T01:33:06.8037955Z ##[group]Run cmake --preset windows-msvc-release
+windows-build-test	Configure native build	2026-10-29T01:33:06.8038416Z [36;1mcmake --preset windows-msvc-release[0m
+windows-build-test	Configure native build	2026-10-29T01:33:06.8076436Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Configure native build	2026-10-29T01:33:06.8076802Z ##[endgroup]
+windows-build-test	Configure native build	2026-10-29T01:33:08.2841291Z Preset CMake variables:
+windows-build-test	Configure native build	2026-10-29T01:33:08.2841752Z
+windows-build-test	Configure native build	2026-10-29T01:33:08.2842014Z   BUILD_TESTING="ON"
+windows-build-test	Configure native build	2026-10-29T01:33:08.2842841Z   CMAKE_CONFIGURATION_TYPES="Debug;Release"
+windows-build-test	Configure native build	2026-10-29T01:33:08.2843231Z
+windows-build-test	Configure native build	2026-10-29T01:33:08.8234475Z -- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.20348.
+windows-build-test	Configure native build	2026-10-29T01:33:38.9111611Z -- The C compiler identification is MSVC 19.44.35229.0
+windows-build-test	Configure native build	2026-10-29T01:33:41.0165870Z -- The CXX compiler identification is MSVC 19.44.35229.0
+windows-build-test	Configure native build	2026-10-29T01:33:41.2097984Z -- Detecting C compiler ABI info
+windows-build-test	Configure native build	2026-10-29T01:33:42.5894255Z -- Detecting C compiler ABI info - done
+windows-build-test	Configure native build	2026-10-29T01:33:42.6044712Z -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+windows-build-test	Configure native build	2026-10-29T01:33:42.6058068Z -- Detecting C compile features
+windows-build-test	Configure native build	2026-10-29T01:33:42.6070100Z -- Detecting C compile features - done
+windows-build-test	Configure native build	2026-10-29T01:33:42.6338733Z -- Detecting CXX compiler ABI info
+windows-build-test	Configure native build	2026-10-29T01:33:43.3978703Z -- Detecting CXX compiler ABI info - done
+windows-build-test	Configure native build	2026-10-29T01:33:43.4155773Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+windows-build-test	Configure native build	2026-10-29T01:33:43.4160281Z -- Detecting CXX compile features
+windows-build-test	Configure native build	2026-10-29T01:33:43.4169511Z -- Detecting CXX compile features - done
+windows-build-test	Configure native build	2026-10-29T01:33:43.4200258Z CMake Error at CMakeLists.txt:21 (message):
+windows-build-test	Configure native build	2026-10-29T01:33:43.4201370Z   WebView2 1.0.2478.35 headers not found at
+windows-build-test	Configure native build	2026-10-29T01:33:43.4202004Z -- Configuring incomplete, errors occurred!
+windows-build-test	Configure native build	2026-10-29T01:33:43.4203026Z   C:/Users/runneradmin/.nuget/packages/microsoft.web.webview2/1.0.2478.35.
+windows-build-test	Configure native build	2026-10-29T01:33:43.4203697Z
+windows-build-test	Configure native build	2026-10-29T01:33:43.4203854Z
+windows-build-test	Configure native build	2026-10-29T01:33:43.5411248Z ##[error]Process completed with exit code 1.

@@ -28,6 +28,15 @@ ctest --version
 
 WebView2 SDK 來源：`https://api.nuget.org/v3-flatcontainer/microsoft.web.webview2/1.0.2478.35/microsoft.web.webview2.1.0.2478.35.nupkg`。解壓到上表指定目錄；CMake 會檢查 headers 及 x64 loader，缺少即停止，不退回舊版本。
 
+乾淨環境可用固定包與雜湊的還原腳本（目的地必須不存在，既有安裝不覆寫）：
+
+```powershell
+$sdkRoot = Join-Path $env:USERPROFILE '.nuget/packages/microsoft.web.webview2/1.0.2478.35'
+./scripts/restore-webview2-sdk.ps1 -Destination $sdkRoot
+```
+
+SDK 1.0.2478.35 官方包的 SHA-256 為 `B1DF2D7FE955A3378603735F910B126647E43033213B5CC071B8D6F0168A3B96`。可指定 `-ArchivePath` 使用既有官方封包，仍須通過相同雜湊。CI 還原到 runner 暫存目錄，再設定 `WEBVIEW2_SDK_ROOT`；沒有將開發機已安裝依賴當作 runner 預設。
+
 ```powershell
 .\scripts\check-environment.ps1 -RequireNativeBuildTools
 .\scripts\build.ps1 -Configuration Release
