@@ -112,12 +112,19 @@ try {
     $serverConfig = Get-Content -Raw -LiteralPath (Join-Path $session 'server.json') | ConvertFrom-Json
     $port = $serverConfig.port
     $securePort = $serverConfig.securePort
+    $udp = [Net.Sockets.UdpClient]::new()
+    try {
+        $packet = [Text.Encoding]::UTF8.GetBytes('drillpaper-udp-control')
+        [void]$udp.Send($packet, $packet.Length, '127.0.0.1', $serverConfig.stunPort)
+    } finally { $udp.Dispose() }
     $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $securePort)
     $control.Dispose()
     Start-Sleep -Milliseconds 200
     $secureLog = Join-Path $session 'secure-connections.jsonl'
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 連線接收端的正向控制未通過。' }
-    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket")
+    $stunLog = Join-Path $session 'stun-packets.jsonl'
+    if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw 'STUN UDP 接收端的正向控制未通過。' }
+    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket").Replace('__STUN__', "stun:127.0.0.1:$($serverConfig.stunPort)")
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
     '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
     '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
@@ -141,6 +148,7 @@ try {
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $ready } '預設封鎖的真實資源測試未通過。'
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.DownloadBlocked').ToInt64() -eq 1 } '沒有觀察到真實下載拒絕事件。'
     if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { throw '預設封鎖時測試伺服器仍收到請求。' }
+    if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw '預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。' }
     $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
     if ($networkCheck -eq [IntPtr]::Zero) { throw '管理介面缺少真正的主題網路開關。' }
     if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0) { throw '首次提示自行開啟網路。' }
@@ -194,7 +202,9 @@ try {
     }
     $children = @(Stop-SecurityApp)
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 在設定切換或重啟期間仍嘗試 TCP／TLS 連線。' }
-    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; observedChildren=$children; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
+    $packets = @(Get-Content -LiteralPath $stunLog | ForEach-Object { $_ | ConvertFrom-Json })
+    if ($packets.Count -ne 1 -or -not $packets[0].control) { throw 'WebRTC 在設定切換或重啟期間仍傳送 UDP／STUN 封包。' }
+    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; observedChildren=$children; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; webrtc='PASS (UDP/STUN，控制封包 1，主題封包 0)'; storage='PASS (local/session storage、host-only 與父網域 Cookie)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"
 } finally {
     $env:LOCALAPPDATA = $previousLocal

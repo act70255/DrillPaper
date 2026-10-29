@@ -21,6 +21,17 @@ document.cookie = 'drillpaper-host=private; Secure; SameSite=Strict; Path=/';
 check(document.cookie.includes('drillpaper-host=private'), '目前來源無法保存自己的 Cookie');
 // 嘗試用共同父網域讓下一個主題來源讀到此值。
 document.cookie = `drillpaper-probe=private; Domain=${location.hostname.split('.').slice(1).join('.')}; Secure; SameSite=Strict; Path=/`;
+// 不需麥克風／攝影機的 data channel 也必須被宿主連線政策拒絕。
+check(typeof RTCPeerConnection === 'function', '受測 Runtime 缺少 WebRTC，不能驗證連線邊界');
+let peer;
+try {
+  peer = new RTCPeerConnection({ iceServers: [{ urls: '__STUN__' }] });
+  peer.createDataChannel('probe');
+  await peer.setLocalDescription(await peer.createOffer());
+  await new Promise(resolve => setTimeout(resolve, 1000));
+} catch (error) {
+  check(error.name === 'SecurityError', 'WebRTC 探針遇到非政策錯誤：' + error.name);
+} finally { peer?.close(); }
 /** 取得外部資源載入結果。
  * Args:
  *     tag: HTML 元素類型。

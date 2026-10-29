@@ -109,6 +109,9 @@ std::wstring SecurityHeaders(bool enabled, const std::wstring& origin) {
         L"; connect-src " + (enabled ? std::wstring(L"http: https:") : origin) +
         L"; frame-src 'none'; child-src 'none'; worker-src 'none'; object-src 'none'; "
         L"base-uri 'none'; form-action 'none'; frame-ancestors 'none';\r\n"
+        L"Connection-Allowlist: (response-origin" +
+        (enabled ? std::wstring(L" \"http://*:*\" \"https://*:*\"") : L"") +
+        L"); redirects=allow; webrtc=block\r\n"
         L"X-Content-Type-Options: nosniff\r\nCache-Control: no-store\r\n"
         L"X-DNS-Prefetch-Control: off\r\nReferrer-Policy: no-referrer\r\n"
         L"Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=(), serial=(), hid=()\r\n";

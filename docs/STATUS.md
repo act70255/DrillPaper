@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 剩餘安全驗收 — WebRTC/STUN 缺口修正
+
+- Red→Green：新增真實 RTCPeerConnection data channel／ICE，舊 F0238D… 固定副本在網路關閉時收到三筆 STUN UDP（20 bytes、magic cookie 符合），精確失敗於「預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包」。不需音訊／視訊，也不由權限拒絕推論網路封鎖。
+- 最小實作：所有宿主資產回應加 Connection-Allowlist；只允許自身來源，開關開啟才再允許 HTTP／HTTPS 任意網域與 port，固定 webrtc=block。保留 CSP 與原生導覽／資源／權限等限制。決策見 ADR 0003，支援範圍只聲明實測 Runtime 155.0.4283.62。
+- PASS：Release app build；安全腳本 off→on→off、兩種重啟、HTTP／HTTPS 等原有負面與來源儲存隔離。session security-a51c31974b1046a0a4f0114a5c78db5b，hash `DF658C57DA4EFAE79CAF7F6CFB6A4E88EA97A1B9AAD2D3CE356799994D0FC7B1`。UDP 接收端有一筆 UdpClient 正向控制、主題封包 0；舊版三筆為瀏覽器正向證據。webrtc-{red,green}-packets.jsonl／結果與日誌已保存。
+- 測試校正：初版錯把「一定拋 SecurityError」當作政策判定，曾在無 UDP 收件時仍失敗；實際允許建立物件後禁止 ICE。改由接收端收件判定，對舊／新產品重跑同一案例取得 Red→Green；先前誤判日誌保留，不稱每輪皆首次通過。
+- NOT RUN：TURN／完整 DNS／推測連線、其他 Runtime 與完整安全矩陣；後續擴充。完整回歸與 CI 留待本輪實作收尾。原桌布 83428 未關閉或替換，A12／RC gate 保留。
+- Commit：`fix(security): 阻止主題 WebRTC 外連`；依 commit-msg skill 產生後立即 commit＋push feature/tray-management。
+
 ## 2026-10-29 剩餘安全驗收 — 隔離父網域 Cookie
 
 - Scope：承接使用者要求繼續剩餘工作，保持 feature/tray-management、不合併 main；續驗計畫見 management/REMAINING.md。

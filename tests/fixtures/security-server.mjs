@@ -2,6 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
+import dgram from 'node:dgram';
 
 const directory = process.argv[2];
 /** 記錄測試伺服器實際收到的請求。
@@ -17,6 +18,15 @@ const secureProbe = net.createServer(socket => {
   socket.destroy();
 });
 await new Promise(resolve => secureProbe.listen(0, '127.0.0.1', resolve));
+const stunProbe = dgram.createSocket('udp4');
+stunProbe.on('message', packet => {
+  fs.appendFileSync(path.join(directory, 'stun-packets.jsonl'), `${JSON.stringify({
+    control: packet.toString() === 'drillpaper-udp-control',
+    stun: packet.length >= 20 && packet.readUInt32BE(4) === 0x2112a442,
+    bytes: packet.length,
+  })}\n`);
+});
+await new Promise(resolve => stunProbe.bind(0, '127.0.0.1', resolve));
 const server = http.createServer((request, response) => {
   record({ method: request.method, url: request.url });
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -40,5 +50,5 @@ server.on('upgrade', (request, socket) => {
   socket.destroy();
 });
 server.listen(0, '127.0.0.1', () => {
-  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port }));
+  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port, stunPort: stunProbe.address().port }));
 });

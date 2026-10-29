@@ -15,6 +15,8 @@ Status: implemented
 
 ## Comments
 
+- 2026-10-29 剩餘續驗：以真實瀏覽器先抓到共同父網域 Cookie 跨 GUID 來源保留，改為每次獨立可註冊 .invalid 網域；另重現網路關閉仍有三筆 WebRTC STUN UDP。Connection-Allowlist 加入後，同接收端只有獨立控制封包，off→on→off 與重啟均無主題 UDP。相關 Red→Green／hash／限制見 REMAINING.md、ADR 0002／0003；後續繼續擴充 TURN／推測連線與儲存矩陣。使用者對前版隔離視窗回報鍵盤／取消／唯一視窗正常，DPI 未測。
+
 - 2026-10-29 收尾：63e86ff 的 CI 40832496506 完整 PASS（CTest 33/33、SDK 18/18、SDK 還原與封裝）；本票實作及所列驗證完成，狀態設為 implemented。新版 Explorer 像素、完整 DPI／鍵盤與安全未測矩陣仍明列 NOT RUN，並非整體 MVP／RC 通過。最終僅留下原持續桌布 PID 83428，未合併 main。
 
 - 2026-10-29 最後續驗：保留主機過度比對正常 HTTP 路徑的 Red→Green 已修正；最終本機 CTest 33/33／SDK 18/18 與真實安全腳本通過。bcb6d2c 的遠端 CI PASS，最後修正另觸發。使用者已回報系統匣可開、匯入正常、移除測試完成，隔離主題目錄確認不存在；新版 Explorer 像素等未驗範圍仍明列，不宣稱完整沙箱。
