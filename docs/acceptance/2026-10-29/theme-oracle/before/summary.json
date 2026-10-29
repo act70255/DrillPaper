@@ -1,0 +1,8 @@
+{
+    "Result":  "FAILED",
+    "Mutation":  "Remove path validation only in isolated validator copy",
+    "OriginalValidatorSha256":  "6010761DE4EEE6A251B67613BB2D0AE41288D9075F9B16E4FD1B1003F645FC1B",
+    "MutatedValidatorSha256":  "31CDFEEA624E270EBDC4421001D612B1C5DE2D09CB0BEF08652E661FB23195FD",
+    "ChildExitCode":  0,
+    "FailureReason":  "負面測試未偵測到刻意放行的路徑穿越封包，不能採信其通過結果。"
+}

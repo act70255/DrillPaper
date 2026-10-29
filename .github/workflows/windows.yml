@@ -32,6 +32,7 @@ jobs:
         shell: pwsh
         run: |
           ./scripts/test-theme-package.ps1
+          ./scripts/test-theme-negative-oracle.ps1
           New-Item -ItemType Directory -Force artifacts/theme-sdk | Out-Null
           ./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/minimal -OutputFile artifacts/theme-sdk/minimal.dmt
           ./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/dashboard -OutputFile artifacts/theme-sdk/dashboard.dmt

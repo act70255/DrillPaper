@@ -1,0 +1,15 @@
+PASS accepted: valid.dmt (3 files)
+PASS rejected: traversal.dmt ??Expected package 'traversal.dmt' to be rejected.
+PASS rejected: duplicate-case.dmt ??Invalid DrillPaper theme package: duplicate path (case-insensitive): 'INDEX.HTML'
+PASS rejected: unsupported-extension.dmt ??Invalid DrillPaper theme package: unsupported file type in 'payload.exe'.
+PASS rejected: wrong-api.dmt ??Invalid DrillPaper theme package: apiVersion must be the string "1".
+PASS rejected: oversized-file.dmt ??Invalid DrillPaper theme package: file 'large.js' exceeds 10 MiB.
+
+
+Path      : C:\Users\James\AppData\Local\Temp\DrillPaperThemeTests-9be1084464a4474cb4971a145199277c\minimal-example.dmt
+Id        : minimal-monitor
+Version   : 1.0.0
+FileCount : 6
+Bytes     : 6759
+
+PASS packaged and revalidated example: minimal-monitor

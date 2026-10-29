@@ -1,5 +1,12 @@
 # 開發狀態
 
+## 2026-10-29 主題負面測試 — 修正例外判斷誤報
+
+- Red：只在隔離副本移除 validator 的路徑檢查後，正式測試腳本仍退出 0，且將預期拒絕卻被接受的 traversal 封包印為 PASS。原生 validator／產品檔案未變更；此實驗驗證測試本身是否有辨識力。
+- Fix：只捕捉 validator 的拒絕例外；「預期拒絕卻被接受」的斷言移至 catch 外。新增公開腳本入口的隔離變異回歸，納入本機 test.ps1 與 CI。
+- Green：相同變異現在讓子程序在 traversal.dmt 正確退出 1；正式未變異 validator 仍通過合法封包並拒絕 5 類非法包。證據見 [theme-oracle/REPORT.md](acceptance/2026-10-29/theme-oracle/REPORT.md)。
+- Commit：`fix(test): 防止主題負面案例被誤判為通過`，分支 `bugfix/theme-negative-oracle`。此修正不代表尚未執行的 WebView2 外連／下載／權限測試通過。
+
 ## 2026-10-29 封裝工具續作 — Windows PowerShell 5.1 壓縮組件
 
 - Red：新程序直接執行 `test-theme-package.ps1` 時找不到 `System.IO.Compression.ZipArchiveMode`；完整回歸亦在同一位置停止。

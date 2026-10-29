@@ -1,0 +1,7 @@
+�w���ڵ����D�D�ʥ]�Q�����Gtraversal.dmt
+��� C:\Users\James\AppData\Local\Temp\DrillPaperOracle-d4abdb50f878430ab1e67c42433da29a\scripts\test-theme-package.ps1
+:52 �r��:29
++     if (-not $ShouldPass) { throw "�w���ڵ����D�D�ʥ]�Q�����G$Name" }
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (�w���ڵ����D�D�ʥ]�Q�����Gtraversal.dmt:String) [], RuntimeException
+    + FullyQualifiedErrorId : �w���ڵ����D�D�ʥ]�Q�����Gtraversal.dmt

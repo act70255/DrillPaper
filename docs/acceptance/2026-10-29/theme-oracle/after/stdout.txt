@@ -1,0 +1,1 @@
+PASS accepted: valid.dmt (3 files)

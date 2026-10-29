@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $validator = Join-Path $PSScriptRoot 'validate-theme-package.ps1'
@@ -33,17 +33,25 @@ function New-ValidFiles {
 }
 
 function Assert-Validation([string]$Name, [System.Collections.IDictionary]$Files, [bool]$ShouldPass) {
+    <#
+    依封包預期結果驗證公開 validator，預期拒絕卻被接受時不可吞掉斷言。
+    Args:
+        Name: 測試封包檔名。
+        Files: 封包內容。
+        ShouldPass: 是否預期合法且通過。
+    #>
     $packagePath = New-TestPackage $Name $Files
     try {
         $result = & $validator -Path $packagePath
-        if (-not $ShouldPass) { throw "Expected package '$Name' to be rejected." }
-        if (-not $result.Valid) { throw "Package '$Name' did not return Valid=true." }
-        Write-Output "PASS accepted: $Name ($($result.FileCount) files)"
     }
     catch {
         if ($ShouldPass) { throw }
         Write-Output "PASS rejected: $Name — $($_.Exception.Message)"
+        return
     }
+    if (-not $ShouldPass) { throw "預期拒絕的主題封包被接受：$Name" }
+    if (-not $result.Valid) { throw "主題封包 $Name 未回傳 Valid=true。" }
+    Write-Output "PASS accepted: $Name ($($result.FileCount) files)"
 }
 
 try {

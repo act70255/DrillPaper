@@ -18,6 +18,7 @@ try {
     & (Join-Path $PSScriptRoot 'test-environment-check.ps1')
     & (Join-Path $PSScriptRoot 'test-performance-sampler.ps1')
     & (Join-Path $PSScriptRoot 'test-theme-package.ps1')
+    & (Join-Path $PSScriptRoot 'test-theme-negative-oracle.ps1')
     & (Join-Path $PSScriptRoot 'test-sdk-package.ps1')
 
     if (-not $SkipNative) {
