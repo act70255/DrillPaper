@@ -2,6 +2,8 @@
 
 只有完成 GUI 證據的組態才能標為支援。
 
+RC 01 新版多宿主：本機 Windows 11 兩個 1920×1080、DPI 144／96 的各目標附掛、握手、完整 viewport、重啟與網路回歸已完成原生程序驗證；仍未做人工桌面畫面、真正新版 Explorer 或實體拔插，不提升下表的 GUI 支援聲明。證據及待測清單見 [multi-monitor/REPORT.md](acceptance/2026-10-29/multi-monitor/REPORT.md)。
+
 2026-10-29 最新續驗：a241856 已由使用者與原生觀測確認真正 Explorer 重啟後桌布恢復且持續更新，A04 在本機 Dashboard／no-smart-sleep 情境 PASS。圖示／工作列／Alt+Tab／焦點完整檢查仍待驗。見 [shell-readiness/REPORT.md](acceptance/2026-10-29/shell-readiness/REPORT.md)。
 
 ## 已決定的首版目標範圍（尚未驗收）

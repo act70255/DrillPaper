@@ -5,7 +5,8 @@ param(
     [ValidateSet('renderer','browser')][string]$ProcessKind = 'renderer',
     [ValidateRange(5,45)][int]$TimeoutSeconds = 30,
     [switch]$ExpectBoundedFallback,
-    [switch]$CustomEntry
+    [switch]$CustomEntry,
+    [switch]$ReselectBeforeFinal
 )
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
@@ -99,6 +100,13 @@ try {
     }
     $summary.RootProcessId = $app.Id
     for ($round=1; $round -le $Crashes; $round++) {
+        if ($ReselectBeforeFinal -and $round -eq $Crashes) {
+            $previousEpoch = [DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64()
+            [void][DrillPaperRecoveryProbe]::PostMessage($app.MainWindowHandle,0x111,[UIntPtr]::new([uint32]10002),[IntPtr]::Zero)
+            $clock.Restart()
+            do { Start-Sleep -Milliseconds 100; $app.Refresh() } while ([DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le $previousEpoch -and $clock.Elapsed.TotalSeconds -lt 25)
+            if ([DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le $previousEpoch) { throw '重新選擇主題未完成握手。' }
+        }
         $browser = Get-OwnedBrowser $app.Id
         if (-not $browser) { throw '無法驗證隔離 browser，未終止任何程序。' }
         $targets = @(if ($ProcessKind -eq 'browser') { $browser } else { Get-OwnedRenderers $browser })
@@ -128,6 +136,7 @@ try {
             continue
         }
         if ($nextEpoch -le $epoch -or $app.MainWindowTitle -notlike '*Live metrics') { throw '故障後未觀察到新的 SDK 握手與即時資料，不能以舊標題判定恢復。' }
+        if ($ReselectBeforeFinal -and $round -eq $Crashes -and $app.MainWindowTitle -notlike '*Dashboard*') { throw '重新選擇主題後未恢復額度，錯誤退化至 Minimal。' }
         $nextBrowser = Get-OwnedBrowser $app.Id
         if (-not $nextBrowser -or @(Get-OwnedRenderers $nextBrowser).Count -lt 1) { throw '沒有可驗證的恢復後 renderer。' }
         $summary.Rounds += [pscustomobject]@{ Round=$round; Victims=$victimIds; BeforeEpoch=$epoch; AfterEpoch=$nextEpoch; RecoverySeconds=$clock.Elapsed.TotalSeconds; RootProcessId=$app.Id }

@@ -1,8 +1,8 @@
 # 選擇目標螢幕並各自顯示完整桌布
 
-Status: planned
+Status: implemented
 日期：2026-10-29
-實作追蹤：[RC 工作票 01](../rc-delivery/issues/01-multi-monitor.md)；整體順序見 [RC 工作規格](../rc-delivery/spec.md)。本 spec 仍未實作。
+實作追蹤：[RC 工作票 01](../rc-delivery/issues/01-multi-monitor.md)；整體順序見 [RC 工作規格](../rc-delivery/spec.md)。程式與可自動執行驗證已實作，人工矩陣不因此視為通過。
 需求來源：使用者指定多螢幕為必要完整性功能，並收斂為「可以設定在哪些螢幕上套用，有套用的螢幕都顯示一份完整的桌布」。
 
 ## 已指定的功能範圍
@@ -23,6 +23,6 @@ Status: planned
 
 ## 目前狀態
 
-本文件記錄本輪已指定的呈現方式與範圍，尚未開始產品實作。沿用專案 TDD 與 Win32／WebView2 原生驗證邊界；實作前補齊技術規劃與具體案例。
+RC 01 已完成目標設定、schema 2 保存、每區域獨立宿主與 DPI、clone 去重、斷線／暫用政策及世代隔離。技術政策與人工清單見 [MULTI_MONITOR](../../docs/MULTI_MONITOR.md)，具體命令與證據見 [驗收報告](../../docs/acceptance/2026-10-29/multi-monitor/REPORT.md)。
 
-產品／GUI／多螢幕驗證：NOT RUN（本次僅需求整理）。不操作或替換原持續桌布。使用者後續授權將已完成開發分支整合 main，本 spec 隨文件納入，但多螢幕功能仍未實作／驗收。
+本機雙屏 1920×1080、150%／100% 的原生 HWND／附掛／握手、完整 viewport、設定重啟與網路回歸已有證據。人工畫面、真正新版 Explorer 重啟、拔插、負座標／不同解析度／鏡像實機與其他硬體矩陣 NOT RUN，依使用者指示留待人工。未操作或替換原持續桌布；完整 RC gate 保留。

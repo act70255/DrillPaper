@@ -1,0 +1,54 @@
+﻿{
+    "ProcessKind":  "renderer",
+    "RequestedCrashes":  4,
+    "ExpectBoundedFallback":  false,
+    "CustomEntry":  false,
+    "SmartSleepEnabled":  false,
+    "SourceSha256":  "CE7223F45B2EE7BE94E4C1EDD0F71BF107D2290C4ABA9A7E30F69D5320028774",
+    "Result":  "PASS_PROTOCOL_RECOVERY",
+    "Rounds":  [
+                   {
+                       "Round":  1,
+                       "Victims":  [
+                                       92168
+                                   ],
+                       "BeforeEpoch":  1,
+                       "AfterEpoch":  2,
+                       "RecoverySeconds":  2.0723126,
+                       "RootProcessId":  5492
+                   },
+                   {
+                       "Round":  2,
+                       "Victims":  [
+                                       67868
+                                   ],
+                       "BeforeEpoch":  2,
+                       "AfterEpoch":  3,
+                       "RecoverySeconds":  2.4460204,
+                       "RootProcessId":  5492
+                   },
+                   {
+                       "Round":  3,
+                       "Victims":  [
+                                       86520
+                                   ],
+                       "BeforeEpoch":  3,
+                       "AfterEpoch":  4,
+                       "RecoverySeconds":  3.2328533999999998,
+                       "RootProcessId":  5492
+                   },
+                   {
+                       "Round":  4,
+                       "Victims":  [
+                                       66708
+                                   ],
+                       "BeforeEpoch":  5,
+                       "AfterEpoch":  6,
+                       "RecoverySeconds":  2.6749301,
+                       "RootProcessId":  5492
+                   }
+               ],
+    "RootProcessId":  5492,
+    "Shutdown":  "NORMAL_CLOSE",
+    "ExitCode":  0
+}

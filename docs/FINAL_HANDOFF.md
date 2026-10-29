@@ -2,15 +2,15 @@
 
 更新：2026-10-29。這份總表整合目前證據；先前 Windows 10 工具鏈與早期限制保留在 STATUS 歷史，不再作為目前工作樹狀態。
 
-後續工作已拆成 [9 張本機 Markdown tickets](../.scratch/rc-delivery/spec.md)：多螢幕 → 固定 800×600 設定介面 → 首次試用打包（7A）→ 安全／桌面電源／硬體效能／作者流程 → 交付重新打包（7B）→ RC 回歸。新票均 open，未開始產品實作或首次打包；既有 PASS 證據與 RC gate 保留。此 ticket 規劃分支不自動合併 main 或公開發布。
+後續工作已拆成 [9 張本機 Markdown tickets](../.scratch/rc-delivery/spec.md)：多螢幕 → 固定 800×600 設定介面 → 首次試用打包（7A）→ 安全／桌面電源／硬體效能／作者流程 → 交付重新打包（7B）→ RC 回歸。01 已實作並完成可自動執行驗證，02～09 仍 open；人工矩陣與 RC gate 保留。不自動合併 main 或公開發布。
 
-目前整合狀態：使用者已授權將完成分支合併 main，main 已從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋現有功能／修正分支歷史。後續整合文件不改產品，分支保留；下文先前「未合併／不合併 main」描述為當時紀錄，已由此次明確授權取代。多螢幕仍 planned、RC gate 保留，這次整合不是發行。
+main 歷史整合狀態：使用者已授權將完成分支合併 main，main 從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋當時功能／修正分支歷史。下文先前「未合併／不合併 main」為當時紀錄。當次多螢幕仍 planned；RC 01 的新實作留在自己的功能分支，未合併 main，RC gate 保留。
 
 main 整合提交 0f548ae 的 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) 已通過 CTest 33/33／SDK 18/18、SDK 還原與封裝，RC job skipped。metadata／節錄保存於 acceptance/2026-10-29/main-integration/；此後的結果文件提交不變更產品。
 
-剩餘工作依「驗證／必要完整性功能／補充功能」分類，見 [工作清單](REMAINING_WORK.md)。使用者已明確將多螢幕支援列為必要完整性功能，需補齊實作及對應驗收，不能只列待測相容性或後續選配；固定設定視窗不取消此要求。目前沒有多螢幕完成結論。
+剩餘工作依「驗證／必要完整性功能／補充功能」分類，見 [工作清單](REMAINING_WORK.md)。多螢幕已完成 RC 01 的程式與自動驗證，並未完成所有人工相容性驗收。
 
-多螢幕的本版呈現方式已收斂為「勾選套用目標、每個選中螢幕各顯示一份完整的目前主題」，不做跨螢幕拼接／延展或逐螢幕不同主題；需求見 [.scratch/multi-monitor/spec.md](../.scratch/multi-monitor/spec.md)，尚未實作／驗收。
+RC 01 的兩個 1920×1080 目標（150%／100%）已有獨立 HWND、精確螢幕矩形、WebView2 握手與完整 viewport、設定重啟、多宿主來源隔離及 HTTP off→on→off 證據。人工畫面、真正新版 Explorer 重啟、實體拔插、負座標／不同解析度／clone 實機仍 NOT RUN；見 [本票報告](acceptance/2026-10-29/multi-monitor/REPORT.md) 與 [政策／人工清單](MULTI_MONITOR.md)。
 
 本輪最新：產品 62f01ab，新增獨立可註冊來源隔離 Cookie、Connection-Allowlist 阻止 WebRTC，並回復遭政策拒絕的空白錯誤頁。本機完整 CTest 33/33／SDK 18/18、原生回歸與 [CI 40839289477](https://github.com/act70255/DrillPaper/actions/runs/40839289477) 通過；新版真正 Explorer 的畫面恢復／持續更新／圖示與工作列由使用者確認 PASS。鍵盤／取消／唯一視窗亦有前版人工結果。精確 hash、最終 preconnect／儲存／worker／TURN-TCP 範圍與剩餘 NOT RUN 見 [剩餘續驗](acceptance/2026-10-29/management/REMAINING.md)。原持續桌布 PID 83428 保持固定 a241856 副本，未關閉或替換。
 

@@ -4,6 +4,7 @@
 #include <array>
 #include <commdlg.h>
 #include <stdexcept>
+#include <commctrl.h>
 
 namespace desktopmonitor::platform::windows {
 namespace {
@@ -13,31 +14,35 @@ constexpr UINT kThemeList = 20101;
 constexpr UINT kModeList = 20102;
 constexpr UINT kSmartSleep = 20103;
 struct Control { UINT id; const wchar_t* cls; const wchar_t* label; int x; int y; int width; int height; DWORD style; };
-constexpr std::array<Control, 18> kControls{{
-    {kStatus, L"STATIC", L"正在初始化…", 20, 16, 560, 104, SS_LEFT},
-    {kManagePause, L"BUTTON", L"暫停桌布", 20, 128, 180, 36, BS_PUSHBUTTON},
-    {kManageDesktop, L"BUTTON", L"桌布模式", 210, 128, 180, 36, BS_PUSHBUTTON},
-    {kManagePreview, L"BUTTON", L"預覽模式", 400, 128, 180, 36, BS_PUSHBUTTON},
-    {20104, L"STATIC", L"主題（名稱／版本）：", 20, 180, 560, 24, SS_LEFT},
-    {kThemeList, L"LISTBOX", L"", 20, 204, 560, 100, LBS_NOTIFY | WS_BORDER | WS_VSCROLL},
-    {kManageThemePreview, L"BUTTON", L"預覽所選主題", 20, 316, 180, 36, BS_PUSHBUTTON},
-    {kManageThemeApply, L"BUTTON", L"套用為桌布", 210, 316, 180, 36, BS_PUSHBUTTON},
-    {kManageImport, L"BUTTON", L"匯入 .dmt…", 400, 316, 180, 36, BS_PUSHBUTTON},
-    {kManageRemove, L"BUTTON", L"移除所選主題…", 20, 360, 180, 36, BS_PUSHBUTTON},
-    {kManageRefresh, L"BUTTON", L"重新整理主題", 210, 360, 180, 36, BS_PUSHBUTTON},
-    {kManageLogs, L"BUTTON", L"開啟日誌", 400, 360, 180, 36, BS_PUSHBUTTON},
-    {20105, L"STATIC", L"保存的顯示模式：", 20, 412, 150, 26, SS_LEFT},
-    {kModeList, L"COMBOBOX", L"", 190, 408, 200, 120, CBS_DROPDOWNLIST | WS_VSCROLL},
-    {kSmartSleep, L"BUTTON", L"啟用智慧休眠（全螢幕／鎖定／顯示器關閉）", 20, 450, 560, 30, BS_AUTOCHECKBOX},
-    {20106, L"BUTTON", L"允許主題連網（HTTP／HTTPS，所有網域）", 20, 482, 560, 24, BS_AUTOCHECKBOX},
-    {kManageApply, L"BUTTON", L"套用並儲存設定", 20, 506, 180, 36, BS_PUSHBUTTON},
-    {kManageCancel, L"BUTTON", L"取消設定變更", 210, 506, 180, 36, BS_PUSHBUTTON}
+constexpr std::array<Control, 20> kControls{{
+    {kStatus, L"STATIC", L"正在初始化…", 20, 12, 560, 92, SS_LEFT},
+    {kManagePause, L"BUTTON", L"暫停桌布", 20, 112, 180, 32, BS_PUSHBUTTON},
+    {kManageDesktop, L"BUTTON", L"桌布模式", 210, 112, 180, 32, BS_PUSHBUTTON},
+    {kManagePreview, L"BUTTON", L"預覽模式", 400, 112, 180, 32, BS_PUSHBUTTON},
+    {20104, L"STATIC", L"主題（名稱／版本）：", 20, 152, 560, 24, SS_LEFT},
+    {kThemeList, L"LISTBOX", L"", 20, 176, 560, 56, LBS_NOTIFY | WS_BORDER | WS_VSCROLL},
+    {kManageThemePreview, L"BUTTON", L"預覽所選主題", 20, 240, 180, 32, BS_PUSHBUTTON},
+    {kManageThemeApply, L"BUTTON", L"套用為桌布", 210, 240, 180, 32, BS_PUSHBUTTON},
+    {kManageImport, L"BUTTON", L"匯入 .dmt…", 400, 240, 180, 32, BS_PUSHBUTTON},
+    {kManageRemove, L"BUTTON", L"移除所選主題…", 20, 280, 180, 32, BS_PUSHBUTTON},
+    {kManageRefresh, L"BUTTON", L"重新整理主題", 210, 280, 180, 32, BS_PUSHBUTTON},
+    {kManageLogs, L"BUTTON", L"開啟日誌", 400, 280, 180, 32, BS_PUSHBUTTON},
+    {20105, L"STATIC", L"保存的顯示模式：", 20, 324, 150, 26, SS_LEFT},
+    {kModeList, L"COMBOBOX", L"", 190, 320, 200, 120, CBS_DROPDOWNLIST | WS_VSCROLL},
+    {kSmartSleep, L"BUTTON", L"啟用智慧休眠（全螢幕／鎖定／顯示器關閉）", 20, 360, 560, 28, BS_AUTOCHECKBOX},
+    {20106, L"BUTTON", L"允許主題連網（HTTP／HTTPS，所有網域）", 20, 392, 560, 24, BS_AUTOCHECKBOX},
+    {20107, L"STATIC", L"套用螢幕（可勾選多個；桌布至少一個）：", 20, 426, 560, 24, SS_LEFT},
+    {20108, WC_LISTVIEWW, L"", 20, 452, 560, 80, LVS_REPORT | LVS_NOCOLUMNHEADER | LVS_SINGLESEL | WS_BORDER},
+    {kManageApply, L"BUTTON", L"套用並儲存設定", 20, 548, 180, 32, BS_PUSHBUTTON},
+    {kManageCancel, L"BUTTON", L"取消設定變更", 210, 548, 180, 32, BS_PUSHBUTTON}
 }};
 }
 
 ManagementShell::~ManagementShell() { Shutdown(); }
 
 bool ManagementShell::Initialize(HWND owner, std::function<void(UINT)> command) {
+    INITCOMMONCONTROLSEX controls{sizeof(controls), ICC_LISTVIEW_CLASSES};
+    if (!InitCommonControlsEx(&controls)) return false;
     owner_ = owner;
     command_ = std::move(command);
     WNDCLASSW cls{};
@@ -48,7 +53,7 @@ bool ManagementShell::Initialize(HWND owner, std::function<void(UINT)> command) 
     cls.lpszClassName = kClass;
     if (RegisterClassW(&cls) == 0 && GetLastError() != ERROR_CLASS_ALREADY_EXISTS) return false;
     const auto dpi = GetDpiForSystem();
-    RECT bounds{0, 0, MulDiv(600, dpi, 96), MulDiv(570, dpi, 96)};
+    RECT bounds{0, 0, MulDiv(600, dpi, 96), MulDiv(600, dpi, 96)};
     AdjustWindowRectExForDpi(&bounds, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, FALSE, WS_EX_APPWINDOW, dpi);
     window_ = CreateWindowExW(WS_EX_APPWINDOW, kClass, L"DrillPaper 管理",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
@@ -224,7 +229,8 @@ void ManagementShell::Layout() {
     }
     const HWND exit = GetDlgItem(window_, kManageExit);
     SendMessageW(exit, WM_SETFONT, reinterpret_cast<WPARAM>(font_), TRUE);
-    MoveWindow(exit, scale(20 + 2 * ((width - 40) / 3)), scale(506), scale((width - 52) / 3), scale(36), TRUE);
+    MoveWindow(exit, scale(20 + 2 * ((width - 40) / 3)), scale(548), scale((width - 52) / 3), scale(32), TRUE);
+    ListView_SetColumnWidth(GetDlgItem(window_, 20108), 0, scale(width - 64));
 }
 
 LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM value, LPARAM data) {
@@ -244,6 +250,10 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
         }
         SendDlgItemMessageW(window, kModeList, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"桌布"));
         SendDlgItemMessageW(window, kModeList, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"預覽"));
+        const auto monitors = GetDlgItem(window, 20108);
+        ListView_SetExtendedListViewStyle(monitors, LVS_EX_CHECKBOXES | LVS_EX_FULLROWSELECT | LVS_EX_DOUBLEBUFFER);
+        LVCOLUMNW column{}; column.mask = LVCF_WIDTH; column.cx = 540;
+        ListView_InsertColumn(monitors, 0, &column);
         if (!CreateWindowExW(0, L"BUTTON", L"結束 DrillPaper", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
             0, 0, 0, 0, window, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(kManageExit)), GetModuleHandleW(nullptr), nullptr)) return -1;
         self->Layout();
@@ -291,6 +301,9 @@ void ManagementShell::SetThemes(std::vector<ManagementTheme> themes) {
 
 void ManagementShell::SetPreferences(const app::AppSettings& settings) {
     preferences_ = settings;
+    for (std::size_t index = 0; index < monitors_.size(); ++index)
+        ListView_SetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index), settings.monitorTargets &&
+            std::find(settings.monitorTargets->begin(), settings.monitorTargets->end(), monitors_[index].id) != settings.monitorTargets->end());
     for (std::size_t index = 0; index < themes_.size(); ++index)
         if (themes_[index].key == settings.theme) SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, index, 0);
     SendDlgItemMessageW(window_, kModeList, CB_SETCURSEL, settings.desktop ? 0 : 1, 0);
@@ -301,12 +314,37 @@ void ManagementShell::SetPreferences(const app::AppSettings& settings) {
 
 app::AppSettings ManagementShell::Preferences() const {
     auto result = preferences_;
+    result.monitorTargets = std::vector<std::string>{};
+    for (std::size_t index = 0; index < monitors_.size(); ++index)
+        if (ListView_GetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index)))
+            result.monitorTargets->push_back(monitors_[index].id);
     const auto selected = SendDlgItemMessageW(window_, kThemeList, LB_GETCURSEL, 0, 0);
     if (selected >= 0 && static_cast<std::size_t>(selected) < themes_.size()) result.theme = themes_[selected].key;
     result.desktop = SendDlgItemMessageW(window_, kModeList, CB_GETCURSEL, 0, 0) == 0;
     result.smartSleep = SendDlgItemMessageW(window_, kSmartSleep, BM_GETCHECK, 0, 0) == BST_CHECKED;
     result.allowNetwork = SendDlgItemMessageW(window_, 20106, BM_GETCHECK, 0, 0) == BST_CHECKED;
     return result;
+}
+
+void ManagementShell::SetMonitors(std::vector<ManagementMonitor> monitors) {
+    const auto draft = monitors_.empty() ? preferences_ : Preferences();
+    // 拔線或尚未套用的離線選擇仍保留在草稿清單。
+    if (draft.monitorTargets) for (const auto& id : *draft.monitorTargets)
+        if (std::none_of(monitors.begin(), monitors.end(), [&](const auto& item) { return item.id == id; })) {
+            const int length = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, id.data(), static_cast<int>(id.size()), nullptr, 0);
+            std::wstring label(length > 0 ? length : 0, L'\0');
+            if (length > 0) MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, id.data(), static_cast<int>(id.size()), label.data(), length);
+            monitors.push_back({id, label + L"（未連接）"});
+        }
+    monitors_ = std::move(monitors);
+    const auto list = GetDlgItem(window_, 20108);
+    ListView_DeleteAllItems(list);
+    for (std::size_t index = 0; index < monitors_.size(); ++index) {
+        LVITEMW item{}; item.mask = LVIF_TEXT; item.iItem = static_cast<int>(index); item.pszText = monitors_[index].label.data();
+        ListView_InsertItem(list, &item);
+        ListView_SetCheckState(list, static_cast<int>(index), draft.monitorTargets &&
+            std::find(draft.monitorTargets->begin(), draft.monitorTargets->end(), monitors_[index].id) != draft.monitorTargets->end());
+    }
 }
 
 std::filesystem::path ManagementShell::PickPackage() const {

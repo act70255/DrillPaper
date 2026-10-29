@@ -1,0 +1,45 @@
+﻿{
+    "ProcessKind":  "renderer",
+    "RequestedCrashes":  4,
+    "ExpectBoundedFallback":  false,
+    "CustomEntry":  false,
+    "SmartSleepEnabled":  false,
+    "SourceSha256":  "0368ABD5B7390D84A7A3BEC65625AB18F27A1D7BCDDC17EB7C1B67FEB9E99E07",
+    "Result":  "FAILED",
+    "Rounds":  [
+                   {
+                       "Round":  1,
+                       "Victims":  [
+                                       86656
+                                   ],
+                       "BeforeEpoch":  1,
+                       "AfterEpoch":  2,
+                       "RecoverySeconds":  2.6758482,
+                       "RootProcessId":  89944
+                   },
+                   {
+                       "Round":  2,
+                       "Victims":  [
+                                       56604
+                                   ],
+                       "BeforeEpoch":  2,
+                       "AfterEpoch":  3,
+                       "RecoverySeconds":  2.7806438,
+                       "RootProcessId":  89944
+                   },
+                   {
+                       "Round":  3,
+                       "Victims":  [
+                                       62880
+                                   ],
+                       "BeforeEpoch":  3,
+                       "AfterEpoch":  4,
+                       "RecoverySeconds":  3.7297382,
+                       "RootProcessId":  89944
+                   }
+               ],
+    "RootProcessId":  89944,
+    "FailureReason":  "重新選擇主題後未恢復額度，錯誤退化至 Minimal。",
+    "Shutdown":  "NORMAL_CLOSE",
+    "ExitCode":  0
+}

@@ -85,6 +85,13 @@ bool SetWindowStyle(HWND window, LONG_PTR style) {
 } // namespace
 
 bool Win32DesktopHost::TryAttach(HWND window, DesktopAttachFailure* failure) {
+    RECT bounds{GetSystemMetrics(SM_XVIRTUALSCREEN), GetSystemMetrics(SM_YVIRTUALSCREEN),
+        GetSystemMetrics(SM_XVIRTUALSCREEN) + GetSystemMetrics(SM_CXVIRTUALSCREEN),
+        GetSystemMetrics(SM_YVIRTUALSCREEN) + GetSystemMetrics(SM_CYVIRTUALSCREEN)};
+    return TryAttach(window, bounds, failure);
+}
+
+bool Win32DesktopHost::TryAttach(HWND window, const RECT& bounds, DesktopAttachFailure* failure) {
     if (failure != nullptr) {
         *failure = DesktopAttachFailure::None;
     }
@@ -138,12 +145,14 @@ bool Win32DesktopHost::TryAttach(HWND window, DesktopAttachFailure* failure) {
     }
 
     RECT parentBounds{};
-    if (!GetClientRect(shell.wallpaperLayer, &parentBounds) ||
-        parentBounds.right - parentBounds.left < GetSystemMetrics(SM_CXSCREEN) ||
-        parentBounds.bottom - parentBounds.top < GetSystemMetrics(SM_CYSCREEN) ||
-        !SetWindowPos(window, HWND_BOTTOM, parentBounds.left, parentBounds.top,
-                      parentBounds.right - parentBounds.left,
-                      parentBounds.bottom - parentBounds.top,
+    RECT local = bounds;
+    SetLastError(ERROR_SUCCESS);
+    const auto mapped = MapWindowPoints(nullptr, shell.wallpaperLayer, reinterpret_cast<POINT*>(&local), 2);
+    if ((mapped == 0 && GetLastError() != ERROR_SUCCESS) ||
+        !GetClientRect(shell.wallpaperLayer, &parentBounds) || bounds.right <= bounds.left || bounds.bottom <= bounds.top ||
+        local.left < parentBounds.left || local.top < parentBounds.top || local.right > parentBounds.right || local.bottom > parentBounds.bottom ||
+        !SetWindowPos(window, HWND_BOTTOM, local.left, local.top,
+                      local.right - local.left, local.bottom - local.top,
                       SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_SHOWWINDOW)) {
         RestorePreview(window);
         if (failure != nullptr) {

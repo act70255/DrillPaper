@@ -134,9 +134,10 @@ try {
     Write-Output 'PASS：3 次受控 TaskbarCreated 通知後 Shell 接受圖示重註冊；不代表真正 Explorer 重啟通過。'
     if ($Desktop) {
         Send-Command 20003
-        Wait-Condition { [DrillPaperManagementProbe]::GetParent($wallpaper) -ne [IntPtr]::Zero } '桌布模式未完成附掛。'
+        Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow') | Where-Object { [DrillPaperManagementProbe]::GetParent($_) -ne [IntPtr]::Zero }).Count -gt 0 } '桌布模式未完成附掛。'
         Send-Command 20004
-        Wait-Condition { [DrillPaperManagementProbe]::GetParent($wallpaper) -eq [IntPtr]::Zero } '預覽模式未解除附掛。'
+        Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow') | Where-Object { [DrillPaperManagementProbe]::GetParent($_) -eq [IntPtr]::Zero }).Count -eq 1 } '預覽模式未建立唯一視窗。'
+        $wallpaper = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')[0]
         Write-Output 'PASS：原生命令完成桌布／預覽切換；畫面與桌面互動另行確認。'
     }
     $themeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20101)
@@ -163,6 +164,8 @@ try {
     if ($ObserveExplorerRestart) {
         Send-Command 10002
         Send-Command 20003
+        Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')).Count -gt 0 } '桌布宿主未建立。'
+        $wallpaper = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')[0]
         Wait-Condition { [DrillPaperManagementProbe]::GetParent($wallpaper) -ne [IntPtr]::Zero } '真正重啟前沒有成功附掛桌布。'
         [uint32]$shellBefore = 0
         [void][DrillPaperManagementProbe]::GetWindowThreadProcessId([DrillPaperManagementProbe]::GetShellWindow(), [ref]$shellBefore)
@@ -257,6 +260,7 @@ try {
     Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperShellNotifications')).Count -eq 1 } '重啟後沒有通知入口。'
     $notification = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperShellNotifications')[0]
     $manager = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperManagementWindow')[0]
+    Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')).Count -gt 0 } '重啟後沒有宿主視窗。'
     $wallpaper = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')[0]
     Wait-Condition { [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '重啟後未完成握手。'
     $themeList = [DrillPaperManagementProbe]::GetDlgItem($manager, 20101)

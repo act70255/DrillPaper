@@ -56,6 +56,7 @@ add_executable(DrillPaper WIN32
     src/app/main.cpp
     src/app/theme_commands.cpp
     src/platform/windows/desktop_host.cpp
+    src/platform/windows/monitor_info.cpp
     src/platform/windows/power_notifications.cpp
     src/platform/windows/management_shell.cpp
     src/monitoring/windows_metrics_collector.cpp
@@ -67,7 +68,7 @@ target_include_directories(DrillPaper PRIVATE
     "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/include"
 )
 target_compile_definitions(DrillPaper PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
-target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes desktopmonitor_settings shell32 wtsapi32 comdlg32)
+target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes desktopmonitor_settings shell32 wtsapi32 comdlg32 shcore comctl32)
 if(MSVC)
     target_compile_options(DrillPaper PRIVATE /W4 /permissive- /utf-8)
 endif()
@@ -124,6 +125,7 @@ if(BUILD_TESTING)
         tests/unit/sampling_worker_test.cpp
         tests/unit/desktop_recovery_retry_test.cpp
         tests/unit/managed_playback_test.cpp
+        tests/unit/monitor_targets_test.cpp
         tests/unit/protocol_v1_test.cpp
         src/web/protocol_v1.cpp
     )
@@ -178,6 +180,13 @@ if(BUILD_TESTING)
     endif()
     catch_discover_tests(DrillPaperWindowsHostIntegrationTests TEST_SPEC "~[shell-live]" PROPERTIES TIMEOUT 20)
     add_executable(DrillPaperParentFixture WIN32 tests/integration/parent_window_fixture.cpp)
+    add_executable(DrillPaperMonitorIntegrationTests tests/integration/monitor_info_test.cpp src/platform/windows/monitor_info.cpp)
+    target_compile_definitions(DrillPaperMonitorIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperMonitorIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain user32 shcore)
+    if(MSVC)
+        target_compile_options(DrillPaperMonitorIntegrationTests PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperMonitorIntegrationTests PROPERTIES TIMEOUT 20)
     target_compile_definitions(DrillPaperParentFixture PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
     target_link_libraries(DrillPaperParentFixture PRIVATE desktopmonitor_core user32 shell32)
     if(MSVC)

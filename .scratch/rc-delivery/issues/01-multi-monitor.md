@@ -1,6 +1,6 @@
 # 多螢幕套用管理
 
-Status: open
+Status: implemented
 Type: task
 原討論編號：1
 Blocked by: 無
@@ -22,6 +22,13 @@ Blocked by: 無
 - 留下實測螢幕配置、各目標 HWND／附掛／握手、截圖或人工結果與版本。02 再完成最終 800×600 版面。
 
 ## Comments
+
+- 2026-10-29 Codex 實作結案：從目前 HEAD `7806266` 建立 `feature/rc-01-multi-monitor`，未發現既有決策與現況衝突。技術規劃與公開 seam 先記錄於 `docs/MULTI_MONITOR.md`，再實作 QueryDisplayConfig 穩定 target ID、schema 2 原子保存、首次／舊版主屏遷移、斷線清單及 fallback、clone 去重、各區域獨立 HWND／WebView2／DPI／復原與全域命令廣播。未納入逐屏不同主題或跨屏拼接。
+- 2026-10-29 驗證：相關 CTest 25/25、Settings 5 cases／29 assertions、Runtime 目標解析 2 cases／13 assertions。先取得保存遺失、目標解析、clone 重複、超大設定、空 Preview 目標及選題復原額度的失敗證據，再修正；既有原子／損毀保護不虛構 Red。Release 相關 targets 建置成功，Standards／Spec 各自審查及複查均無未解決 finding。
+- 2026-10-29 原生自動驗證：Windows 11 26200.8737、WebView2 155.0.4283.62、兩個 1920×1080、DPI 144／96。單／雙選與取消、原設定雙屏重啟、完整矩形與 DOM viewport、各目標握手、來源／世代及單故障隔離、HTTP off→on→off、全斷線提示且不改設定、暫停／模式往返與已觀察子程序退出均 PASS（程序／協定範圍）。雙屏 fixture 父程序 crash 全部重建、單屏無通知父視窗 crash 2 次與 renderer 4 次含重新選題額度亦 PASS。EXE SHA-256 `CE7223F45B2EE7BE94E4C1EDD0F71BF107D2290C4ABA9A7E30F69D5320028774`；命令與證據見 `docs/acceptance/2026-10-29/multi-monitor/REPORT.md`。
+- 2026-10-29 NOT RUN：真正新版 Explorer、人工桌面畫面／互動、實體拔插與接回、主屏變更、負座標／不同解析度／clone 實機，以及真實電源／其他硬體／環境；依已確認指示留下 `docs/MULTI_MONITOR.md` 人工清單，不阻斷本票。完整套件、CI、打包未跑，留後續票及 09 收尾；未以單元／fixture 宣稱 GUI PASS，RC gate 保留。原持續 PID 83428 固定 a241856 副本未關閉或替換。
+- 2026-10-29 其他票範圍：02 完成最終固定 800×600 設定版面；本票先用可操作的 600×600。150% 管理 PNG 底部按鈕可見，但無 friendly name 的超長裝置路徑列會截斷，請 02 一併整理標籤資訊。其餘後續票不在本次實作範圍。
+- 2026-10-29 提交：依使用者要求，本票只 commit 一次並 push `origin/feature/rc-01-multi-monitor`，不合併 main；提交訊息由 commit-msg skill 依實際差異產生。
 
 - 2026-10-29：依使用者已指定的「選目標、每屏完整一份」建立。實作與全部驗收 NOT RUN；技術政策調查屬本票第一步。
 - 2026-10-29 決策（使用者確認）：首次啟動或舊版 settings.json（無目標欄位）遷移時，預設目標只有「主螢幕」。

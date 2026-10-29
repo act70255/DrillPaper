@@ -1,6 +1,8 @@
 #pragma once
 #include <filesystem>
 #include <string>
+#include <optional>
+#include <vector>
 
 namespace desktopmonitor::app {
 struct AppSettings {
@@ -8,6 +10,7 @@ struct AppSettings {
     bool desktop = true;
     bool smartSleep = true;
     bool allowNetwork = false;
+    std::optional<std::vector<std::string>> monitorTargets;
     bool operator==(const AppSettings&) const = default;
 };
 

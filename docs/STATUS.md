@@ -1,5 +1,19 @@
 # 開發狀態
 
+## 2026-10-29 RC 01 — 多螢幕套用管理
+
+- Date／branch／base：2026-10-29，從 HEAD `7806266` 建立 `feature/rc-01-multi-monitor`；工作樹原乾淨。票 `.scratch/rc-delivery/issues/01-multi-monitor.md` 設為 implemented，代表程式及可自動執行驗證完成，人工矩陣未宣稱通過。
+- Scope：穩定 monitorDevicePath、source clone 群組、實體幾何／逐屏 DPI；schema 2 原子保存與主屏遷移；目標草稿／取消／未連接清單；部分斷線不補位、全斷線明確提示暫用主屏不改偏好；每區域獨立 HWND／controller／重試／逾時，Preview 唯一；全域主題／網路／快照／暫停／電源／退出廣播，世代與來源隔離。調查／測試 seam／人工清單先記錄於 MULTI_MONITOR.md，與已確認決策無衝突，沒有新 ADR 或逐屏權限。
+- Files：app composition／SettingsStore、platform/windows monitor_info／desktop_host／management_shell、runtime monitor_targets、WebView2 載入／DPI／訊息隔離、CMake、相關 unit／原生 integration／PowerShell probes，及 ticket／需求／README／架構／交接與驗收文件。
+- Build／typecheck PASS：`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperTests DrillPaperSettingsTests DrillPaperMonitorIntegrationTests DrillPaperWindowsHostIntegrationTests --parallel 8`。精確相關 CTest `-R` 命令與 log 見 [報告](acceptance/2026-10-29/multi-monitor/REPORT.md)，25/25 PASS。Settings 5 cases／29 assertions、目標解析 2 cases／13 assertions；保存遺失、解析、clone、設定容量／空目標、主題重選復原均有 Red→Green，未捏造既有保護的 Red。
+- Windows 原生 PASS：Windows 11 Pro 25H2 build 26200.8737、WebView2 155.0.4283.62；兩屏 `(0,0)–(1920,1080)` DPI 144 與 `(1920,0)–(3840,1080)` DPI 96。單／雙選、取消保存、原設定重啟、獨立 HWND／完整矩形、Minimal／Dashboard 握手、JS viewport×DPR 完整覆蓋、暫停／模式、19 個已觀察子程序退出、單目標故障／跨世代拒絕及 HTTP off→on→off 與來源隔離。各 HWND／附掛／世代／截圖見報告。
+- Recovery PASS（受控）：雙屏跨程序 fixture 父視窗 crash 後全部重建；`test-desktop-host.ps1 -DestroyParent -ParentExit crash -NoRecoveryNotification -RecoveryCycles 2` 單屏無通知復原；`test-renderer-recovery.ps1 -Crashes 4 -ReselectBeforeFinal` 選題額度重設與新握手。不是 Explorer 重啟或人工畫面證據。
+- Management／security PASS：`test-management-shell.ps1 -Desktop` 與 `test-webview2-security.ps1` 完成相關回歸；150% 管理 PNG 已檢視，底部按鈕可見。既有 HTTP／HTTPS／來源儲存／worker／導覽復原／WebRTC／preconnect 等僅聲明腳本所列範圍，不宣稱完整沙箱。受測 EXE hash `CE7223F45B2EE7BE94E4C1EDD0F71BF107D2290C4ABA9A7E30F69D5320028774`，最終結果 JSON hash 一致。
+- Review：依 code-review skill 做 Standards／Spec 平行審查，修正管理視窗過高、重選主題額度、設定讀寫容量不一致及錯誤轉碼等；兩軸複查未解決 finding 0。開發中另校正測試的智慧休眠前提、宿主建立等待及主題顯示名稱 oracle，失敗不算 PASS。
+- NOT RUN／blockers：真正新版 Explorer、人工桌面畫面與完整圖示／工作列／系統匣操作、實體拔插／接回、主屏變更、負座標／不同解析度／clone／其他 DPI／Windows；依使用者指示附人工清單後留待後續，未重啟 Explorer。真實電源／NVIDIA／乾淨環境／長時間效能及完整安全矩陣另票處理。完整測試套件留 09 收尾，CI／打包 NOT RUN；本票不產 ZIP、不合併 main、不解除 RC gate。
+- Next：02 最終固定 800×600 設定版面；本票暫用 600×600，超長裝置路徑列截斷記入本票 Comments 供 02 處理。原持續桌布 83428 固定 a241856 副本未關閉／替換，測試程序已退出。
+- Commit：`feat(monitors): 新增多螢幕目標管理與獨立桌布宿主`；本票完成後依 commit-msg skill 產生，僅 commit 一次並 push `origin/feature/rc-01-multi-monitor`。
+
 ## 2026-10-29 建立剩餘工作 9 張 tickets — 先試用打包再補驗收
 
 - Scope：使用者指示「建立ticket」，依已確認順序 1 → 2 → 7A → 3～6 → 7B → 8 建立 .scratch/rc-delivery/spec.md 與 issues/01～09。每票列出範圍、前置依賴、驗收與 Comments，初始 open；保留多螢幕既有 spec 並連結唯一實作票。

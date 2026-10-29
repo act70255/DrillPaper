@@ -25,6 +25,7 @@ inline constexpr UINT kManageImport = 20014;
 inline constexpr UINT kManageRemove = 20015;
 inline constexpr UINT kManageRefresh = 20016;
 struct ManagementTheme { std::string key; std::wstring label; bool builtin = false; };
+struct ManagementMonitor { std::string id; std::wstring label; };
 
 class ManagementShell final {
 public:
@@ -71,6 +72,11 @@ public:
      *     settings: 目前有效設定。
      */
     void SetPreferences(const app::AppSettings& settings);
+    /** 更新螢幕清單並保留尚未套用的選擇。
+     * Args:
+     *     monitors: 目前連接與有效設定中未連接的螢幕。
+     */
+    void SetMonitors(std::vector<ManagementMonitor> monitors);
     /** 讀取使用者草稿，不套用或保存。
      * Returns:
      *     草稿設定。
@@ -128,6 +134,7 @@ private:
     bool present_ = false;
     bool version4_ = false;
     std::vector<ManagementTheme> themes_;
+    std::vector<ManagementMonitor> monitors_;
     app::AppSettings preferences_;
 };
 

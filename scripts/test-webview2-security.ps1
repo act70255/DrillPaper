@@ -121,7 +121,7 @@ function Test-NavigationRecovery {
         $caption = [Text.StringBuilder]::new(512)
         [void][SecurityProbe]::GetWindowText($wallpaper, $caption, $caption.Capacity)
         [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -ge ($before + 2) -and
-            ($caption.ToString().Contains('security-z-navigation') -or $caption.ToString().Contains('minimal'))
+            ($caption.ToString().Contains('導覽復原驗證') -or $caption.ToString().IndexOf('minimal', [StringComparison]::OrdinalIgnoreCase) -ge 0)
     } '外部導覽雖遭封鎖，但原頁面未繼續且沒有回復可信主題。'
 }
 $session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N'))))
@@ -171,7 +171,7 @@ try {
     $import.Dispose()
     $navigationSource = Join-Path $session 'navigation-source'
     Copy-Item -LiteralPath $source -Destination $navigationSource -Recurse
-    $manifest = [IO.File]::ReadAllText((Join-Path $source 'theme.json')).Replace('security-probe', 'security-z-navigation')
+    $manifest = [IO.File]::ReadAllText((Join-Path $source 'theme.json')).Replace('security-probe', 'security-z-navigation').Replace('安全驗證', '導覽復原驗證')
     [IO.File]::WriteAllText((Join-Path $navigationSource 'theme.json'), $manifest, [Text.UTF8Encoding]::new($false))
     $navigationProbe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-navigation.js')).Replace('__BASE__', "http://127.0.0.1:$port")
     [IO.File]::WriteAllText((Join-Path $navigationSource 'main.js'), $navigationProbe, [Text.UTF8Encoding]::new($false))
@@ -185,6 +185,7 @@ try {
     Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '缺少管理命令入口。'
     $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
     $manager = [SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow')
+    Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow') -ne [IntPtr]::Zero } '缺少初始宿主。'
     $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '初始主題未就緒。'
     $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
@@ -245,6 +246,7 @@ try {
             Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '重啟後沒有管理入口。'
             $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
             $manager = [SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow')
+            Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow') -ne [IntPtr]::Zero } '重啟後缺少宿主。'
             $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
             $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
             Wait-Security { Test-ProbeComplete 0 } '重啟沒有恢復已允許的網路政策。'

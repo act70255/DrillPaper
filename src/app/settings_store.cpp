@@ -5,6 +5,7 @@
 #include <fstream>
 #include <regex>
 #include <stdexcept>
+#include <algorithm>
 
 namespace desktopmonitor::app {
 namespace {
@@ -39,6 +40,18 @@ void Validate(const AppSettings& settings) {
     static const std::regex theme(R"((minimal|dashboard|[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?@(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?))");
     if (settings.theme.size() > 240 || !std::regex_match(settings.theme, theme))
         throw std::runtime_error("設定中的主題識別不合法。");
+    if (settings.monitorTargets) {
+        const auto& targets = *settings.monitorTargets;
+        if (targets.size() > 64 || targets.empty())
+            throw std::runtime_error("桌布至少需選擇一個螢幕，且目標不可超過 64 個。");
+        for (std::size_t index = 0; index < targets.size(); ++index) {
+            const auto& id = targets[index];
+            if (id.empty() || id.size() > 2048 || id.find_first_of("\r\n\t") != std::string::npos ||
+                id.find('\0') != std::string::npos ||
+                std::find(targets.begin(), targets.begin() + index, id) != targets.begin() + index)
+                throw std::runtime_error("螢幕目標識別不合法或重複。");
+        }
+    }
 }
 }
 
@@ -50,7 +63,8 @@ AppSettings SettingsStore::Load() const {
         std::ifstream stream(file_, std::ios::binary);
         if (!stream) throw std::runtime_error("無法開啟設定檔。");
         const auto json = nlohmann::json::parse(stream);
-        if (!json.is_object() || !json.at("schemaVersion").is_number_integer() || json.at("schemaVersion") != 1 ||
+        if (!json.is_object() || !json.at("schemaVersion").is_number_integer() ||
+            (json.at("schemaVersion") != 1 && json.at("schemaVersion") != 2) ||
             !json.at("theme").is_string() || !json.at("displayMode").is_string() ||
             !json.at("smartSleep").is_boolean() || !json.at("allowNetwork").is_boolean())
             throw std::runtime_error("設定檔版本或欄位不合法。");
@@ -58,6 +72,11 @@ AppSettings SettingsStore::Load() const {
         if (mode != "desktop" && mode != "preview") throw std::runtime_error("設定的顯示模式不合法。");
         AppSettings result{json.at("theme").get<std::string>(), mode == "desktop",
             json.at("smartSleep").get<bool>(), json.at("allowNetwork").get<bool>()};
+        if (json.at("schemaVersion") == 2) {
+            const auto& targets = json.at("monitorTargets");
+            if (!targets.is_array()) throw std::runtime_error("螢幕目標欄位必須是陣列。");
+            result.monitorTargets = targets.get<std::vector<std::string>>();
+        }
         Validate(result);
         return result;
     } catch (const nlohmann::json::exception&) {
@@ -67,12 +86,15 @@ AppSettings SettingsStore::Load() const {
 
 void SettingsStore::Save(const AppSettings& settings) const {
     Validate(settings);
+    if (!settings.monitorTargets) throw std::runtime_error("尚未解析首次或舊版設定的主螢幕目標，未保存設定。");
     // 已存在的損毀設定必須明確處理，不能在保存時靜默覆蓋。
     Load();
-    const nlohmann::json json{{"schemaVersion", 1}, {"theme", settings.theme},
+    const nlohmann::json json{{"schemaVersion", 2}, {"theme", settings.theme},
+        {"monitorTargets", *settings.monitorTargets},
         {"displayMode", settings.desktop ? "desktop" : "preview"},
         {"smartSleep", settings.smartSleep}, {"allowNetwork", settings.allowNetwork}};
     const auto bytes = json.dump(2) + "\n";
+    if (bytes.size() > 65536) throw std::runtime_error("設定內容超過 64 KiB，未取代原設定。");
     std::filesystem::create_directories(file_.parent_path());
     ValidateLocation(file_);
     GUID guid{};
