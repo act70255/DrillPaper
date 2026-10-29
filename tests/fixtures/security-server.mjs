@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import net from 'node:net';
 
 const directory = process.argv[2];
 /** 記錄測試伺服器實際收到的請求。
@@ -10,6 +11,12 @@ const directory = process.argv[2];
 function record(event) {
   fs.appendFileSync(path.join(directory, 'requests.jsonl'), `${JSON.stringify(event)}\n`);
 }
+// 以 TCP 接收端觀察 WSS 是否進入 TLS 連線，避免把憑證拒絕誤當 CSP 封鎖。
+const secureProbe = net.createServer(socket => {
+  fs.appendFileSync(path.join(directory, 'secure-connections.jsonl'), '{"connection":true}\n');
+  socket.destroy();
+});
+await new Promise(resolve => secureProbe.listen(0, '127.0.0.1', resolve));
 const server = http.createServer((request, response) => {
   record({ method: request.method, url: request.url });
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,5 +40,5 @@ server.on('upgrade', (request, socket) => {
   socket.destroy();
 });
 server.listen(0, '127.0.0.1', () => {
-  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port }));
+  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port }));
 });

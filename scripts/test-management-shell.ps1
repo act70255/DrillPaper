@@ -1,5 +1,6 @@
 ﻿[CmdletBinding()]
-param([Parameter(Mandatory)][string]$ApplicationPath, [switch]$Desktop)
+param([Parameter(Mandatory)][string]$ApplicationPath, [switch]$Desktop,
+    [switch]$ObserveExplorerRestart, [ValidateRange(30, 900)][int]$ObservationSeconds = 120)
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
@@ -15,7 +16,8 @@ public static class DrillPaperManagementProbe {
     private delegate bool Callback(IntPtr window, IntPtr data);
     [DllImport("user32.dll")] private static extern bool EnumWindows(Callback cb, IntPtr data);
     [DllImport("user32.dll")] private static extern bool EnumChildWindows(IntPtr parent, Callback cb, IntPtr data);
-    [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
+    [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
+    [DllImport("user32.dll")] public static extern IntPtr GetShellWindow();
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder text, int length);
     [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr window);
     [DllImport("user32.dll")] public static extern IntPtr GetParent(IntPtr window);
@@ -156,6 +158,49 @@ try {
         (Get-FileHash -LiteralPath $settingsFile).Hash -ne $savedHash) { throw '取消未還原草稿或改寫了偏好。' }
     Write-Output 'PASS：可信設定控制項套用／保存、主題新握手與取消不改寫偏好。'
     [DrillPaperManagementProbe]::Capture($app.Id, $manager, [IO.Path]::GetFullPath((Join-Path $session 'management.png')))
+    $actualExplorer = $null
+    if ($ObserveExplorerRestart) {
+        Send-Command 10002
+        Send-Command 20003
+        Wait-Condition { [DrillPaperManagementProbe]::GetParent($wallpaper) -ne [IntPtr]::Zero } '真正重啟前沒有成功附掛桌布。'
+        [uint32]$shellBefore = 0
+        [void][DrillPaperManagementProbe]::GetWindowThreadProcessId([DrillPaperManagementProbe]::GetShellWindow(), [ref]$shellBefore)
+        $readyBefore = [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
+        $desktopBefore = [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.DesktopEpoch').ToInt64()
+        @{appId=$app.Id; shellId=$shellBefore; wallpaper=$wallpaper.ToInt64(); ready=$readyBefore; desktop=$desktopBefore} |
+            ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'explorer-before.json') -Encoding UTF8
+        Write-Output "新版管理桌布真正 Explorer 觀測已就緒：$session；PID=$($app.Id)，Shell=$shellBefore。"
+        $deadline = [DateTime]::UtcNow.AddSeconds($ObservationSeconds)
+        do {
+            if ($app.HasExited) { throw '真正 Explorer 觀測期間 app 提前退出。' }
+            [uint32]$shellAfter = 0
+            [void][DrillPaperManagementProbe]::GetWindowThreadProcessId([DrillPaperManagementProbe]::GetShellWindow(), [ref]$shellAfter)
+            $windows = @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow'))
+            if ($shellAfter -ne 0 -and $shellAfter -ne $shellBefore -and $windows.Count -eq 1) {
+                $candidate = $windows[0]
+                [uint32]$parentOwner = 0
+                [void][DrillPaperManagementProbe]::GetWindowThreadProcessId([DrillPaperManagementProbe]::GetParent($candidate), [ref]$parentOwner)
+                if ($parentOwner -eq $shellAfter -and
+                    [DrillPaperManagementProbe]::GetProp($candidate, 'DrillPaper.ReadyEpoch').ToInt64() -gt $readyBefore -and
+                    [DrillPaperManagementProbe]::GetProp($candidate, 'DrillPaper.DesktopEpoch').ToInt64() -gt $desktopBefore -and
+                    [DrillPaperManagementProbe]::GetProp($notification, 'DrillPaper.TrayRegistered').ToInt64() -eq 1) {
+                    $wallpaper = $candidate
+                    $tickBefore = [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.MetricsTick').ToInt64()
+                    Wait-Condition { [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.MetricsTick').ToInt64() -gt $tickBefore } '真正重啟後沒有新的指標。'
+                    $actualExplorer = @{appId=$app.Id; shellBefore=$shellBefore; shellAfter=$shellAfter; parentOwner=$parentOwner;
+                        window=$wallpaper.ToInt64(); ready=[DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64();
+                        desktop=[DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.DesktopEpoch').ToInt64();
+                        metrics=[DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.MetricsTick').ToInt64();
+                        trayRegistered=1; visual='NOT RUN'; actualTrayClick='NOT RUN'}
+                    $actualExplorer | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'explorer-after.json') -Encoding UTF8
+                    Write-Output 'PASS：真正 Shell PID 改變，新管理桌布完成新附掛／握手／指標，系統匣重新註冊。'
+                    break
+                }
+            }
+            Start-Sleep -Milliseconds 200
+        } while ([DateTime]::UtcNow -lt $deadline)
+        if (-not $actualExplorer) { throw '期限內沒有觀察到新版真正 Explorer 復原。' }
+    }
     $all = @(Get-CimInstance Win32_Process)
     $parents = [Collections.Generic.HashSet[int]]::new()
     [void]$parents.Add($app.Id)
@@ -194,7 +239,7 @@ try {
     if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '重啟驗證程序無法正常退出。' }
     Write-Output 'PASS：重啟恢復主題／模式／智慧休眠，未自動改寫設定。'
     @{ result='PASS'; application=$application; appId=$app.Id; manager=$manager.ToInt64();
-        observedChildren=@($observed); realExplorerRestart='NOT RUN'; visibleTrayClick='NOT RUN'; timestamp=(Get-Date -Format o) } |
+        observedChildren=@($observed); realExplorerRestart=$(if ($actualExplorer) { $actualExplorer } else { 'NOT RUN' }); visibleTrayClick='NOT RUN'; timestamp=(Get-Date -Format o) } |
         ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：正式退出及已觀察子程序清理；紀錄：$session"
 } finally {

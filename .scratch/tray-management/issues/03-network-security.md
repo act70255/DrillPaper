@@ -4,7 +4,7 @@ Status: in-progress
 
 ## Scope
 
-完整三階段 spec 已由使用者確認。本階段尚未開始：將全域 HTTP／HTTPS 開關實際接入 WebView2 host，預設拒絕、首次封鎖提示不自動允許；其他 scheme、來源／導覽、CSP、權限、下載與彈窗邊界分別落實。完成真實 WebView2 負面驗證後才提供可用開關，不能只接設定模型。
+完整三階段 spec 已由使用者確認。全域 HTTP／HTTPS 開關已實際接入 WebView2 host，預設拒絕、首次封鎖提示不自動允許；其他 scheme、來源／導覽、CSP、權限、下載與彈窗分別限制。指定真實 WebView2 負面測試已執行，仍需完成下列驗收收尾；不可宣稱完整沙箱。
 
 ## Acceptance
 
@@ -14,6 +14,8 @@ Status: in-progress
 - 全部完成後完整回歸、文件與 STATUS，再依 commit-msg skill commit＋push；RC 阻擋仍依原驗收矩陣，不移除 gate。
 
 ## Comments
+
+- 2026-10-29 續驗：補上獨立啟動略過全域偏好的 Red→Green、WS／WSS 真實負面、移除真實 junction 12 斷言、完整本機回歸 CTest 33/33／SDK 18/18。3871e72 真正 Explorer 的原生復原與圖示重註冊通過，像素仍 NOT RUN。Computer Use pipe 故障，真正點擊／匯入／移除等待人工回報；本票維持 in-progress，遠端 CI 接續觸發。詳見 FOLLOWUP.md。
 
 - 2026-10-29 續作：已核對 727be56、乾淨工作樹及持續桌布 PID 83428 的固定副本路徑，未關閉或替換。首次提示／HTTP 開關紅綠測試已執行；WebSocket 負面案例重現攔截缺口後，改用宿主 CSP 資產回應，決策見 `docs/adr/0001-host-controlled-theme-responses.md`。其餘驗證進行中。
 - 2026-10-29：網路功能及指定真實 WebView2 負面測試通過，含取消／保存／重啟；相關管理與 Dashboard smoke 通過，詳見 PHASE3.md／STATUS。階段 3 實作先提交推送；本票保持 in-progress，繼續補原生互動、junction、完整回歸與 CI。未驗證的完整 egress／WebRTC 等仍保留 A12 gate。

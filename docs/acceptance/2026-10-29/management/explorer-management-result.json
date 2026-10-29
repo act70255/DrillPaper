@@ -1,0 +1,30 @@
+﻿{
+    "timestamp":  "2026-10-29T14:41:33.2936680+08:00",
+    "manager":  6034674,
+    "visibleTrayClick":  "NOT RUN",
+    "result":  "PASS",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+    "appId":  57436,
+    "observedChildren":  [
+                             64184,
+                             2616,
+                             77492,
+                             90216,
+                             63172,
+                             82424,
+                             91812
+                         ],
+    "realExplorerRestart":  {
+                                "metrics":  1488777171,
+                                "ready":  4,
+                                "appId":  56892,
+                                "parentOwner":  98068,
+                                "desktop":  3,
+                                "trayRegistered":  1,
+                                "actualTrayClick":  "NOT RUN",
+                                "visual":  "NOT RUN",
+                                "shellBefore":  50496,
+                                "window":  6884182,
+                                "shellAfter":  98068
+                            }
+}

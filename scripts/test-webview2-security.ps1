@@ -62,7 +62,9 @@ function Stop-SecurityApp {
             if ($tree.Contains([int]$process.ParentProcessId) -and $tree.Add([int]$process.ProcessId)) { $added = $true }
         }
     } while ($added)
-    [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+    if ($manager -ne [IntPtr]::Zero) {
+        [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+    } else { [void][SecurityProbe]::PostMessage($wallpaper, 0x10, [UIntPtr]::Zero, [IntPtr]::Zero) }
     if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '安全測試程序未正常退出 0。' }
     foreach ($childId in $tree) {
         if ($childId -eq $app.Id) { continue }
@@ -85,8 +87,15 @@ try {
         if ($server.HasExited -or $serverClock.Elapsed.TotalSeconds -gt 10) { throw '無法啟動隔離的網路測試伺服器。' }
         Start-Sleep -Milliseconds 100
     }
-    $port = (Get-Content -Raw -LiteralPath (Join-Path $session 'server.json') | ConvertFrom-Json).port
-    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port")
+    $serverConfig = Get-Content -Raw -LiteralPath (Join-Path $session 'server.json') | ConvertFrom-Json
+    $port = $serverConfig.port
+    $securePort = $serverConfig.securePort
+    $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $securePort)
+    $control.Dispose()
+    Start-Sleep -Milliseconds 200
+    $secureLog = Join-Path $session 'secure-connections.jsonl'
+    if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 連線接收端的正向控制未通過。' }
+    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket")
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
     '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
     '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
@@ -140,10 +149,14 @@ try {
             }
         }
         if ($enabled) {
+          foreach ($mode in @('standalone', 'managed')) {
             $children = @(Stop-SecurityApp)
             $app.Dispose()
             $env:LOCALAPPDATA = Join-Path $session 'appdata'
-            $app = Start-Process -FilePath $application -ArgumentList '--management','--mock-metrics','--no-smart-sleep' -WindowStyle Hidden -PassThru
+            $arguments = @('--mock-metrics','--no-smart-sleep')
+            if ($mode -eq 'managed') { $arguments += '--management' } else { $arguments += '--preview' }
+            $requestBeforeRestart = @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count
+            $app = Start-Process -FilePath $application -ArgumentList $arguments -WindowStyle Hidden -PassThru
             $handle = $app.Handle
             $env:LOCALAPPDATA = $previousLocal
             Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '重啟後沒有管理入口。'
@@ -152,10 +165,13 @@ try {
             $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
             $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
             Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '重啟沒有恢復已允許的網路政策。'
-            if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 1) { throw '重啟沒有恢復已保存的網路開關。' }
+            if (@(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count -le $requestBeforeRestart) { throw "重啟模式 $mode 略過已保存的主題或全域網路偏好。" }
+            if ($mode -eq 'managed' -and [SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 1) { throw '重啟沒有恢復已保存的網路開關。' }
+          }
         }
     }
     $children = @(Stop-SecurityApp)
+    if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 在設定切換或重啟期間仍嘗試 TCP／TLS 連線。' }
     @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"
 } finally {
@@ -163,7 +179,9 @@ try {
     if ($app) {
         if (-not $app.HasExited) {
             $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
-            [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+            if ([SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow') -ne [IntPtr]::Zero) {
+                [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+            } else { [void][SecurityProbe]::PostMessage([SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow'), 0x10, [UIntPtr]::Zero, [IntPtr]::Zero) }
             if (-not $app.WaitForExit(10000)) { $app.Kill() }
         }
         $app.Dispose()

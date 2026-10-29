@@ -784,11 +784,9 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     gMockMetrics = HasFlag(commandLine, L"--mock-metrics");
     gSmartSleep = !HasFlag(commandLine, L"--no-smart-sleep");
     try {
-        if (gManaged) {
-            gSettingsStore = std::make_unique<desktopmonitor::app::SettingsStore>(
-                desktopmonitor::app::ThemeStoreDirectory().parent_path() / L"settings.json");
-            gSettings = gSettingsStore->Load();
-        } else gSettings.desktop = false;
+        gSettingsStore = std::make_unique<desktopmonitor::app::SettingsStore>(
+            desktopmonitor::app::ThemeStoreDirectory().parent_path() / L"settings.json");
+        gSettings = gSettingsStore->Load();
         if (forcePreview || gMockMetrics) gSettings.desktop = false;
         if (HasFlag(commandLine, L"--experimental-desktop") && !forcePreview && !gMockMetrics) gSettings.desktop = true;
         if (HasFlag(commandLine, L"--no-smart-sleep")) gSettings.smartSleep = false;

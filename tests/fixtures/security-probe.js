@@ -45,12 +45,14 @@ const redirected = await fetch(base + '/redirect').then(r => r.text(), () => 'bl
 check(redirected === (enabled ? 'fixture-ok' : 'blocked'), 'HTTP redirect 政策錯誤');
 const fileRedirect = await fetch(base + '/redirect-file').then(() => true, () => false);
 check(!fileRedirect, 'redirect 讀取 file scheme');
-await new Promise(resolve => {
-  const socket = new WebSocket(base.replace('http:', 'ws:') + '/socket');
-  socket.onopen = () => { socket.close(); resolve(); };
-  socket.onerror = resolve;
-  setTimeout(resolve, 2000);
-});
+for (const endpoint of [base.replace('http:', 'ws:') + '/socket', '__WSS__']) {
+  await new Promise(resolve => {
+    const socket = new WebSocket(endpoint);
+    socket.onopen = () => { socket.close(); resolve(); };
+    socket.onerror = resolve;
+    setTimeout(resolve, 2000);
+  });
+}
 await load('iframe', '/iframe');
 check(window.open(base + '/popup') === null, '彈窗未拒絕');
 check(await Notification.requestPermission() === 'denied', '通知權限未拒絕');

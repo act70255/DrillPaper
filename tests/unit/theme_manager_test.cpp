@@ -6,8 +6,51 @@
 #include <vector>
 #include <miniz.h>
 #include "desktopmonitor/themes/theme_manager.h"
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+#include <winioctl.h>
+#include <cstring>
 
 namespace {
+struct JunctionFixture {
+    std::filesystem::path link;
+    /** 建立本測試專屬的 NTFS junction，不需要符號連結權限。
+     * Args:
+     *     path: 尚不存在的連結目錄。
+     *     destination: 本測試擁有的外部目錄。
+     */
+    JunctionFixture(std::filesystem::path path, const std::filesystem::path& destination) : link(std::move(path)) {
+        std::filesystem::create_directories(link);
+        HANDLE handle = CreateFileW(link.c_str(), GENERIC_WRITE, 0, nullptr, OPEN_EXISTING,
+            FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS, nullptr);
+        if (handle == INVALID_HANDLE_VALUE) throw std::runtime_error("無法開啟測試 junction。");
+        struct MountPoint {
+            DWORD tag;
+            WORD length, reserved, substituteOffset, substituteLength, printOffset, printLength;
+            wchar_t paths[4096];
+        } data{};
+        const auto print = std::filesystem::absolute(destination).wstring();
+        const auto substitute = L"\\??\\" + print;
+        if (substitute.size() + print.size() + 2 > std::size(data.paths)) {
+            CloseHandle(handle);
+            throw std::runtime_error("測試 junction 路徑太長。");
+        }
+        data.tag = IO_REPARSE_TAG_MOUNT_POINT;
+        data.substituteLength = static_cast<WORD>(substitute.size() * sizeof(wchar_t));
+        data.printOffset = data.substituteLength + sizeof(wchar_t);
+        data.printLength = static_cast<WORD>(print.size() * sizeof(wchar_t));
+        data.length = static_cast<WORD>(8 + data.printOffset + data.printLength + sizeof(wchar_t));
+        std::memcpy(data.paths, substitute.c_str(), data.substituteLength + sizeof(wchar_t));
+        std::memcpy(reinterpret_cast<BYTE*>(data.paths) + data.printOffset, print.c_str(), data.printLength + sizeof(wchar_t));
+        DWORD returned = 0;
+        const bool created = DeviceIoControl(handle, FSCTL_SET_REPARSE_POINT, &data, data.length + 8, nullptr, 0, &returned, nullptr) != FALSE;
+        CloseHandle(handle);
+        if (!created) throw std::runtime_error("無法建立真正的測試 junction。");
+    }
+    /** 只移除 junction 本身，保留目標內容，避免測試清理穿越。 */
+    ~JunctionFixture() { RemoveDirectoryW(link.c_str()); }
+};
 struct ThemeFixture {
     std::filesystem::path root = std::filesystem::temp_directory_path() /
         ("DrillPaperThemeTest-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
@@ -77,6 +120,33 @@ TEST_CASE("Only the selected installed theme version can be removed", "[themes][
     REQUIRE(std::filesystem::exists(fixture.root / "source/index.html"));
     REQUIRE_THROWS(manager.Remove("../source", "1.0.0"));
     REQUIRE_THROWS(manager.Remove("minimal", "1.0.0"));
+}
+
+TEST_CASE("Removal rejects real junctions and preserves their external targets", "[themes][remove][junction]") {
+    ThemeFixture fixture;
+    const auto outside = fixture.root / "outside";
+    const auto externalTheme = outside / "test-theme@1.0.0";
+    std::filesystem::create_directories(outside);
+    std::filesystem::copy(fixture.root / "source", externalTheme, std::filesystem::copy_options::recursive);
+    std::ofstream(outside / "keep.js") << "外部資料必須保留";
+    desktopmonitor::themes::ThemeManager manager(fixture.root / "installed");
+    auto link = fixture.root / "installed";
+    auto destination = outside;
+    SECTION("installation root junction") {}
+    SECTION("selected version junction") {
+        std::filesystem::create_directory(link);
+        link /= "test-theme@1.0.0";
+        destination = externalTheme;
+    }
+    SECTION("nested asset junction") {
+        const auto installed = manager.Install(fixture.Package());
+        link = installed.directory / "assets";
+    }
+    JunctionFixture junction(link, destination);
+    REQUIRE((GetFileAttributesW(link.c_str()) & FILE_ATTRIBUTE_REPARSE_POINT) != 0);
+    REQUIRE_THROWS(manager.Remove("test-theme", "1.0.0"));
+    REQUIRE(std::filesystem::is_regular_file(externalTheme / "index.html"));
+    REQUIRE(std::filesystem::is_regular_file(outside / "keep.js"));
 }
 
 TEST_CASE("DMT rejection preserves the installation boundary", "[themes][zip][security]") {

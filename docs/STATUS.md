@@ -1,5 +1,17 @@
 # 開發狀態
 
+## 2026-10-29 管理續驗 — 獨立啟動全域偏好、junction 與真正 Explorer
+
+- Scope：補足管理功能收尾，發現獨立 `--preview` 不讀保存偏好，先以真實 WebView2 重啟測試重現 FAIL，再讓全部 GUI 啟動先讀 SettingsStore、其後套 CLI 暫時覆寫，啟動不寫回。其他 ticket／發行功能未納入。
+- PASS：最終 Release app 建置，hash `746878782C24CF798CA3B9A84F708607994B11FC5B06A87C57DA07A77F2C2A67`；安全整合 off→on→off、管理／獨立重啟、WS／WSS（含獨立 TCP 正向控制）及原有負面案例。最新 session security-d9c5ad6d554f44eba85bb5a87c1ae9f7。
+- PASS：真正 NTFS junction 的移除拒絕：root／版本／巢狀資產，12 斷言且外部目標保留；ThemeManager 共 10 案例／87 斷言。產品既有防護通過，沒有虛構 Red。
+- PASS（3871e72 的原生程序／bridge）：實際 Explorer 50496→98068；同一管理 app 56892，新 HWND、DesktopEpoch 2→3、ReadyEpoch 2→4、新指標及 TrayRegistered=1。正常退出及已觀察子程序清理通過。沒有把此結果外推至畫面或真正圖示點擊。
+- 持續桌布：PID 83428 仍為原固定 a241856 路徑；新 parent 為 Shell 98068，ReadyEpoch=3，兩秒 metrics tick 1488842593→1488844625。未關閉或替換；舊 A04 人工 PASS 保留。
+- PASS：最終 `test.ps1 -Configuration Release`，CTest 33/33（22.33 秒）、SDK 18/18，其他環境／採樣／封裝／負面 oracle 全通過。3871e72 另通過 1 次 runtime＋50 次快速往返、自訂入口 renderer crash 3 次、100 次主題切換與管理 150% PNG 檢視。最後 CLI 偏好修正不冒稱重跑這些舊 hash 情境。
+- NOT RUN：真正圖示點擊、檔案選擇／移除確認、新版 Explorer 像素人工結論、完整鍵盤／DPI。Computer Use 原生 pipe 缺失（os error 2），已準備隔離固定副本 PID 100000 與 .dmt 並請使用者回報；尚無結果。完整 egress／WebRTC 等及 RC gate 照舊保留。
+- CI：NOT RUN，須先推送本次程式與測試提交才能觸發對應版本，接續執行 workflow_dispatch。證據、命令、hash 界線見 [FOLLOWUP.md](acceptance/2026-10-29/management/FOLLOWUP.md)。
+- Commit：`fix(settings): 讓獨立啟動沿用全域偏好`，完成本機檢查後立即 commit＋push feature/tray-management；不合併 main。
+
 ## 2026-10-29 管理介面階段 3 — 真實網路控制與安全負面整合
 
 - Scope：全域 HTTP／HTTPS 草稿、套用／取消與保存／重啟接入 WebView2；首次封鎖只提醒前往原生設定。每次載入 GUID HTTPS 來源改由宿主回應強制 CSP，保留離線且不啟動 HTTP server；ADR 0001 記錄替代 folder mapping 的原因。外部導覽、框架、worker／WebSocket、下載、權限及彈窗各自拒絕。
