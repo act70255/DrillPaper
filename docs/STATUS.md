@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-29 安全續驗 — 失敗導覽回復與擴充矩陣
+
+- Scope／Red→Green：worker 遭拒後外部頂層導覽雖無流量，WebView2 卻提交 chrome-error 空白頁。獨立 security-z-navigation 先訂閱、導覽、再次訂閱，舊 DF658C… 固定副本精確 FAIL。改監聽失敗 NavigationCompleted 與實際 Source，以載入世代通知 app 切回可信 Minimal，不寫回保存偏好；Minimal 自身失敗則停止 renderer，保留管理與友善錯誤，避免迴圈。詳見 ADR 0004。
+- PASS：Release app build；同一獨立導覽案例於網路 off→on→off 通過，原頁面繼續或可信 Minimal 完成新訂閱，navigate endpoint 無收件。hash `8AACD05B50BEDF89E2F191B14986E3A1AB380A60B075C0CA5097DDAE539176D1`，session security-ddad2d5848c94edfb672e3d87d1ff809。
+- PASS（相同實機腳本）：IndexedDB／Cache Storage 各有當前來源讀寫正向控制且後續載入不重用；host-only Cookie／父網域 Cookie／localStorage／sessionStorage；Dedicated／Shared／ServiceWorker 明確拒絕；camera／microphone 查詢為 denied。STUN UDP 與 TURN-TCP／WSS 的接收端僅原生控制各一筆，無主題收件。HTTP／HTTPS、其他既有負面、管理／獨立重啟仍通過。不把權限狀態查詢推論為所有設備 API 已測。
+- 診斷：先後排除只要求例外、頂層 await／worker 清理等測試假設；NavigationStarting 後額外 Stop 無效，已撤回。隔離 CDP 實際讀到 chrome-error Frame（暫態 Stop 嘗試 hash FB7418…）；未在原桌布開啟偵錯。原始過程在 artifacts/acceptance/expanded-*，navigation-error-frame.jsonl 與精確 Red／Green／封包及請求證據已保存。
+- 測試判斷另核對實際探針主題，防止 Minimal fallback 冒充資源案例成功；資源與導覽分為兩個真實匯入主題，導覽允許原頁面存活或立即安全回復。
+- NOT RUN：完整 DNS／preconnect／推測連線、TURN-UDP／TLS／其他 Runtime、舊頁面訊息競態、完整權限／scheme 與整體 RC。管理／Explorer、完整回歸與本版 CI 接續執行；d3a24dc 的 CI 40837047952 已成功，但不代替本次修正。原持續桌布 83428 路徑未變。
+- Commit：`fix(web): 復原遭政策拒絕的頂層導覽`；依 commit-msg skill 產生後立即 commit＋push。
+
 ## 2026-10-29 剩餘安全驗收 — WebRTC/STUN 缺口修正
 
 - Red→Green：新增真實 RTCPeerConnection data channel／ICE，舊 F0238D… 固定副本在網路關閉時收到三筆 STUN UDP（20 bytes、magic cookie 符合），精確失敗於「預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包」。不需音訊／視訊，也不由權限拒絕推論網路封鎖。

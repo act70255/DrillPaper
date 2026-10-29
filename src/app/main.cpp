@@ -42,6 +42,7 @@ constexpr UINT kSnapshotReadyMessage = WM_APP + 0x34;
 constexpr UINT kSamplingFailedMessage = WM_APP + 0x35;
 constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
 constexpr UINT kRendererFailedMessage = WM_APP + 0x38;
+constexpr UINT kNavigationFailedMessage = WM_APP + 0x42;
 constexpr wchar_t kApplicationVersion[] = L"0.1.0-dev";
 const wchar_t* gStatusText = L"Starting the local WebView2 preview…";
 desktopmonitor::platform::windows::Win32DesktopHost* gDesktopHost = nullptr;
@@ -590,6 +591,23 @@ HWND CreatePreviewWindow(HINSTANCE instance) {
 
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
+    case kNavigationFailedMessage:
+        if (gWebViewHost && gWebViewHost->LoadEpoch() == static_cast<unsigned long long>(wParam)) {
+            try {
+                if (gCurrentThemeKey == "minimal" || !SwitchBuiltinTheme(L"minimal"))
+                    throw std::runtime_error("無法載入可信的復原主題。");
+                gThemeFallbackAttempted = true;
+                gManagementNotice = L"主題導覽遭安全政策拒絕，已回復 Minimal；保存的偏好未變更。";
+            } catch (const std::exception& error) {
+                OutputDebugStringA(error.what());
+                gThemeLoadStarted = 0;
+                gWebViewHost->Shutdown();
+                gStatusText = L"安全導覽復原失敗，請由管理介面重新選擇主題或結束程式。";
+            }
+            UpdateManagement();
+            InvalidateRect(window, nullptr, TRUE);
+        }
+        return 0;
     case kRendererFailedMessage:
         if (gWebViewHost != nullptr && gWebViewHost->LoadEpoch() == static_cast<unsigned long long>(wParam)) {
             SetWindowTextW(window, L"DrillPaper — 正在恢復主題");

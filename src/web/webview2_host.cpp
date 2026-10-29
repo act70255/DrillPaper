@@ -23,6 +23,7 @@ constexpr UINT kWebViewFailureMessage = WM_APP + 0x31;
 constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
 constexpr UINT kRendererFailedMessage = WM_APP + 0x38;
 constexpr UINT kNetworkBlockedMessage = WM_APP + 0x41;
+constexpr UINT kNavigationFailedMessage = WM_APP + 0x42;
 constexpr std::size_t kMaximumHistory = 120;
 constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
 
@@ -451,6 +452,24 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                         }).Get(), &navigationStartingToken_);
                             }
                             if (SUCCEEDED(result)) {
+                                result = webview_->add_NavigationCompleted(
+                                    Callback<ICoreWebView2NavigationCompletedEventHandler>(
+                                        [this, lifetime](ICoreWebView2*, ICoreWebView2NavigationCompletedEventArgs* args) -> HRESULT {
+                                            if (!*lifetime || !args) return S_OK;
+                                            BOOL success = FALSE;
+                                            if (FAILED(args->get_IsSuccess(&success)) || success) return S_OK;
+                                            LPWSTR source = nullptr;
+                                            if (SUCCEEDED(webview_->get_Source(&source)) && source) {
+                                                // 連線政策可能先於 NavigationStarting 拒絕，並提交瀏覽器錯誤頁。
+                                                const bool local = IsLocalThemeUrl(source, hostOrigin_);
+                                                CoTaskMemFree(source);
+                                                if (!local) PostMessageW(parentWindow_, kNavigationFailedMessage,
+                                                    static_cast<WPARAM>(loadEpoch_), 0);
+                                            }
+                                            return S_OK;
+                                        }).Get(), &navigationCompletedToken_);
+                            }
+                            if (SUCCEEDED(result)) {
                                 result = webview_->add_FrameNavigationStarting(
                                     Callback<ICoreWebView2NavigationStartingEventHandler>(
                                         [](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
@@ -833,6 +852,7 @@ void WebView2Host::Shutdown() {
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);
+        if (navigationCompletedToken_.value != 0) webview_->remove_NavigationCompleted(navigationCompletedToken_);
         if (webResourceRequestedToken_.value != 0) webview_->remove_WebResourceRequested(webResourceRequestedToken_);
         if (newWindowRequestedToken_.value != 0) webview_->remove_NewWindowRequested(newWindowRequestedToken_);
         if (processFailedToken_.value != 0) webview_->remove_ProcessFailed(processFailedToken_);
@@ -848,6 +868,7 @@ void WebView2Host::Shutdown() {
     controller_.Reset();
     environment_.Reset();
     navigationStartingToken_ = {};
+    navigationCompletedToken_ = {};
     webMessageReceivedToken_ = {};
     webResourceRequestedToken_ = {};
     newWindowRequestedToken_ = {};

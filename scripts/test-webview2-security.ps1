@@ -12,6 +12,7 @@ public static class SecurityProbe {
     [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder text, int size);
     [DllImport("user32.dll")] public static extern IntPtr GetDlgItem(IntPtr window, int id);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern int GetWindowText(IntPtr window, StringBuilder text, int size);
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr GetProp(IntPtr window, string name);
     [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
     [DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
@@ -46,7 +47,9 @@ function Wait-Security([scriptblock]$Condition, [string]$Failure) {
         if (& $Condition) { return }
         Start-Sleep -Milliseconds 100
     } while ($timer.Elapsed.TotalSeconds -lt 15)
-    throw $Failure
+    $caption = [Text.StringBuilder]::new(512)
+    if ($wallpaper -ne [IntPtr]::Zero) { [void][SecurityProbe]::GetWindowText($wallpaper, $caption, $caption.Capacity) }
+    throw "$Failure 目前宿主：$caption"
 }
 function Stop-SecurityApp {
     <# 正常關閉本測試程序並檢查已觀察的子程序。
@@ -95,6 +98,32 @@ function Stop-SecurityApp {
     foreach ($child in $children) { $child.Dispose() }
     return $childIds
 }
+function Test-ProbeComplete([long]$PreviousEpoch) {
+    <# 確認真正測試主題完成，避免內建 fallback 被誤算為成功。
+    Args:
+        PreviousEpoch: 開始這次載入前的訂閱世代。
+    Returns:
+        測試主題完成訂閱時為 true。
+    #>
+    $caption = [Text.StringBuilder]::new(512)
+    [void][SecurityProbe]::GetWindowText($wallpaper, $caption, $caption.Capacity)
+    return [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $PreviousEpoch -and
+        ($caption.ToString().Contains('安全驗證') -or $caption.ToString().Contains('security-probe'))
+}
+function Test-NavigationRecovery {
+    <# 驗證拒絕外部導覽後，主題仍存活或已回復可信 Minimal。
+    Returns:
+        實際恢復後的原生宿主標題。
+    #>
+    $before = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
+    [void][SecurityProbe]::PostMessage($wallpaper, 0x111, [UIntPtr]::new([uint32]11001), [IntPtr]::Zero)
+    Wait-Security {
+        $caption = [Text.StringBuilder]::new(512)
+        [void][SecurityProbe]::GetWindowText($wallpaper, $caption, $caption.Capacity)
+        [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -ge ($before + 2) -and
+            ($caption.ToString().Contains('security-z-navigation') -or $caption.ToString().Contains('minimal'))
+    } '外部導覽雖遭封鎖，但原頁面未繼續且沒有回復可信主題。'
+}
 $session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N'))))
 $previousLocal = $env:LOCALAPPDATA
 $app = $null
@@ -124,15 +153,26 @@ try {
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 連線接收端的正向控制未通過。' }
     $stunLog = Join-Path $session 'stun-packets.jsonl'
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw 'STUN UDP 接收端的正向控制未通過。' }
-    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket").Replace('__STUN__', "stun:127.0.0.1:$($serverConfig.stunPort)")
+    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket").Replace('__STUN__', "stun:127.0.0.1:$($serverConfig.stunPort)").Replace('__TURN__', "turn:127.0.0.1:$securePort`?transport=tcp")
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
     '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
     '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
     '{"download":"必須拒絕"}' | Set-Content -LiteralPath (Join-Path $source 'download.json') -Encoding UTF8
+    'globalThis.onconnect = event => event.ports[0].postMessage("executed"); if (typeof postMessage === "function") postMessage("executed");' | Set-Content -LiteralPath (Join-Path $source 'worker.js') -Encoding UTF8
     $probe.Replace('__ENABLED__', 'false') | Set-Content -LiteralPath (Join-Path $source 'main.js') -Encoding UTF8
     $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $source + '"') -WindowStyle Hidden -PassThru
     $handle = $import.Handle
     if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '無法匯入安全測試主題。' }
+    $import.Dispose()
+    $navigationSource = Join-Path $session 'navigation-source'
+    Copy-Item -LiteralPath $source -Destination $navigationSource -Recurse
+    $manifest = [IO.File]::ReadAllText((Join-Path $source 'theme.json')).Replace('security-probe', 'security-z-navigation')
+    [IO.File]::WriteAllText((Join-Path $navigationSource 'theme.json'), $manifest, [Text.UTF8Encoding]::new($false))
+    $navigationProbe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-navigation.js')).Replace('__BASE__', "http://127.0.0.1:$port")
+    [IO.File]::WriteAllText((Join-Path $navigationSource 'main.js'), $navigationProbe, [Text.UTF8Encoding]::new($false))
+    $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $navigationSource + '"') -WindowStyle Hidden -PassThru
+    $handle = $import.Handle
+    if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '無法匯入導覽復原測試主題。' }
     $import.Dispose()
     $app = Start-Process -FilePath $application -ArgumentList '--management','--preview','--mock-metrics','--no-smart-sleep' -WindowStyle Hidden -PassThru
     $handle = $app.Handle
@@ -145,10 +185,11 @@ try {
     $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
     [void][SecurityProbe]::PostMessage($wallpaper, 0x111, [UIntPtr]::new([uint32]11000), [IntPtr]::Zero)
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.NetworkPrompt').ToInt64() -eq 1 } '首次封鎖外連沒有出現設定提示。'
-    Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $ready } '預設封鎖的真實資源測試未通過。'
+    Wait-Security { Test-ProbeComplete $ready } '預設封鎖的真實資源測試未通過。'
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.DownloadBlocked').ToInt64() -eq 1 } '沒有觀察到真實下載拒絕事件。'
     if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { throw '預設封鎖時測試伺服器仍收到請求。' }
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw '預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。' }
+    Test-NavigationRecovery
     $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
     if ($networkCheck -eq [IntPtr]::Zero) { throw '管理介面缺少真正的主題網路開關。' }
     if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0) { throw '首次提示自行開啟網路。' }
@@ -167,7 +208,7 @@ try {
         $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
         $before = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
         [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20010), [IntPtr]::Zero)
-        Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $ready } "實際網路切換測試未通過，allowNetwork=$enabled。"
+        Wait-Security { Test-ProbeComplete $ready } "實際網路切換測試未通過，allowNetwork=$enabled。"
         $after = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
         if (($enabled -and $after -le $before) -or (-not $enabled -and $after -ne $before)) { throw '瀏覽器結果與伺服器實際請求不一致。' }
         $settings = Get-Content -Raw -LiteralPath (Join-Path $session 'appdata/DrillPaper/settings.json') | ConvertFrom-Json
@@ -178,6 +219,7 @@ try {
                 if ($request.url -match '^/(socket|iframe|popup|navigate)') { throw "網路開關繞過安全邊界：$($request.url)" }
             }
         }
+        Test-NavigationRecovery
         if ($enabled) {
           foreach ($mode in @('standalone', 'managed')) {
             $children = @(Stop-SecurityApp)
@@ -194,7 +236,7 @@ try {
             $manager = [SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow')
             $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
             $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
-            Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '重啟沒有恢復已允許的網路政策。'
+            Wait-Security { Test-ProbeComplete 0 } '重啟沒有恢復已允許的網路政策。'
             if (@(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count -le $requestBeforeRestart) { throw "重啟模式 $mode 略過已保存的主題或全域網路偏好。" }
             if ($mode -eq 'managed' -and [SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 1) { throw '重啟沒有恢復已保存的網路開關。' }
           }

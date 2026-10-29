@@ -15,6 +15,16 @@
 
 ## 結果
 
+### 空白錯誤頁與擴充安全矩陣
+
+新增 worker／儲存測試後，原探針停在外部導覽後。先後移除 service／shared／dedicated worker、改事件確認、改非同步函數，以及暫時於 NavigationStarting 取消後 Stop，均未建立完整通過；沒有以這些嘗試改寫成 PASS。隔離 CDP 證明已提交 `chrome-error://chromewebdata/`，unreachableUrl 為 loopback navigate endpoint，body 空白。CDP 證據來自暫態 Stop 嘗試 hash FB7418…，該改動已撤回。此時原生標題仍可保留舊的 Live metrics，因此不能用標題／metrics tick 單獨判定畫面存活。
+
+獨立最小 Red：DF658C… 固定副本、security-z-navigation，先完成一次訂閱，worker 遭拒再嘗試外部導覽，第二次訂閱不成立。新增失敗 NavigationCompleted／實際 Source 的可信 Minimal 回復後，同案例及完整安全腳本 PASS，session security-ddad2d5848c94edfb672e3d87d1ff809，EXE hash `8AACD05B50BEDF89E2F191B14986E3A1AB380A60B075C0CA5097DDAE539176D1`。ADR 0004 明列新行為及保存偏好不變。
+
+同一輪亦 PASS：IndexedDB、Cache Storage（當前來源讀寫正向控制與每次載入隔離）；host-only Cookie；Dedicated／Shared／ServiceWorker；camera／microphone 權限狀態 denied；STUN UDP 與 TURN-TCP、WSS 只有接收端的原生控制各一筆，無主題收件。HTTP／HTTPS 開關、其他既有負面與兩種重啟通過。navigation-{red,green}.log、navigation-result.json、navigation-{stun,tcp,requests}.jsonl 保存結果；權限查詢不等於所有設備呼叫已測。
+
+完整 DNS／preconnect、TURN-UDP／TLS、其他 Runtime、舊頁面訊息競態等仍 NOT RUN。後續人工與回歸另記，不解除 RC gate。
+
 ### WebRTC／STUN
 
 Red：舊固定副本 F0238D…，security-f52a3c6928d94e519a0561ebf9857e1b，網路關閉時仍有三筆真正 STUN UDP；獨立 UdpClient 控制封包另有一筆，見 webrtc-red-packets.jsonl。新增宿主 Connection-Allowlist 後，hash `DF658C57DA4EFAE79CAF7F6CFB6A4E88EA97A1B9AAD2D3CE356799994D0FC7B1`，同測試 PASS，security-a51c31974b1046a0a4f0114a5c78db5b。off→on→off 與管理／獨立重啟期間僅控制封包一筆、主題 UDP 0；既有 HTTP／HTTPS 及其他負面通過。

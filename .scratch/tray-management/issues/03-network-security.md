@@ -15,6 +15,8 @@ Status: implemented
 
 ## Comments
 
+- 2026-10-29 擴充續驗：拒絕外部導覽可能提交 chrome-error 空白頁，經獨立導覽主題先 Red，再加入原生失敗導覽的可信 Minimal 回復而 Green；不保存此回復至偏好。IndexedDB／Cache Storage、三類 worker、camera／microphone 權限狀態與 STUN／TURN-TCP 指定矩陣亦通過。完整範圍、失敗嘗試及原生／CDP hash 界線見 REMAINING.md、ADR 0004；本版完整回歸／CI 接續執行。
+
 - 2026-10-29 剩餘續驗：以真實瀏覽器先抓到共同父網域 Cookie 跨 GUID 來源保留，改為每次獨立可註冊 .invalid 網域；另重現網路關閉仍有三筆 WebRTC STUN UDP。Connection-Allowlist 加入後，同接收端只有獨立控制封包，off→on→off 與重啟均無主題 UDP。相關 Red→Green／hash／限制見 REMAINING.md、ADR 0002／0003；後續繼續擴充 TURN／推測連線與儲存矩陣。使用者對前版隔離視窗回報鍵盤／取消／唯一視窗正常，DPI 未測。
 
 - 2026-10-29 收尾：63e86ff 的 CI 40832496506 完整 PASS（CTest 33/33、SDK 18/18、SDK 還原與封裝）；本票實作及所列驗證完成，狀態設為 implemented。新版 Explorer 像素、完整 DPI／鍵盤與安全未測矩陣仍明列 NOT RUN，並非整體 MVP／RC 通過。最終僅留下原持續桌布 PID 83428，未合併 main。

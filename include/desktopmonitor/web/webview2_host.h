@@ -105,6 +105,7 @@ private:
     Microsoft::WRL::ComPtr<ICoreWebView2Controller> controller_;
     Microsoft::WRL::ComPtr<ICoreWebView2> webview_;
     EventRegistrationToken navigationStartingToken_{};
+    EventRegistrationToken navigationCompletedToken_{};
     EventRegistrationToken webMessageReceivedToken_{};
     EventRegistrationToken webResourceRequestedToken_{};
     EventRegistrationToken newWindowRequestedToken_{};

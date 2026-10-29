@@ -10,6 +10,7 @@
 - 全域 allowNetwork 預設 false。離線仍可讀取自己的資產；開啟後允許所有網域的 HTTP／HTTPS 資源。套用設定會重新載入主題，CSP 與 request policy 均使用最新偏好；取消不套用，重啟恢復保存值。
 - 外部頂層導覽、框架、worker、WebSocket、物件、表單、下載、權限與彈窗分別拒絕，不隨開關放行。停用 host objects、DevTools、預設內容選單及 script dialogs。HTTP 仍受瀏覽器原有 TLS／混合內容規則限制。
 - 另附宿主 Connection-Allowlist，固定拒絕 WebRTC；關閉網路只允許目前來源，開啟後加入 HTTP／HTTPS，CSP 與原生限制繼續生效。本機 Runtime 155.0.4283.62 的 data channel／STUN 負面有舊版收件與修正版零收件證據；不同 Runtime 不由此建立支援聲明，見 [ADR 0003](adr/0003-connection-allowlist.md)。
+- 若被拒絕的頂層導覽仍造成瀏覽器錯誤頁，原生失敗事件以載入世代觸發可信 Minimal 回復，不改已保存偏好；可信回復亦失敗時保留管理入口與友善提示，見 [ADR 0004](adr/0004-recover-blocked-navigation.md)。
 - 首次封鎖 HTTP／HTTPS 顯示可信原生設定提示，每個 app 工作階段最多一次，不放行、不保存。固定注入的 CSP 通知僅能觸發一次提示；即使主題偽造同一通知，也無法更改設定或執行管理命令。
 - 一般使用者權限；私有 WebView2 user-data 目錄；只提供核准的彙總指標，產品沒有遙測。
 
@@ -21,6 +22,8 @@
 
 ## 未證實的範圍
 
-NOT RUN：完整 WebRTC（含 TURN）、完整 DNS／preconnect／推測連線、瀏覽器自身背景流量、IndexedDB／Cache Storage 與舊頁面訊息競態、完整權限種類、所有 scheme 組合、瀏覽器漏洞與 OS sandbox 逃逸。已測 localStorage／sessionStorage／Cookie 的每次載入隔離；STUN 與 X-DNS-Prefetch-Control 不等於已量測所有 WebRTC／DNS 流量，不能證明完全阻止網路外傳。
+另已測 IndexedDB／Cache Storage 的當前來源讀寫與每次載入隔離、Dedicated／Shared／ServiceWorker、camera／microphone 權限查詢 denied、TURN-TCP 接收端無主題連線。證據及精確範圍見 [續驗](acceptance/2026-10-29/management/REMAINING.md)。
+
+NOT RUN：完整 WebRTC（含 TURN-UDP／TLS）、完整 DNS／preconnect／推測連線、瀏覽器自身背景流量、舊頁面訊息競態、完整權限種類／設備 API、所有 scheme 組合、瀏覽器漏洞與 OS sandbox 逃逸。STUN 與 X-DNS-Prefetch-Control 不等於已量測所有 WebRTC／DNS 流量，不能證明完全阻止網路外傳。
 
 檔案檢查不是 OS 隔離，無法保證同使用者並行替換路徑的安全性。無限迴圈與資源耗盡另屬復原／效能矩陣。這些限制及未完成的 Windows 相容性、乾淨安裝等 gate 仍阻擋 app RC；不得將套件驗證或目前通訊測試稱為完整沙箱。
