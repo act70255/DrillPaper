@@ -2,6 +2,8 @@
 
 只有完成 GUI 證據的組態才能標為支援。
 
+2026-10-29 續驗：Windows 11 26200 的真正 Shell 附掛、3840×1080 用戶區及 5 次受控重掛已通過原生整合；桌面附掛狀態更新為 PARTIAL。真正 Explorer 重啟與圖示／工作列／焦點畫面仍 NOT RUN，見 [shell/REPORT.md](acceptance/2026-10-29/shell/REPORT.md)。下表先前 NOT RUN 為上一輪狀態，不表示本輪 GUI 已完成。
+
 ## 已決定的首版目標範圍（尚未驗收）
 
 - Windows 10/11 x64；桌布目標涵蓋所有已連接螢幕。

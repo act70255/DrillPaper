@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 Phase 1 續作 — Windows 11 桌布附掛與受控重掛
+
+- Scope：使用 `GetShellWindow` 錨定目前 Shell PID，排除其他程序的同名 WorkerW；支援新版 Progman 子 WorkerW，保留舊頂層搜尋與 Preview fallback。修正 SetParent 已回傳成功但殘留 LastError 導致誤判的重掛缺陷。附掛世代／最後失敗碼可由原生視窗屬性診斷。
+- Red：實機公開 DesktopHost 整合測試先失敗（找不到桌布層）；改用新版建立訊息後仍失敗，inventory 顯示 WorkerW 已建立於 Progman 內。完整 app 的解除附掛／定向 TaskbarCreated 迴圈再重現錯誤碼 4；SetParent 回傳值判斷修正後轉綠。
+- PASS（Windows 原生整合）：Release app 建置；原生視窗 2 案例／22 斷言；相關 CTest 1/1。完整 app 同一 PID／HWND，SDK 握手完成，3840×1080 填滿父用戶區，附掛世代 1→6，5 次受控重掛，退出碼 0，6 個 WebView2 子程序全退出。觀測已統一 Per-Monitor V2 DPI 座標。
+- Commands：`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperWindowsHostIntegrationTests --parallel 8`；測試 EXE `'[shell-live],[desktop]'`；`scripts/test-desktop-host.ps1 -ApplicationPath build/windows-msvc-release/Release/DrillPaper.exe -RecoveryCycles 5`。證據與限制見 [shell/REPORT.md](acceptance/2026-10-29/shell/REPORT.md)。
+- NOT RUN：本輪真正 Explorer 程序重啟、圖示／工作列／Alt+Tab 與像素畫面。Windows Computer Use 原生管道不存在，畫面需人工補驗；受控通知明確不算 Explorer 重啟。`[shell-live]` 會操作當前桌布層，故只手動明確呼叫，不納入無互動 CTest。
+- Commit：`fix(desktop): 支援新版桌布層並修正重掛誤判`，分支 `bugfix/shell-attachment`，依階段規則提交推送。上一階段 Preview 回復提交 `edbb261` 已在 origin。
+
 ## 2026-10-28 Phase 1 續作 — Preview 回復樣式
 
 - Scope：只修正 `Win32DesktopHost::RestorePreview`，解除父視窗後清除桌布專用的 `WS_EX_NOACTIVATE`／`WS_EX_TOOLWINDOW`，恢復一般預覽視窗。新增專屬 Win32 父子視窗整合測試，不操作 Explorer。

@@ -1,0 +1,23 @@
+Filters: [shell-live]
+Randomness seeded to: 4068257373
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperWindowsHostIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Live Shell attachment uses the Explorer wallpaper layer
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\desktop_host_test.cpp(43)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\desktop_host_test.cpp(51): FAILED:
+  REQUIRE( attached )
+with expansion:
+  false
+with message:
+  DesktopAttachFailure=3
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 2 | 1 passed | 1 failed

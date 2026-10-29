@@ -8,41 +8,70 @@ constexpr wchar_t kIconViewClass[] = L"SHELLDLL_DefView";
 constexpr wchar_t kWorkerClass[] = L"WorkerW";
 
 struct ShellWindows {
+    DWORD shellProcess = 0;
     HWND iconHost = nullptr;
     HWND iconView = nullptr;
     HWND wallpaperLayer = nullptr;
 };
 
+/** 確認視窗由本次 Shell 程序持有。
+ * Args:
+ *     window: 待確認的原生視窗。
+ *     shellProcess: 由 GetShellWindow 取得的非零程序識別碼。
+ * Returns:
+ *     視窗仍有效且所屬程序符合時為 true。
+ */
+bool IsShellWindow(HWND window, DWORD shellProcess) {
+    DWORD process = 0;
+    return shellProcess != 0 && IsWindow(window) &&
+           GetWindowThreadProcessId(window, &process) != 0 && process == shellProcess;
+}
+
 BOOL CALLBACK FindShellWindows(HWND candidate, LPARAM parameter) {
     auto* found = reinterpret_cast<ShellWindows*>(parameter);
+    if (!IsShellWindow(candidate, found->shellProcess)) return TRUE;
     HWND iconView = FindWindowExW(candidate, nullptr, kIconViewClass, nullptr);
-    if (iconView == nullptr) {
+    if (!IsShellWindow(iconView, found->shellProcess)) {
         return TRUE;
     }
 
     found->iconHost = candidate;
     found->iconView = iconView;
     found->wallpaperLayer = FindWindowExW(nullptr, candidate, kWorkerClass, nullptr);
+    while (found->wallpaperLayer != nullptr &&
+           !IsShellWindow(found->wallpaperLayer, found->shellProcess)) {
+        found->wallpaperLayer = FindWindowExW(nullptr, found->wallpaperLayer, kWorkerClass, nullptr);
+    }
     return found->wallpaperLayer == nullptr;
 }
 
-ShellWindows LocateShellWindows() {
+ShellWindows LocateShellWindows(HWND programManager) {
     ShellWindows found{};
-    HWND programManager = FindWindowW(kProgramManagerClass, nullptr);
-    if (programManager == nullptr) {
+    GetWindowThreadProcessId(programManager, &found.shellProcess);
+    if (!IsShellWindow(programManager, found.shellProcess)) {
         return found;
     }
 
     DWORD_PTR ignoredResult = 0;
-    SendMessageTimeoutW(programManager, kSpawnWorkerWindowsMessage, 0, 0,
+    SendMessageTimeoutW(programManager, kSpawnWorkerWindowsMessage, 0xD, 1,
                         SMTO_ABORTIFHUNG, 1000, &ignoredResult);
     EnumWindows(FindShellWindows, reinterpret_cast<LPARAM>(&found));
+    // 新版 Shell 將桌布層放在 Progman 內，位於圖示檢視的後方。
+    if (found.iconHost == programManager &&
+        (GetWindowLongPtrW(programManager, GWL_EXSTYLE) & WS_EX_NOREDIRECTIONBITMAP) != 0) {
+        HWND child = FindWindowExW(programManager, nullptr, kWorkerClass, nullptr);
+        if (IsShellWindow(child, found.shellProcess) &&
+            FindWindowExW(child, nullptr, kIconViewClass, nullptr) == nullptr) {
+            found.wallpaperLayer = child;
+        }
+    }
     if (found.iconView == nullptr || !IsWindow(found.iconView)) {
         found.iconHost = nullptr;
         found.iconView = nullptr;
         found.wallpaperLayer = nullptr;
     }
-    if (found.wallpaperLayer != nullptr && !IsWindow(found.wallpaperLayer)) {
+    if (!IsShellWindow(found.wallpaperLayer, found.shellProcess) ||
+        FindWindowExW(found.wallpaperLayer, nullptr, kIconViewClass, nullptr) != nullptr) {
         found.wallpaperLayer = nullptr;
     }
     return found;
@@ -66,15 +95,17 @@ bool Win32DesktopHost::TryAttach(HWND window, DesktopAttachFailure* failure) {
         return false;
     }
 
-    HWND programManager = FindWindowW(kProgramManagerClass, nullptr);
-    if (programManager == nullptr) {
+    HWND programManager = GetShellWindow();
+    wchar_t shellClass[256]{};
+    if (!IsWindow(programManager) || GetClassNameW(programManager, shellClass, 256) == 0 ||
+        lstrcmpW(shellClass, kProgramManagerClass) != 0) {
         if (failure != nullptr) {
             *failure = DesktopAttachFailure::ProgramManagerNotFound;
         }
         return false;
     }
 
-    ShellWindows shell = LocateShellWindows();
+    ShellWindows shell = LocateShellWindows(programManager);
     if (shell.iconView == nullptr) {
         if (failure != nullptr) {
             *failure = DesktopAttachFailure::IconHostNotFound;
@@ -89,8 +120,8 @@ bool Win32DesktopHost::TryAttach(HWND window, DesktopAttachFailure* failure) {
     }
 
     SetLastError(ERROR_SUCCESS);
-    SetParent(window, shell.wallpaperLayer);
-    if (GetLastError() != ERROR_SUCCESS) {
+    const HWND previousParent = SetParent(window, shell.wallpaperLayer);
+    if (previousParent == nullptr && GetLastError() != ERROR_SUCCESS) {
         if (failure != nullptr) {
             *failure = DesktopAttachFailure::ParentWindowFailed;
         }

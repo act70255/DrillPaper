@@ -1,0 +1,28 @@
+{
+    "Result":  "FAILED",
+    "StartedUtc":  "2026-10-29T01:26:29.1428802Z",
+    "ApplicationSha256":  "C4317AC5E9511D24132E9FE02D8C64EEA8A29458C2628137BCB2A20C94BFB2A1",
+    "RecoveryKind":  "TARGETED_TASKBAR_CREATED_AFTER_OWN_WINDOW_DETACH",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+
+                   ],
+    "Shutdown":  "NORMAL_CLOSE",
+    "ChildrenExited":  false,
+    "AppPid":  98628,
+    "Initial":  {
+                    "AppPid":  98628,
+                    "Window":  1153833918,
+                    "Parent":  60823638,
+                    "ShellPid":  31956,
+                    "Width":  3840,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1
+                },
+    "FailureReason":  "主視窗未附掛於目前 Shell 程序的 WorkerW；原生附掛錯誤代碼=4。",
+    "ExitCode":  0,
+    "EndedUtc":  "2026-10-29T01:26:38.8000988Z"
+}

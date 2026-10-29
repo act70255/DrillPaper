@@ -53,6 +53,16 @@ HWND gWallpaperWindow = nullptr;
 bool gExperimentalDesktop = false;
 bool gMockMetrics = false;
 UINT gTaskbarCreatedMessage = 0;
+ULONG_PTR gDesktopEpoch = 0;
+
+/** 記錄成功的桌面附掛世代，供原生整合診斷辨識重掛。
+ * Args:
+ *     window: 受本程序管理的桌布視窗。
+ */
+void RecordDesktopAttachment(HWND window) {
+    SetPropW(window, L"DrillPaper.DesktopEpoch", reinterpret_cast<HANDLE>(++gDesktopEpoch));
+    RemovePropW(window, L"DrillPaper.DesktopFailure");
+}
 
 unsigned __int64 CurrentUnixTimeMilliseconds() {
     constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
@@ -128,6 +138,8 @@ void RunDiagnostics() {
 }
 
 void ReportAttachFailure(desktopmonitor::platform::windows::DesktopAttachFailure failure) {
+    SetPropW(gWallpaperWindow, L"DrillPaper.DesktopFailure",
+             reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(failure)));
     using desktopmonitor::platform::windows::DesktopAttachFailure;
     switch (failure) {
     case DesktopAttachFailure::ProgramManagerNotFound:
@@ -196,6 +208,7 @@ void RecoverDesktopHost() {
 
     desktopmonitor::platform::windows::DesktopAttachFailure failure{};
     if (gDesktopHost->TryAttach(gWallpaperWindow, &failure)) {
+        RecordDesktopAttachment(gWallpaperWindow);
         gStatusText = L"Shell change detected. Attachment retried; GUI verification is still required.";
         SetWindowTextW(gWallpaperWindow, kExperimentalWindowTitle);
     } else {
@@ -396,6 +409,8 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         }
         break;
     case WM_DESTROY:
+        RemovePropW(window, L"DrillPaper.DesktopEpoch");
+        RemovePropW(window, L"DrillPaper.DesktopFailure");
         KillTimer(window, kMetricsTimer);
         if (gSamplingWorker != nullptr) {
             gSamplingWorker->Stop();
@@ -569,6 +584,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
         } else {
             desktopmonitor::platform::windows::DesktopAttachFailure failure{};
             if (desktopHost.TryAttach(window, &failure)) {
+                RecordDesktopAttachment(window);
                 gStatusText = L"Shell layer found. Icon, focus, z-order, and recovery checks are still required.";
                 SetWindowTextW(window, kExperimentalWindowTitle);
             } else {

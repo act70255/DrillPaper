@@ -1,0 +1,94 @@
+{
+    "Result":  "PASS",
+    "StartedUtc":  "2026-10-29T01:28:09.3756734Z",
+    "ApplicationSha256":  "5162F00C9D28587BD25E66229D9E13AD153E4121A2002CE70383E197978B4F06",
+    "RecoveryKind":  "TARGETED_TASKBAR_CREATED_AFTER_OWN_WINDOW_DETACH",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+                       {
+                           "AppPid":  83520,
+                           "Window":  125375018,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  2
+                       },
+                       {
+                           "AppPid":  83520,
+                           "Window":  125375018,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  3
+                       },
+                       {
+                           "AppPid":  83520,
+                           "Window":  125375018,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  4
+                       },
+                       {
+                           "AppPid":  83520,
+                           "Window":  125375018,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  5
+                       },
+                       {
+                           "AppPid":  83520,
+                           "Window":  125375018,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  6
+                       }
+                   ],
+    "Shutdown":  "NORMAL_CLOSE",
+    "ChildrenExited":  true,
+    "AppPid":  83520,
+    "Initial":  {
+                    "AppPid":  83520,
+                    "Window":  125375018,
+                    "Parent":  60823638,
+                    "ShellPid":  31956,
+                    "Width":  3840,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1
+                },
+    "ObservedChildren":  [
+                             6356,
+                             8280,
+                             12388,
+                             92852,
+                             89896,
+                             83632
+                         ],
+    "ExitCode":  0,
+    "EndedUtc":  "2026-10-29T01:28:18.4660155Z"
+}

@@ -1,0 +1,4 @@
+Filters: [shell-live],[desktop]
+Randomness seeded to: 3346309102
+===============================================================================
+All tests passed (22 assertions in 2 test cases)
