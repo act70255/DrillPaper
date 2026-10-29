@@ -441,6 +441,7 @@ void SetDisplayMode(bool desktop) {
 void ApplySelectedPreferences(const desktopmonitor::app::AppSettings& settings, bool persist) {
     const auto info = ResolveTheme(settings.theme);
     if (!gWebViewHost) throw std::runtime_error("主題引擎尚未可用，未保存設定。");
+    gWebViewHost->SetNetworkEnabled(settings.allowNetwork);
     if (FAILED(gWebViewHost->LoadTheme(info.directory.wstring(), NativeText(info.name), std::filesystem::path(info.entry).wstring())))
         throw std::runtime_error("無法開始載入所選主題，未保存設定。");
     gCurrentTheme = NativeText(info.name) + L" · " + NativeText(info.version);
@@ -614,6 +615,11 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
             }
             InvalidateRect(window, nullptr, TRUE);
         }
+        return 0;
+    case WM_APP + 0x41:
+        gManagementNotice = L"主題的 HTTP／HTTPS 外連已封鎖。如需連網，請前往設定開啟主題網路；目前仍維持封鎖。";
+        if (gManagement) { UpdateManagement(); gManagement->Show(); }
+        else MessageBoxW(window, gManagementNotice.c_str(), L"DrillPaper 主題網路", MB_OK | MB_ICONINFORMATION);
         return 0;
     case kRuntimeStateRefreshMessage:
         if (gWebViewHost != nullptr) gWebViewHost->SetRuntimeState(gAppliedPowerState);
@@ -866,6 +872,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
             gLatestSnapshot = MakeMockSnapshot();
         }
         gWebViewHost = std::make_unique<desktopmonitor::web::WebView2Host>();
+        gWebViewHost->SetNetworkEnabled(gSettings.allowNetwork);
 
         std::array<wchar_t, 32768> executablePath{};
         const DWORD executableLength = GetModuleFileNameW(

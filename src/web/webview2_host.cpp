@@ -9,6 +9,8 @@
 #include <string>
 #include <string_view>
 #include <vector>
+#include <fstream>
+#include <shlwapi.h>
 
 #include "desktopmonitor/web/protocol_v1.h"
 
@@ -20,6 +22,7 @@ using Microsoft::WRL::ComPtr;
 constexpr UINT kWebViewFailureMessage = WM_APP + 0x31;
 constexpr UINT kRuntimeStateRefreshMessage = WM_APP + 0x36;
 constexpr UINT kRendererFailedMessage = WM_APP + 0x38;
+constexpr UINT kNetworkBlockedMessage = WM_APP + 0x41;
 constexpr std::size_t kMaximumHistory = 120;
 constexpr unsigned __int64 kWindowsToUnixEpoch100ns = 116444736000000000ULL;
 
@@ -64,6 +67,110 @@ bool IsLocalThemeUrl(PCWSTR url, const std::wstring& origin) {
         return false;
     }
     return _wcsnicmp(url, origin.c_str(), origin.size()) == 0;
+}
+
+/** 建立由宿主強制的 CSP，禁止框架、worker、物件與非 HTTP 通訊。
+ * Args:
+ *     enabled: 是否允許 HTTP／HTTPS 資源。
+ *     origin: 目前主題的獨立 HTTPS 來源。
+ * Returns:
+ *     完整回應標頭。
+ */
+std::wstring SecurityHeaders(bool enabled, const std::wstring& origin) {
+    const std::wstring remote = enabled ? L" http: https:" : L"";
+    return L"Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline'" + remote +
+        L"; style-src 'self' 'unsafe-inline'" + remote + L"; img-src 'self'" + remote +
+        L"; font-src 'self'" + remote + L"; media-src 'self'" + remote +
+        L"; connect-src " + (enabled ? std::wstring(L"http: https:") : origin) +
+        L"; frame-src 'none'; child-src 'none'; worker-src 'none'; object-src 'none'; "
+        L"base-uri 'none'; form-action 'none'; frame-ancestors 'none';\r\n"
+        L"X-Content-Type-Options: nosniff\r\nCache-Control: no-store\r\n"
+        L"X-DNS-Prefetch-Control: off\r\nReferrer-Policy: no-referrer\r\n"
+        L"Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=(), serial=(), hid=()\r\n";
+}
+
+/** 解析主題內相對 URL，只允許一般檔案且拒絕重新解析點。
+ * Args:
+ *     relative: 不含來源的 URL 路徑。
+ *     root: 已驗證資產目錄。
+ * Returns:
+ *     安全的一般檔案位置；不合法時拋出例外。
+ */
+std::filesystem::path ThemeAssetPath(std::wstring relative, const std::wstring& root) {
+    relative = relative.substr(0, relative.find_first_of(L"?#"));
+    // URL 使用 UTF-8 百分比編碼；禁止再次解碼，以免雙重編碼穿越。
+    std::string encoded;
+    const int length = WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, relative.data(),
+        static_cast<int>(relative.size()), nullptr, 0, nullptr, nullptr);
+    if (length <= 0) throw std::runtime_error("主題資產路徑不合法。");
+    encoded.resize(length);
+    WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, relative.data(), static_cast<int>(relative.size()), encoded.data(), length, nullptr, nullptr);
+    std::string decoded;
+    for (std::size_t index = 0; index < encoded.size(); ++index) {
+        if (encoded[index] != '%') { decoded += encoded[index]; continue; }
+        if (index + 2 >= encoded.size()) throw std::runtime_error("資產 URL 編碼不完整。");
+        const auto digit = [](char value) -> int {
+            if (value >= '0' && value <= '9') return value - '0';
+            if (value >= 'A' && value <= 'F') return value - 'A' + 10;
+            if (value >= 'a' && value <= 'f') return value - 'a' + 10;
+            return -1;
+        };
+        const int high = digit(encoded[index + 1]), low = digit(encoded[index + 2]);
+        if (high < 0 || low < 0) throw std::runtime_error("資產 URL 編碼不合法。");
+        decoded += static_cast<char>(high * 16 + low);
+        index += 2;
+    }
+    std::wstring wide;
+    const int count = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, decoded.data(), static_cast<int>(decoded.size()), nullptr, 0);
+    if (count <= 0) throw std::runtime_error("資產路徑不是有效 UTF-8。");
+    wide.resize(count);
+    MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, decoded.data(), static_cast<int>(decoded.size()), wide.data(), count);
+    for (wchar_t value : wide) {
+        if (value < 32 || std::wstring_view(L"\\:%<>\"|?*").find(value) != std::wstring_view::npos)
+            throw std::runtime_error("資產路徑含有不允許的字元。");
+    }
+    std::filesystem::path result(root);
+    for (const auto& part : std::filesystem::path(wide)) {
+        const auto name = part.wstring();
+        if (name.empty() || name == L"." || name == L".." || name.back() == L'.' || name.back() == L' ' || part.has_root_path())
+            throw std::runtime_error("資產路徑超出主題邊界。");
+        result /= part;
+    }
+    auto current = result;
+    while (!current.empty()) {
+        const auto attributes = GetFileAttributesW(current.c_str());
+        if (attributes == INVALID_FILE_ATTRIBUTES || (attributes & FILE_ATTRIBUTE_REPARSE_POINT))
+            throw std::runtime_error("資產不存在或路徑經過重新解析點。");
+        const auto parent = current.parent_path();
+        if (parent == current) break;
+        current = parent;
+    }
+    if (!std::filesystem::is_regular_file(result) || std::filesystem::file_size(result) > 10 * 1024 * 1024)
+        throw std::runtime_error("資產不是一般檔案或超過大小上限。");
+    return result;
+}
+
+/** 依受支援的靜態資產副檔名提供 MIME，其他內容不作為主動程式執行。
+ * Args:
+ *     file: 已驗證的檔案。
+ * Returns:
+ *     MIME 類型。
+ */
+const wchar_t* AssetMime(const std::filesystem::path& file) {
+    auto extension = file.extension().wstring();
+    std::transform(extension.begin(), extension.end(), extension.begin(), towlower);
+    if (extension == L".html") return L"text/html; charset=utf-8";
+    if (extension == L".js" || extension == L".mjs") return L"text/javascript; charset=utf-8";
+    if (extension == L".css") return L"text/css; charset=utf-8";
+    if (extension == L".json") return L"application/json";
+    if (extension == L".svg") return L"image/svg+xml";
+    if (extension == L".png") return L"image/png";
+    if (extension == L".jpg" || extension == L".jpeg") return L"image/jpeg";
+    if (extension == L".gif") return L"image/gif";
+    if (extension == L".webp") return L"image/webp";
+    if (extension == L".woff2") return L"font/woff2";
+    if (extension == L".woff") return L"font/woff";
+    return L"application/octet-stream";
 }
 
 /** 為每次主題載入產生獨立來源，避免舊頁面訊息及儲存跨主題重用。
@@ -152,6 +259,65 @@ WebView2Host::~WebView2Host() {
     Shutdown();
 }
 
+void WebView2Host::NotifyNetworkBlocked() {
+    if (networkPolicy_.Evaluate(runtime::ThemeRequestKind::ExternalHttps) ==
+        runtime::ThemeNetworkAction::BlockAndPromptSettings) {
+        SetPropW(parentWindow_, L"DrillPaper.NetworkPrompt", reinterpret_cast<HANDLE>(1));
+        PostMessageW(parentWindow_, kNetworkBlockedMessage, 0, 0);
+    }
+}
+
+HRESULT WebView2Host::OnResourceRequested(ICoreWebView2WebResourceRequestedEventArgs* args) {
+    ComPtr<ICoreWebView2WebResourceRequest> request;
+    LPWSTR rawUri = nullptr;
+    std::wstring uri;
+    if (SUCCEEDED(args->get_Request(&request)) && request && SUCCEEDED(request->get_Uri(&rawUri)) && rawUri)
+        uri = rawUri;
+    CoTaskMemFree(rawUri);
+    const bool local = IsLocalThemeUrl(uri.c_str(), hostOrigin_);
+    const bool http = uri.starts_with(L"http://") || uri.starts_with(L"https://");
+    COREWEBVIEW2_WEB_RESOURCE_CONTEXT context{};
+    const bool hasContext = SUCCEEDED(args->get_ResourceContext(&context));
+    if (!local && http && uri.find(L".drillpaper.local") == std::wstring::npos &&
+        hasContext && context != COREWEBVIEW2_WEB_RESOURCE_CONTEXT_DOCUMENT) {
+        if (networkPolicy_.ExternalRequestsEnabled()) return S_OK;
+        NotifyNetworkBlocked();
+    }
+    ComPtr<IStream> body;
+    int status = 403;
+    auto headers = SecurityHeaders(networkPolicy_.ExternalRequestsEnabled(), hostOrigin_);
+    if (local && request) {
+        try {
+            LPWSTR method = nullptr;
+            const HRESULT methodResult = request->get_Method(&method);
+            const bool get = SUCCEEDED(methodResult) && method && wcscmp(method, L"GET") == 0;
+            CoTaskMemFree(method);
+            if (!get) throw std::runtime_error("主題資產僅允許 GET。");
+            const auto file = ThemeAssetPath(uri.substr(hostOrigin_.size()), themeDirectory_);
+            std::ifstream input(file, std::ios::binary);
+            if (!input) throw std::runtime_error("無法讀取主題資產。");
+            const auto size = std::filesystem::file_size(file);
+            if (size > 10 * 1024 * 1024) throw std::runtime_error("資產超過大小上限。");
+            std::string bytes(static_cast<std::size_t>(size), '\0');
+            if (!input.read(bytes.data(), static_cast<std::streamsize>(bytes.size())) || input.peek() != EOF)
+                throw std::runtime_error("資產讀取失敗或讀取期間遭修改。");
+            body.Attach(SHCreateMemStream(reinterpret_cast<const BYTE*>(bytes.data()), static_cast<UINT>(bytes.size())));
+            if (!body) throw std::runtime_error("無法建立資產回應。");
+            headers += std::wstring(L"Content-Type: ") + AssetMime(file) + L"\r\n";
+            status = 200;
+        } catch (const std::exception& error) {
+            OutputDebugStringA(error.what());
+            status = 404;
+        }
+    }
+    ComPtr<ICoreWebView2WebResourceResponse> response;
+    HRESULT result = environment_->CreateWebResourceResponse(body.Get(), status,
+        status == 200 ? L"OK" : L"Blocked", headers.c_str(), &response);
+    if (SUCCEEDED(result)) result = args->put_Response(response.Get());
+    if (FAILED(result)) { webview_->Stop(); ReportFailure(result); }
+    return result;
+}
+
 HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDirectory,
                                  const std::wstring& themeName, const std::wstring& entry) {
     if (parentWindow == nullptr || !IsWindow(parentWindow) || themeDirectory.empty() ||
@@ -215,18 +381,14 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 ReportFailure(result);
                                 return S_OK;
                             }
-                            result = webview3->SetVirtualHostNameToFolderMapping(
-                                hostName_.c_str(), themeDirectory.c_str(),
-                                COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS);
-                            if (FAILED(result)) {
-                                ReportFailure(result);
-                                return S_OK;
-                            }
-
                             ComPtr<ICoreWebView2Settings> settings;
                             result = webview_->get_Settings(&settings);
                             if (SUCCEEDED(result) && settings != nullptr) {
                                 result = settings->put_IsWebMessageEnabled(TRUE);
+                                if (SUCCEEDED(result)) result = settings->put_AreHostObjectsAllowed(FALSE);
+                                if (SUCCEEDED(result)) result = settings->put_AreDevToolsEnabled(FALSE);
+                                if (SUCCEEDED(result)) result = settings->put_AreDefaultContextMenusEnabled(FALSE);
+                                if (SUCCEEDED(result)) result = settings->put_AreDefaultScriptDialogsEnabled(FALSE);
                             }
                             if (FAILED(result)) {
                                 ReportFailure(result);
@@ -242,23 +404,7 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                                ICoreWebView2WebResourceRequestedEventArgs* args) -> HRESULT {
                                             if (!*lifetime) return E_ABORT;
                                             if (args == nullptr) return E_INVALIDARG;
-                                            ComPtr<ICoreWebView2WebResourceRequest> request;
-                                            HRESULT requestResult = args->get_Request(&request);
-                                            if (FAILED(requestResult) || request == nullptr) return S_OK;
-                                            LPWSTR uri = nullptr;
-                                            requestResult = request->get_Uri(&uri);
-                                            if (FAILED(requestResult) || uri == nullptr) return S_OK;
-                                            const bool allowed = IsLocalThemeUrl(uri, hostOrigin_);
-                                            CoTaskMemFree(uri);
-                                            if (allowed) return S_OK;
-
-                                            ComPtr<ICoreWebView2WebResourceResponse> response;
-                                            requestResult = environment_->CreateWebResourceResponse(
-                                                nullptr, 403, L"Forbidden", nullptr, &response);
-                                            if (SUCCEEDED(requestResult) && response != nullptr) {
-                                                return args->put_Response(response.Get());
-                                            }
-                                            return requestResult;
+                                            return OnResourceRequested(args);
                                         }).Get(), &webResourceRequestedToken_);
                             }
                             if (SUCCEEDED(result)) {
@@ -269,11 +415,37 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                             if (!*lifetime) return args->put_Cancel(TRUE);
                                             LPWSTR uri = nullptr;
                                             const HRESULT uriResult = args->get_Uri(&uri);
-                                            if (FAILED(uriResult) || uri == nullptr) return S_OK;
+                                            if (FAILED(uriResult) || uri == nullptr) return args->put_Cancel(TRUE);
                                             const bool allowed = IsLocalThemeUrl(uri, hostOrigin_);
                                             CoTaskMemFree(uri);
                                             return allowed ? S_OK : args->put_Cancel(TRUE);
                                         }).Get(), &navigationStartingToken_);
+                            }
+                            if (SUCCEEDED(result)) {
+                                result = webview_->add_FrameNavigationStarting(
+                                    Callback<ICoreWebView2NavigationStartingEventHandler>(
+                                        [](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
+                                            return args ? args->put_Cancel(TRUE) : E_INVALIDARG;
+                                        }).Get(), &frameNavigationToken_);
+                            }
+                            if (SUCCEEDED(result)) {
+                                result = webview_->add_PermissionRequested(
+                                    Callback<ICoreWebView2PermissionRequestedEventHandler>(
+                                        [](ICoreWebView2*, ICoreWebView2PermissionRequestedEventArgs* args) -> HRESULT {
+                                            return args ? args->put_State(COREWEBVIEW2_PERMISSION_STATE_DENY) : E_INVALIDARG;
+                                        }).Get(), &permissionToken_);
+                            }
+                            if (SUCCEEDED(result)) {
+                                ComPtr<ICoreWebView2_4> webview4;
+                                result = webview_.As(&webview4);
+                                if (SUCCEEDED(result)) result = webview4->add_DownloadStarting(
+                                    Callback<ICoreWebView2DownloadStartingEventHandler>(
+                                        [this, lifetime](ICoreWebView2*, ICoreWebView2DownloadStartingEventArgs* args) -> HRESULT {
+                                            if (!args) return E_INVALIDARG;
+                                            if (*lifetime) SetPropW(parentWindow_, L"DrillPaper.DownloadBlocked", reinterpret_cast<HANDLE>(1));
+                                            args->put_Handled(TRUE);
+                                            return args->put_Cancel(TRUE);
+                                        }).Get(), &downloadToken_);
                             }
                             if (SUCCEEDED(result)) {
                                 result = webview_->add_NewWindowRequested(
@@ -312,9 +484,23 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 return S_OK;
                             }
                             Resize();
-                            const HRESULT navigate = webview_->Navigate((hostOrigin_ + themeEntry_).c_str());
-                            if (SUCCEEDED(navigate)) SetRuntimeState(state_);
-                            return navigate;
+                            // 等待固定通知程式註冊完成才導覽，避免首個 CSP 封鎖早於監聽器。
+                            const HRESULT registration = webview_->AddScriptToExecuteOnDocumentCreated(
+                                LR"JS(addEventListener('securitypolicyviolation', event => {
+                                    if (/^https?:/i.test(event.blockedURI))
+                                        chrome.webview.postMessage({drillpaperNetworkBlocked:true});
+                                });)JS",
+                                Callback<ICoreWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler>(
+                                    [this, lifetime](HRESULT registered, PCWSTR) -> HRESULT {
+                                        if (!*lifetime) return S_OK;
+                                        if (FAILED(registered)) { ReportFailure(registered); return S_OK; }
+                                        const HRESULT navigate = webview_->Navigate((hostOrigin_ + themeEntry_).c_str());
+                                        if (SUCCEEDED(navigate)) SetRuntimeState(state_);
+                                        else ReportFailure(navigate);
+                                        return S_OK;
+                                    }).Get());
+                            if (FAILED(registration)) ReportFailure(registration);
+                            return S_OK;
                         }).Get());
                 if (FAILED(controllerResult)) {
                     ReportFailure(controllerResult);
@@ -329,32 +515,27 @@ HRESULT WebView2Host::LoadTheme(const std::wstring& themeDirectory, const std::w
     if (themeDirectory.empty() || themeName.empty() || entry.empty()) return E_INVALIDARG;
     const auto nextHost = NewThemeHost();
     if (nextHost.empty()) return E_FAIL;
-    ComPtr<ICoreWebView2_3> webview3;
-    HRESULT result = webview_.As(&webview3);
-    if (FAILED(result)) return result;
-    result = webview3->SetVirtualHostNameToFolderMapping(nextHost.c_str(), themeDirectory.c_str(),
-        COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_DENY_CORS);
-    if (FAILED(result)) return result;
     const auto oldHost = hostName_;
     const auto oldOrigin = hostOrigin_;
     const auto oldName = themeName_;
+    const auto oldDirectory = themeDirectory_;
     webview_->Stop();
     hostName_ = nextHost;
     hostOrigin_ = L"https://" + nextHost + L"/";
     themeName_ = themeName;
+    themeDirectory_ = themeDirectory;
     handshakeComplete_ = false;
     subscribed_ = false;
     lastBroadcastTick_ = 0;
     updateIntervalMilliseconds_ = 1000;
-    result = webview_->Navigate((hostOrigin_ + entry).c_str());
+    const HRESULT result = webview_->Navigate((hostOrigin_ + entry).c_str());
     if (FAILED(result)) {
-        webview3->ClearVirtualHostNameToFolderMapping(nextHost.c_str());
         hostName_ = oldHost;
         hostOrigin_ = oldOrigin;
         themeName_ = oldName;
+        themeDirectory_ = oldDirectory;
         return result;
     }
-    webview3->ClearVirtualHostNameToFolderMapping(oldHost.c_str());
     themeDirectory_ = themeDirectory;
     themeEntry_ = entry;
     ++loadEpoch_;
@@ -519,6 +700,10 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
         SendError(ProtocolError::PayloadTooLarge, nullptr);
         return;
     }
+    if (json == R"({"drillpaperNetworkBlocked":true})") {
+        NotifyNetworkBlocked();
+        return;
+    }
 
     const ProtocolParseResult parsed = ParseClientMessage(json);
     if (parsed.error != ProtocolError::None) {
@@ -622,6 +807,10 @@ void WebView2Host::Shutdown() {
         if (webResourceRequestedToken_.value != 0) webview_->remove_WebResourceRequested(webResourceRequestedToken_);
         if (newWindowRequestedToken_.value != 0) webview_->remove_NewWindowRequested(newWindowRequestedToken_);
         if (processFailedToken_.value != 0) webview_->remove_ProcessFailed(processFailedToken_);
+        if (frameNavigationToken_.value != 0) webview_->remove_FrameNavigationStarting(frameNavigationToken_);
+        if (permissionToken_.value != 0) webview_->remove_PermissionRequested(permissionToken_);
+        ComPtr<ICoreWebView2_4> webview4;
+        if (downloadToken_.value != 0 && SUCCEEDED(webview_.As(&webview4))) webview4->remove_DownloadStarting(downloadToken_);
     }
     if (controller_ != nullptr) {
         controller_->Close();
@@ -634,6 +823,9 @@ void WebView2Host::Shutdown() {
     webResourceRequestedToken_ = {};
     newWindowRequestedToken_ = {};
     processFailedToken_ = {};
+    frameNavigationToken_ = {};
+    permissionToken_ = {};
+    downloadToken_ = {};
     parentWindow_ = nullptr;
     handshakeComplete_ = false;
     subscribed_ = false;

@@ -8,7 +8,7 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 
 請先讀 [`docs/STATUS.md`](docs/STATUS.md) 與 [`docs/FINAL_HANDOFF.md`](docs/FINAL_HANDOFF.md)。原生建置、核心測試與 Node SDK 測試已有實測證據；原生 ZIP 匯入、安全負面案例、CLI 與主題切換也各有驗證。各次命令及驗收範圍以 STATUS 為準，不外推到硬體精度、桌布附掛或瀏覽器沙箱。
 
-`scripts/package.ps1` 保留明確的發行阻擋；沒有 app RC ZIP 或安裝器。SDK `1.0.0-rc3` 是本機評估包，不含 app。主題尚未沙箱化，僅匯入你信任的內容；外連提示與全域網路開關尚未完成。
+`scripts/package.ps1` 保留明確的發行阻擋；沒有 app RC ZIP 或安裝器。SDK `1.0.0-rc3` 是本機評估包，不含 app。主題尚未沙箱化，僅匯入你信任的內容；網路開關只對已驗證的瀏覽器通訊邊界提供控制，完整限制見安全文件。
 
 ## 開發環境
 
@@ -49,7 +49,9 @@ ctest --preset windows-msvc-release --output-on-failure
 
 右下角系統匣圖示（可能在隱藏圖示區）可開啟同一個管理視窗，提供暫停／繼續、主題清單、預覽／套用、`.dmt` 匯入、使用者主題移除、智慧休眠與日誌入口。「套用並儲存設定」將主題、模式與智慧休眠保存至 `%LOCALAPPDATA%\DrillPaper\settings.json`；「取消設定變更」還原尚未套用的草稿，直接預覽則不保存。無參數啟動使用保存偏好，首次為 Minimal 桌布與啟用智慧休眠。
 
-關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊、檔案選擇器、移除確認與 Explorer 重啟依 STATUS 另行驗收；網路開關尚未交付。
+「允許主題連網」預設關閉；首次封鎖 HTTP／HTTPS 時只提示前往設定，不會自動允許。勾選後按「套用並儲存設定」才允許所有網域的 HTTP／HTTPS 資源，取消會還原草稿；重新啟動會恢復偏好。開關不放行外部導覽、框架、WebSocket、下載、權限或彈窗。設定套用會重新載入主題。
+
+關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊、檔案選擇器、移除確認與 Explorer 重啟依 STATUS 另行驗收。
 
 ## Theme SDK
 

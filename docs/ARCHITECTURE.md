@@ -29,4 +29,6 @@
 
 `SettingsStore` 位於 app，管理版本化非敏感偏好、內容及路徑檢查、同目錄暫存／flush／原子取代；損毀原檔不覆蓋。原生管理視窗提供圖形化匯入／確認移除及設定草稿，沿用 ThemeManager 驗證與安裝邊界；移除目前主題先載入 Minimal 並關閉舊 controller。可信內建資產含 SDK 型別宣告，與受限制的第三方安裝內容分開載入，沒有放寬匯入副檔名政策。
 
-WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、新管理介面的 Explorer 實機復原／檔案選擇器／移除確認、網路提示／開關及完整效能矩陣仍待驗證或完成。設定中的 allowNetwork 欄位尚未接入 host，介面尚未提供此開關。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。
+`web` 使用每次載入獨立的 GUID HTTPS 來源，透過 WebView2 資源事件提供含宿主 CSP 的本機回應；不啟動 HTTP server。HTTP／HTTPS 全域偏好同時接入 CSP 與 request policy，原生管理介面處理首次提示，通知不授權連網。外部導覽、框架、下載、權限及彈窗各自拒絕。由 folder mapping 改為宿主回應的理由、效能代價及限制見 `docs/adr/0001-host-controlled-theme-responses.md`。
+
+WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、新管理介面的 Explorer 實機復原／檔案選擇器／移除確認及完整效能矩陣仍待驗證。已測 HTTP／WebSocket 不代表完整阻止外傳；WebRTC、DNS／推測連線、跨來源 storage 仍未驗。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。

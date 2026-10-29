@@ -11,6 +11,7 @@
 #include "desktopmonitor/core/metrics_snapshot.h"
 #include "desktopmonitor/web/protocol_v1.h"
 #include "desktopmonitor/runtime/power_state_machine.h"
+#include "desktopmonitor/runtime/theme_network_policy.h"
 
 namespace desktopmonitor::web {
 
@@ -33,6 +34,11 @@ public:
      */
     HRESULT Initialize(HWND parentWindow, const std::wstring& themeDirectory,
                        const std::wstring& themeName, const std::wstring& entry = L"index.html");
+    /** 設定全域 HTTP／HTTPS 資源存取；呼叫端須重新載入主題以撤銷既有連線。
+     * Args:
+     *     enabled: 使用者明確套用的偏好，預設為 false。
+     */
+    void SetNetworkEnabled(bool enabled) { networkPolicy_.SetExternalRequestsEnabled(enabled); }
     void Resize();
     void SetSnapshot(const core::MetricsSnapshot& snapshot);
     void Shutdown();
@@ -77,6 +83,15 @@ public:
     unsigned long long LoadEpoch() const { return loadEpoch_; }
 
 private:
+    /** 記錄本工作階段首次封鎖的 HTTP／HTTPS 請求並通知可信原生介面。 */
+    void NotifyNetworkBlocked();
+    /** 在 UI 執行緒提供含強制 CSP 的資產，或依全域政策拒絕資源。
+     * Args:
+     *     args: WebView2 的真實資源事件。
+     * Returns:
+     *     回應處理結果。
+     */
+    HRESULT OnResourceRequested(ICoreWebView2WebResourceRequestedEventArgs* args);
     void OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args);
     void SendReady();
     void SendError(ProtocolError error, const char* requestId);
@@ -94,6 +109,9 @@ private:
     EventRegistrationToken webResourceRequestedToken_{};
     EventRegistrationToken newWindowRequestedToken_{};
     EventRegistrationToken processFailedToken_{};
+    EventRegistrationToken frameNavigationToken_{};
+    EventRegistrationToken permissionToken_{};
+    EventRegistrationToken downloadToken_{};
     core::MetricsSnapshot currentSnapshot_{};
     std::vector<core::MetricsSnapshot> history_;
     std::wstring themeName_;
@@ -114,6 +132,7 @@ private:
     unsigned long long loadEpoch_ = 0;
     unsigned recoveryAttempts_ = 0;
     std::shared_ptr<bool> lifetime_ = std::make_shared<bool>(true);
+    runtime::ThemeNetworkPolicy networkPolicy_;
 };
 
 } // namespace desktopmonitor::web

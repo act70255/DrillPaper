@@ -1,31 +1,25 @@
 # 主題安全模型與目前限制
 
-## 威脅模型
+主題是未受信任的 HTML、CSS 與 JavaScript。僅匯入信任的內容：**目前沒有完整第三方沙箱保證，A12 與 RC gate 保持未通過**。
 
-主題是未受信任的 HTML、CSS 與 JavaScript。惡意主題可能嘗試連網、外部導覽、彈出視窗、下載、權限提示、偽造訊息、耗盡資源或利用壓縮檔路徑穿越。原生 host 必須把套件與所有 web message 都視為不可信輸入。主題不得取得通用檔案、shell、DLL、PowerShell 或任意原生命令能力。
+## 已實作邊界
 
-## 預期控制
+- ThemeManager 先檢查 manifest、路徑、ZIP 屬性、CRC、檔案數量與容量，再 staging／原子安裝；禁止覆蓋同版本。移除只接受安裝目錄內驗證吻合的版本並拒絕重新解析點。
+- 每次載入產生獨立 GUID HTTPS 來源，停止舊頁面並重設握手。bridge 驗證目前來源、版本、schema、大小與允許操作；沒有通用檔案、shell、DLL、PowerShell 或管理設定命令。
+- 本機資產透過 WebView2 請求事件提供，不啟動 HTTP server。每份回應帶宿主強制 CSP、no-store、nosniff、no-referrer、停用 DNS 預取與部分 Permissions Policy。路徑僅解碼一次，拒絕越界與重新解析點；讀取上限 10 MiB。原因見 [ADR](adr/0001-host-controlled-theme-responses.md)。
+- 全域 allowNetwork 預設 false。離線仍可讀取自己的資產；開啟後允許所有網域的 HTTP／HTTPS 資源。套用設定會重新載入主題，CSP 與 request policy 均使用最新偏好；取消不套用，重啟恢復保存值。
+- 外部頂層導覽、框架、worker、WebSocket、物件、表單、下載、權限與彈窗分別拒絕，不隨開關放行。停用 host objects、DevTools、預設內容選單及 script dialogs。HTTP 仍受瀏覽器原有 TLS／混合內容規則限制。
+- 首次封鎖 HTTP／HTTPS 顯示可信原生設定提示，每個 app 工作階段最多一次，不放行、不保存。固定注入的 CSP 通知僅能觸發一次提示；即使主題偽造同一通知，也無法更改設定或執行管理命令。
+- 一般使用者權限；私有 WebView2 user-data 目錄；只提供核准的彙總指標，產品沒有遙測。
 
-- 驗證 ZIP 路徑與配額後，只能安裝到目前使用者的 DrillPaper 資料目錄。
-- 每個主題使用固定的本機 WebView2 virtual host mapping；驗證訊息來源、origin、API 版本與 schema，拒絕未知命令和超大 payload。
-- 預設拒絕外部 top-level navigation、新視窗、下載與權限請求。
-- 使用應用程式私有 WebView2 user-data 目錄，並以一般使用者權限執行。
-- 使用限制嚴格的 CSP/request policy；需測試 `fetch`、XHR、圖片、script、iframe、redirect 與 WebSocket。
-- 只提供核准的彙總指標；不揭露帳號、序號、任意路徑或不受限制的系統呼叫。
+## 真實 WebView2 驗證
 
-## 使用者已選定的網路政策（完整設定流程尚未實作）
+執行 scripts/test-webview2-security.ps1，指定 -ApplicationPath build/windows-msvc-release/Release/DrillPaper.exe。使用隔離 LOCALAPPDATA、實際匯入的測試主題與 loopback Node HTTP fixture；Node 只供測試，不是產品依賴。以瀏覽器結果、既有 SDK 訂閱及伺服器實收紀錄交叉判定，不以單元 policy 代替流量證據。HTTPS 正向案例對 https://example.com/ 發出固定 no-cors 測試請求，需要可用網路；不略過憑證驗證。
 
-- 主題外連預設封鎖。
-- 全域網路開關維持單一設定。主題首次外連遭封鎖時提示使用者前往設定；提示本身不會放行請求。
-- 使用者開啟全域開關後，主題 WebView 可對任何網域發出 HTTP/HTTPS 請求。其他 URI scheme 仍封鎖；DrillPaper 本身不送遙測。
-- 已加入純 C++ `ThemeNetworkPolicy` 狀態模型，CTest 覆蓋預設封鎖、首次提示、HTTP/HTTPS 開關行為、本機資源與其他 scheme 封鎖。WebView2 host 原始碼亦拒絕非本機 navigation/resource 和新視窗；這個 baseline host 尚未接上政策模型、首次提示或全域開關。沒有網路流量實測，因此不能宣稱使用者選定的完整網路政策已執行或阻止資料外傳。
+已重現舊攔截器未阻止 WebSocket；加入強制 CSP 後通過同一負面案例。HTTP／HTTPS 開關、首次提示、保存／取消／重啟、本機 JSON、script、image、fetch、XHR、iframe、WebSocket、HTTP redirect、redirect 至 file、外部導覽、彈窗、通知／定位權限、下載事件及非支援 scheme 的結果見 [階段 3 報告](acceptance/2026-10-29/management/PHASE3.md)。
 
-## 目前已有實測的控制
+## 未證實的範圍
 
-JavaScript manifest validator 會拒絕未知欄位、不支援的 API 版本、路徑穿越寫法、無效 ID/版本、未知或重複 capability，以及非空 permissions。JavaScript SDK 限制訂閱指標、更新間隔、歷史筆數與未完成請求數。這些都只是前端/作者工具檢查，惡意主題可繞過。
+NOT RUN：WebRTC、完整 DNS／preconnect／推測連線、瀏覽器自身背景流量、跨主題 storage／舊頁面訊息競態、完整權限種類、所有 scheme 組合、瀏覽器漏洞與 OS sandbox 逃逸。X-DNS-Prefetch-Control 不等於已量測所有 DNS 流量；HTTP／WebSocket 測試不能證明完全阻止網路外傳。
 
-PowerShell `.dmt` 驗證器已在本機對正常封裝、路徑穿越、大小寫重複路徑、錯誤副檔名、未知 API 版本與超大檔案執行負面測試。它不會安裝或執行主題。
-
-原生 `.dmt` 已加入限額／路徑／連結屬性／CRC／manifest 驗證、暫存及原子安裝，並以真實 ZIP 及 Windows junction 做負面測試。每次 WebView2 載入使用獨立 GUID origin，解除舊 mapping 並重設握手；此設計仍須進一步做惡意舊頁面訊息與跨主題 storage 測試。詳細證據見 `acceptance/2026-10-28/theme-platform/REPORT.md`。
-
-WebView2 的非本機 navigation/resource 與新視窗拒絕已編入 Release，但外部網路負面整合、download/permission 拒絕、CSP、renderer 復原仍未完成。因此第三方主題**尚未沙箱化**，沒有完整阻止網路外傳的證據。僅匯入信任的內容；發行閘門保持阻擋。同使用者並行替換檔案不在目前檔案系統隔離保證內。
+檔案檢查不是 OS 隔離，無法保證同使用者並行替換路徑的安全性。無限迴圈與資源耗盡另屬復原／效能矩陣。這些限制及未完成的 Windows 相容性、乾淨安裝等 gate 仍阻擋 app RC；不得將套件驗證或目前通訊測試稱為完整沙箱。

@@ -72,7 +72,7 @@ if(MSVC)
     target_compile_options(DrillPaper PRIVATE /W4 /permissive- /utf-8)
 endif()
 target_link_libraries(DrillPaper PRIVATE
-    user32 gdi32 iphlpapi pdh ole32
+    user32 gdi32 iphlpapi pdh ole32 shlwapi
     "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/x64/WebView2Loader.dll.lib"
 )
 

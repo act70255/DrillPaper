@@ -13,7 +13,7 @@ constexpr UINT kThemeList = 20101;
 constexpr UINT kModeList = 20102;
 constexpr UINT kSmartSleep = 20103;
 struct Control { UINT id; const wchar_t* cls; const wchar_t* label; int x; int y; int width; int height; DWORD style; };
-constexpr std::array<Control, 17> kControls{{
+constexpr std::array<Control, 18> kControls{{
     {kStatus, L"STATIC", L"正在初始化…", 20, 16, 560, 104, SS_LEFT},
     {kManagePause, L"BUTTON", L"暫停桌布", 20, 128, 180, 36, BS_PUSHBUTTON},
     {kManageDesktop, L"BUTTON", L"桌布模式", 210, 128, 180, 36, BS_PUSHBUTTON},
@@ -29,6 +29,7 @@ constexpr std::array<Control, 17> kControls{{
     {20105, L"STATIC", L"保存的顯示模式：", 20, 412, 150, 26, SS_LEFT},
     {kModeList, L"COMBOBOX", L"", 190, 408, 200, 120, CBS_DROPDOWNLIST | WS_VSCROLL},
     {kSmartSleep, L"BUTTON", L"啟用智慧休眠（全螢幕／鎖定／顯示器關閉）", 20, 450, 560, 30, BS_AUTOCHECKBOX},
+    {20106, L"BUTTON", L"允許主題連網（HTTP／HTTPS，所有網域）", 20, 482, 560, 24, BS_AUTOCHECKBOX},
     {kManageApply, L"BUTTON", L"套用並儲存設定", 20, 506, 180, 36, BS_PUSHBUTTON},
     {kManageCancel, L"BUTTON", L"取消設定變更", 210, 506, 180, 36, BS_PUSHBUTTON}
 }};
@@ -294,6 +295,7 @@ void ManagementShell::SetPreferences(const app::AppSettings& settings) {
         if (themes_[index].key == settings.theme) SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, index, 0);
     SendDlgItemMessageW(window_, kModeList, CB_SETCURSEL, settings.desktop ? 0 : 1, 0);
     SendDlgItemMessageW(window_, kSmartSleep, BM_SETCHECK, settings.smartSleep ? BST_CHECKED : BST_UNCHECKED, 0);
+    SendDlgItemMessageW(window_, 20106, BM_SETCHECK, settings.allowNetwork ? BST_CHECKED : BST_UNCHECKED, 0);
     SendMessageW(window_, WM_COMMAND, MAKEWPARAM(kThemeList, LBN_SELCHANGE), 0);
 }
 
@@ -303,6 +305,7 @@ app::AppSettings ManagementShell::Preferences() const {
     if (selected >= 0 && static_cast<std::size_t>(selected) < themes_.size()) result.theme = themes_[selected].key;
     result.desktop = SendDlgItemMessageW(window_, kModeList, CB_GETCURSEL, 0, 0) == 0;
     result.smartSleep = SendDlgItemMessageW(window_, kSmartSleep, BM_GETCHECK, 0, 0) == BST_CHECKED;
+    result.allowNetwork = SendDlgItemMessageW(window_, 20106, BM_GETCHECK, 0, 0) == BST_CHECKED;
     return result;
 }
 

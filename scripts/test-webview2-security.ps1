@@ -1,0 +1,172 @@
+﻿[CmdletBinding()]
+param([Parameter(Mandatory)][string]$ApplicationPath)
+$ErrorActionPreference = 'Stop'
+$application = (Resolve-Path -LiteralPath $ApplicationPath).Path
+Add-Type -TypeDefinition @'
+using System;
+using System.Text;
+using System.Runtime.InteropServices;
+public static class SecurityProbe {
+    private delegate bool Callback(IntPtr window, IntPtr data);
+    [DllImport("user32.dll")] private static extern bool EnumWindows(Callback callback, IntPtr data);
+    [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode)] private static extern int GetClassName(IntPtr window, StringBuilder text, int size);
+    [DllImport("user32.dll")] public static extern IntPtr GetDlgItem(IntPtr window, int id);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr GetProp(IntPtr window, string name);
+    [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
+    [DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
+    /** 找到受測程序的指定頂層視窗。
+     * Args:
+     *     process: 本次啟動的程序。
+     *     name: 原生視窗類別。
+     * Returns:
+     *     視窗控制代碼；未找到時為零。
+     */
+    public static IntPtr Find(uint process, string name) {
+        IntPtr found = IntPtr.Zero;
+        EnumWindows((window, data) => {
+            uint owner; GetWindowThreadProcessId(window, out owner);
+            var text = new StringBuilder(256); GetClassName(window, text, text.Capacity);
+            if (owner == process && text.ToString() == name) found = window;
+            return true;
+        }, IntPtr.Zero);
+        return found;
+    }
+}
+'@
+function Wait-Security([scriptblock]$Condition, [string]$Failure) {
+    <# 等待真實 WebView2／原生管理狀態。
+    Args:
+        Condition: 成功條件。
+        Failure: 逾時時的繁體中文訊息。
+    #>
+    $timer = [Diagnostics.Stopwatch]::StartNew()
+    do {
+        if ($app.HasExited) { throw '安全測試的 app 提前退出。' }
+        if (& $Condition) { return }
+        Start-Sleep -Milliseconds 100
+    } while ($timer.Elapsed.TotalSeconds -lt 15)
+    throw $Failure
+}
+function Stop-SecurityApp {
+    <# 正常關閉本測試程序並檢查已觀察的子程序。
+    Returns:
+        已觀察的子程序 ID 陣列。
+    #>
+    $processes = @(Get-CimInstance Win32_Process)
+    $tree = [Collections.Generic.HashSet[int]]::new()
+    [void]$tree.Add($app.Id)
+    do {
+        $added = $false
+        foreach ($process in $processes) {
+            if ($tree.Contains([int]$process.ParentProcessId) -and $tree.Add([int]$process.ProcessId)) { $added = $true }
+        }
+    } while ($added)
+    [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+    if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '安全測試程序未正常退出 0。' }
+    foreach ($childId in $tree) {
+        if ($childId -eq $app.Id) { continue }
+        $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
+        if ($child -and -not $child.WaitForExit(15000)) { throw "安全測試的已觀察子程序未退出：$childId" }
+    }
+    return @($tree | Where-Object { $_ -ne $app.Id })
+}
+$session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N'))))
+$previousLocal = $env:LOCALAPPDATA
+$app = $null
+$server = $null
+try {
+    $env:LOCALAPPDATA = Join-Path $session 'appdata'
+    $source = Join-Path $session 'source'
+    New-Item -ItemType Directory -Path $source -Force | Out-Null
+    $server = Start-Process -FilePath (Get-Command node).Source -ArgumentList ('"' + (Join-Path $PSScriptRoot '../tests/fixtures/security-server.mjs') + '"'),('"' + $session + '"') -WindowStyle Hidden -PassThru
+    $serverClock = [Diagnostics.Stopwatch]::StartNew()
+    while (-not (Test-Path -LiteralPath (Join-Path $session 'server.json'))) {
+        if ($server.HasExited -or $serverClock.Elapsed.TotalSeconds -gt 10) { throw '無法啟動隔離的網路測試伺服器。' }
+        Start-Sleep -Milliseconds 100
+    }
+    $port = (Get-Content -Raw -LiteralPath (Join-Path $session 'server.json') | ConvertFrom-Json).port
+    $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port")
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
+    '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
+    '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
+    '{"download":"必須拒絕"}' | Set-Content -LiteralPath (Join-Path $source 'download.json') -Encoding UTF8
+    $probe.Replace('__ENABLED__', 'false') | Set-Content -LiteralPath (Join-Path $source 'main.js') -Encoding UTF8
+    $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $source + '"') -WindowStyle Hidden -PassThru
+    $handle = $import.Handle
+    if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '無法匯入安全測試主題。' }
+    $import.Dispose()
+    $app = Start-Process -FilePath $application -ArgumentList '--management','--preview','--mock-metrics','--no-smart-sleep' -WindowStyle Hidden -PassThru
+    $handle = $app.Handle
+    $env:LOCALAPPDATA = $previousLocal
+    Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '缺少管理命令入口。'
+    $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
+    $manager = [SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow')
+    $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
+    Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '初始主題未就緒。'
+    $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
+    [void][SecurityProbe]::PostMessage($wallpaper, 0x111, [UIntPtr]::new([uint32]11000), [IntPtr]::Zero)
+    Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.NetworkPrompt').ToInt64() -eq 1 } '首次封鎖外連沒有出現設定提示。'
+    Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $ready } '預設封鎖的真實資源測試未通過。'
+    Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.DownloadBlocked').ToInt64() -eq 1 } '沒有觀察到真實下載拒絕事件。'
+    if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { throw '預設封鎖時測試伺服器仍收到請求。' }
+    $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
+    if ($networkCheck -eq [IntPtr]::Zero) { throw '管理介面缺少真正的主題網路開關。' }
+    if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0) { throw '首次提示自行開啟網路。' }
+    [void][SecurityProbe]::SendMessage($networkCheck, 0xF1, [UIntPtr]::new([uint32]1), [IntPtr]::Zero)
+    [void][SecurityProbe]::SendMessage($notification, 0x111, [UIntPtr]::new([uint32]20011), [IntPtr]::Zero)
+    if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 0) { throw '取消未還原網路草稿。' }
+    $themeList = [SecurityProbe]::GetDlgItem($manager, 20101)
+    [void][SecurityProbe]::SendMessage($themeList, 0x186, [UIntPtr]::new([uint32]2), [IntPtr]::Zero)
+    $installedScript = Join-Path $session 'appdata/DrillPaper/themes/security-probe@1.0.0/main.js'
+    foreach ($enabled in @($true, $false)) {
+        for ($attempt = 0; ; $attempt++) {
+            try { [IO.File]::WriteAllText($installedScript, $probe.Replace('__ENABLED__', $enabled.ToString().ToLowerInvariant()), [Text.UTF8Encoding]::new($false)); break }
+            catch { if ($attempt -ge 20) { throw }; Start-Sleep -Milliseconds 100 }
+        }
+        [void][SecurityProbe]::SendMessage($networkCheck, 0xF1, [UIntPtr]::new([uint32][int]$enabled), [IntPtr]::Zero)
+        $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
+        $before = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
+        [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20010), [IntPtr]::Zero)
+        Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt $ready } "實際網路切換測試未通過，allowNetwork=$enabled。"
+        $after = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
+        if (($enabled -and $after -le $before) -or (-not $enabled -and $after -ne $before)) { throw '瀏覽器結果與伺服器實際請求不一致。' }
+        $settings = Get-Content -Raw -LiteralPath (Join-Path $session 'appdata/DrillPaper/settings.json') | ConvertFrom-Json
+        if ($settings.allowNetwork -ne $enabled) { throw '網路設定未正確保存。' }
+        if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) {
+            foreach ($line in Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')) {
+                $request = $line | ConvertFrom-Json
+                if ($request.url -match '^/(socket|iframe|popup|navigate)') { throw "網路開關繞過安全邊界：$($request.url)" }
+            }
+        }
+        if ($enabled) {
+            $children = @(Stop-SecurityApp)
+            $app.Dispose()
+            $env:LOCALAPPDATA = Join-Path $session 'appdata'
+            $app = Start-Process -FilePath $application -ArgumentList '--management','--mock-metrics','--no-smart-sleep' -WindowStyle Hidden -PassThru
+            $handle = $app.Handle
+            $env:LOCALAPPDATA = $previousLocal
+            Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '重啟後沒有管理入口。'
+            $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
+            $manager = [SecurityProbe]::Find($app.Id, 'DrillPaperManagementWindow')
+            $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
+            $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
+            Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '重啟沒有恢復已允許的網路政策。'
+            if ([SecurityProbe]::SendMessage($networkCheck, 0xF0, [UIntPtr]::Zero, [IntPtr]::Zero).ToInt64() -ne 1) { throw '重啟沒有恢復已保存的網路開關。' }
+        }
+    }
+    $children = @(Stop-SecurityApp)
+    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
+    Write-Output "PASS：首次封鎖提示，證據：$session"
+} finally {
+    $env:LOCALAPPDATA = $previousLocal
+    if ($app) {
+        if (-not $app.HasExited) {
+            $notification = [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications')
+            [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
+            if (-not $app.WaitForExit(10000)) { $app.Kill() }
+        }
+        $app.Dispose()
+    }
+    if ($server) { if (-not $server.HasExited) { $server.Kill(); [void]$server.WaitForExit(5000) }; $server.Dispose() }
+}

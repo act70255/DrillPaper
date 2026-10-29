@@ -1,0 +1,10 @@
+﻿{
+    "timestamp":  "2026-10-29T14:36:12.0071486+08:00",
+    "result":  "PASS",
+    "switch":  "off-on-off",
+    "prompt":  "PASS",
+    "http":  "PASS",
+    "https":  "PASS (example.com no-cors)",
+    "hash":  "3FA3C434F9B7A90E686596265798684288046821291F484760D0C4508E662BE5",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe"
+}

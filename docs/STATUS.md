@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-29 管理介面階段 3 — 真實網路控制與安全負面整合
+
+- Scope：全域 HTTP／HTTPS 草稿、套用／取消與保存／重啟接入 WebView2；首次封鎖只提醒前往原生設定。每次載入 GUID HTTPS 來源改由宿主回應強制 CSP，保留離線且不啟動 HTTP server；ADR 0001 記錄替代 folder mapping 的原因。外部導覽、框架、worker／WebSocket、下載、權限及彈窗各自拒絕。
+- Red／Green：首次提示缺失、介面缺少開關、預設封鎖仍有 WebSocket 到達 loopback server，均先失敗後通過。新增離線 JSON 回歸再抓到 connect-src 過嚴，縮至目前主題來源後通過。
+- PASS：Release app build；`test-webview2-security.ps1` 真實 HTTP off→on→off、HTTPS example.com no-cors、script／image／fetch／XHR／redirect、iframe／WebSocket／彈窗／導覽負面、通知／定位 denied、下載取消事件、保存／取消／重啟及已觀察子程序退出。最新 session `artifacts/acceptance/security-a804c15b069b4ad2bf9c79a44037a7be`，hash 與詳細界線見 [PHASE3.md](acceptance/2026-10-29/management/PHASE3.md)。
+- PASS：`test-management-shell.ps1 ... -Desktop` 的既有管理生命週期／設定回歸，以及 Dashboard mock Preview smoke（PID 92592）。`git diff --check` 通過。完整套件與 CI 尚待下一階段收尾。
+- NOT RUN：完整 egress／WebRTC／DNS／preconnect、跨來源 storage／舊頁面競態、全部權限及 scheme，因不在目前測試覆蓋內；不宣稱完整沙箱，A12 與 RC gate 保留。真正圖示點擊、檔案選擇／確認、新版真正 Explorer、移除 junction 與完整回歸／CI 接續補驗，尚未以舊版結果替代。
+- 持續桌布：已核對 PID 83428 的固定 a241856 EXE 路徑，未關閉或替換。舊版 A04 人工 PASS 保留。
+- Commit：`feat(security): 接入主題網路開關與強制安全政策`；依階段規則立即 commit＋push 至 feature/tray-management，不合併 main。
+
 ## 2026-10-29 管理介面階段 2 — 主題與設定；使用者要求交接暫停
 
 - 實作：原生主題清單、預覽／套用、`.dmt` 檔案選擇器、確認移除、模式與智慧休眠設定、套用／取消；`SettingsStore` schema 驗證、同目錄暫存／flush／原子保存、損毀原檔保留，CLI 暫時覆寫不自動保存。ThemeManager 只允許移除安裝目錄中驗證吻合的版本；使用中的版本先換 Minimal 並關閉舊 controller。
