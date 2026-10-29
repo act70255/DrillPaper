@@ -4,6 +4,8 @@
 
 目前整合狀態：使用者已授權將完成分支合併 main，main 已從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋現有功能／修正分支歷史。後續整合文件不改產品，分支保留；下文先前「未合併／不合併 main」描述為當時紀錄，已由此次明確授權取代。多螢幕仍 planned、RC gate 保留，這次整合不是發行。
 
+main 整合提交 0f548ae 的 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) 已通過 CTest 33/33／SDK 18/18、SDK 還原與封裝，RC job skipped。metadata／節錄保存於 acceptance/2026-10-29/main-integration/；此後的結果文件提交不變更產品。
+
 剩餘工作依「驗證／必要完整性功能／補充功能」分類，見 [工作清單](REMAINING_WORK.md)。使用者已明確將多螢幕支援列為必要完整性功能，需補齊實作及對應驗收，不能只列待測相容性或後續選配；固定設定視窗不取消此要求。目前沒有多螢幕完成結論。
 
 多螢幕的本版呈現方式已收斂為「勾選套用目標、每個選中螢幕各顯示一份完整的目前主題」，不做跨螢幕拼接／延展或逐螢幕不同主題；需求見 [.scratch/multi-monitor/spec.md](../.scratch/multi-monitor/spec.md)，尚未實作／驗收。

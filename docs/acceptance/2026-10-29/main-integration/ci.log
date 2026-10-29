@@ -1,0 +1,4 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:17:36.6357742Z # tests 18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:17:36.6358975Z # pass 18
+windows-build-test	Run native tests	2026-10-29T09:20:43.6401270Z 100% tests passed, 0 tests failed out of 33
+windows-build-test	Run native tests	2026-10-29T09:20:43.6402213Z Total Test time (real) =   1.96 sec

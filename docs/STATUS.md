@@ -2,6 +2,7 @@
 
 ## 2026-10-29 完成分支整合至 main — 使用者授權合併
 
+- main 整合與交接提交 `0f548ae` 已推送 origin/main；實際 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) PASS：乾淨 Windows configure／build、CTest 33/33（1.96 秒）、SDK 18/18、SDK 還原／封裝與 artifact，RC job skipped。證據為 acceptance/2026-10-29/main-integration/ci.json／log，完整原始 log 在 artifacts/acceptance/main-integration-ci.log。最後僅保存結果的文件提交不改產品，使用 commit-msg skill 產生 `docs(ci): 保存 main 分支整合驗證結果` 後推送。
 - 使用者最新指示「把完成的分支合併到Main」，取代先前本輪不合併 main 的限制。先 fetch origin 並核對乾淨工作樹；main／origin/main 原為 5697bf7，feature/tray-management 為 bec20d4，落後 33 個提交且無分歧。
 - 已以 `git switch main`、`git merge --ff-only origin/main`、`git merge --ff-only feature/tray-management` 完成本機快轉整合，保留原提交歷史。16 個現有功能／修正分支及所有遠端分支均為該來源分支的祖先，`git branch --no-merged main` 為空；分支與其他 worktree 保留。
 - 產品程式與既有 62f01ab 實測版本相同；此前 6672610 的 CI 40840814142 通過 CTest 33/33、SDK 18/18。多螢幕只有 planned spec，完整安全／相容性等 NOT RUN 與 RC gate 保留，合併不代表產品已可發行。
