@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-29 最後安全回歸 — 保留主機判斷與人工回報
+
+- Scope／Red→Green：新增正常 URL 路徑含 `.drillpaper.local` 的真實 fetch，先在 allowNetwork=true 重現失敗；將保留命名空間判斷限制在 URI authority 的主機名稱，不再用整段 URL 子字串拒絕。
+- PASS：Release app hash `F0238D6151CF4FC812F94483D99F40AE869D675DA2CF308C201D959B5D6EB757`；安全測試 session security-4e94d27238ce4faf82bf0b39b5b4e71f，含新路徑及 HTTP／HTTPS、WS／WSS、管理與獨立重啟。完整套件再次通過 CTest 33/33（28.19 秒）、SDK 18/18 與其他腳本檢查。
+- 測試工具缺陷：清理觀測曾把建立於 14:39 的 MSBuild 29340 列入 14:53 測試 app 的子程序，因舊 ParentProcessId 被重用；未終止該 MSBuild。改為比較父子建立時間並在關閉前保留 process handle，且必須觀察到真正子程序，重測通過。另保留一次原因未定的提前退出與路徑 Red，不稱首次即成功。
+- 人工回報：使用者確認系統匣可開啟、匯入操作看起來正常，接續回報移除測試已執行完畢且未述異常；隔離 minimal-monitor@1.0.0 目錄已不存在。取消／確認各步細節未另述，不擴大為完整矩陣。額外視窗來自隔離測試；核對後僅原桌布與人工程序，人工程序已正常退出 0。
+- CI：bcb6d2c 的 [40831527263](https://github.com/act70255/DrillPaper/actions/runs/40831527263) 完整 PASS，CTest 33/33、SDK 18/18，RC job 預期 skipped。本次最後主機判斷修正將提交推送後另觸發，不沿用前版 PASS。
+- NOT RUN：新版 Explorer 像素人工結論、完整鍵盤／DPI、完整 egress／WebRTC 等安全矩陣；理由及剩餘 gate 仍見 FOLLOWUP.md。原持續桌布 83428 保留，沒有合併 main。
+- Commit：`fix(security): 依主機名稱判斷保留來源`，依 commit-msg skill 產生後立即 commit＋push feature/tray-management。
+
 ## 2026-10-29 管理續驗 — 獨立啟動全域偏好、junction 與真正 Explorer
 
 - Scope：補足管理功能收尾，發現獨立 `--preview` 不讀保存偏好，先以真實 WebView2 重啟測試重現 FAIL，再讓全部 GUI 啟動先讀 SettingsStore、其後套 CLI 暫時覆寫，啟動不寫回。其他 ticket／發行功能未納入。

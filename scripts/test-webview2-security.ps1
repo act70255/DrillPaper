@@ -42,7 +42,7 @@ function Wait-Security([scriptblock]$Condition, [string]$Failure) {
     #>
     $timer = [Diagnostics.Stopwatch]::StartNew()
     do {
-        if ($app.HasExited) { throw '安全測試的 app 提前退出。' }
+        if ($app.HasExited) { throw "安全測試 app 提前退出（退出碼 $($app.ExitCode)）；等待項目：$Failure" }
         if (& $Condition) { return }
         Start-Sleep -Milliseconds 100
     } while ($timer.Elapsed.TotalSeconds -lt 15)
@@ -55,23 +55,45 @@ function Stop-SecurityApp {
     #>
     $processes = @(Get-CimInstance Win32_Process)
     $tree = [Collections.Generic.HashSet[int]]::new()
+    $births = [Collections.Generic.Dictionary[int,DateTime]]::new()
+    $births[$app.Id] = $app.StartTime.ToUniversalTime()
     [void]$tree.Add($app.Id)
     do {
         $added = $false
         foreach ($process in $processes) {
-            if ($tree.Contains([int]$process.ParentProcessId) -and $tree.Add([int]$process.ProcessId)) { $added = $true }
+            $parentId = [int]$process.ParentProcessId
+            $created = $process.CreationDate.ToUniversalTime()
+            if ($tree.Contains($parentId) -and $created -ge $births[$parentId] -and $tree.Add([int]$process.ProcessId)) {
+                $births[[int]$process.ProcessId] = $created
+                $added = $true
+            }
         }
     } while ($added)
+    $children = @(
+        foreach ($childId in $tree) {
+            if ($childId -eq $app.Id) { continue }
+            $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
+            if ($child) {
+                try {
+                    # 先保留真正程序的 handle，避免退出後 PID 被重用時等待另一個程序。
+                    $childHandle = $child.Handle
+                    if ([Math]::Abs(($child.StartTime.ToUniversalTime() - $births[$childId]).TotalMilliseconds) -lt 1) { $child }
+                    else { $child.Dispose() }
+                } catch { $child.Dispose() }
+            }
+        }
+    )
+    if ($children.Count -eq 0) { throw '沒有觀察到真正的 WebView2 子程序，不能宣稱清理通過。' }
     if ($manager -ne [IntPtr]::Zero) {
         [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20006), [IntPtr]::Zero)
     } else { [void][SecurityProbe]::PostMessage($wallpaper, 0x10, [UIntPtr]::Zero, [IntPtr]::Zero) }
     if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 0) { throw '安全測試程序未正常退出 0。' }
-    foreach ($childId in $tree) {
-        if ($childId -eq $app.Id) { continue }
-        $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
-        if ($child -and -not $child.WaitForExit(15000)) { throw "安全測試的已觀察子程序未退出：$childId" }
+    foreach ($child in $children) {
+        if (-not $child.WaitForExit(15000)) { throw "安全測試的已觀察子程序未退出：$($child.Id)" }
     }
-    return @($tree | Where-Object { $_ -ne $app.Id })
+    $childIds = @($children | ForEach-Object { $_.Id })
+    foreach ($child in $children) { $child.Dispose() }
+    return $childIds
 }
 $session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N'))))
 $previousLocal = $env:LOCALAPPDATA
@@ -172,7 +194,7 @@ try {
     }
     $children = @(Stop-SecurityApp)
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 在設定切換或重啟期間仍嘗試 TCP／TLS 連線。' }
-    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
+    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash; observedChildren=$children; http='PASS'; prompt='PASS'; switch='off-on-off'; https='PASS (example.com no-cors)'; timestamp=(Get-Date -Format o)} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"
 } finally {
     $env:LOCALAPPDATA = $previousLocal

@@ -1,0 +1,18 @@
+﻿{
+    "http":  "PASS",
+    "observedChildren":  [
+                             89608,
+                             93356,
+                             9336,
+                             98120,
+                             93260,
+                             86316
+                         ],
+    "switch":  "off-on-off",
+    "timestamp":  "2026-10-29T14:56:56.7034633+08:00",
+    "https":  "PASS (example.com no-cors)",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+    "prompt":  "PASS",
+    "result":  "PASS",
+    "hash":  "F0238D6151CF4FC812F94483D99F40AE869D675DA2CF308C201D959B5D6EB757"
+}

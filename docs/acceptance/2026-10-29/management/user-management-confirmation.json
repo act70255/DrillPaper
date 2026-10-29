@@ -1,0 +1,19 @@
+{
+  "installedThemePresent": false,
+  "explorerPixels": "NOT RUN",
+  "import": "PASS（使用者確認）",
+  "repeatedClickUniqueness": "原生整合 5 次通過；人工未另確認",
+  "removal": "使用者回報測試完成，未述異常；隔離安裝目錄已不存在",
+  "trayOpen": "PASS（使用者確認）",
+  "timestamp": "2026-10-29T14:56:48.3062975+08:00",
+  "scope": "隔離人工驗收固定副本 bcb6d2c",
+  "pid": 100000,
+  "cancelDetail": "使用者未另述否／是各步細節",
+  "userReports": [
+    "點系統夾能開 不過剛剛有額外出現視窗 我懷疑是你的測試開的",
+    "操作匯入看起來OK",
+    "測試移除 以執行完必"
+  ],
+  "executableHash": "746878782C24CF798CA3B9A84F708607994B11FC5B06A87C57DA07A77F2C2A67",
+  "shutdown": "NORMAL_EXIT_0"
+}

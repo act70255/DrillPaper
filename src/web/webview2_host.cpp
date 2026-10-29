@@ -69,6 +69,28 @@ bool IsLocalThemeUrl(PCWSTR url, const std::wstring& origin) {
     return _wcsnicmp(url, origin.c_str(), origin.size()) == 0;
 }
 
+/** 只將保留 DNS 主機視為主題來源，不以路徑或查詢文字判斷。
+ * Args:
+ *     uri: WebView2 已正規化的 HTTP／HTTPS URI。
+ * Returns:
+ *     authority 中的主機屬於保留命名空間時為 true。
+ */
+bool IsReservedThemeHost(std::wstring_view uri) {
+    const auto scheme = uri.find(L"://");
+    if (scheme == std::wstring_view::npos) return false;
+    auto authority = uri.substr(scheme + 3);
+    authority = authority.substr(0, authority.find_first_of(L"/?#"));
+    const auto credentials = authority.rfind(L'@');
+    if (credentials != std::wstring_view::npos) authority.remove_prefix(credentials + 1);
+    // IPv6 的 authority 以左括號開頭，不會屬於此 DNS 命名空間。
+    if (authority.starts_with(L"[")) return false;
+    authority = authority.substr(0, authority.find(L':'));
+    if (authority.ends_with(L".")) authority.remove_suffix(1);
+    constexpr std::wstring_view suffix = L".drillpaper.local";
+    return authority.size() >= suffix.size() &&
+        _wcsnicmp(authority.data() + authority.size() - suffix.size(), suffix.data(), suffix.size()) == 0;
+}
+
 /** 建立由宿主強制的 CSP，禁止框架、worker、物件與非 HTTP 通訊。
  * Args:
  *     enabled: 是否允許 HTTP／HTTPS 資源。
@@ -278,7 +300,7 @@ HRESULT WebView2Host::OnResourceRequested(ICoreWebView2WebResourceRequestedEvent
     const bool http = uri.starts_with(L"http://") || uri.starts_with(L"https://");
     COREWEBVIEW2_WEB_RESOURCE_CONTEXT context{};
     const bool hasContext = SUCCEEDED(args->get_ResourceContext(&context));
-    if (!local && http && uri.find(L".drillpaper.local") == std::wstring::npos &&
+    if (!local && http && !IsReservedThemeHost(uri) &&
         hasContext && context != COREWEBVIEW2_WEB_RESOURCE_CONTEXT_DOCUMENT) {
         if (networkPolicy_.ExternalRequestsEnabled()) return S_OK;
         NotifyNetworkBlocked();

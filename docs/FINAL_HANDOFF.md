@@ -4,7 +4,7 @@
 
 **整體 MVP 尚未驗收通過，app RC 不可發行。** 本機與乾淨 CI 的建置／自動測試已通過，Preview 基本操作與修正版的真正 Explorer 重啟復原也已由使用者確認；完整桌面互動、瀏覽器安全政策、部分省電情境與乾淨安裝仍有實作或驗證缺口。
 
-2026-10-29 console 交接：使用者已確認 [.scratch/tray-management/spec.md](../.scratch/tray-management/spec.md) 完整三階段範圍。分支 `feature/tray-management`；階段 1 系統匣／生命週期已推送 `7622045`，階段 2 主題／設定實作與相關檢查已完成，仍有原生人工驗收，見 [PHASE2.md](acceptance/2026-10-29/management/PHASE2.md)。已恢復續作；階段 3 網路開關、首次提示與真實 WebView2 指定負面測試通過，見 [PHASE3.md](acceptance/2026-10-29/management/PHASE3.md)。接續原生互動與收尾驗收，不再要求範圍確認。新管理版本完整本機回歸 CTest 33/33／SDK 18/18 已通過；本次 CI 接續觸發，舊版 CI 不外推，見 [續驗報告](acceptance/2026-10-29/management/FOLLOWUP.md)。持續桌布 PID 83428 保持原固定副本，勿關閉。
+2026-10-29 console 交接：使用者已確認 [.scratch/tray-management/spec.md](../.scratch/tray-management/spec.md) 完整三階段範圍。分支 `feature/tray-management`；階段 1 系統匣／生命週期已推送 `7622045`，階段 2 主題／設定實作與相關檢查已完成，仍有原生人工驗收，見 [PHASE2.md](acceptance/2026-10-29/management/PHASE2.md)。已恢復續作；階段 3 網路開關、首次提示與真實 WebView2 指定負面測試通過，見 [PHASE3.md](acceptance/2026-10-29/management/PHASE3.md)。接續原生互動與收尾驗收，不再要求範圍確認。新管理版本完整本機回歸 CTest 33/33／SDK 18/18 已通過；bcb6d2c 的 CI 40831527263 已通過，最後主機判斷修正另觸發，舊版 CI 不外推，見 [續驗報告](acceptance/2026-10-29/management/FOLLOWUP.md)。持續桌布 PID 83428 保持原固定副本，勿關閉。
 
 ## A01–A16
 
@@ -20,10 +20,10 @@
 | A08 | PARTIAL | 受控暫停／恢復、50 次快速競態與使用者真實鎖定／解鎖 5 次通過。真實 display-off／待機、完整全螢幕／多螢幕未完成。 |
 | A09 | PASS（協定與基本操作） | 兩個內建主題、原生功能表熱切換、100／300 次協定切換及損壞主題回復有證據；不推論每次切換的像素畫面或無資源成長。 |
 | A10 | PARTIAL | JS SDK／宣告／MockHost／文件、Node 18/18、SDK ZIP 解壓重測與重封一致通過；TypeScript compiler 與完整第三方作者流程未實測。 |
-| A11 | PASS（原生匯入邊界）；管理 UI 人工待驗 | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證。圖形化匯入／移除及設定持久化已實作；保存／取消／重啟與移除真實 junction 負面通過，檔案選擇器／確認待人工。套件驗證不等於瀏覽器沙箱。 |
+| A11 | PASS（原生匯入邊界）；管理 UI 人工待驗 | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證。圖形化匯入／移除及設定持久化已實作；保存／取消／重啟與移除真實 junction 負面通過，使用者已回報圖形化匯入正常與移除測試完成，移除後隔離目錄不存在；各步細節與完整 DPI／鍵盤仍分開記錄。套件驗證不等於瀏覽器沙箱。 |
 | A12 | PARTIAL／發行阻擋 | 全域 HTTP／HTTPS、首次提示與宿主 CSP 已接入；指定真實 WebView2 請求、WebSocket／框架／導覽／下載／通知與定位負面通過，見 PHASE3.md。WebRTC、完整 DNS／egress、跨主題 storage 等未驗，不得宣稱完整沙箱。 |
 | A13 | PARTIAL | 含 WebView2 的 343 筆／1804.606 秒觀測與正常清理已有報告；版本、主題、GPU engine、display-off 等對照與長期資源成長判定未完成。 |
-| A14 | PARTIAL | 最新 GitHub Windows runner CTest 29/29、Node 18/18、SDK 還原及封裝 artifact 通過；同一 commit 首次因測試腳本逾時，重跑成功並保留失敗紀錄。app RC gate 保持阻擋，乾淨一般使用者安裝／解除安裝未做。 |
+| A14 | PARTIAL | bcb6d2c 的 GitHub Windows runner 40831527263 通過 CTest 33/33、Node 18/18、SDK 還原及封裝 artifact；最後主機判斷修正另驗。先前其他版本的首次失敗／重跑紀錄保留。app RC gate 保持阻擋，乾淨一般使用者安裝／解除安裝未做。 |
 | A15 | PASS（原型文件） | README、使用、SDK／protocol、安全、指標、相容性、授權與已知限制均有說明；安裝器流程尚無已驗收產品可供測試。 |
 | A16 | PASS（交接範圍） | 本表、STATUS 及逐次報告分開保存實測、人工回報、未執行與缺口；不把受控訊息寫成真正 Explorer 重啟。 |
 

@@ -30,6 +30,8 @@ function load(tag, endpoint) {
 }
 const fetched = await fetch(base + '/fetch').then(r => r.text(), () => 'blocked');
 check(fetched === (enabled ? 'fixture-ok' : 'blocked'), 'fetch 政策錯誤');
+const namedPath = await fetch(base + '/.drillpaper.local/resource').then(r => r.text(), () => 'blocked');
+check(namedPath === (enabled ? 'fixture-ok' : 'blocked'), '一般 HTTP 路徑被誤判為保留來源');
 const xhr = await new Promise(resolve => {
   const request = new XMLHttpRequest();
   request.open('GET', base + '/xhr');

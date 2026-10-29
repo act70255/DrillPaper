@@ -45,3 +45,11 @@ Computer Use 初始化實際回報：`native pipe is unavailable ... 系統找�
 NOT RUN／等待使用者回報：真正系統匣點擊、檔案選擇器匯入、移除按「否」保留／按「是」移除、新版 Explorer 重啟後像素確認、完整鍵盤／DPI 矩陣。這些尚無可驗證的人工結果。已準備隔離固定副本（最終 hash）及 manual-check.dmt，人工程序 PID 100000；不影響原持續桌布。
 
 WebRTC、完整 DNS／egress、跨主題 storage、其他權限種類及整體 RC 未驗範圍仍依 theme-security.md／FINAL_HANDOFF.md，未解除發行 gate。
+
+## 最後主機判斷回歸與人工結果
+
+- 一般 HTTP 路徑含 `.drillpaper.local` 原先被整段 URL 子字串過度拒絕，新增真實 fetch 後在 allowNetwork=true 先 FAIL，再改為只檢查 authority 的主機名稱。最終 hash `F0238D6151CF4FC812F94483D99F40AE869D675DA2CF308C201D959B5D6EB757`，安全 session security-4e94d27238ce4faf82bf0b39b5b4e71f PASS；完整本機回歸再次 CTest 33/33、SDK 18/18，見 hostname-regression.log。
+- 曾有一輪清理將舊 MSBuild 29340 誤列為 app 子程序：其建立時間早於本次 root，原因是 ParentProcessId 重用。未終止 MSBuild；觀測改檢查父子建立時間、在退出前保留實際 handle，並要求有可觀察的子程序。重測通過。另有一輪 app 提前退出原因未定，保留失敗，不將所有執行寫成首次即成功。
+- 使用者回報「點系統夾能開」、「操作匯入看起來OK」、「測試移除 以執行完必」。人工視窗為 bcb6d2c 固定副本 PID 100000；移除後隔離主題目錄不存在，且未回報異常。使用者未另述「否」與「是」各步細節；重複點擊唯一性仍只有原生 5 次測試證據。原始回報見 user-management-confirmation.json。人工程序收尾正常退出 0，原桌布保留。
+- bcb6d2c 的 CI 40831527263 PASS（CTest 33/33、SDK 18/18、SDK 還原／封裝，RC skipped），metadata／節錄已保存。本次最後修正的 CI 於推送後接續，不由前版結果代替。
+- 以上更新取代本報告較早的人工未回報／CI 尚未觸發狀態；新版 Explorer 像素確認、完整鍵盤／DPI 與安全未測矩陣仍為 NOT RUN。
