@@ -4,6 +4,8 @@
 
 剩餘工作依「驗證／必要完整性功能／補充功能」分類，見 [工作清單](REMAINING_WORK.md)。使用者已明確將多螢幕支援列為必要完整性功能，需補齊實作及對應驗收，不能只列待測相容性或後續選配；固定設定視窗不取消此要求。目前沒有多螢幕完成結論。
 
+多螢幕的本版呈現方式已收斂為「勾選套用目標、每個選中螢幕各顯示一份完整的目前主題」，不做跨螢幕拼接／延展或逐螢幕不同主題；需求見 [.scratch/multi-monitor/spec.md](../.scratch/multi-monitor/spec.md)，尚未實作／驗收。
+
 本輪最新：產品 62f01ab，新增獨立可註冊來源隔離 Cookie、Connection-Allowlist 阻止 WebRTC，並回復遭政策拒絕的空白錯誤頁。本機完整 CTest 33/33／SDK 18/18、原生回歸與 [CI 40839289477](https://github.com/act70255/DrillPaper/actions/runs/40839289477) 通過；新版真正 Explorer 的畫面恢復／持續更新／圖示與工作列由使用者確認 PASS。鍵盤／取消／唯一視窗亦有前版人工結果。精確 hash、最終 preconnect／儲存／worker／TURN-TCP 範圍與剩餘 NOT RUN 見 [剩餘續驗](acceptance/2026-10-29/management/REMAINING.md)。原持續桌布 PID 83428 保持固定 a241856 副本，未關閉或替換。
 
 含新增測試的 6672610 亦通過 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142)，CTest 33/33／SDK 18/18，RC job skipped。其後文件結案不改產品；未合併 main，未發行。
