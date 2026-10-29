@@ -1,0 +1,6 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T01:37:55.6231908Z # tests 18
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T01:37:59.1083702Z WebView2 SDK 1.0.2478.35 已通過 SHA-256 驗證並還原：D:\a\_temp\webview2-sdk
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T01:38:00.7491697Z WebView2 SDK 1.0.2478.35 已通過 SHA-256 驗證並還原：C:\Users\runneradmin\AppData\Local\Temp\DrillPaperSdkTest-a1be576e31444bd28313375ec591f2cc\verified SDK with spaces
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T01:38:00.7641128Z PASS：官方 SDK 還原、含空白路徑、竄改封包拒絕、既有目錄保留及 staging 清理。
+windows-build-test	Run native tests	2026-10-29T01:40:16.8924553Z 100% tests passed, 0 tests failed out of 28
+windows-build-test	Run native tests	2026-10-29T01:40:16.8925302Z Total Test time (real) =   5.24 sec

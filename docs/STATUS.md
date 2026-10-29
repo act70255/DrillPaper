@@ -22,6 +22,12 @@
 - 後續遠端驗證：先提交並推送 `bugfix/ci-webview2-bootstrap` 的具體修正，才可用 workflow_dispatch 執行該版本；新 runner build／CTest 結果尚待執行，不預先標為 PASS。真正 RC job 保持 opt-in，發行閘門未解除。
 - Commit：`fix(ci): 還原固定雜湊的 WebView2 SDK`；來源包與版本固定方式見 `docs/ENVIRONMENT.md`。
 
+### CI 遠端驗證結案
+
+- Commit `9888aaf` 的 [run 40801528098](https://github.com/act70255/DrillPaper/actions/runs/40801528098) 已實際全數 PASS：乾淨 runner configure／build、CTest 28/28、Node 18/18、SDK 還原邊界及主題 artifact。取代上方執行前的待驗狀態。
+- 證據見 [ci/REPORT.md](acceptance/2026-10-29/ci/REPORT.md)。此結果不證明 Windows 10／11 Shell GUI 或乾淨使用者安裝；RC job NOT RUN，未要求發行且發行條件尚未滿足。
+- 結案 Commit：`docs(ci): 保存乾淨 Windows runner 驗收結果`，與修正一併推送 `bugfix/ci-webview2-bootstrap`。
+
 ## 2026-10-29 Phase 1 續作 — Windows 11 桌布附掛與受控重掛
 
 - Scope：使用 `GetShellWindow` 錨定目前 Shell PID，排除其他程序的同名 WorkerW；支援新版 Progman 子 WorkerW，保留舊頂層搜尋與 Preview fallback。修正 SetParent 已回傳成功但殘留 LastError 導致誤判的重掛缺陷。附掛世代／最後失敗碼可由原生視窗屬性診斷。
