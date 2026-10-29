@@ -23,3 +23,5 @@ Blocked by: 02
 ## Comments
 
 - 2026-10-29：使用者要求完成 1、2 後先打包。此票完成即可提供試用包，完整安全／硬體矩陣留給後續票；打包與套件實測均 NOT RUN。
+- 2026-10-29 調查備註（Claude，派工前）：既有 scripts/package.ps1 將內建主題封成 `resources/themes/<theme>.dmt`，但 app 的 ResolveTheme 讀取 `<exe 目錄>/resources/themes/<key>/index.html` 目錄；且該腳本帶有固定 RC blocker 會直接拒絕。試用包流程須以 app 實際讀取的佈局為準並讓解壓後自足，同時不放寬正式 RC gate。CMake 使用 /MD（動態 VC++ runtime），依賴處理須明確記錄。
+- 2026-10-29 決策（使用者確認）：需要人工操作或看畫面的實機項目先完成可自動執行部分，其餘標 NOT RUN 並附人工操作清單，不中斷流程；不關閉／替換原持續桌布。
