@@ -1,4 +1,5 @@
 $ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $validator = Join-Path $PSScriptRoot 'validate-theme-package.ps1'
 $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ("DrillPaperThemeTests-" + [Guid]::NewGuid().ToString('N'))

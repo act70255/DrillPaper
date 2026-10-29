@@ -1,0 +1,84 @@
+✔ ready sends one protocol hello and resolves on host.ready (11.0009ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1517ms)
+✔ Theme SDK reports the current release candidate version (0.106ms)
+✔ getSnapshot resolves only from the matching requestId response (1.0101ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.4031ms)
+✔ getHistory clamps the request and returns the snapshot list (0.3947ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.418ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.2347ms)
+✔ a host with another protocol version cannot complete the handshake (18.2491ms)
+✔ a host with an invalid timestamp cannot complete the handshake (14.9255ms)
+✔ pending requests time out instead of hanging forever (14.5061ms)
+✔ pending requests are bounded (30.9145ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (0.9159ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.263ms)
+✔ accepts a valid v1 manifest and returns no errors (2.069ms)
+✔ rejects missing fields and unsupported API versions (0.4399ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.196ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.18ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 301.0173
+
+✔ ready sends one protocol hello and resolves on host.ready (9.221ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1275ms)
+✔ Theme SDK reports the current release candidate version (0.1111ms)
+✔ getSnapshot resolves only from the matching requestId response (0.7986ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.3159ms)
+✔ getHistory clamps the request and returns the snapshot list (0.332ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.3416ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.2635ms)
+✔ a host with another protocol version cannot complete the handshake (21.3823ms)
+✔ a host with an invalid timestamp cannot complete the handshake (14.7526ms)
+✔ pending requests time out instead of hanging forever (14.8269ms)
+✔ pending requests are bounded (31.0318ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (0.7435ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.231ms)
+✔ accepts a valid v1 manifest and returns no errors (1.7415ms)
+✔ rejects missing fields and unsupported API versions (0.3607ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.1664ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.168ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 264.0702
+Path                                                                                                            Version
+----                                                                                                            -------
+C:\Users\James\AppData\Local\Temp\DrillPaperSdkPackageTest-0d84f684191d48fc88ef6284036c436b\sdk-test.zip        1.0....
+C:\Users\James\AppData\Local\Temp\DrillPaperSdkPackageTest-0d84f684191d48fc88ef6284036c436b\sdk-test-second.zip 1.0....
+✔ ready sends one protocol hello and resolves on host.ready (9.7136ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1501ms)
+✔ Theme SDK reports the current release candidate version (0.1001ms)
+✔ getSnapshot resolves only from the matching requestId response (0.9489ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.3525ms)
+✔ getHistory clamps the request and returns the snapshot list (0.3975ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.3818ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.2449ms)
+✔ a host with another protocol version cannot complete the handshake (22.5661ms)
+✔ a host with an invalid timestamp cannot complete the handshake (11.8562ms)
+✔ pending requests time out instead of hanging forever (15.5215ms)
+✔ pending requests are bounded (31.3264ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (1.5071ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.4165ms)
+✔ accepts a valid v1 manifest and returns no errors (2.2807ms)
+✔ rejects missing fields and unsupported API versions (0.4677ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.2078ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (1.2448ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 297.211
+PASS extracted Theme SDK package: required files present; tests and both .dmt validators passed; reproducible SHA-256 46070A28BAC7F3E25D7C3ED692F13FA74E410D9246226C0BAA88FB643643FD89.

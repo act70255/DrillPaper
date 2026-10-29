@@ -2,6 +2,7 @@
 param([Parameter(Mandatory)][string]$Path)
 
 $ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 function Assert-Theme([bool]$Condition, [string]$Message) {

@@ -1,5 +1,12 @@
 # 開發狀態
 
+## 2026-10-29 封裝工具續作 — Windows PowerShell 5.1 壓縮組件
+
+- Red：新程序直接執行 `test-theme-package.ps1` 時找不到 `System.IO.Compression.ZipArchiveMode`；完整回歸亦在同一位置停止。
+- Scope：主題 validator／測試、SDK packager／測試各自明確載入 `System.IO.Compression`，不再依賴另一支腳本先間接載入。
+- Green：5.1 的主題測試及 SDK ZIP 解壓重測皆成功，SDK 18/18，兩次 SDK 封裝 hash 一致。證據見 `acceptance/2026-10-29/powershell-zip/`。這只確認執行相容性與所列封裝檢查；不外推成瀏覽器安全驗收。
+- Commit：`fix(scripts): 明確載入 Windows PowerShell 壓縮組件`，分支 `bugfix/powershell-zip-assembly`，相關驗證完成後提交推送。
+
 ## 2026-10-29 效能工具續作 — Windows PowerShell 5.1 相容性
 
 - Scope：將 PowerShell 運算式中的 `[ushort]` 改為 `[System.UInt16]`；C# 原生宣告與 all-processor-groups 的 `MaxValue` 語意不變。

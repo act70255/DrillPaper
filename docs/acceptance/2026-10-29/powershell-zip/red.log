@@ -1,0 +1,7 @@
+Unable to find type [System.IO.Compression.ZipArchiveMode].
+At C:\WorkSpace\-James\DrillPaper-ci-acceptance\scripts\test-theme-package.ps1:10 char:61
++ ... .ZipFile]::Open($path, [System.IO.Compression.ZipArchiveMode]::Create ...
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.IO.Compression.ZipArchiveMode:TypeName) [], ParentContainsErro
+   rRecordException
+    + FullyQualifiedErrorId : TypeNotFound
