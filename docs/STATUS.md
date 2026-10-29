@@ -1,5 +1,12 @@
 # 開發狀態
 
+## 2026-10-29 剩餘工作分類 — 多螢幕列為必要完整性功能
+
+- 使用者明確要求「多螢幕情境也需要先列為必要的完整性功能」。新增 REMAINING_WORK.md，將必要多螢幕與 app 交付收尾、既有驗證缺口、補充功能分開；同步 FINAL_HANDOFF、相容性矩陣與管理 spec 的範圍界線。
+- 多螢幕須調查／補齊實作與對應驗收，不只列為相容性待測，也不列為選配。呈現方式與逐螢幕操作細節於實作前具體化；本次沒有新增逐螢幕不同主題等未定義功能。
+- 驗證：文件差異核對、`git diff --check`。產品／GUI／多螢幕測試 NOT RUN（本次僅調整需求分類，未改程式或顯示配置）。不操作原持續桌布，不合併 main，RC gate 保留。
+- Commit：`docs(plan): 將多螢幕列為必要完整性功能`，依 commit-msg skill 產生後 commit＋push feature/tray-management。
+
 ## 2026-10-29 本輪驗收結案 — 最後新增測試 CI 通過
 
 - 驗收／測試提交 `6672610` 的 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142) 完成且 PASS：Windows configure／build、CTest 33/33（1.95 秒）、SDK 18/18、固定 SDK bootstrap／封裝及 artifact。release-candidate job 預期 skipped，未發行、未合併 main。
