@@ -1,5 +1,12 @@
 # 開發狀態
 
+## 2026-10-29 效能工具續作 — Windows PowerShell 5.1 相容性
+
+- Scope：將 PowerShell 運算式中的 `[ushort]` 改為 `[System.UInt16]`；C# 原生宣告與 all-processor-groups 的 `MaxValue` 語意不變。
+- Red：Windows PowerShell 5.1 執行 `scripts/test-performance-sampler.ps1`，無法辨識 ushort，退出碼 1；這也是當日本機完整回歸的中止原因。先前在 PowerShell 7 的通過結果不外推到 5.1。
+- Green：相同命令於 5.1 通過，3 筆完整樣本、跨度 2.339 秒；提前退出與未知 PID 的失敗資料仍保留。原始輸出見 `acceptance/2026-10-29/powershell/`。完整套件待同步修正後再收尾重跑。
+- Commit：`fix(perf): 相容 Windows PowerShell 的處理器群組型別`，分支 `bugfix/powershell-sampling`，完成相關驗證後提交推送。
+
 ## 2026-10-29 Phase 8 續作 — 乾淨 Windows CI 的 SDK 還原
 
 - Scope：官方 NuGet WebView2 SDK 1.0.2478.35、固定 SHA-256、驗證後解壓、拒絕覆寫既有目錄、staging 清理；CI 及選配 RC job 都先還原 SDK 並設定 WEBVIEW2_SDK_ROOT，沒有移除 CMake 的必填檢查。

@@ -119,7 +119,7 @@ try {
     $failureDetails = $_.Exception.Message
     throw "無法存取量測根程序 $ProcessId。"
 }
-$logicalProcessors = [DrillPaperProcessSnapshotNativeV2]::GetActiveProcessorCount([ushort]::MaxValue)
+$logicalProcessors = [DrillPaperProcessSnapshotNativeV2]::GetActiveProcessorCount([System.UInt16]::MaxValue)
 if ($logicalProcessors -lt 1) { throw '無法取得有效的邏輯處理器數量。' }
 while ($true) {
     $rootRuntime.Refresh()

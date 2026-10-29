@@ -1,0 +1,7 @@
+Samples: 0; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-244256932e3b48478609b53fedda153e\smoke.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-244256932e3b48478609b53fedda153e\smoke.metadata.json
+Unable to find type [ushort].
+At C:\WorkSpace\-James\DrillPaper-ci-acceptance\scripts\measure-process-tree.ps1:122 char:83
++ ... perProcessSnapshotNativeV2]::GetActiveProcessorCount([ushort]::MaxVal ...
++                                                          ~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (ushort:TypeName) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : TypeNotFound
