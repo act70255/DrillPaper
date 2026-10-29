@@ -1,5 +1,13 @@
 # 開發狀態
 
+## 2026-10-29 完成分支整合至 main — 使用者授權合併
+
+- 使用者最新指示「把完成的分支合併到Main」，取代先前本輪不合併 main 的限制。先 fetch origin 並核對乾淨工作樹；main／origin/main 原為 5697bf7，feature/tray-management 為 bec20d4，落後 33 個提交且無分歧。
+- 已以 `git switch main`、`git merge --ff-only origin/main`、`git merge --ff-only feature/tray-management` 完成本機快轉整合，保留原提交歷史。16 個現有功能／修正分支及所有遠端分支均為該來源分支的祖先，`git branch --no-merged main` 為空；分支與其他 worktree 保留。
+- 產品程式與既有 62f01ab 實測版本相同；此前 6672610 的 CI 40840814142 通過 CTest 33/33、SDK 18/18。多螢幕只有 planned spec，完整安全／相容性等 NOT RUN 與 RC gate 保留，合併不代表產品已可發行。
+- 本輪本機產品／GUI 測試 NOT RUN（純快轉整合及交接文件，沒有衝突或程式改動）；已核對原持續桌布 83428 固定副本路徑，未操作／替換。推送 main 後另確認主分支 CI，不由前版結果代替。
+- 文件 Commit：`docs(status): 記錄完成分支整合至 main`，依 commit-msg skill 產生後 commit＋push origin main。
+
 ## 2026-10-29 多螢幕需求收斂 — 勾選目標、每屏完整桌布
 
 - 使用者指定不做跨螢幕拼接，改為選擇哪些螢幕套用，每個目標各顯示一份完整桌布。新增 .scratch/multi-monitor/spec.md（planned），沿用同一全域主題，未選螢幕保留 Windows 桌布；保存目標與基本螢幕／Explorer 生命週期另於實作前具體化。
