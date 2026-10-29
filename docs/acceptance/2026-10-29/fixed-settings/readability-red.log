@@ -1,0 +1,35 @@
+Internal ctest changing into directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 38: Management long messages and monitor identities remain readable and scrollable
+1/1 Test #38: Management long messages and monitor identities remain readable and scrollable ...***Failed    0.13 sec
+Filters: "Management long messages and monitor identities remain readable and scrollable"
+Randomness seeded to: 1342822634
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management long messages and monitor identities remain readable and scrollable
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(74)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(81): FAILED:
+  REQUIRE( SendMessageW(status, 0x00CE, 0, 0) > 0 )
+with expansion:
+  0 > 0
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 4 | 3 passed | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.16 sec
+
+The following tests FAILED:
+	 38 - Management long messages and monitor identities remain readable and scrollable (Failed)
+Errors while running CTest

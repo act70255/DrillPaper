@@ -1,0 +1,24 @@
+﻿{
+    "timestamp":  "2026-10-29T19:13:40.9252968+08:00",
+    "preconnect":  "PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)",
+    "storage":  "PASS (local/session storage、Cookie、IndexedDB、Cache Storage)",
+    "result":  "PASS",
+    "switch":  "off-on-off",
+    "webrtc":  "PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)",
+    "workers":  "PASS (Dedicated、Shared、Service)",
+    "http":  "PASS",
+    "permissions":  "PASS (通知、定位；camera/microphone 狀態 denied)",
+    "prompt":  "PASS",
+    "observedChildren":  [
+                             99576,
+                             75488,
+                             65268,
+                             76560,
+                             52528,
+                             72908
+                         ],
+    "navigation":  "PASS (原頁面繼續或可信 Minimal 回復)",
+    "https":  "PASS (example.com no-cors)",
+    "hash":  "68CC8BDFDA3593046777D412298D6E1B7F5B92A77F6B93B161E74396F763CBD0",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe"
+}

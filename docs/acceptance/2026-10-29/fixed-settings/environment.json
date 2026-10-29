@@ -1,0 +1,27 @@
+{
+  "importRemoveDialogs": "NOT RUN",
+  "fixtureCapture": "WM_PRINT",
+  "nativeTestSha256": "429DF45000DC9FC249C118D3610945B346DE7B589FC6911336E317EB4E4F4B50",
+  "applicationCapture": "PrintWindow at 144 DPI",
+  "applicationSha256": "68CC8BDFDA3593046777D412298D6E1B7F5B92A77F6B93B161E74396F763CBD0",
+  "webview2": "156.0.4314.50",
+  "branch": "feature/rc-02-fixed-settings-window",
+  "actualTrayClick": "NOT RUN",
+  "windows": "Windows 11 Pro 25H2 26200.8737",
+  "physicalKeyboard": "NOT RUN",
+  "webview2Source": "EdgeUpdate registry and security-1b2dedfd974a46dca42af7ab24e8e714/appdata/DrillPaper/WebView2/EBWebView/Last Version",
+  "clientMeasurements": [
+    {
+      "dpi": 96,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "dpi": 144,
+      "width": 1200,
+      "height": 900
+    }
+  ],
+  "timestamp": "2026-10-29T19:17:36.6886043+08:00",
+  "base": "0c97d4fdda3881a3d11bc7f93d7fc12829749f56"
+}

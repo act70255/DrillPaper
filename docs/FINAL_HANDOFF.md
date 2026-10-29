@@ -2,7 +2,9 @@
 
 更新：2026-10-29。這份總表整合目前證據；先前 Windows 10 工具鏈與早期限制保留在 STATUS 歷史，不再作為目前工作樹狀態。
 
-後續工作已拆成 [9 張本機 Markdown tickets](../.scratch/rc-delivery/spec.md)：多螢幕 → 固定 800×600 設定介面 → 首次試用打包（7A）→ 安全／桌面電源／硬體效能／作者流程 → 交付重新打包（7B）→ RC 回歸。01 已實作並完成可自動執行驗證，02～09 仍 open；人工矩陣與 RC gate 保留。不自動合併 main 或公開發布。
+後續工作已拆成 [9 張本機 Markdown tickets](../.scratch/rc-delivery/spec.md)：多螢幕 → 固定 800×600 設定介面 → 首次試用打包（7A）→ 安全／桌面電源／硬體效能／作者流程 → 交付重新打包（7B）→ RC 回歸。01／02 已實作並完成可自動執行驗證，03～09 仍 open；人工矩陣與 RC gate 保留。不自動合併 main 或公開發布。
+
+RC 02 管理用戶區在 100%／150% 實測為 800×600／1200×900；原生版面、長文字／識別捲動、受控鍵盤訊息、設定及多螢幕／網路回歸通過。人工鍵盤、系統匣點擊、匯入／移除確認及小工作區實機仍 NOT RUN；證據種類、Runtime 156.0.4314.50 與精確 hash 見 [報告](acceptance/2026-10-29/fixed-settings/REPORT.md)，操作清單見 [設定視窗需求](FIXED_SETTINGS_WINDOW.md)。
 
 main 歷史整合狀態：使用者已授權將完成分支合併 main，main 從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋當時功能／修正分支歷史。下文先前「未合併／不合併 main」為當時紀錄。當次多螢幕仍 planned；RC 01 的新實作留在自己的功能分支，未合併 main，RC gate 保留。
 

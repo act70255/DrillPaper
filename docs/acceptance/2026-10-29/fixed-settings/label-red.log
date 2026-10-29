@@ -1,0 +1,24 @@
+Filters: "Management replaces*"
+Randomness seeded to: 433867194
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management replaces unnamed device paths without losing monitor metadata
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(181)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(186): FAILED:
+  REQUIRE( std::wstring(label).find(L"DISPLAY#") == std::wstring::npos )
+with expansion:
+  7
+  ==
+  18446744073709551615 (0xffffffffffffffff)
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 4 | 3 passed | 1 failed
+

@@ -1,0 +1,22 @@
+Filters: [management]
+Randomness seeded to: 3256062006
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management layout and keyboard navigation stay reachable at connected DPI
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(155)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(171): FAILED:
+  REQUIRE( GetDlgCtrlID(GetFocus()) == static_cast<int>(tabOrder[index]) )
+with expansion:
+  20100 (0x4e84) == 20002 (0x4e22)
+
+===============================================================================
+test cases:  4 |  3 passed | 1 failed
+assertions: 31 | 30 passed | 1 failed
+

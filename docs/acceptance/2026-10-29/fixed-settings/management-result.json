@@ -1,0 +1,18 @@
+﻿{
+    "appId":  89108,
+    "realExplorerRestart":  "NOT RUN",
+    "visibleTrayClick":  "NOT RUN",
+    "manager":  311297778,
+    "timestamp":  "2026-10-29T19:11:29.1885745+08:00",
+    "observedChildren":  [
+                             47232,
+                             71852,
+                             56904,
+                             31116,
+                             12868,
+                             12824
+                         ],
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+    "result":  "PASS",
+    "hash":  "68CC8BDFDA3593046777D412298D6E1B7F5B92A77F6B93B161E74396F763CBD0"
+}

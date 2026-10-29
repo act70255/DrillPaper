@@ -113,6 +113,10 @@ private:
     static LRESULT CALLBACK Procedure(HWND window, UINT message, WPARAM value, LPARAM data);
     /** 依目前 DPI 排列可信原生控制項。 */
     void Layout();
+    /** 依目前字型量測主題名稱，讓長名稱可以水平捲動。 */
+    void UpdateThemeExtent();
+    /** 顯示所選螢幕的完整名稱與穩定識別，不修改勾選草稿。 */
+    void UpdateMonitorDetails();
     /** 建立右鍵快捷選單。 */
     void ShowMenu();
     /** 依目前螢幕 DPI 建立可辨識的圖示。

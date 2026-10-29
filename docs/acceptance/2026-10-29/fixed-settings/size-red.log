@@ -1,0 +1,37 @@
+Internal ctest changing into directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 36: Management client stays 800 by 600 logical pixels on connected monitors
+1/1 Test #36: Management client stays 800 by 600 logical pixels on connected monitors ...***Failed    0.12 sec
+Filters: "Management client stays 800 by 600 logical pixels on connected monitors"
+Randomness seeded to: 519456165
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management client stays 800 by 600 logical pixels on connected monitors
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(42)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(57): FAILED:
+  REQUIRE( client.right == MulDiv(800, dpi, 96) )
+with expansion:
+  900 (0x384) == 1200 (0x4b0)
+with message:
+  實測 DPI=144
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 6 | 5 passed | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.17 sec
+
+The following tests FAILED:
+	 36 - Management client stays 800 by 600 logical pixels on connected monitors (Failed)
+Errors while running CTest

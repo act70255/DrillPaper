@@ -1,0 +1,7 @@
+Filters: [management]
+Randomness seeded to: 3784152185
+DPI=144 client=1200x900
+DPI=96 client=800x600
+===============================================================================
+All tests passed (776 assertions in 5 test cases)
+

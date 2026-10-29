@@ -1,5 +1,17 @@
 # 開發狀態
 
+## 2026-10-29 RC 02 — 固定 800×600 設定視窗
+
+- Date／branch／base：2026-10-29，從目前 HEAD `0c97d4fdda3881a3d11bc7f93d7fc12829749f56` 建立 `feature/rc-02-fixed-settings-window`，起始工作樹乾淨。前置 01 implemented；本票需求與 seam 先記於 FIXED_SETTINGS_WINDOW.md，未發現決策與現況衝突。
+- Scope／files：platform/windows ManagementShell 固定 800×600 DIP、跨 DPI 精確換算、最大化／尺寸限制、主題／螢幕兩欄、長錯誤與完整識別捲動、無名稱路徑縮短、鍵盤導覽；新增 Windows 原生管理測試與 CMake target，更新票據、README／需求／交接與驗收報告。不改 composition 保存、主題或網路政策。
+- TDD PASS：尺寸、最大化、長訊息、Tab 吞鍵與大小寫裝置標籤均先失敗後修正；原生管理最終 5 cases／776 assertions（含畫面證據）。Standards／Spec 平行審查及複查未解決項各 0；修正擷取測試失敗路徑的 RAII 清理。工具編譯／擷取及 oracle 中間失敗另記報告，不計 PASS。
+- Build／typecheck／相關測試 PASS：`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperManagementIntegrationTests DrillPaperSettingsTests DrillPaperTests --parallel 8`；相關 CTest `-R '^Management |Settings |Invalid settings|Invalid monitor|Monitor target|Monitor selection|Clone targets|Manual pause'` 13/13。命令與原始 red／green／build log 見 [報告](acceptance/2026-10-29/fixed-settings/REPORT.md)。未跑完整套件。
+- Windows 原生／畫面：Windows 11 Pro 25H2 26200.8737、兩個 1920×1080、DPI 144／96；實測用戶區 1200×900／800×600，控制項在範圍內且不重疊。100%／150% fixture WM_PRINT（含長文字）及真實 app 150% PrintWindow PNG 已檢視，主要操作可見。WM_PRINT 非客戶區外觀不是實際 DWM 標題列或人工點擊證據。
+- Management／monitor／security PASS：既有 `test-management-shell.ps1 -Desktop`、`test-multi-monitor.ps1`、`test-webview2-security.ps1`；包含唯一視窗重開、關閉隱藏、保存／取消／重啟、目標單／雙選、模式／暫停、HTTP off→on→off、首次提示與腳本所列安全邊界、已觀察子程序退出。最終 app SHA-256 `68CC8BDFDA3593046777D412298D6E1B7F5B92A77F6B93B161E74396F763CBD0`；本輪實際 Runtime **156.0.4314.50**（登錄及隔離 profile 核對），不沿用 01 的 155 結果，不宣稱完整沙箱。
+- NOT RUN／blockers：真實鍵盤／系統匣點擊／匯入移除確認、小工作區實機、其他 DPI／Windows；Computer Use 原生管道 os error 2，按已確認決策附人工清單留後續，不中斷本票。真正 Explorer／實體拔插／電源／硬體／長測為後票；完整套件留 09，CI／打包 NOT RUN。本票不產 ZIP、不合併 main、不解除 RC gate。原持續桌布 83428 固定副本未關閉或替換，未重啟 Explorer。
+- Ticket／next：02 設 implemented，表示程式與可自動驗證範圍完成，人工矩陣保留；03 首次試用打包尚未開始。
+- Commit：`feat(settings): 新增固定尺寸與 DPI 適配的設定視窗`；依 commit-msg skill 檢視實際差異產生，本票一次 commit 並 push `origin/feature/rc-02-fixed-settings-window`。
+
 ## 2026-10-29 RC 01 — 多螢幕套用管理
 
 - Date／branch／base：2026-10-29，從 HEAD `7806266` 建立 `feature/rc-01-multi-monitor`；工作樹原乾淨。票 `.scratch/rc-delivery/issues/01-multi-monitor.md` 設為 implemented，代表程式及可自動執行驗證完成，人工矩陣未宣稱通過。
