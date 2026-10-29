@@ -1,5 +1,12 @@
 # 開發狀態
 
+## 2026-10-29 管理入口需求草案
+
+- 使用者提出以工作列右下角的系統匣圖示作為管理入口。已核對目前只有原生主題選單與 CLI，沒有系統匣／完整設定視窗／設定保存。
+- 需求已整理於 [.scratch/tray-management/spec.md](../.scratch/tray-management/spec.md)，狀態 needs-info，等待確認本版互動與範圍；原 handoff 中的 SystemTray 需求不等於這份 UI 細節已確認。
+- 交付分為系統匣與管理生命週期、主題／設定保存、網路與安全整合三階段；測試 seam 與實機界線一併列出。此階段只寫需求，產品行為及測試 NOT RUN，原因為尚未實作。
+- 規劃提交：`docs(management): 規劃系統匣入口與設定介面`，分支 `feature/tray-management`；後續依使用者確認再開始程式碼。
+
 ## 2026-10-29 A04 實機結案 — Explorer 重啟後桌布恢復並持續更新
 
 - PASS（本機本次情境）：使用者確認「可以了 有恢復並持續更新」。受測 `a241856`，EXE SHA-256 `3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE`，Windows 11 Pro 25H2 build 26200.8737、Dashboard、`--no-smart-sleep`。
