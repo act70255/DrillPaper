@@ -1,0 +1,4 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T03:08:49.0817815Z # tests 18
+windows-build-test	Build native targets	2026-10-29T03:12:06.9027653Z   DrillPaperParentFixture.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperParentFixture.exe
+windows-build-test	Run native tests	2026-10-29T03:12:30.5929410Z 100% tests passed, 0 tests failed out of 28
+windows-build-test	Run native tests	2026-10-29T03:12:30.5930240Z Total Test time (real) =   1.76 sec

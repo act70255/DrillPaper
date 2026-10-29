@@ -20,6 +20,8 @@
 
 ## 目前實作邊界
 
+原生樣本與採樣錯誤送往不附掛 Shell 的穩定 UI 通知視窗，再交給當前 renderer。桌布 HWND 被 Explorer 銷毀時，保留採集工作者與最新快照，於同一 UI 執行緒重新建立宿主、功能表、計時器及同主題 WebView2 controller；舊 callback 的 lifetime token 失效，載入與握手世代繼續遞增。WM_CLOSE 表示使用者退出，非預期 WM_DESTROY／失效 HWND 走復原。相應跨程序父視窗正常關閉、崩潰與無通知回歸已執行；真正 Explorer 及畫面結果仍依 STATUS，不能由 fixture 推論。
+
 目前 Release app 可載入內建及已安裝主題。原生 CLI 經 ThemeManager 驗證及原子安裝；Win32 功能表選擇版本，WebView2 adapter 使用每次載入獨立的 GUID 來源。metrics 已移到 SamplingWorker，透過帶設定世代的 latest-wins mailbox 交給 UI；UI timer 僅處理政策與回復。Windows PowerNotifications 與 WebView2 adapter 分別負責 OS 通知及 hide/suspend/resume，純 Runtime 政策不呼叫 Win32 或 COM。
 
 `.dmt` 支援原生匯入與主題切換，但圖形化匯入、移除、持久化目前選擇尚未提供。WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、Explorer、網路提示／開關、Shell GUI 與完整效能矩陣仍待驗證或完成。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。

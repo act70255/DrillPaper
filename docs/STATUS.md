@@ -10,6 +10,11 @@
 - NOT RUN：修正版的真正 Explorer 重啟與像素畫面、重建與電源故障交錯、其他 Windows／顯示配置。不能用上述受控結果把舊版真正失敗改寫為通過；待使用者再做一次同情境驗收。
 - Commit：`fix(desktop): 重建 Explorer 銷毀的宿主與資料通道`，分支 `bugfix/explorer-window-recreation`，完成相關驗證後提交推送。
 
+### Explorer 修正遠端驗證
+
+- `f2cff39` 已推送並核對 origin；[CI 40810412264](https://github.com/act70255/DrillPaper/actions/runs/40810412264) 全數通過，包含新增 parent fixture 編譯、CTest 28/28、SDK 18/18 與封裝／SDK 還原檢查。metadata 與節錄見 `explorer-recreation/ci.json`／`ci.log`。
+- 已開啟固定副本的修正版實機觀測，仍待使用者真正重啟與畫面結果，不預先列 PASS。整體 RC gate 保持阻擋。
+
 ## 2026-10-29 人工 Explorer 驗收 — 失敗已重現
 
 - 使用者已啟動桌布並回報「重啟檔案總管後才消失」。真實 Shell PID 31956→70652，受測 app PID 97976 繼續存活，但原 HWND 88151400 已無效，獨立通知視窗仍有效。這次是 A04 FAIL，取代先前待驗狀態；不是腳本 30 秒後自動關閉。

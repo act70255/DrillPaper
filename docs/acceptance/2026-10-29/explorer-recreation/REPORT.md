@@ -30,4 +30,6 @@ Windows PowerShell 5.1 的 UIntPtr 轉換與單一 CIM 物件 Count 差異均曾
 
 ## 仍待驗收
 
+修正 commit `f2cff39` 已在 [CI 40810412264](https://github.com/act70255/DrillPaper/actions/runs/40810412264) 通過乾淨 Windows runner 的 build／CTest 28/28／SDK 18/18；新增 fixture 也已編譯。此 CI 不執行目前使用者桌面的附掛或實體 Explorer 重啟。metadata 與節錄保存在 `ci.json`／`ci.log`。
+
 受測 Release EXE SHA-256 為 `AC61E02C42E78102514A0C3558E1951FE87D37E9E6D5D042E1B8FADD28C273BA`。真正 Explorer 重啟仍需以此修正版再測，並由使用者確認桌布可見、持續更新。先前失敗證據保留在 `../explorer-failure/`。其他 Windows builds、混合 DPI、電源與重建交錯、長時間資源觀測仍 NOT RUN。
