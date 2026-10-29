@@ -379,6 +379,15 @@ HRESULT WebView2Host::Recover() {
     return Initialize(parent, directory, name, entry);
 }
 
+HRESULT WebView2Host::RecreateForWindow(HWND parentWindow) {
+    if (!IsWindow(parentWindow)) return E_INVALIDARG;
+    const auto directory = themeDirectory_;
+    const auto name = themeName_;
+    const auto entry = themeEntry_;
+    Shutdown();
+    return Initialize(parentWindow, directory, name, entry);
+}
+
 HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
     const auto previous = state_;
     const auto epoch = ++runtimeEpoch_;
@@ -468,7 +477,8 @@ void WebView2Host::SetSnapshot(const core::MetricsSnapshot& snapshot) {
     }
     if (resumeSnapshotPending_) {
         PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.snapshot", nullptr));
-        PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.changed", nullptr));
+        if (SUCCEEDED(PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.changed", nullptr))))
+            SetPropW(parentWindow_, L"DrillPaper.MetricsTick", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(GetTickCount64())));
         resumeSnapshotPending_ = false;
         lastBroadcastTick_ = GetTickCount64();
         UpdateCaption();
@@ -479,7 +489,8 @@ void WebView2Host::SetSnapshot(const core::MetricsSnapshot& snapshot) {
         return;
     }
     lastBroadcastTick_ = now;
-    PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.changed", nullptr));
+    if (SUCCEEDED(PostJson(SerializeMetricsSnapshotMessage(snapshot, "metrics.changed", nullptr))))
+        SetPropW(parentWindow_, L"DrillPaper.MetricsTick", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(now)));
 }
 
 void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
@@ -604,6 +615,7 @@ void WebView2Host::ReportFailure(HRESULT error) {
 void WebView2Host::Shutdown() {
     *lifetime_ = false;
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.ReadyEpoch");
+    if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.MetricsTick");
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);

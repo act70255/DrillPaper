@@ -1,5 +1,15 @@
 # 開發狀態
 
+## 2026-10-29 Explorer 視窗銷毀復原 — 受控修正完成，真正重試待驗
+
+- Scope：區分使用者 WM_CLOSE 與非預期 WM_DESTROY；以獨立通知視窗接收採樣／錯誤，原 HWND 消失後重建原生視窗、功能表、計時器與同一主題的 WebView2 controller。通知遺漏時由每秒一次的宿主檢查補救；重建失敗保留明確錯誤與停止路徑，不無限建立視窗。
+- Red：公開 app／Win32 整合 seam 的跨程序父視窗 fixture，銷毀父視窗後舊版 app 提前退出；此前真正 Explorer 重啟則造成失效 HWND 與背景程序殘留。兩條生命週期失敗都列入修正，見 [explorer-recreation/REPORT.md](acceptance/2026-10-29/explorer-recreation/REPORT.md)。
+- PASS：正常關閉父視窗 5 次；直接終止隔離父程序且不注入 TaskbarCreated 5 次；每次新握手世代及至少兩次新的 metrics.changed 成功送入 WebView2 bridge，正常退出 0，已觀察子程序全退出。此指標只證明 bridge 接受訊息，畫面仍需人工確認。
+- PASS：既有重掛回歸、Dashboard mock Preview、內建及已匯入主題切換、自訂入口 renderer 故障 3 次；生命週期 5 次＋50 次快速往返及暫停期間關閉。完整本機 CTest 28/28（6.80 秒）、SDK 18/18 及其他腳本檢查通過。
+- 測試工具修正：Windows PowerShell 5.1 使用明確 UIntPtr 建構式與外層陣列，避免把單一 CIM 物件的空 Count 誤判為沒有 renderer；renderer 初始／自訂入口皆要求新握手世代。Preview／主題協定測試以 no-smart-sleep 隔離當前 display-off，省電仍由獨立生命週期測試驗證。
+- NOT RUN：修正版的真正 Explorer 重啟與像素畫面、重建與電源故障交錯、其他 Windows／顯示配置。不能用上述受控結果把舊版真正失敗改寫為通過；待使用者再做一次同情境驗收。
+- Commit：`fix(desktop): 重建 Explorer 銷毀的宿主與資料通道`，分支 `bugfix/explorer-window-recreation`，完成相關驗證後提交推送。
+
 ## 2026-10-29 人工 Explorer 驗收 — 失敗已重現
 
 - 使用者已啟動桌布並回報「重啟檔案總管後才消失」。真實 Shell PID 31956→70652，受測 app PID 97976 繼續存活，但原 HWND 88151400 已無效，獨立通知視窗仍有效。這次是 A04 FAIL，取代先前待驗狀態；不是腳本 30 秒後自動關閉。

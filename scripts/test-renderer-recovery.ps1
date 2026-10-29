@@ -88,19 +88,20 @@ try {
         Start-Sleep -Milliseconds 100
         $app.Refresh()
         if ($app.HasExited) { throw 'app 在初始握手前退出。' }
-    } while ($app.MainWindowTitle -notlike '*Live metrics' -and $clock.Elapsed.TotalSeconds -lt 30)
-    if ($app.MainWindowTitle -notlike '*Live metrics') { throw "app 未完成初始通訊：$($app.MainWindowTitle)" }
+    } while (($app.MainWindowTitle -notlike '*Live metrics' -or [DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le 0) -and $clock.Elapsed.TotalSeconds -lt 30)
+    if ([DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le 0) { throw "app 未完成初始通訊：$($app.MainWindowTitle)" }
     if ($CustomEntry) {
-        [void][DrillPaperRecoveryProbe]::PostMessage($app.MainWindowHandle,0x111,[UIntPtr]11000,[IntPtr]::Zero)
+        $beforeCustomEpoch=[DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64()
+        [void][DrillPaperRecoveryProbe]::PostMessage($app.MainWindowHandle,0x111,[UIntPtr]::new([uint32]11000),[IntPtr]::Zero)
         $clock.Restart()
-        do { Start-Sleep -Milliseconds 100; $app.Refresh() } while($app.MainWindowTitle -notlike '*recovery-entry*Live metrics' -and $clock.Elapsed.TotalSeconds -lt 25)
-        if($app.MainWindowTitle -notlike '*recovery-entry*Live metrics'){ throw '自訂 HTML 入口未完成初始握手。' }
+        do { Start-Sleep -Milliseconds 100; $app.Refresh() } while(($app.MainWindowTitle -notlike '*recovery-entry*Live metrics' -or [DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le $beforeCustomEpoch) -and $clock.Elapsed.TotalSeconds -lt 25)
+        if([DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64() -le $beforeCustomEpoch){ throw '自訂 HTML 入口未完成初始握手。' }
     }
     $summary.RootProcessId = $app.Id
     for ($round=1; $round -le $Crashes; $round++) {
         $browser = Get-OwnedBrowser $app.Id
         if (-not $browser) { throw '無法驗證隔離 browser，未終止任何程序。' }
-        $targets = if ($ProcessKind -eq 'browser') { @($browser) } else { @(Get-OwnedRenderers $browser) }
+        $targets = @(if ($ProcessKind -eq 'browser') { $browser } else { Get-OwnedRenderers $browser })
         if ($targets.Count -lt 1 -or $targets.Count -gt 5) { throw 'renderer 數量不符合隔離測試範圍，拒絕終止。' }
         $epoch = [DrillPaperRecoveryProbe]::GetPropW($app.MainWindowHandle,'DrillPaper.ReadyEpoch').ToInt64()
         $victimIds = @($targets | ForEach-Object { [int]$_.ProcessId })

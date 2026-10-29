@@ -11,7 +11,7 @@
 | A01 | PASS（開發環境） | Windows 11 x64 Release 建置與啟動；乾淨 windows-2022 CI configure／build 通過。其他桌面 builds 不由此建立支援聲明。 |
 | A02 | PASS（基本 Preview） | 使用者回報 Dashboard mock 數值正確、Minimal 即時更新、縮放及關閉正常；Dashboard 實機更新與 CPU 圖表亦確認。完整版面／DPI 矩陣仍未做。 |
 | A03 | PARTIAL | 真正 Shell 的 WorkerW 附掛、3840×1080 用戶區及正確樣式已通過原生整合。圖示、工作列、Alt+Tab、焦點與像素畫面待人工檢查。 |
-| A04 | FAIL（真正 Explorer 重啟） | 使用者回報重啟後消失；Shell PID 已改變，原 HWND 被銷毀但 app 存活。受控解除附掛 5 次通過未涵蓋父視窗銷毀，需補重建回歸及修正。 |
+| A04 | PARTIAL（修正後真正重試待驗） | 舊版真正重啟失敗已保存；新版本通過父視窗關閉 5 次及崩潰／無通知 5 次，新握手與新指標恢復。真正 Explorer 重啟與畫面仍需用修正版再驗。 |
 | A05 | PARTIAL | typed readings、warm-up 與單位測試通過；Intel／無 NVML 的 GPU unavailable 契約已實機確認。硬體精度與 NVIDIA 實讀矩陣未完成。 |
 | A06 | PASS（採樣解耦） | SamplingWorker 在背景執行緒採集、條件等待／停止／重設基準及失敗回報，UI 只接收最新快照；worker 與 app 整合已有驗證。 |
 | A07 | PASS（有界資料結構） | 有界 history／queue、latest-wins mailbox 及設定世代拒絕舊樣本已有測試；不代表瀏覽器長期記憶體無洩漏。 |

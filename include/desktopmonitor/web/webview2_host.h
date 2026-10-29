@@ -63,6 +63,13 @@ public:
      *     初始化啟動結果或已達重試上限的錯誤。
      */
     HRESULT Recover();
+    /** 在原生宿主視窗被銷毀後，以相同主題重建新的 controller。
+     * Args:
+     *     parentWindow: 新建且有效的宿主視窗。
+     * Returns:
+     *     非同步初始化的啟動結果；保留主題入口、快照與 runtime 政策。
+     */
+    HRESULT RecreateForWindow(HWND parentWindow);
     /** 取得目前主題載入世代，以忽略舊 controller 排隊中的失敗通知。
      * Returns:
      *     遞增的載入世代。

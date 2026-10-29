@@ -1,0 +1,7 @@
+復原測試紀錄：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\recovery-20261029-103633-dcc7ee
+Cannot convert the "11000" value of type "System.Int32" to type "System.UIntPtr".
+At C:\WorkSpace\-James\DrillPaper\scripts\test-renderer-recovery.ps1:94 char:9
++         [void][DrillPaperRecoveryProbe]::PostMessage($app.MainWindowH ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ConvertToFinalInvalidCastException

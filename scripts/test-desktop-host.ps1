@@ -3,11 +3,17 @@ param(
     [Parameter(Mandatory)][string]$ApplicationPath,
     [ValidateRange(1,20)][int]$RecoveryCycles = 5,
     [ValidateRange(10,60)][int]$TimeoutSeconds = 30,
+    [switch]$DestroyParent,
+    [ValidateSet('close','crash')][string]$ParentExit = 'close',
+    [switch]$NoRecoveryNotification,
     [switch]$ObserveExplorerRestart,
     [ValidateRange(30,900)][int]$ObservationSeconds = 900
 )
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
+$fixturePath = Join-Path ([IO.Path]::GetDirectoryName($application)) 'DrillPaperParentFixture.exe'
+if ($DestroyParent -and -not (Test-Path -LiteralPath $fixturePath -PathType Leaf)) { throw '跨程序父視窗 fixture 尚未建置。' }
+if (-not $DestroyParent -and ($NoRecoveryNotification -or $ParentExit -ne 'close')) { throw '父程序結束模式與略過通知只能用於 DestroyParent 測試。' }
 $testRoot = Join-Path ([IO.Path]::GetTempPath()) ('DrillPaperDesktop-' + [Guid]::NewGuid().ToString('N'))
 $evidence = Join-Path $PSScriptRoot ('../artifacts/acceptance/desktop-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,6))
 New-Item -ItemType Directory -Path $testRoot,$evidence -Force | Out-Null
@@ -25,6 +31,7 @@ public static class DrillPaperDesktopProbe {
     [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
     [DllImport("user32.dll")] public static extern IntPtr GetParent(IntPtr window);
     [DllImport("user32.dll")] public static extern IntPtr GetShellWindow();
+    [DllImport("user32.dll")] public static extern bool IsWindow(IntPtr window);
     [DllImport("user32.dll")] private static extern IntPtr GetDesktopWindow();
     [DllImport("user32.dll", SetLastError=true)] private static extern IntPtr SetParent(IntPtr window, IntPtr parent);
     [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr window, out Rect rectangle);
@@ -110,6 +117,25 @@ public static class DrillPaperDesktopProbe {
             return parent == IntPtr.Zero || parent == GetDesktopWindow();
         } finally { SetThreadDpiAwarenessContext(previous); }
     }
+    /** 將受測視窗移至已驗證的測試父程序。
+     * Args:
+     *     window: 本次 app 視窗。
+     *     process: app 程序識別碼。
+     *     parent: 本次 fixture 的視窗。
+     *     parentProcess: fixture 程序識別碼。
+     * Returns:
+     *     移動後父視窗符合時為 true。
+     */
+    public static bool ParentOwnedToFixture(IntPtr window, int process, IntPtr parent, int parentProcess) {
+        uint owner, parentOwner;
+        GetWindowThreadProcessId(window, out owner);
+        GetWindowThreadProcessId(parent, out parentOwner);
+        if (owner != process || parentOwner != parentProcess || ClassName(parent) != "DrillPaperParentFixture") return false;
+        var previous = SetThreadDpiAwarenessContext(new IntPtr(-4));
+        if (previous == IntPtr.Zero) return false;
+        try { SetParent(window,parent); return GetParent(window) == parent; }
+        finally { SetThreadDpiAwarenessContext(previous); }
+    }
 }
 '@
 }
@@ -147,10 +173,30 @@ function Get-Attachment([IntPtr]$Window) {
     if ($width -le 0 -or $height -le 0 -or $width -ne $parentRect.Right-$parentRect.Left -or $height -ne $parentRect.Bottom-$parentRect.Top) {
         throw "桌布未填滿其父視窗的用戶區：child=$width,$height；parent=$($parentRect.Right-$parentRect.Left),$($parentRect.Bottom-$parentRect.Top)。"
     }
-    return [ordered]@{ AppPid=$owner; Window=$Window.ToInt64(); Parent=$parent.ToInt64(); ShellPid=$shellOwner; Width=$width; Height=$height; Style=$style; ExtendedStyle=$extended; ReadyEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.ReadyEpoch').ToInt64(); DesktopEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.DesktopEpoch').ToInt64() }
+    return [ordered]@{ AppPid=$owner; Window=$Window.ToInt64(); Parent=$parent.ToInt64(); ShellPid=$shellOwner; Width=$width; Height=$height; Style=$style; ExtendedStyle=$extended; ReadyEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.ReadyEpoch').ToInt64(); DesktopEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.DesktopEpoch').ToInt64(); MetricsTick=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.MetricsTick').ToInt64() }
+}
+
+function Wait-ForFreshMetrics([IntPtr]$Window,[long]$After) {
+    <#
+    等待背景採樣經 UI 成功送入 WebView2 bridge，避免只用握手判定資料恢復。
+    Args:
+        Window: 本次受測宿主視窗。
+        After: 必須超過的單調遞增傳送時刻。
+    Returns:
+        新的傳送時刻；未更新或 app 退出時失敗。
+    #>
+    $deadline=[DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+    do {
+        if ($app.HasExited) { throw '等待新指標期間 app 已退出。' }
+        $tick=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.MetricsTick').ToInt64()
+        if ($tick -gt $After) { return $tick }
+        Start-Sleep -Milliseconds 100
+    } while ([DateTime]::UtcNow -lt $deadline)
+    throw '宿主握手後沒有持續將新指標送入 WebView2 bridge。'
 }
 
 $summary = [ordered]@{ Result='RUNNING'; StartedUtc=[DateTime]::UtcNow.ToString('o'); ApplicationSha256=(Get-FileHash $application -Algorithm SHA256).Hash; RecoveryKind='TARGETED_TASKBAR_CREATED_AFTER_OWN_WINDOW_DETACH'; ActualExplorerRestart=$false; Recoveries=@(); Shutdown='NOT_RUN'; ChildrenExited=$false }
+if ($DestroyParent) { $summary.RecoveryKind='CROSS_PROCESS_PARENT_DESTROYED'; $summary.ParentExit=$ParentExit; $summary.NotificationInjected=(-not $NoRecoveryNotification) }
 $app = $null
 $window = [IntPtr]::Zero
 $children = @()
@@ -174,16 +220,50 @@ try {
     } while ([DateTime]::UtcNow -lt $deadline)
     if ($window -eq [IntPtr]::Zero -or [DrillPaperDesktopProbe]::GetPropW($window,'DrillPaper.ReadyEpoch').ToInt64() -le 0) { throw '附掛後未在期限內完成 SDK 握手。' }
     $summary.Initial = Get-Attachment $window
+    $summary.Initial.MetricsTick = Wait-ForFreshMetrics $window 0
     if ($summary.Initial.DesktopEpoch -le 0) { throw '找不到初次附掛成功的診斷世代。' }
     $listeners = @([DrillPaperDesktopProbe]::FindOwned($app.Id,'DrillPaperShellNotifications'))
     if ($listeners.Count -ne 1) { throw '找不到本次 app 唯一的 Shell 通知視窗。' }
     $message = [DrillPaperDesktopProbe]::RegisterWindowMessage('TaskbarCreated')
     if ($message -eq 0) { throw '無法註冊 TaskbarCreated 訊息。' }
     for ($cycle=1; $cycle -le $RecoveryCycles; $cycle++) {
-        if (-not [DrillPaperDesktopProbe]::DetachOwned($window,$app.Id)) { throw '無法安全解除受測程序自己的附掛。' }
+        $oldReady = [DrillPaperDesktopProbe]::GetPropW($window,'DrillPaper.ReadyEpoch').ToInt64()
+        $oldTick = [DrillPaperDesktopProbe]::GetPropW($window,'DrillPaper.MetricsTick').ToInt64()
+        if ($DestroyParent) {
+            $readyPath = Join-Path $testRoot "parent-$cycle.txt"
+            $fixture = Start-Process -FilePath $fixturePath -ArgumentList ('"'+$readyPath+'"') -WindowStyle Hidden -PassThru
+            [void]$fixture.Handle
+            try {
+                $fixtureDeadline = [DateTime]::UtcNow.AddSeconds(10)
+                while (-not (Test-Path -LiteralPath $readyPath) -and [DateTime]::UtcNow -lt $fixtureDeadline -and -not $fixture.HasExited) { Start-Sleep -Milliseconds 50 }
+                if (-not (Test-Path -LiteralPath $readyPath)) { throw '隔離父視窗未就緒。' }
+                $parent = [IntPtr]([long]([IO.File]::ReadAllText($readyPath)))
+                if (-not [DrillPaperDesktopProbe]::ParentOwnedToFixture($window,$app.Id,$parent,$fixture.Id)) { throw '無法移動本次受測視窗到隔離父視窗。' }
+                if ($ParentExit -eq 'crash') { $fixture.Kill() }
+                elseif (-not [DrillPaperDesktopProbe]::PostMessage($parent,0x0010,[UIntPtr]::Zero,[IntPtr]::Zero)) { throw '無法向隔離父視窗送出關閉請求。' }
+                if (-not $fixture.WaitForExit(10000)) { throw '隔離父視窗程序未在期限內退出。' }
+                $summary.OldWindowValidAfterParentExit = [DrillPaperDesktopProbe]::IsWindow($window)
+                $summary.DestroyedWindow = $window.ToInt64()
+            } finally { if (-not $fixture.HasExited) { $fixture.Kill(); $fixture.WaitForExit() }; $fixture.Dispose() }
+        } elseif (-not [DrillPaperDesktopProbe]::DetachOwned($window,$app.Id)) { throw '無法安全解除受測程序自己的附掛。' }
         $reply = [UIntPtr]::Zero
-        if ([DrillPaperDesktopProbe]::SendMessageTimeout($listeners[0],$message,[UIntPtr]::Zero,[IntPtr]::Zero,2,5000,[ref]$reply) -eq [IntPtr]::Zero) { throw '受測 Shell 通知處理逾時。' }
+        if ($app.HasExited) { throw '父視窗銷毀後 app 已退出，通知復原無法繼續。' }
+        if (-not $NoRecoveryNotification -and [DrillPaperDesktopProbe]::SendMessageTimeout($listeners[0],$message,[UIntPtr]::Zero,[IntPtr]::Zero,2,5000,[ref]$reply) -eq [IntPtr]::Zero) { throw '受測 Shell 通知處理逾時。' }
+        if ($DestroyParent) {
+            $rebuildObserved = $false
+            $rebuildDeadline = [DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+            do {
+                if ($app.HasExited) { throw '父視窗銷毀後 app 提前退出。' }
+                $candidates = @([DrillPaperDesktopProbe]::FindOwned($app.Id,'DrillPaperPreviewWindow'))
+                if ($candidates.Count -gt 1) { throw '重建後出現多個主視窗。' }
+                if ($candidates.Count -eq 1 -and [DrillPaperDesktopProbe]::GetPropW($candidates[0],'DrillPaper.ReadyEpoch').ToInt64() -gt $oldReady) { $window=$candidates[0]; $rebuildObserved=$true; break }
+                Start-Sleep -Milliseconds 100
+            } while ([DateTime]::UtcNow -lt $rebuildDeadline)
+            if (-not $rebuildObserved) { throw '父視窗銷毀後未重建宿主及完成新的 SDK 握手。' }
+        }
         $recovered = Get-Attachment $window
+        $firstTick=Wait-ForFreshMetrics $window $oldTick
+        $recovered.MetricsTick=Wait-ForFreshMetrics $window $firstTick
         $previousEpoch = if ($summary.Recoveries.Count -eq 0) { $summary.Initial.DesktopEpoch } else { $summary.Recoveries[-1].DesktopEpoch }
         if ($recovered.DesktopEpoch -le $previousEpoch) { throw '通知後未產生新的成功附掛世代。' }
         $summary.Recoveries += $recovered
@@ -211,8 +291,13 @@ try {
             [uint32]$currentShell = 0
             [void][DrillPaperDesktopProbe]::GetWindowThreadProcessId([DrillPaperDesktopProbe]::GetShellWindow(),[ref]$currentShell)
             if ($currentShell -ne 0 -and $currentShell -ne $summary.Initial.ShellPid) {
+                $currentWindows=@([DrillPaperDesktopProbe]::FindOwned($app.Id,'DrillPaperPreviewWindow'))
+                if ($currentWindows.Count -ne 1) { Start-Sleep -Milliseconds 250; continue }
+                $window=$currentWindows[0]
                 try { $actual = Get-Attachment $window } catch { Start-Sleep -Milliseconds 250; continue }
-                if ($actual.DesktopEpoch -gt $summary.Recoveries[-1].DesktopEpoch) {
+                if ($actual.DesktopEpoch -gt $summary.Recoveries[-1].DesktopEpoch -and $actual.ReadyEpoch -gt $summary.Recoveries[-1].ReadyEpoch) {
+                    $firstTick=Wait-ForFreshMetrics $window $summary.Recoveries[-1].MetricsTick
+                    $actual.MetricsTick=Wait-ForFreshMetrics $window $firstTick
                     $summary.ActualExplorerRestart = $true
                     $summary.Observation = 'EXPLORER_PID_CHANGED_AND_REATTACHED'
                     $summary.ActualRecovery = $actual
@@ -267,4 +352,5 @@ try {
     }
 }
 if ($summary.Result -ne 'PASS') { throw '桌布整合、正常退出或子程序清理未通過，詳見紀錄。' }
-Write-Output "PASS：實際 app 附掛、$RecoveryCycles 次受控通知重掛、正常退出與 WebView2 子程序清理。"
+$recoveryLabel=if($DestroyParent){'父視窗銷毀後重建與指標更新'}else{'受控通知重掛與指標更新'}
+Write-Output "PASS：實際 app 附掛、$RecoveryCycles 次$recoveryLabel、正常退出與 WebView2 子程序清理。"

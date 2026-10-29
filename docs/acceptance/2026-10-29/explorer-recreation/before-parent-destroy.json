@@ -1,0 +1,29 @@
+{
+    "Result":  "FAILED",
+    "StartedUtc":  "2026-10-29T02:18:32.6517507Z",
+    "ApplicationSha256":  "5162F00C9D28587BD25E66229D9E13AD153E4121A2002CE70383E197978B4F06",
+    "RecoveryKind":  "CROSS_PROCESS_PARENT_DESTROYED_THEN_TARGETED_TASKBAR_CREATED",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+
+                   ],
+    "Shutdown":  "NOT_RUN",
+    "ChildrenExited":  false,
+    "AppPid":  5476,
+    "Initial":  {
+                    "AppPid":  5476,
+                    "Window":  43914858,
+                    "Parent":  61016890,
+                    "ShellPid":  70652,
+                    "Width":  3840,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1
+                },
+    "DestroyedWindow":  43914858,
+    "FailureReason":  "父視窗銷毀後 app 已退出，通知復原無法繼續。",
+    "ExitCode":  0,
+    "EndedUtc":  "2026-10-29T02:18:42.4057361Z"
+}

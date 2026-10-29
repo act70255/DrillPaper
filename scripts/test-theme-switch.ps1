@@ -43,7 +43,7 @@ $testRoot = Join-Path ([IO.Path]::GetTempPath()) ('DrillPaperThemeSwitch-' + [Gu
 New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
 $evidence = Join-Path $PSScriptRoot ('../artifacts/acceptance/theme-switch-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,6))
 New-Item -ItemType Directory -Path $evidence -Force | Out-Null
-$summary = [ordered]@{ Cycles = $Cycles; InstalledTheme = [bool]$IncludeInstalled; BrokenInstalled = [bool]$BrokenInstalled; SettlingSeconds = $SettlingSeconds; LiveMetrics = [bool]$LiveMetrics; ExpectGpuUnavailable = [bool]$ExpectGpuUnavailable; Result = 'RUNNING' }
+$summary = [ordered]@{ Cycles = $Cycles; InstalledTheme = [bool]$IncludeInstalled; BrokenInstalled = [bool]$BrokenInstalled; SettlingSeconds = $SettlingSeconds; LiveMetrics = [bool]$LiveMetrics; ExpectGpuUnavailable = [bool]$ExpectGpuUnavailable; SmartSleepEnabled = $false; Result = 'RUNNING' }
 $previousAppData = $env:LOCALAPPDATA
 try {
     $env:LOCALAPPDATA = Join-Path $testRoot 'appdata'
@@ -84,7 +84,7 @@ await client.subscribe({ metrics: ['cpu', 'gpu', 'memory'], intervalMs: 1000 });
             Set-Content -LiteralPath (Join-Path $env:LOCALAPPDATA 'DrillPaper/themes/minimal-monitor@1.0.0/main.js') -Value $probe -Encoding utf8
         }
     }
-    $arguments = @('--preview','--theme=minimal')
+    $arguments = @('--preview','--theme=minimal','--no-smart-sleep')
     if (-not $LiveMetrics) { $arguments += '--mock-metrics' }
     $app = Start-Process -FilePath $application -ArgumentList $arguments -WindowStyle Normal -PassThru
     $appHandle = $app.Handle
@@ -99,7 +99,7 @@ try {
         $dashboard = $index % 2 -eq 0
         $command = if ($dashboard) { 10002 } else { 10001 }
         $name = if ($dashboard) { 'dashboard' } else { 'minimal' }
-        if (-not [DrillPaperThemeSwitchTest]::PostMessage($app.MainWindowHandle, 0x111, [UIntPtr]$command, [IntPtr]::Zero)) {
+        if (-not [DrillPaperThemeSwitchTest]::PostMessage($app.MainWindowHandle, 0x111, [UIntPtr]::new([uint32]$command), [IntPtr]::Zero)) {
             throw '無法送出原生主題功能表命令。'
         }
         Wait-ThemeReady $app $name
@@ -109,7 +109,7 @@ try {
         }
     }
     if ($IncludeInstalled) {
-        if (-not [DrillPaperThemeSwitchTest]::PostMessage($app.MainWindowHandle, 0x111, [UIntPtr]11000, [IntPtr]::Zero)) {
+        if (-not [DrillPaperThemeSwitchTest]::PostMessage($app.MainWindowHandle, 0x111, [UIntPtr]::new([uint32]11000), [IntPtr]::Zero)) {
             throw '無法送出已安裝主題命令。'
         }
         if ($BrokenInstalled) {

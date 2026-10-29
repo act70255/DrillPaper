@@ -1,0 +1,5 @@
+第 1 次故障注入：renderer；已驗證目標 PID=85904；握手世代=2
+第 2 次故障注入：renderer；已驗證目標 PID=8280；握手世代=3
+第 3 次故障注入：renderer；已驗證目標 PID=62496；握手世代=4
+PASS：3 次 renderer 故障後，同一 app 均重新完成 SDK 握手與即時資料。
+復原測試紀錄：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\recovery-20261029-104812-b65b95

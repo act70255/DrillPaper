@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <fstream>
+#include <stdexcept>
 
 #include "desktopmonitor/monitoring/windows_metrics_collector.h"
 #include "desktopmonitor/app/theme_commands.h"
@@ -22,6 +23,8 @@ constexpr wchar_t kNotificationClass[] = L"DrillPaperShellNotifications";
 constexpr wchar_t kWindowTitle[] = L"DrillPaper Preview";
 constexpr wchar_t kExperimentalWindowTitle[] = L"DrillPaper Shell Host POC — Experimental";
 constexpr UINT_PTR kMetricsTimer = 1;
+constexpr UINT_PTR kDesktopWatchdogTimer = 2;
+constexpr UINT kShellRecoveryMessage = WM_APP + 0x39;
 constexpr UINT kMinimalThemeCommand = 10001;
 constexpr UINT kDashboardThemeCommand = 10002;
 constexpr UINT kRefreshThemesCommand = 10003;
@@ -54,6 +57,26 @@ bool gExperimentalDesktop = false;
 bool gMockMetrics = false;
 UINT gTaskbarCreatedMessage = 0;
 ULONG_PTR gDesktopEpoch = 0;
+HWND gNotificationWindow = nullptr;
+HWND gLostWallpaperWindow = nullptr;
+bool gClosing = false;
+bool gDesktopRecoveryInProgress = false;
+HWND CreatePreviewWindow(HINSTANCE instance);
+LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+
+/** 確認宿主仍由目前 UI 執行緒持有，避免失效 HWND 被其他視窗重用。
+ * Args:
+ *     window: 記錄中的宿主控制代碼。
+ * Returns:
+ *     程序、執行緒與視窗類別均符合時為 true。
+ */
+bool IsOwnedWallpaperWindow(HWND window) {
+    DWORD process = 0;
+    wchar_t className[256]{};
+    return window != nullptr && GetWindowThreadProcessId(window, &process) == GetCurrentThreadId() &&
+           process == GetCurrentProcessId() && GetClassNameW(window, className, 256) != 0 &&
+           lstrcmpW(className, kWindowClass) == 0;
+}
 
 /** 記錄成功的桌面附掛世代，供原生整合診斷辨識重掛。
  * Args:
@@ -202,27 +225,74 @@ void ApplyRuntimePolicy() {
 }
 
 void RecoverDesktopHost() {
-    if (!gExperimentalDesktop || gDesktopHost == nullptr || !IsWindow(gWallpaperWindow)) {
+    if (!gExperimentalDesktop || gDesktopHost == nullptr || gClosing || gDesktopRecoveryInProgress) {
         return;
     }
-
-    desktopmonitor::platform::windows::DesktopAttachFailure failure{};
-    if (gDesktopHost->TryAttach(gWallpaperWindow, &failure)) {
-        RecordDesktopAttachment(gWallpaperWindow);
-        gStatusText = L"Shell change detected. Attachment retried; GUI verification is still required.";
-        SetWindowTextW(gWallpaperWindow, kExperimentalWindowTitle);
-    } else {
-        gDesktopHost->RestorePreview(gWallpaperWindow);
+    gDesktopRecoveryInProgress = true;
+    try {
+        if (!IsOwnedWallpaperWindow(gWallpaperWindow)) {
+            if (gWebViewHost != nullptr) gWebViewHost->Shutdown();
+            if (IsOwnedWallpaperWindow(gLostWallpaperWindow)) DestroyWindow(gLostWallpaperWindow);
+            gLostWallpaperWindow = nullptr;
+            if (CreatePreviewWindow(GetModuleHandleW(nullptr)) == nullptr)
+                throw std::runtime_error("無法重建原生宿主視窗。");
+            if (gWebViewHost != nullptr) {
+                const HRESULT result = gWebViewHost->RecreateForWindow(gWallpaperWindow);
+                if (FAILED(result)) {
+                    gWebViewHost->Shutdown();
+                    gStatusText = L"主題渲染重建失敗，保留原生預覽。";
+                } else {
+                    gWebViewHost->SetSnapshot(gLatestSnapshot);
+                    gThemeLoadStarted = GetTickCount64();
+                }
+            }
+            SetTimer(gWallpaperWindow, kMetricsTimer, 1000, nullptr);
+        }
+        desktopmonitor::platform::windows::DesktopAttachFailure failure{};
+        if (gDesktopHost->TryAttach(gWallpaperWindow, &failure)) {
+            RecordDesktopAttachment(gWallpaperWindow);
+            gStatusText = L"桌面宿主已重建並附掛；畫面仍需實機確認。";
+            SetWindowTextW(gWallpaperWindow, kExperimentalWindowTitle);
+        } else {
+            gDesktopHost->RestorePreview(gWallpaperWindow);
+            gExperimentalDesktop = false;
+            ReportAttachFailure(failure);
+            SetWindowTextW(gWallpaperWindow, kWindowTitle);
+        }
+        ShowWindow(gWallpaperWindow, SW_SHOWNOACTIVATE);
+        InvalidateRect(gWallpaperWindow, nullptr, TRUE);
+    } catch (const std::exception& error) {
+        OutputDebugStringA(error.what());
         gExperimentalDesktop = false;
-        ReportAttachFailure(failure);
-        SetWindowTextW(gWallpaperWindow, kWindowTitle);
+        gClosing = true;
+        MessageBoxW(gNotificationWindow, L"無法重建監控視窗，請重新啟動 DrillPaper。", L"DrillPaper", MB_OK | MB_ICONERROR);
+        PostQuitMessage(1);
     }
-    InvalidateRect(gWallpaperWindow, nullptr, TRUE);
+    gDesktopRecoveryInProgress = false;
+}
+
+/** 在穩定的 UI 通知端接收最新樣本，即使桌布 HWND 暫時不存在。
+ * Returns:
+ *     無；有效樣本更新全域快照，視窗存在時才轉交 renderer。
+ */
+void ConsumeLatestSnapshot() {
+    UiSnapshot reading;
+    if (gSnapshotMailbox.TryTake(&reading) && reading.generation == gSamplingGeneration) {
+        gLatestSnapshot = reading.snapshot;
+        if (gWebViewHost != nullptr && IsOwnedWallpaperWindow(gWallpaperWindow)) {
+            gWebViewHost->SetSnapshot(gLatestSnapshot);
+            if (gPowerState.State() == desktopmonitor::runtime::PowerState::Active) gPowerState.MarkFullSnapshotDelivered();
+        }
+    }
 }
 
 LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
+    if (message == kSnapshotReadyMessage) { ConsumeLatestSnapshot(); return 0; }
+    if (message == kSamplingFailedMessage)
+        return WindowProcedure(IsOwnedWallpaperWindow(gWallpaperWindow) ? gWallpaperWindow : window, message, wParam, lParam);
     if ((message == gTaskbarCreatedMessage && gTaskbarCreatedMessage != 0) ||
-        message == WM_DISPLAYCHANGE) {
+        message == WM_DISPLAYCHANGE || message == kShellRecoveryMessage ||
+        (message == WM_TIMER && wParam == kDesktopWatchdogTimer && !IsOwnedWallpaperWindow(gWallpaperWindow))) {
         RecoverDesktopHost();
         return 0;
     }
@@ -268,6 +338,32 @@ void RefreshThemeMenu() {
     DrawMenuBar(gWallpaperWindow);
 }
 
+/** 建立可獨立顯示或附掛桌面的宿主與原生主題功能表。
+ * Args:
+ *     instance: 應用程式實例。
+ * Returns:
+ *     新視窗；Win32 建立失敗回傳空值，主題設定失敗會拋例外。
+ */
+HWND CreatePreviewWindow(HINSTANCE instance) {
+    HWND window = CreateWindowExW(0, kWindowClass, kWindowTitle, WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, 760, 480, nullptr, nullptr, instance, nullptr);
+    if (window == nullptr) return nullptr;
+    gWallpaperWindow = window;
+    HMENU menu = CreateMenu();
+    gThemeMenu = CreatePopupMenu();
+    if (menu == nullptr || gThemeMenu == nullptr) {
+        if (menu != nullptr) DestroyMenu(menu);
+        if (gThemeMenu != nullptr) DestroyMenu(gThemeMenu);
+        DestroyWindow(window);
+        throw std::runtime_error("無法建立主題功能表。");
+    }
+    AppendMenuW(menu, MF_POPUP, reinterpret_cast<UINT_PTR>(gThemeMenu), L"主題");
+    SetMenu(window, menu);
+    try { RefreshThemeMenu(); }
+    catch (...) { DestroyWindow(window); throw; }
+    return window;
+}
+
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
     case kRendererFailedMessage:
@@ -300,12 +396,7 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         if (gWebViewHost != nullptr) gWebViewHost->SetRuntimeState(gAppliedPowerState);
         return 0;
     case kSnapshotReadyMessage: {
-        UiSnapshot reading;
-        if (gSnapshotMailbox.TryTake(&reading) && reading.generation == gSamplingGeneration && gWebViewHost != nullptr) {
-            gLatestSnapshot = reading.snapshot;
-            gWebViewHost->SetSnapshot(gLatestSnapshot);
-            if (gPowerState.State() == desktopmonitor::runtime::PowerState::Active) gPowerState.MarkFullSnapshotDelivered();
-        }
+        ConsumeLatestSnapshot();
         return 0;
     }
     case kSamplingFailedMessage:
@@ -408,10 +499,22 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
             return HTTRANSPARENT;
         }
         break;
+    case WM_CLOSE:
+        gClosing = true;
+        DestroyWindow(window);
+        return 0;
     case WM_DESTROY:
         RemovePropW(window, L"DrillPaper.DesktopEpoch");
         RemovePropW(window, L"DrillPaper.DesktopFailure");
         KillTimer(window, kMetricsTimer);
+        if (gExperimentalDesktop && !gClosing) {
+            if (window == gWallpaperWindow) gWallpaperWindow = nullptr;
+            if (!gDesktopRecoveryInProgress) {
+                gLostWallpaperWindow = window;
+                PostMessageW(gNotificationWindow, kShellRecoveryMessage, 0, 0);
+            }
+            return 0;
+        }
         if (gSamplingWorker != nullptr) {
             gSamplingWorker->Stop();
             gSamplingWorker.reset();
@@ -457,24 +560,30 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
         return static_cast<int>(GetLastError());
     }
 
-    HWND window = CreateWindowExW(
-        0, kWindowClass, kWindowTitle, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 760, 480,
-        nullptr, nullptr, instance, nullptr);
-    if (window == nullptr) {
-        return static_cast<int>(GetLastError());
+    HWND window = nullptr;
+    try { window = CreatePreviewWindow(instance); }
+    catch (const std::exception& error) {
+        OutputDebugStringA(error.what());
+        MessageBoxW(nullptr, L"無法初始化監控視窗或主題目錄，請確認 LOCALAPPDATA 與系統資源。", L"DrillPaper", MB_OK | MB_ICONERROR);
+        return 1;
     }
-    gWallpaperWindow = window;
-    HMENU menu = CreateMenu();
-    gThemeMenu = CreatePopupMenu();
-    AppendMenuW(menu, MF_POPUP, reinterpret_cast<UINT_PTR>(gThemeMenu), L"主題");
-    SetMenu(window, menu);
-    try { RefreshThemeMenu(); }
-    catch (const std::exception&) {
-        MessageBoxW(window, L"無法初始化主題目錄，請確認 LOCALAPPDATA 設定與檔案權限。", L"DrillPaper", MB_OK | MB_ICONERROR);
+    if (window == nullptr) return 1;
+    gTaskbarCreatedMessage = RegisterWindowMessageW(L"TaskbarCreated");
+    WNDCLASSW notificationClass{};
+    notificationClass.lpfnWndProc = NotificationProcedure;
+    notificationClass.hInstance = instance;
+    notificationClass.lpszClassName = kNotificationClass;
+    const bool notificationReady = RegisterClassW(&notificationClass) != 0;
+    const HWND notificationWindow = notificationReady
+        ? CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, kNotificationClass, L"",
+                         WS_POPUP, 0, 0, 0, 0, nullptr, nullptr, instance, nullptr)
+        : nullptr;
+    if (notificationWindow == nullptr || gTaskbarCreatedMessage == 0) {
+        MessageBoxW(window, L"無法建立背景通知視窗，請重新啟動 DrillPaper。", L"DrillPaper", MB_OK | MB_ICONERROR);
         DestroyWindow(window);
         return 1;
     }
+    gNotificationWindow = notificationWindow;
 
     const HRESULT apartmentResult = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     const bool comInitialized = SUCCEEDED(apartmentResult);
@@ -516,11 +625,11 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
                 collector->Collect(snapshot);
                 return snapshot;
             },
-            [window](const auto& snapshot, unsigned long long generation) {
-                if (gSnapshotMailbox.Publish(UiSnapshot{snapshot, generation}) && !PostMessageW(window, kSnapshotReadyMessage, 0, 0))
+            [notificationWindow](const auto& snapshot, unsigned long long generation) {
+                if (gSnapshotMailbox.Publish(UiSnapshot{snapshot, generation}) && !PostMessageW(notificationWindow, kSnapshotReadyMessage, 0, 0))
                     gSnapshotMailbox.NotificationPostFailed();
             },
-            [window](std::exception_ptr error) {
+            [notificationWindow](std::exception_ptr error) {
                 try {
                     try { std::rethrow_exception(error); }
                     catch (const std::exception& detail) {
@@ -529,7 +638,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
                         std::ofstream(logs / L"sampling.log", std::ios::binary | std::ios::app) << detail.what() << '\n';
                     }
                 } catch (...) { OutputDebugStringW(L"無法記錄採樣失敗詳情。\n"); }
-                PostMessageW(window, kSamplingFailedMessage, 0, 0);
+                PostMessageW(notificationWindow, kSamplingFailedMessage, 0, 0);
             });
         } catch (const std::exception& error) {
             OutputDebugStringA(error.what());
@@ -567,32 +676,17 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
                            !forcePreview && !gMockMetrics;
     if (gExperimentalDesktop) {
         gDesktopHost = &desktopHost;
-        gTaskbarCreatedMessage = RegisterWindowMessageW(L"TaskbarCreated");
-        WNDCLASSW notificationClass{};
-        notificationClass.lpfnWndProc = NotificationProcedure;
-        notificationClass.hInstance = instance;
-        notificationClass.lpszClassName = kNotificationClass;
-        const bool classReady = RegisterClassW(&notificationClass) != 0;
-        HWND notificationWindow = classReady
-            ? CreateWindowExW(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, kNotificationClass, L"",
-                              WS_POPUP, 0, 0, 0, 0, nullptr, nullptr, instance, nullptr)
-            : nullptr;
-        if (notificationWindow == nullptr || gTaskbarCreatedMessage == 0) {
-            gExperimentalDesktop = false;
-            gDesktopHost = nullptr;
-            gStatusText = L"Could not create the Shell recovery listener. Showing Preview.";
+        SetTimer(notificationWindow, kDesktopWatchdogTimer, 1000, nullptr);
+        desktopmonitor::platform::windows::DesktopAttachFailure failure{};
+        if (desktopHost.TryAttach(window, &failure)) {
+            RecordDesktopAttachment(window);
+            gStatusText = L"Shell layer found. Icon, focus, z-order, and recovery checks are still required.";
+            SetWindowTextW(window, kExperimentalWindowTitle);
         } else {
-            desktopmonitor::platform::windows::DesktopAttachFailure failure{};
-            if (desktopHost.TryAttach(window, &failure)) {
-                RecordDesktopAttachment(window);
-                gStatusText = L"Shell layer found. Icon, focus, z-order, and recovery checks are still required.";
-                SetWindowTextW(window, kExperimentalWindowTitle);
-            } else {
-                desktopHost.RestorePreview(window);
-                gExperimentalDesktop = false;
-                ReportAttachFailure(failure);
-                SetWindowTextW(window, kWindowTitle);
-            }
+            desktopHost.RestorePreview(window);
+            gExperimentalDesktop = false;
+            ReportAttachFailure(failure);
+            SetWindowTextW(window, kWindowTitle);
         }
     }
 
@@ -604,7 +698,12 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
         TranslateMessage(&message);
         DispatchMessageW(&message);
     }
+    gClosing = true;
+    if (gSamplingWorker != nullptr) { gSamplingWorker->Stop(); gSamplingWorker.reset(); }
+    gPowerNotifications.reset();
     gWebViewHost.reset();
+    if (IsOwnedWallpaperWindow(gWallpaperWindow)) DestroyWindow(gWallpaperWindow);
+    if (IsWindow(gNotificationWindow)) DestroyWindow(gNotificationWindow);
     if (comInitialized) {
         CoUninitialize();
     }
