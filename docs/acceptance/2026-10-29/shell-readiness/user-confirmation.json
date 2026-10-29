@@ -1,0 +1,6 @@
+{
+  "ReportedUtc": "2026-10-29T04:49:33.1129328Z",
+  "UserConfirmation": "可以了 有恢復並持續更新",
+  "Result": "PASS_ACTUAL_EXPLORER_RECOVERY",
+  "Scope": "本機 Windows 11 25H2，Dashboard，no-smart-sleep，真正重啟 Explorer 後畫面恢復與持續更新；不代表其他電源／顯示配置或整體 RC 通過"
+}

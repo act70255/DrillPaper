@@ -55,6 +55,12 @@ npm run test:sdk
 
 ## 桌布與 Explorer 實機驗收
 
+若只是要持續顯示桌布，可以直接執行下列指令；程式本身沒有驗收腳本的 15 分鐘自動關閉時間。智慧休眠預設啟用；本次隔離驗收才額外使用 `--no-smart-sleep`。
+
+```powershell
+& 'C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe' --experimental-desktop --theme=dashboard
+```
+
 從任意 PowerShell 目錄都可使用完整路徑啟動，不需要系統管理員權限：
 
 ```powershell

@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 A04 實機結案 — Explorer 重啟後桌布恢復並持續更新
+
+- PASS（本機本次情境）：使用者確認「可以了 有恢復並持續更新」。受測 `a241856`，EXE SHA-256 `3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE`，Windows 11 Pro 25H2 build 26200.8737、Dashboard、`--no-smart-sleep`。
+- 原生比對：同一 app PID 83428；Shell PID 988→50496；HWND 688652446→1183238；新父視窗為 PID 50496 的 WorkerW；握手世代 1→2、附掛世代 1→3、失敗碼 0；3840×1080，兩秒間 metrics tick 1481971265→1481973328。人工確認補足 bridge 指標不能代表畫面的限制。
+- 證據：`acceptance/2026-10-29/shell-readiness/actual-{session,before,after}.json` 與 `user-confirmation.json`。保留前兩版失敗及受控測試，不以這次成功改寫歷史。
+- CI：同一 commit 的 [run 40815261057](https://github.com/act70255/DrillPaper/actions/runs/40815261057) 第 2 次完整通過，CTest 29/29、SDK 18/18；第 1 次在負面測試判斷腳本 60 秒逾時，原因未定，原 log 亦保留，不記為第一次即成功。
+- 範圍：A04 在上述實機組態 PASS；Smart Sleep 與重建交錯、其他 Windows／顯示配置及 A03 完整圖示／焦點互動仍分開驗收。A12 安全與其他 RC 阻擋未解除，整體產品尚未驗收通過。桌布持續開啟，未擅自關閉。
+- 結案 Commit：`docs(acceptance): 記錄 Explorer 實機復原通過`，依使用者規則提交並推送 `bugfix/explorer-shell-readiness`。
+
 ## 2026-10-29 真正重啟續驗 — 等待 Shell 就緒再重掛
 
 - 實機證據：使用者回報已重啟；同一 app PID 70156 重新建立 HWND、握手 1→2，metrics tick 持續增加，但父視窗為空、760×480 預覽，DesktopFailure=1。原因為新 Shell 管理視窗尚未就緒，原復原只試一次即永久退化；此次不記為桌布重掛通過。

@@ -1,0 +1,8 @@
+{
+  "AppPid": 83428,
+  "SourceCommit": "a241856",
+  "StartedUtc": "2026-10-29T04:00:49.9923906Z",
+  "Application": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+  "ApplicationSha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+  "AutomaticShutdown": false
+}

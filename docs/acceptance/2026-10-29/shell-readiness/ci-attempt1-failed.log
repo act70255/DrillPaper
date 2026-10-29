@@ -1,0 +1,30 @@
+windows-build-test	Theme ZIP validation and sample packaging	﻿2026-10-29T04:01:10.2006606Z ##[group]Run ./scripts/test-theme-package.ps1
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2008224Z [36;1m./scripts/test-theme-package.ps1[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2008790Z [36;1m./scripts/test-theme-negative-oracle.ps1[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2009514Z [36;1mNew-Item -ItemType Directory -Force artifacts/theme-sdk | Out-Null[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2010688Z [36;1m./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/minimal -OutputFile artifacts/theme-sdk/minimal.dmt[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2012911Z [36;1m./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/dashboard -OutputFile artifacts/theme-sdk/dashboard.dmt[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2096062Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:10.2096522Z ##[endgroup]
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:11.2551223Z PASS accepted: valid.dmt (3 files)
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:11.7297262Z PASS rejected: traversal.dmt — Invalid DrillPaper theme package: unsafe archive path '../escape.js'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:11.8636022Z PASS rejected: duplicate-case.dmt — Invalid DrillPaper theme package: duplicate path (case-insensitive): 'INDEX.HTML'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.0279035Z PASS rejected: unsupported-extension.dmt — Invalid DrillPaper theme package: unsupported file type in 'payload.exe'.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.0954563Z PASS rejected: wrong-api.dmt — Invalid DrillPaper theme package: apiVersion must be the string "1".
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.2271629Z PASS rejected: oversized-file.dmt — Invalid DrillPaper theme package: file 'large.js' exceeds 10 MiB.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6361341Z
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6368168Z [32;1mPath      : [0mC:\Users\runneradmin\AppData\Local\Temp\DrillPaperThemeTests-4c8522899e1d4b4b8c688b34ee944c79\minimal-examp
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6369166Z             le.dmt
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6370211Z [32;1mId        : [0mminimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6371057Z [32;1mVersion   : [0m1.0.0
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6371662Z [32;1mFileCount : [0m6
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6372280Z [32;1mBytes     : [0m6796
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6372687Z
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:01:12.6994391Z PASS packaged and revalidated example: minimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:13.4780792Z 負面測試判斷驗證紀錄：D:\a\DrillPaper\DrillPaper\artifacts\acceptance\theme-oracle-20261029-040112-b92bb1
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0147417Z [31;1mException: [0mD:\a\DrillPaper\DrillPaper\scripts\test-theme-negative-oracle.ps1:34[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0148488Z [31;1m[0m[36;1mLine |[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0150042Z [31;1m[0m[36;1m[36;1m  34 | [0m … (60000)) { $child.Kill(); $child.WaitForExit(); [36;1mthrow '負面測試判斷驗證逾時。'[0m }[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0152570Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m                                                   ~~~~~~~~~~~~~~~~~~~[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0155008Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1m負面測試判斷驗證逾時。[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T04:02:14.0707278Z ##[error]Process completed with exit code 1.
