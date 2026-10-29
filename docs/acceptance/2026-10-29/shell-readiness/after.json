@@ -1,0 +1,15 @@
+{
+  "ObservedUtc": "2026-10-29T03:47:26.6274304Z",
+  "AppPid": 70156,
+  "WindowCount": 1,
+  "ShellPid": 988,
+  "Window": 14162818,
+  "ParentClass": "",
+  "ParentPid": 0,
+  "ReadyEpoch": 2,
+  "DesktopEpoch": 0,
+  "MetricsTickBefore": 1478339187,
+  "MetricsTickAfter": 1478341218,
+  "Width": 760,
+  "Height": 480
+}

@@ -115,6 +115,7 @@ if(BUILD_TESTING)
     add_executable(DrillPaperTests
         tests/unit/core_contracts_test.cpp
         tests/unit/sampling_worker_test.cpp
+        tests/unit/desktop_recovery_retry_test.cpp
         tests/unit/protocol_v1_test.cpp
         src/web/protocol_v1.cpp
     )

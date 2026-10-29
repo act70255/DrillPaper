@@ -1,0 +1,78 @@
+{
+    "Result":  "PASS",
+    "StartedUtc":  "2026-10-29T03:56:31.8202644Z",
+    "ApplicationSha256":  "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "RecoveryKind":  "CROSS_PROCESS_PARENT_DESTROYED",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+                       {
+                           "AppPid":  61808,
+                           "Window":  459786,
+                           "Parent":  2956614,
+                           "ShellPid":  988,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  2,
+                           "DesktopEpoch":  2,
+                           "MetricsTick":  1478891234
+                       },
+                       {
+                           "AppPid":  61808,
+                           "Window":  41031978,
+                           "Parent":  2956614,
+                           "ShellPid":  988,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  3,
+                           "DesktopEpoch":  3,
+                           "MetricsTick":  1478894265
+                       },
+                       {
+                           "AppPid":  61808,
+                           "Window":  524860,
+                           "Parent":  2956614,
+                           "ShellPid":  988,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  4,
+                           "DesktopEpoch":  4,
+                           "MetricsTick":  1478897296
+                       }
+                   ],
+    "Shutdown":  "NORMAL_CLOSE",
+    "ChildrenExited":  true,
+    "ParentExit":  "crash",
+    "NotificationInjected":  false,
+    "AppPid":  61808,
+    "Initial":  {
+                    "AppPid":  61808,
+                    "Window":  328252,
+                    "Parent":  2956614,
+                    "ShellPid":  988,
+                    "Width":  3840,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1,
+                    "MetricsTick":  1478888187
+                },
+    "OldWindowValidAfterParentExit":  false,
+    "DestroyedWindow":  41031978,
+    "ObservedChildren":  [
+                             82900,
+                             57760,
+                             73152,
+                             55348,
+                             94908,
+                             99120
+                         ],
+    "ExitCode":  0,
+    "EndedUtc":  "2026-10-29T03:56:46.4216595Z"
+}

@@ -1,0 +1,21 @@
+Filters: [desktop-retry]
+Randomness seeded to: 1284450164
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Desktop recovery waits for Shell readiness with a bounded retry budget
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\unit\desktop_recovery_retry_test.cpp(5)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\unit\desktop_recovery_retry_test.cpp(8): FAILED:
+  REQUIRE( retry.RecordFailure(100) )
+with expansion:
+  false
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 2 | 1 passed | 1 failed

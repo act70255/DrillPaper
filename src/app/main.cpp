@@ -12,6 +12,7 @@
 #include "desktopmonitor/app/theme_commands.h"
 #include "desktopmonitor/themes/theme_manager.h"
 #include "desktopmonitor/runtime/sampling_worker.h"
+#include "desktopmonitor/runtime/desktop_recovery_retry.h"
 #include "desktopmonitor/runtime/windows_snapshot_mailbox.h"
 #include "desktopmonitor/platform/windows/power_notifications.h"
 #include "desktopmonitor/platform/windows/desktop_host.h"
@@ -61,6 +62,7 @@ HWND gNotificationWindow = nullptr;
 HWND gLostWallpaperWindow = nullptr;
 bool gClosing = false;
 bool gDesktopRecoveryInProgress = false;
+desktopmonitor::runtime::DesktopRecoveryRetry gDesktopRetry;
 HWND CreatePreviewWindow(HINSTANCE instance);
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -225,7 +227,8 @@ void ApplyRuntimePolicy() {
 }
 
 void RecoverDesktopHost() {
-    if (!gExperimentalDesktop || gDesktopHost == nullptr || gClosing || gDesktopRecoveryInProgress) {
+    if (!gExperimentalDesktop || gDesktopHost == nullptr || gClosing || gDesktopRecoveryInProgress ||
+        !gDesktopRetry.CanAttempt(GetTickCount64())) {
         return;
     }
     gDesktopRecoveryInProgress = true;
@@ -250,16 +253,23 @@ void RecoverDesktopHost() {
         }
         desktopmonitor::platform::windows::DesktopAttachFailure failure{};
         if (gDesktopHost->TryAttach(gWallpaperWindow, &failure)) {
+            gDesktopRetry.Reset();
             RecordDesktopAttachment(gWallpaperWindow);
             gStatusText = L"桌面宿主已重建並附掛；畫面仍需實機確認。";
             SetWindowTextW(gWallpaperWindow, kExperimentalWindowTitle);
         } else {
             gDesktopHost->RestorePreview(gWallpaperWindow);
-            gExperimentalDesktop = false;
             ReportAttachFailure(failure);
-            SetWindowTextW(gWallpaperWindow, kWindowTitle);
+            if (gDesktopRetry.RecordFailure(GetTickCount64())) {
+                gStatusText = L"桌面尚未就緒，正在等待並重新附掛。";
+                SetWindowTextW(gWallpaperWindow, L"DrillPaper — 正在重新連接桌面");
+                ShowWindow(gWallpaperWindow, SW_HIDE);
+            } else {
+                gExperimentalDesktop = false;
+                SetWindowTextW(gWallpaperWindow, kWindowTitle);
+            }
         }
-        ShowWindow(gWallpaperWindow, SW_SHOWNOACTIVATE);
+        if (!gDesktopRetry.Pending()) ShowWindow(gWallpaperWindow, SW_SHOWNOACTIVATE);
         InvalidateRect(gWallpaperWindow, nullptr, TRUE);
     } catch (const std::exception& error) {
         OutputDebugStringA(error.what());
@@ -292,7 +302,8 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM wParam,
         return WindowProcedure(IsOwnedWallpaperWindow(gWallpaperWindow) ? gWallpaperWindow : window, message, wParam, lParam);
     if ((message == gTaskbarCreatedMessage && gTaskbarCreatedMessage != 0) ||
         message == WM_DISPLAYCHANGE || message == kShellRecoveryMessage ||
-        (message == WM_TIMER && wParam == kDesktopWatchdogTimer && !IsOwnedWallpaperWindow(gWallpaperWindow))) {
+        (message == WM_TIMER && wParam == kDesktopWatchdogTimer &&
+         (!IsOwnedWallpaperWindow(gWallpaperWindow) || gDesktopRetry.Pending()))) {
         RecoverDesktopHost();
         return 0;
     }
@@ -677,20 +688,10 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     if (gExperimentalDesktop) {
         gDesktopHost = &desktopHost;
         SetTimer(notificationWindow, kDesktopWatchdogTimer, 1000, nullptr);
-        desktopmonitor::platform::windows::DesktopAttachFailure failure{};
-        if (desktopHost.TryAttach(window, &failure)) {
-            RecordDesktopAttachment(window);
-            gStatusText = L"Shell layer found. Icon, focus, z-order, and recovery checks are still required.";
-            SetWindowTextW(window, kExperimentalWindowTitle);
-        } else {
-            desktopHost.RestorePreview(window);
-            gExperimentalDesktop = false;
-            ReportAttachFailure(failure);
-            SetWindowTextW(window, kWindowTitle);
-        }
+        RecoverDesktopHost();
     }
 
-    ShowWindow(window, showCommand);
+    if (!gDesktopRetry.Pending()) ShowWindow(window, showCommand);
     UpdateWindow(window);
 
     MSG message{};

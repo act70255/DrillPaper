@@ -1,0 +1,201 @@
+✔ ready sends one protocol hello and resolves on host.ready (4.3527ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1956ms)
+✔ Theme SDK reports the current release candidate version (0.1292ms)
+✔ getSnapshot resolves only from the matching requestId response (1.2585ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.8284ms)
+✔ getHistory clamps the request and returns the snapshot list (0.4908ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.5623ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.3727ms)
+✔ a host with another protocol version cannot complete the handshake (12.6458ms)
+✔ a host with an invalid timestamp cannot complete the handshake (18.9178ms)
+✔ pending requests time out instead of hanging forever (15.6189ms)
+✔ pending requests are bounded (32.286ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (1.8323ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.7607ms)
+✔ accepts a valid v1 manifest and returns no errors (5.7139ms)
+✔ rejects missing fields and unsupported API versions (0.9995ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.5271ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.4289ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 302.7658
+PASS environment check continues when CIM display inventory is denied.
+Samples: 3; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\smoke.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\smoke.metadata.json
+Samples: 3; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\partial.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\partial.metadata.json
+Samples: 0; CSV: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\unknown.csv; metadata: C:\Users\James\AppData\Local\Temp\DrillPaperPerfSmoke-2823f2098533430aabdb5520ade6ce45\unknown.metadata.json
+PASS：3 筆完整樣本，實際跨度 2.382 秒；metadata／狀態／handles 完整，提前退出會標記失敗並保留部分資料。此為工具驗證，非產品效能通過。
+PASS accepted: valid.dmt (3 files)
+PASS rejected: traversal.dmt — Invalid DrillPaper theme package: unsafe archive path '../escape.js'
+PASS rejected: duplicate-case.dmt — Invalid DrillPaper theme package: duplicate path (case-insensitive): 'INDEX.HTML'
+PASS rejected: unsupported-extension.dmt — Invalid DrillPaper theme package: unsupported file type in 'payload.exe'.
+PASS rejected: wrong-api.dmt — Invalid DrillPaper theme package: apiVersion must be the string "1".
+PASS rejected: oversized-file.dmt — Invalid DrillPaper theme package: file 'large.js' exceeds 10 MiB.
+
+
+Path      : C:\Users\James\AppData\Local\Temp\DrillPaperThemeTests-aecae1d33b344c1a8f28b40481cedf8f\minimal-example.dmt
+Id        : minimal-monitor
+Version   : 1.0.0
+FileCount : 6
+Bytes     : 6759
+
+PASS packaged and revalidated example: minimal-monitor
+PASS：隔離副本刻意停用路徑檢查後，主題負面測試正確失敗；正式 validator 未修改。
+負面測試判斷驗證紀錄：C:\WorkSpace\-James\DrillPaper\artifacts\acceptance\theme-oracle-20261029-115647-b33700
+✔ ready sends one protocol hello and resolves on host.ready (3.538ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1538ms)
+✔ Theme SDK reports the current release candidate version (0.1101ms)
+✔ getSnapshot resolves only from the matching requestId response (0.9935ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.3959ms)
+✔ getHistory clamps the request and returns the snapshot list (0.456ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.7845ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.3445ms)
+✔ a host with another protocol version cannot complete the handshake (11.4635ms)
+✔ a host with an invalid timestamp cannot complete the handshake (18.6342ms)
+✔ pending requests time out instead of hanging forever (15.2482ms)
+✔ pending requests are bounded (31.5031ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (1.5056ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.59ms)
+✔ accepts a valid v1 manifest and returns no errors (2.2167ms)
+✔ rejects missing fields and unsupported API versions (0.4726ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.2172ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.1964ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 214.282
+Path    : C:\Users\James\AppData\Local\Temp\DrillPaperSdkPackageTest-74e3066feab745e49a921bcd5a1b7761\sdk-test.zip
+Version : 1.0.0-rc3
+Bytes   : 49913
+SHA256  : 46070A28BAC7F3E25D7C3ED692F13FA74E410D9246226C0BAA88FB643643FD89
+
+✔ ready sends one protocol hello and resolves on host.ready (3.2476ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.1318ms)
+✔ Theme SDK reports the current release candidate version (0.0974ms)
+✔ getSnapshot resolves only from the matching requestId response (0.8421ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.3302ms)
+✔ getHistory clamps the request and returns the snapshot list (0.3535ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.3604ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.2047ms)
+✔ a host with another protocol version cannot complete the handshake (18.9242ms)
+✔ a host with an invalid timestamp cannot complete the handshake (14.3019ms)
+✔ pending requests time out instead of hanging forever (15.4857ms)
+✔ pending requests are bounded (31.5721ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (0.7504ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.2284ms)
+✔ accepts a valid v1 manifest and returns no errors (3.1571ms)
+✔ rejects missing fields and unsupported API versions (0.464ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.2044ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.1801ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.5458
+Path    : C:\Users\James\AppData\Local\Temp\DrillPaperSdkPackageTest-74e3066feab745e49a921bcd5a1b7761\sdk-test-second.z
+          ip
+Version : 1.0.0-rc3
+Bytes   : 49913
+SHA256  : 46070A28BAC7F3E25D7C3ED692F13FA74E410D9246226C0BAA88FB643643FD89
+
+✔ ready sends one protocol hello and resolves on host.ready (6.3999ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.3126ms)
+✔ Theme SDK reports the current release candidate version (0.216ms)
+✔ getSnapshot resolves only from the matching requestId response (1.7032ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.6376ms)
+✔ getHistory clamps the request and returns the snapshot list (0.7747ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.9694ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.5606ms)
+✔ a host with another protocol version cannot complete the handshake (10.9356ms)
+✔ a host with an invalid timestamp cannot complete the handshake (12.235ms)
+✔ pending requests time out instead of hanging forever (15.284ms)
+✔ pending requests are bounded (31.434ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (0.9236ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.2748ms)
+✔ accepts a valid v1 manifest and returns no errors (2.4463ms)
+✔ rejects missing fields and unsupported API versions (0.4957ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.2135ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (1.6163ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 203.5949
+PASS extracted Theme SDK package: required files present; tests and both .dmt validators passed; reproducible SHA-256 46070A28BAC7F3E25D7C3ED692F13FA74E410D9246226C0BAA88FB643643FD89.
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+      Start  1: CPU sampling marks the first reading as warm-up
+ 1/29 Test  #1: CPU sampling marks the first reading as warm-up .......................................   Passed    0.03 sec
+      Start  2: CPU sampling derives busy time from GetSystemTimes deltas
+ 2/29 Test  #2: CPU sampling derives busy time from GetSystemTimes deltas .............................   Passed    0.02 sec
+      Start  3: CPU sampling resets its baseline after counters decrease
+ 3/29 Test  #3: CPU sampling resets its baseline after counters decrease ..............................   Passed    0.02 sec
+      Start  4: A real zero metric differs from an unavailable metric
+ 4/29 Test  #4: A real zero metric differs from an unavailable metric .................................   Passed    0.02 sec
+      Start  5: Snapshot units describe byte counts and byte rates
+ 5/29 Test  #5: Snapshot units describe byte counts and byte rates ....................................   Passed    0.05 sec
+      Start  6: Network rate uses monotonic counter deltas and elapsed time
+ 6/29 Test  #6: Network rate uses monotonic counter deltas and elapsed time ...........................   Passed    0.02 sec
+      Start  7: An idle network interface is a valid zero rate
+ 7/29 Test  #7: An idle network interface is a valid zero rate ........................................   Passed    0.02 sec
+      Start  8: Network rate rejects resets and zero-length intervals
+ 8/29 Test  #8: Network rate rejects resets and zero-length intervals .................................   Passed    0.02 sec
+      Start  9: Metrics history retains only the newest 120 snapshots
+ 9/29 Test  #9: Metrics history retains only the newest 120 snapshots .................................   Passed    0.02 sec
+      Start 10: Snapshot coalescing keeps one latest pending value
+10/29 Test #10: Snapshot coalescing keeps one latest pending value ....................................   Passed    0.02 sec
+      Start 11: Metric change detection uses units, quality, and a numeric threshold
+11/29 Test #11: Metric change detection uses units, quality, and a numeric threshold ..................   Passed    0.02 sec
+      Start 12: Power state transitions debounce obscured changes and request fresh data on resume
+12/29 Test #12: Power state transitions debounce obscured changes and request fresh data on resume ....   Passed    0.02 sec
+      Start 13: Sampling scheduler pauses and resumes without catch-up loops
+13/29 Test #13: Sampling scheduler pauses and resumes without catch-up loops ..........................   Passed    0.02 sec
+      Start 14: Sampling worker collects outside the caller thread and stops while paused
+14/29 Test #14: Sampling worker collects outside the caller thread and stops while paused .............   Passed    0.02 sec
+      Start 15: Sampling worker resumes immediately with a fresh baseline
+15/29 Test #15: Sampling worker resumes immediately with a fresh baseline .............................   Passed    0.02 sec
+      Start 16: Sampling worker reports collector failure without terminating the process
+16/29 Test #16: Sampling worker reports collector failure without terminating the process .............   Passed    0.02 sec
+      Start 17: Sampling worker discards an in-flight snapshot from the previous generation
+17/29 Test #17: Sampling worker discards an in-flight snapshot from the previous generation ...........   Passed    0.02 sec
+      Start 18: Desktop recovery waits for Shell readiness with a bounded retry budget
+18/29 Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget ................   Passed    0.02 sec
+      Start 19: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+19/29 Test #19: Protocol v1 serializes a complete snapshot with units and UTC timestamp ...............   Passed    0.03 sec
+      Start 20: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+20/29 Test #20: Protocol v1 echoes request identifiers and serializes unavailable memory as null ......   Passed    0.02 sec
+      Start 21: Protocol v1 parses bounded history requests and preserves request IDs
+21/29 Test #21: Protocol v1 parses bounded history requests and preserves request IDs .................   Passed    0.03 sec
+      Start 22: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+22/29 Test #22: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ...   Passed    0.02 sec
+      Start 23: Protocol v1 subscription removes unknown and duplicate metric names
+23/29 Test #23: Protocol v1 subscription removes unknown and duplicate metric names ...................   Passed    0.02 sec
+      Start 24: Protocol v1 serializes control envelopes without changing their payload
+24/29 Test #24: Protocol v1 serializes control envelopes without changing their payload ...............   Passed    0.02 sec
+      Start 25: Protocol v1 history snapshots carry their own timestamps
+25/29 Test #25: Protocol v1 history snapshots carry their own timestamps ..............................   Passed    0.02 sec
+      Start 26: Windows metrics collector reports typed readings and warms up CPU/network rates
+26/29 Test #26: Windows metrics collector reports typed readings and warms up CPU/network rates .......   Passed    1.38 sec
+      Start 27: Desktop fallback restores a normal top-level preview
+27/29 Test #27: Desktop fallback restores a normal top-level preview ..................................   Passed    0.40 sec
+      Start 28: DrillPaperThemeTests
+28/29 Test #28: DrillPaperThemeTests ..................................................................   Passed    0.93 sec
+      Start 29: DrillPaperThemeCli
+29/29 Test #29: DrillPaperThemeCli ....................................................................   Passed    1.11 sec
+
+100% tests passed, 0 tests failed out of 29
+
+Total Test time (real) =   4.56 sec

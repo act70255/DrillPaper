@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 真正重啟續驗 — 等待 Shell 就緒再重掛
+
+- 實機證據：使用者回報已重啟；同一 app PID 70156 重新建立 HWND、握手 1→2，metrics tick 持續增加，但父視窗為空、760×480 預覽，DesktopFailure=1。原因為新 Shell 管理視窗尚未就緒，原復原只試一次即永久退化；此次不記為桌布重掛通過。
+- Scope：新增純 runtime 重試政策，以單調毫秒每隔至少 1000 ms 再試，最多 10 次；成功後重設額度，超過上限才退回預覽。UI 在等待期間隱藏暫態視窗，以穩定通知計時器執行後續嘗試；不是無限迴圈，也不重啟採集工作者。
+- Red／Green：公開 runtime 狀態契約先 FAIL 於首次失敗即不排重試；實作後 1 案例／28 斷言通過，涵蓋間隔、預算耗盡與成功後重設。真正單次退化的原生證據與新政策證據見 [shell-readiness/REPORT.md](acceptance/2026-10-29/shell-readiness/REPORT.md)。
+- PASS：Release build；完整本機 CTest 29/29、SDK 18/18、其他封裝／採樣／測試判斷檢查；父程序崩潰且無注入通知 3 次，新握手／持續指標／正常退出與已觀察子程序清理皆通過。
+- NOT RUN：加入等待政策後的真正 Explorer 重啟與畫面。單元測試只證明重試時序與上限，不能證明 Shell 附掛或畫面；仍須以新版本再做實機確認。
+- Commit：`fix(desktop): 等待 Explorer 就緒再有界重掛`，分支 `bugfix/explorer-shell-readiness`，完成相關驗證後提交推送。
+
 ## 2026-10-29 Explorer 視窗銷毀復原 — 受控修正完成，真正重試待驗
 
 - Scope：區分使用者 WM_CLOSE 與非預期 WM_DESTROY；以獨立通知視窗接收採樣／錯誤，原 HWND 消失後重建原生視窗、功能表、計時器與同一主題的 WebView2 controller。通知遺漏時由每秒一次的宿主檢查補救；重建失敗保留明確錯誤與停止路徑，不無限建立視窗。
