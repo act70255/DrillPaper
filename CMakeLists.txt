@@ -51,6 +51,7 @@ add_executable(DrillPaper WIN32
     src/app/theme_commands.cpp
     src/platform/windows/desktop_host.cpp
     src/platform/windows/power_notifications.cpp
+    src/platform/windows/management_shell.cpp
     src/monitoring/windows_metrics_collector.cpp
     src/monitoring/nvml_gpu_collector.cpp
     src/web/protocol_v1.cpp
@@ -116,6 +117,7 @@ if(BUILD_TESTING)
         tests/unit/core_contracts_test.cpp
         tests/unit/sampling_worker_test.cpp
         tests/unit/desktop_recovery_retry_test.cpp
+        tests/unit/managed_playback_test.cpp
         tests/unit/protocol_v1_test.cpp
         src/web/protocol_v1.cpp
     )

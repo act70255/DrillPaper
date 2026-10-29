@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 管理介面階段 1 — 系統匣與生命週期
+
+- 使用者已明確確認完整三階段 spec；第一階段實作 `ManagementShell`，由穩定通知視窗持有圖示，獨立可信管理視窗可重複開啟／隱藏，提供主題、模式、暫停／繼續、日誌與退出。
+- 公開 runtime `ManagedPlayback`：手動暫停優先於智慧休眠及暫停停採，恢復時重新採樣；Red 原政策仍為 Active，Green 1 案例／8 斷言。
+- PASS：Release build；`test-management-shell.ps1 -Desktop` 的 5 次唯一視窗、暫停／新指標恢復、3 次受控圖示重註冊、模式 parent 切換、正式退出及子程序清理；既有 runtime 1 次與暫停中退出通過。命令與界線見 [management/REPORT.md](acceptance/2026-10-29/management/REPORT.md)。
+- NOT RUN：新介面的真正圖示點擊與 Explorer 重啟／像素、完整 DPI／鍵盤；理由為尚需實機人工操作。圖示建立失敗保留可見管理入口，有界重試十次；沒有操作使用者工作列顯示設定。
+- 介面以 `--management` 開啟；既有明確 `--preview`／`--experimental-desktop` 驗收仍可正常關閉。使用者現有持續桌布不受影響。
+- Commit：`feat(management): 新增系統匣入口與管理生命週期`，分支 `feature/tray-management`。下一步：主題管理與設定保存；網路開關仍未交付。
+
 ## 2026-10-29 管理介面範圍確認整理
 
 - 依使用者「協助我完成確認範圍」，在 `.scratch/tray-management/spec.md` 補上三階段功能與可觀察的完成判定，建議完整功能分階段交付。

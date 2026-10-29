@@ -25,7 +25,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test.ps1 -Configur
 
 `--mock-metrics` 使用測試資料；省略該旗標時採集器讀取本機 Windows metrics。`--theme` 僅能選擇內建 `minimal` 或 `dashboard`，每次啟動選一個。關閉 Preview 視窗可退出。WebView2 Evergreen Runtime 是執行需求，本機測試機已安裝；不會由此開發流程自動安裝。
 
-此視窗不是桌布附掛；目前沒有系統 tray、一般使用者安裝或解除安裝功能。`--experimental-desktop` 不在已支援的使用方式內。
+此視窗不是桌布附掛；一般使用者安裝或解除安裝仍未交付。`--experimental-desktop` 的支援範圍依 STATUS 所列實機證據。
+
+## 系統匣管理模式
+
+以 `DrillPaper.exe --management --preview --theme=dashboard` 開啟管理視窗與系統匣。單擊／雙擊圖示開啟同一管理視窗，右鍵提供快捷操作；圖示可能在 Windows 隱藏圖示區。可暫停／繼續、切換桌布／預覽或內建主題，以及開啟日誌。
+
+關閉管理視窗會隱藏；關閉管理模式的 Preview 則暫停並隱藏桌布，程式繼續留在系統匣。請用管理介面或系統匣的「結束 DrillPaper」正式退出。圖示註冊失敗時管理視窗保持可用。圖形化匯入／移除與設定保存屬下一階段。
 
 ## 原生主題安裝與切換
 

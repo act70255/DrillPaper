@@ -13,6 +13,8 @@
 #include "desktopmonitor/themes/theme_manager.h"
 #include "desktopmonitor/runtime/sampling_worker.h"
 #include "desktopmonitor/runtime/desktop_recovery_retry.h"
+#include "desktopmonitor/runtime/managed_playback.h"
+#include "desktopmonitor/platform/windows/management_shell.h"
 #include "desktopmonitor/runtime/windows_snapshot_mailbox.h"
 #include "desktopmonitor/platform/windows/power_notifications.h"
 #include "desktopmonitor/platform/windows/desktop_host.h"
@@ -63,6 +65,12 @@ HWND gLostWallpaperWindow = nullptr;
 bool gClosing = false;
 bool gDesktopRecoveryInProgress = false;
 desktopmonitor::runtime::DesktopRecoveryRetry gDesktopRetry;
+desktopmonitor::runtime::ManagedPlayback gPlayback;
+std::unique_ptr<desktopmonitor::platform::windows::ManagementShell> gManagement;
+bool gManaged = false;
+std::wstring gCurrentTheme = L"minimal";
+void HandleManagementCommand(UINT command);
+void UpdateManagement();
 HWND CreatePreviewWindow(HINSTANCE instance);
 LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -213,13 +221,14 @@ bool HasFlag(const wchar_t* commandLine, const wchar_t* flag) {
 
 /** 將 runtime 政策接到背景採樣與 UI adapter；僅於 UI 執行緒執行。 */
 void ApplyRuntimePolicy() {
-    const auto state = gSmartSleep ? gPowerState.State() : desktopmonitor::runtime::PowerState::Active;
+    const auto state = gPlayback.EffectiveState(gPowerState.State(), gSmartSleep);
     if (gRuntimePolicyInitialized && state == gAppliedPowerState) return;
-    const bool reset = !gRuntimePolicyInitialized || gPowerState.RequiresFullSnapshot();
+    const bool reset = !gRuntimePolicyInitialized || gPowerState.RequiresFullSnapshot() ||
+        (gAppliedPowerState != desktopmonitor::runtime::PowerState::Active && state == desktopmonitor::runtime::PowerState::Active);
     gRuntimePolicyInitialized = true;
     gAppliedPowerState = state;
     if (gSamplingWorker != nullptr) {
-        const auto interval = gSmartSleep ? gPowerState.SamplingIntervalMilliseconds() : 1000;
+        const auto interval = gPlayback.SamplingInterval(gPowerState.SamplingIntervalMilliseconds(), gSmartSleep);
         gSamplingGeneration = gSamplingWorker->Configure(interval, reset);
     }
     if (gWebViewHost != nullptr && FAILED(gWebViewHost->SetRuntimeState(state)))
@@ -269,7 +278,7 @@ void RecoverDesktopHost() {
                 SetWindowTextW(gWallpaperWindow, kWindowTitle);
             }
         }
-        if (!gDesktopRetry.Pending()) ShowWindow(gWallpaperWindow, SW_SHOWNOACTIVATE);
+        if (!gDesktopRetry.Pending() && !gPlayback.Paused()) ShowWindow(gWallpaperWindow, SW_SHOWNOACTIVATE);
         InvalidateRect(gWallpaperWindow, nullptr, TRUE);
     } catch (const std::exception& error) {
         OutputDebugStringA(error.what());
@@ -297,6 +306,15 @@ void ConsumeLatestSnapshot() {
 }
 
 LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
+    if (message == desktopmonitor::platform::windows::kTrayCallbackMessage && gManagement) {
+        gManagement->OnTrayCallback(wParam, lParam);
+        return 0;
+    }
+    if (message == WM_COMMAND && gManaged) { HandleManagementCommand(LOWORD(wParam)); return 0; }
+    if (gManagement && message == gTaskbarCreatedMessage && gTaskbarCreatedMessage != 0) gManagement->Tick(true);
+    if (message == WM_TIMER && wParam == kDesktopWatchdogTimer) {
+        if (gManagement) { UpdateManagement(); gManagement->Tick(); }
+    }
     if (message == kSnapshotReadyMessage) { ConsumeLatestSnapshot(); return 0; }
     if (message == kSamplingFailedMessage)
         return WindowProcedure(IsOwnedWallpaperWindow(gWallpaperWindow) ? gWallpaperWindow : window, message, wParam, lParam);
@@ -328,7 +346,74 @@ bool SwitchBuiltinTheme(const std::wstring& name) {
         return false;
     }
     gThemeLoadStarted = GetTickCount64();
+    gCurrentTheme = name;
+    UpdateManagement();
     return true;
+}
+
+/** 將有效執行狀態同步至可信管理介面。
+ * Returns:
+ *     無；不改變採樣與 renderer 狀態。
+ */
+void UpdateManagement() {
+    if (!gManagement) return;
+    std::wstring status;
+    if (gPlayback.Paused()) status = L"已手動暫停；繼續後依目前電源狀態恢復。";
+    else if (gDesktopRetry.Pending()) status = L"正在等待桌面就緒並重新連接…";
+    else if (gAppliedPowerState != desktopmonitor::runtime::PowerState::Active) status = L"智慧休眠已降低或暫停更新。";
+    else if (gWebViewHost && gWebViewHost->IsReady()) status = L"運作中；主題已連線。";
+    else status = gStatusText;
+    gManagement->Update(gCurrentTheme, status, gPlayback.Paused(), gExperimentalDesktop);
+}
+
+/** 處理可信原生管理命令，錯誤留在 UI 邊界。
+ * Args:
+ *     command: 系統匣或管理視窗送出的命令。
+ */
+void HandleManagementCommand(UINT command) {
+    using namespace desktopmonitor::platform::windows;
+    try {
+        if (command == kManageOpen) { if (gManagement) gManagement->Show(); }
+        else if (command == kManageExit) { gClosing = true; PostQuitMessage(0); }
+        else if (command == kManagePause) {
+            gPlayback.SetPaused(!gPlayback.Paused());
+            if (IsOwnedWallpaperWindow(gWallpaperWindow))
+                ShowWindow(gWallpaperWindow, gPlayback.Paused() || gDesktopRetry.Pending() ? SW_HIDE : SW_SHOWNOACTIVATE);
+            ApplyRuntimePolicy();
+        } else if (command == kManageDesktop || command == kManagePreview) {
+            gDesktopRetry.Reset();
+            // 若桌布 HWND 恰於模式命令前消失，先透過既有路徑重建。
+            if (!IsOwnedWallpaperWindow(gWallpaperWindow)) {
+                gExperimentalDesktop = true;
+                RecoverDesktopHost();
+            }
+            if (!IsOwnedWallpaperWindow(gWallpaperWindow)) throw std::runtime_error("監控視窗尚未恢復。");
+            gExperimentalDesktop = command == kManageDesktop;
+            if (gExperimentalDesktop) RecoverDesktopHost();
+            else {
+                gDesktopRetry.Reset();
+                gDesktopHost->RestorePreview(gWallpaperWindow);
+                SetWindowTextW(gWallpaperWindow, kWindowTitle);
+                ShowWindow(gWallpaperWindow, gPlayback.Paused() ? SW_HIDE : SW_SHOWNOACTIVATE);
+            }
+        } else if (command == kManageLogs) {
+            const auto logs = desktopmonitor::app::ThemeStoreDirectory().parent_path() / L"logs";
+            std::filesystem::create_directories(logs);
+            if (reinterpret_cast<INT_PTR>(ShellExecuteW(nullptr, L"open", logs.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) <= 32)
+                throw std::runtime_error("無法開啟日誌資料夾。");
+        } else if (IsOwnedWallpaperWindow(gWallpaperWindow)) {
+            WindowProcedure(gWallpaperWindow, WM_COMMAND, command, 0);
+        }
+    } catch (const std::exception& error) {
+        OutputDebugStringA(error.what());
+        try {
+            const auto logs = desktopmonitor::app::ThemeStoreDirectory().parent_path() / L"logs";
+            std::filesystem::create_directories(logs);
+            std::ofstream(logs / L"management.log", std::ios::binary | std::ios::app) << error.what() << '\n';
+        } catch (...) { OutputDebugStringW(L"無法記錄管理命令錯誤。\n"); }
+        MessageBoxW(nullptr, L"無法完成管理操作，請查看日誌後重試。", L"DrillPaper", MB_OK | MB_ICONWARNING);
+    }
+    UpdateManagement();
 }
 
 /** 重新列舉合法安裝版本並更新原生功能表。 */
@@ -424,6 +509,7 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
                         gInstalledThemes[LOWORD(wParam) - kInstalledThemeCommand].directory);
                     const std::wstring name(info.id.begin(), info.id.end());
                     if (SUCCEEDED(gWebViewHost->LoadTheme(info.directory.wstring(), name, std::filesystem::path(info.entry).wstring()))) {
+                        gCurrentTheme = name;
                         gThemeLoadStarted = GetTickCount64();
                         gThemeFallbackAttempted = false;
                     }
@@ -511,6 +597,10 @@ LRESULT CALLBACK WindowProcedure(HWND window, UINT message, WPARAM wParam, LPARA
         }
         break;
     case WM_CLOSE:
+        if (gManaged) {
+            if (!gPlayback.Paused()) HandleManagementCommand(desktopmonitor::platform::windows::kManagePause);
+            return 0;
+        }
         gClosing = true;
         DestroyWindow(window);
         return 0;
@@ -555,10 +645,13 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     }
 
     const bool forcePreview = HasFlag(commandLine, L"--preview");
+    gManaged = HasFlag(commandLine, L"--management") ||
+        (!forcePreview && !HasFlag(commandLine, L"--experimental-desktop"));
     gMockMetrics = HasFlag(commandLine, L"--mock-metrics");
     gSmartSleep = !HasFlag(commandLine, L"--no-smart-sleep");
     const bool dashboardTheme = HasFlag(commandLine, L"--theme=dashboard");
     const std::wstring themeName = dashboardTheme ? L"dashboard" : L"minimal";
+    gCurrentTheme = themeName;
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
     WNDCLASSW windowClass{};
@@ -595,6 +688,17 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
         return 1;
     }
     gNotificationWindow = notificationWindow;
+    if (gManaged) {
+        gManagement = std::make_unique<desktopmonitor::platform::windows::ManagementShell>();
+        if (!gManagement->Initialize(notificationWindow, HandleManagementCommand)) {
+            MessageBoxW(window, L"無法建立管理介面，請確認系統資源後重新啟動。", L"DrillPaper", MB_OK | MB_ICONERROR);
+            gManagement.reset();
+            gClosing = true;
+            DestroyWindow(window);
+            DestroyWindow(notificationWindow);
+            return 1;
+        }
+    }
 
     const HRESULT apartmentResult = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     const bool comInitialized = SUCCEEDED(apartmentResult);
@@ -683,16 +787,21 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     ApplyRuntimePolicy();
 
     desktopmonitor::platform::windows::Win32DesktopHost desktopHost;
+    gDesktopHost = &desktopHost;
     gExperimentalDesktop = HasFlag(commandLine, L"--experimental-desktop") &&
                            !forcePreview && !gMockMetrics;
     if (gExperimentalDesktop) {
-        gDesktopHost = &desktopHost;
         SetTimer(notificationWindow, kDesktopWatchdogTimer, 1000, nullptr);
         RecoverDesktopHost();
     }
 
     if (!gDesktopRetry.Pending()) ShowWindow(window, showCommand);
     UpdateWindow(window);
+    if (gManaged) {
+        SetTimer(notificationWindow, kDesktopWatchdogTimer, 1000, nullptr);
+        UpdateManagement();
+        if (HasFlag(commandLine, L"--management")) gManagement->Show();
+    }
 
     MSG message{};
     while (GetMessageW(&message, nullptr, 0, 0) > 0) {
@@ -702,6 +811,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int showCo
     gClosing = true;
     if (gSamplingWorker != nullptr) { gSamplingWorker->Stop(); gSamplingWorker.reset(); }
     gPowerNotifications.reset();
+    gManagement.reset();
     gWebViewHost.reset();
     if (IsOwnedWallpaperWindow(gWallpaperWindow)) DestroyWindow(gWallpaperWindow);
     if (IsWindow(gNotificationWindow)) DestroyWindow(gNotificationWindow);

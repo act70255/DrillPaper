@@ -41,6 +41,14 @@ ctest --preset windows-msvc-release --output-on-failure
 
 採集已在背景執行，Windows 工作階段與電源事件會調整採樣及 WebView2 暫停／恢復；`--no-smart-sleep` 可停用這項政策供除錯。鎖定／解鎖已有本機人工與受控事件證據，真實顯示器電源、待機及完整相容性仍待驗收，見 [`docs/runtime.md`](docs/runtime.md)。
 
+## 系統匣與管理入口
+
+```powershell
+.\build\windows-msvc-release\Release\DrillPaper.exe --management --preview --theme=dashboard
+```
+
+右下角系統匣圖示（可能在隱藏圖示區）可開啟同一個管理視窗，提供暫停／繼續、內建主題、桌布／預覽與日誌入口。關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊與 Explorer 重啟仍依 STATUS 另行驗收；設定保存、圖形化主題管理及網路開關分階段補齊。
+
 ## Theme SDK
 
 SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與作者指南位於 `sdk/`。執行 `npm run test:sdk` 驗證 JS API。安裝與列舉主題：
