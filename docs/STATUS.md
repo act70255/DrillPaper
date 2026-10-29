@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 管理三階段實作收尾 — 最終 CI 通過
+
+- 最終產品程式提交 `63e86ff`，分支 feature/tray-management。實際 [CI 40832496506](https://github.com/act70255/DrillPaper/actions/runs/40832496506) PASS：乾淨 Windows runner configure／build、CTest 33/33（3.10 秒）、SDK 18/18、固定 SDK 還原／bootstrap 邊界及主題封裝 artifact。RC job 預期 skipped，沒有發行。
+- 證據：management/final-ci.json、final-ci.log；完整原始 log 位於 artifacts/acceptance/63e86ff-ci.log。前版 bcb6d2c 的成功與本機／原生整合證據各自保留，不混用 hash。
+- 第三階段票與 spec 設為 implemented，表示程式與所列驗證範圍完成；不表示整體 MVP／RC 或所有人工矩陣通過。使用者已確認系統匣可開、匯入正常、移除測試完成，隔離目錄結果吻合；原生重複開啟 5 次／真正 Explorer 程序重啟及 junction 負面亦已有各自證據。
+- NOT RUN：新版 Explorer 像素人工結論、完整鍵盤／DPI、全部權限／scheme／WebRTC／DNS／跨主題 storage 等矩陣。原因及安全限制見 FOLLOWUP.md／theme-security.md；A12 與 RC gate 保留，沒有宣稱完整沙箱。
+- 收尾核對：只有持續桌布 PID 83428，路徑仍為原固定 a241856 副本。測試與人工程序均已收尾，沒有關閉或替換原桌布，未合併 main。
+- 本輪僅更新文件／票項／CI 證據，產品測試 NOT RUN（本輪無程式變更；已核對 63e86ff 的實際 CI）。Commit：`docs(acceptance): 記錄管理階段驗收與 CI 結案`，依 commit-msg skill 產生後 commit＋push。
+
 ## 2026-10-29 最後安全回歸 — 保留主機判斷與人工回報
 
 - Scope／Red→Green：新增正常 URL 路徑含 `.drillpaper.local` 的真實 fetch，先在 allowNetwork=true 重現失敗；將保留命名空間判斷限制在 URI authority 的主機名稱，不再用整段 URL 子字串拒絕。

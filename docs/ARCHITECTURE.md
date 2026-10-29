@@ -31,4 +31,4 @@
 
 `web` 使用每次載入獨立的 GUID HTTPS 來源，透過 WebView2 資源事件提供含宿主 CSP 的本機回應；不啟動 HTTP server。HTTP／HTTPS 全域偏好同時接入 CSP 與 request policy，原生管理介面處理首次提示，通知不授權連網。外部導覽、框架、下載、權限及彈窗各自拒絕。由 folder mapping 改為宿主回應的理由、效能代價及限制見 `docs/adr/0001-host-controlled-theme-responses.md`。
 
-WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。無限迴圈、新管理介面的 Explorer 實機復原／檔案選擇器／移除確認及完整效能矩陣仍待驗證。已測 HTTP／WebSocket 不代表完整阻止外傳；WebRTC、DNS／推測連線、跨來源 storage 仍未驗。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。
+WTS／電源通知及 renderer 暫停有有限整合證據；renderer／browser 退出已可有界重建與退化，使用載入世代忽略舊通知。新管理版本真正 Explorer 重啟已有原生附掛／bridge／圖示註冊證據，像素人工結論仍未驗；使用者已回報檔案選擇器匯入正常與移除測試完成。無限迴圈、完整 DPI／鍵盤與效能矩陣仍待驗證。已測 HTTP／WebSocket 不代表完整阻止外傳；WebRTC、DNS／推測連線、跨來源 storage 仍未驗。套件驗證不等於沙箱，同使用者並行修改檔案不在檔案系統隔離保證內。證據以 STATUS 為準。

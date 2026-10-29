@@ -1,0 +1,5 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T06:59:42.2841897Z # tests 18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T06:59:42.2842389Z # pass 18
+windows-build-test	Run native tests	2026-10-29T07:03:55.5196743Z 33/33 Test #33: DrillPaperThemeCli ....................................................................   Passed    1.23 sec
+windows-build-test	Run native tests	2026-10-29T07:03:55.5202879Z 100% tests passed, 0 tests failed out of 33
+windows-build-test	Run native tests	2026-10-29T07:03:55.5203405Z Total Test time (real) =   3.10 sec

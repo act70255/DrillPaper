@@ -53,3 +53,9 @@ WebRTC、完整 DNS／egress、跨主題 storage、其他權限種類及整體 R
 - 使用者回報「點系統夾能開」、「操作匯入看起來OK」、「測試移除 以執行完必」。人工視窗為 bcb6d2c 固定副本 PID 100000；移除後隔離主題目錄不存在，且未回報異常。使用者未另述「否」與「是」各步細節；重複點擊唯一性仍只有原生 5 次測試證據。原始回報見 user-management-confirmation.json。人工程序收尾正常退出 0，原桌布保留。
 - bcb6d2c 的 CI 40831527263 PASS（CTest 33/33、SDK 18/18、SDK 還原／封裝，RC skipped），metadata／節錄已保存。本次最後修正的 CI 於推送後接續，不由前版結果代替。
 - 以上更新取代本報告較早的人工未回報／CI 尚未觸發狀態；新版 Explorer 像素確認、完整鍵盤／DPI 與安全未測矩陣仍為 NOT RUN。
+
+## 最終 CI 結案
+
+63e86ff 的 [CI 40832496506](https://github.com/act70255/DrillPaper/actions/runs/40832496506) PASS：Windows runner configure／build、CTest 33/33（3.10 秒）、SDK 18/18、固定 SDK bootstrap 邊界與封裝 artifact。RC job 預期 skipped。metadata 與節錄為 final-ci.json／final-ci.log；原始 log 保存於 artifacts/acceptance/63e86ff-ci.log。
+
+本次文件結案提交不變更程式，受測程式版本仍為 63e86ff。票項與 spec 設為 implemented；NOT RUN 與整體 RC gate 繼續保留。收尾時只留下原持續桌布 PID 83428，人工驗收與測試 app 均已正常收尾；未合併 main。

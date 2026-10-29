@@ -1,6 +1,6 @@
 # 系統匣管理入口與設定視窗
 
-Status: in-progress
+Status: implemented
 Approval: 使用者於 2026-10-29 回覆「確認」，同意完整三階段範圍
 日期：2026-10-29
 分支：`feature/tray-management`
@@ -72,6 +72,12 @@ Approval: 使用者於 2026-10-29 回覆「確認」，同意完整三階段範�
 3. 網路設定與安全整合：實際政策、首次提示及 WebView2 負面測試，完成後才將此開關視為可交付功能。
 
 每階段更新 STATUS，相關驗證完成即依 commit-msg skill 產生訊息並 commit＋push；整體回歸在收尾執行。不得破壞已通過的 A04 本機 Explorer 復原；新增系統匣必須再次實測同情境。整體 RC gate 依各驗收結果處理。
+
+## 實作與驗收收尾（2026-10-29）
+
+三階段實作均已提交推送 feature/tray-management；階段 3 與續驗提交為 3871e72、bcb6d2c、63e86ff。最終產品程式的 CI 40832496506 通過 CTest 33/33、SDK 18/18。使用者已回報系統匣開啟、匯入及移除測試，細節見 docs/acceptance/2026-10-29/management/FOLLOWUP.md 與 user-management-confirmation.json。
+
+implemented 表示實作完成，不將未執行矩陣改成 PASS。新版 Explorer 有真正程序重啟的附掛／bridge／圖示註冊證據，但像素人工確認仍 NOT RUN；完整鍵盤／DPI 與安全未測通訊面亦保留。整體 MVP／RC gate 未解除，沒有合併 main。
 
 ## 參考
 
