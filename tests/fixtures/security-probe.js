@@ -11,6 +11,16 @@ if (local.download !== '必須拒絕') throw new Error('離線主題不能讀取
  *     message: 失敗原因。
  */
 function check(value, message) { if (!value) throw new Error(message); }
+// 每次載入都必須是獨立來源；同一 profile 亦不能沿用前一來源的資料。
+check(localStorage.getItem('drillpaper-probe') === null, 'localStorage 跨來源重用');
+check(sessionStorage.getItem('drillpaper-probe') === null, 'sessionStorage 跨來源重用');
+check(!document.cookie.includes('drillpaper-probe='), 'Cookie 跨來源重用');
+localStorage.setItem('drillpaper-probe', 'private');
+sessionStorage.setItem('drillpaper-probe', 'private');
+document.cookie = 'drillpaper-host=private; Secure; SameSite=Strict; Path=/';
+check(document.cookie.includes('drillpaper-host=private'), '目前來源無法保存自己的 Cookie');
+// 嘗試用共同父網域讓下一個主題來源讀到此值。
+document.cookie = `drillpaper-probe=private; Domain=${location.hostname.split('.').slice(1).join('.')}; Secure; SameSite=Strict; Path=/`;
 /** 取得外部資源載入結果。
  * Args:
  *     tag: HTML 元素類型。

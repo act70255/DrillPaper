@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 剩餘安全驗收 — 隔離父網域 Cookie
+
+- Scope：承接使用者要求繼續剩餘工作，保持 feature/tray-management、不合併 main；續驗計畫見 management/REMAINING.md。
+- Red→Green：新增真實 localStorage／sessionStorage／Cookie 載入隔離，舊來源在 allowNetwork=true 第二次載入 FAIL；共同 drillpaper.local 父網域 Cookie 會跨 GUID 子網域保留。改用每次載入不同可註冊網域 `drillpaper-theme-<GUID>.invalid`，保留來源判斷同時拒絕舊命名空間及非目前 .invalid。決策見 ADR 0002。
+- PASS：Release app build；相同 `test-webview2-security.ps1 -ApplicationPath build/windows-msvc-release/Release/DrillPaper.exe`，off→on→off、管理／獨立重啟與既有網路負面通過。session security-59a3f05723ca4f3abcc2080c1f1255a5，hash `8F3DB185176D5A2BCE9DDF445D63D8016DC281B260510AAF2C2A7B5D48BA4CAB`；storage-red.log／storage-result.json／storage-green.log 保存於 management。
+- 人工：使用者對獨立固定副本 PID 90952（前版 F0238D…）回報「操作皆正常 但無法縮放因此未測試縮放」，對應 Tab／Shift+Tab、空白鍵、取消草稿、重複開啟唯一視窗；DPI 仍 NOT RUN。原持續桌布 83428 路徑未變，未關閉／替換。
+- NOT RUN：IndexedDB／Cache Storage／舊頁面競態、WebRTC／推測連線及其他未覆蓋安全矩陣，後續補驗。完整回歸／本版 CI 留待本輪實作收尾，A12 與 RC gate 保留。
+- Commit：`fix(security): 隔離主題父網域 Cookie`；依 commit-msg skill 產生後立即 commit＋push。
+
 ## 2026-10-29 管理三階段實作收尾 — 最終 CI 通過
 
 - 最終產品程式提交 `63e86ff`，分支 feature/tray-management。實際 [CI 40832496506](https://github.com/act70255/DrillPaper/actions/runs/40832496506) PASS：乾淨 Windows runner configure／build、CTest 33/33（3.10 秒）、SDK 18/18、固定 SDK 還原／bootstrap 邊界及主題封裝 artifact。RC job 預期 skipped，沒有發行。

@@ -86,9 +86,12 @@ bool IsReservedThemeHost(std::wstring_view uri) {
     if (authority.starts_with(L"[")) return false;
     authority = authority.substr(0, authority.find(L':'));
     if (authority.ends_with(L".")) authority.remove_suffix(1);
-    constexpr std::wstring_view suffix = L".drillpaper.local";
-    return authority.size() >= suffix.size() &&
-        _wcsnicmp(authority.data() + authority.size() - suffix.size(), suffix.data(), suffix.size()) == 0;
+    for (const std::wstring_view suffix : {L".drillpaper.local", L".invalid"}) {
+        if (authority.size() >= suffix.size() &&
+            _wcsnicmp(authority.data() + authority.size() - suffix.size(), suffix.data(), suffix.size()) == 0)
+            return true;
+    }
+    return false;
 }
 
 /** 建立由宿主強制的 CSP，禁止框架、worker、物件與非 HTTP 通訊。
@@ -203,7 +206,8 @@ std::wstring NewThemeHost() {
     GUID id{};
     wchar_t text[40]{};
     if (FAILED(CoCreateGuid(&id)) || StringFromGUID2(id, text, 40) == 0) return {};
-    return L"theme-" + std::wstring(text + 1, 36) + L".drillpaper.local";
+    // 每次載入使用不同的可註冊網域；避免共同父網域 Cookie 跨主題共享。
+    return L"drillpaper-theme-" + std::wstring(text + 1, 36) + L".invalid";
 }
 
 bool Utf8ToWide(std::string_view input, std::wstring* output) {

@@ -5,7 +5,7 @@
 ## 已實作邊界
 
 - ThemeManager 先檢查 manifest、路徑、ZIP 屬性、CRC、檔案數量與容量，再 staging／原子安裝；禁止覆蓋同版本。移除只接受安裝目錄內驗證吻合的版本並拒絕重新解析點。
-- 每次載入產生獨立 GUID HTTPS 來源，停止舊頁面並重設握手。bridge 驗證目前來源、版本、schema、大小與允許操作；沒有通用檔案、shell、DLL、PowerShell 或管理設定命令。
+- 每次載入產生獨立 GUID HTTPS 來源，使用不同的可註冊 `.invalid` 網域，避免共同父網域 Cookie 跨載入；停止舊頁面並重設握手。bridge 驗證目前來源、版本、schema、大小與允許操作；沒有通用檔案、shell、DLL、PowerShell 或管理設定命令。命名與實際儲存測試見 [ADR 0002](adr/0002-isolated-registrable-theme-domains.md)。
 - 本機資產透過 WebView2 請求事件提供，不啟動 HTTP server。每份回應帶宿主強制 CSP、no-store、nosniff、no-referrer、停用 DNS 預取與部分 Permissions Policy。路徑僅解碼一次，拒絕越界與重新解析點；讀取上限 10 MiB。原因見 [ADR](adr/0001-host-controlled-theme-responses.md)。
 - 全域 allowNetwork 預設 false。離線仍可讀取自己的資產；開啟後允許所有網域的 HTTP／HTTPS 資源。套用設定會重新載入主題，CSP 與 request policy 均使用最新偏好；取消不套用，重啟恢復保存值。
 - 外部頂層導覽、框架、worker、WebSocket、物件、表單、下載、權限與彈窗分別拒絕，不隨開關放行。停用 host objects、DevTools、預設內容選單及 script dialogs。HTTP 仍受瀏覽器原有 TLS／混合內容規則限制。
