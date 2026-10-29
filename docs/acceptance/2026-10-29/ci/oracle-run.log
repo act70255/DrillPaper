@@ -1,0 +1,4 @@
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T01:53:46.7907279Z # tests 18
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T01:54:05.0290925Z PASS：隔離副本刻意停用路徑檢查後，主題負面測試正確失敗；正式 validator 未修改。
+windows-build-test	Run native tests	2026-10-29T01:57:16.6223047Z 100% tests passed, 0 tests failed out of 28
+windows-build-test	Run native tests	2026-10-29T01:57:16.6223622Z Total Test time (real) =   1.60 sec

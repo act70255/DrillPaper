@@ -1,0 +1,11 @@
+{
+  "UserObservation": "重啟檔案總管後才消失",
+  "AppPid": 97976,
+  "ShellPidBefore": 31956,
+  "ShellPidAfter": 70652,
+  "OriginalHwnd": 88151400,
+  "OriginalHwndValid": false,
+  "ListenerHwnd": 25431426,
+  "ListenerHwndValid": true,
+  "Result": "FAIL_ACTUAL_EXPLORER_RECOVERY"
+}

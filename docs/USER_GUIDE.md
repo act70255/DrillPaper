@@ -7,19 +7,20 @@
 在 repository 根目錄開 PowerShell：
 
 ```powershell
-.\scripts\build.ps1 -Configuration Release -LocalToolchain
-.\scripts\test.ps1 -Configuration Release -LocalToolchain
+cmake --preset windows-msvc-release
+cmake --build --preset windows-msvc-release --parallel 8
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test.ps1 -Configuration Release
 ```
 
-若已將 MSVC/Windows SDK/CMake 設定在環境中，可省略 `-LocalToolchain`。測試涵蓋 native CTest、Node SDK、environment regression 與 theme package validators。
+本機 Windows 11 已準備標準 MSVC／Windows SDK／CMake；`-LocalToolchain` 是先前環境的 wrapper，目前不需要。測試涵蓋 native CTest、Node SDK、環境、採樣與主題封裝檢查。
 
 ## 執行 Preview
 
 ```powershell
-.\build\local-msvc-release\DrillPaper.exe --preview --mock-metrics --theme=dashboard
-.\build\local-msvc-release\DrillPaper.exe --preview --theme=minimal
-.\build\local-msvc-release\DrillPaper.exe --version
-.\build\local-msvc-release\DrillPaper.exe --diagnostics
+.\build\windows-msvc-release\Release\DrillPaper.exe --preview --mock-metrics --theme=dashboard
+.\build\windows-msvc-release\Release\DrillPaper.exe --preview --theme=minimal
+.\build\windows-msvc-release\Release\DrillPaper.exe --version
+.\build\windows-msvc-release\Release\DrillPaper.exe --diagnostics
 ```
 
 `--mock-metrics` 使用測試資料；省略該旗標時採集器讀取本機 Windows metrics。`--theme` 僅能選擇內建 `minimal` 或 `dashboard`，每次啟動選一個。關閉 Preview 視窗可退出。WebView2 Evergreen Runtime 是執行需求，本機測試機已安裝；不會由此開發流程自動安裝。
@@ -51,3 +52,15 @@ npm run test:sdk
 ## 限制
 
 第三方 theme 未沙箱化。網路提示／開關尚未接線，policy 源碼不足以證明封鎖。背景採樣、WebView2 暫停／恢復已接入；本機真實鎖定／解鎖 5 次由使用者確認恢復正常。真實 display-off／待機、桌布、Explorer recovery、安全負面與完整長時間效能仍待驗收。`--no-smart-sleep` 可停用節能政策供除錯，不是硬體支援聲明。
+
+## 桌布與 Explorer 實機驗收
+
+從任意 PowerShell 目錄都可使用完整路徑啟動，不需要系統管理員權限：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\WorkSpace\-James\DrillPaper\scripts\test-desktop-host.ps1" -ApplicationPath "C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe" -RecoveryCycles 1 -ObserveExplorerRestart -ObservationSeconds 900
+```
+
+等待「桌面實機觀測已就緒」，顯示桌面並確認數值更新、圖示及工作列操作正常。接著按 Ctrl+Shift+Esc 開啟工作管理員，在「處理程序」找到「Windows 檔案總管」，按右鍵選「重新啟動」。這是重新啟動桌面 Shell；關閉資料夾視窗無法完成這項測試。
+
+桌面與工作列會短暫消失後恢復。腳本確認不同 Shell PID 與成功重掛後，保留 30 秒供人工觀察，再正常關閉並輸出 `artifacts/acceptance/desktop-*/summary.json` 位置。15 分鐘內未觀察到重啟不算通過。測試會關閉自己啟動的 app，不會終止 Explorer；此情境停用 Smart Sleep 以隔離政策，不能同時計為休眠驗收。

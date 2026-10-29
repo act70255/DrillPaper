@@ -1,0 +1,4 @@
+HWND=88151400 IsWindow=False PID=0 TID=0 Class= Parent=0 Visible=False
+HWND=25431426 IsWindow=True PID=97976 TID=63308 Class=DrillPaperShellNotifications Parent=0 Visible=False
+HWND=209520396 IsWindow=True PID=97976 TID=63308 Class=MSCTFIME UI Parent=234491132 Visible=False
+HWND=234491132 IsWindow=True PID=97976 TID=63308 Class=IME Parent=88151400 Visible=False

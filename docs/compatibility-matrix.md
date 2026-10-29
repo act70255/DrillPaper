@@ -13,4 +13,4 @@
 | 作業系統/build | 架構 | 顯示器 | 桌面附掛 | Preview | Explorer 復原 | 證據 |
 | --- | --- | ---: | --- | --- | --- | --- |
 | Windows 10 Pro 19045 | x64 | 單一測試環境；多螢幕未測 | NOT RUN | PARTIAL | NOT RUN | Release app 編譯、CLI 與 WebView2 protocol smoke 通過；無視覺檢查；沒有 Shell attach/Explorer recovery 結果 |
-| Windows 11 Pro 25H2 26200.8737 | x64 | 顯示配置整體未驗證 | NOT RUN | PARTIAL（操作與鎖定恢復人工通過） | NOT RUN | 完整回歸 27/27、SDK 18/18；Dashboard／Minimal 基本操作、真實鎖定／解鎖 5 次由使用者確認。原生 ZIP、熱切換、受控暫停／恢復及 GPU unavailable SDK 探針通過。硬體精度、display-off、完整版面／多螢幕仍待驗，見 acceptance/2026-10-28/runtime/REPORT.md |
+| Windows 11 Pro 25H2 26200.8737 | x64 | 3840×1080 桌布層；顯示配置整體未驗證 | PARTIAL（原生附掛／5 次受控重掛通過） | PARTIAL（基本操作與鎖定恢復人工通過） | FAIL（重啟後原視窗消失） | CTest 28/28、SDK 18/18；見 acceptance/2026-10-29/shell/REPORT.md 與 FINAL_HANDOFF.md；畫面、真實重啟、硬體精度、display-off／多螢幕仍待驗 |

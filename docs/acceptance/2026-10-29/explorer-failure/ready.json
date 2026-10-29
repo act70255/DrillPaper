@@ -1,0 +1,45 @@
+{
+    "Result":  "RUNNING",
+    "StartedUtc":  "2026-10-29T01:54:43.4197534Z",
+    "ApplicationSha256":  "5162F00C9D28587BD25E66229D9E13AD153E4121A2002CE70383E197978B4F06",
+    "RecoveryKind":  "TARGETED_TASKBAR_CREATED_AFTER_OWN_WINDOW_DETACH",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+                       {
+                           "AppPid":  97976,
+                           "Window":  88151400,
+                           "Parent":  60823638,
+                           "ShellPid":  31956,
+                           "Width":  3840,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  1,
+                           "DesktopEpoch":  2
+                       }
+                   ],
+    "Shutdown":  "NOT_RUN",
+    "ChildrenExited":  false,
+    "AppPid":  97976,
+    "Initial":  {
+                    "AppPid":  97976,
+                    "Window":  88151400,
+                    "Parent":  60823638,
+                    "ShellPid":  31956,
+                    "Width":  3840,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1
+                },
+    "ObservedChildren":  [
+                             1104,
+                             83332,
+                             82100,
+                             101064,
+                             96356,
+                             73748
+                         ],
+    "Observation":  "WAITING_FOR_USER_EXPLORER_RESTART"
+}

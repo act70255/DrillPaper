@@ -1,5 +1,14 @@
 # 開發狀態
 
+## 2026-10-29 人工 Explorer 驗收 — 失敗已重現
+
+- 使用者已啟動桌布並回報「重啟檔案總管後才消失」。真實 Shell PID 31956→70652，受測 app PID 97976 繼續存活，但原 HWND 88151400 已無效，獨立通知視窗仍有效。這次是 A04 FAIL，取代先前待驗狀態；不是腳本 30 秒後自動關閉。
+- 失敗點：`RecoverDesktopHost` 遇到無效 gWallpaperWindow 直接返回；初期受控重掛只改 parent、未銷毀 HWND，未涵蓋此行為。需補上跨程序父視窗銷毀回歸與真正的視窗／WebView2 重建，不把訊息注入通過外推。
+- 證據：`acceptance/2026-10-29/explorer-failure/` 保存原生視窗診斷、使用者回報與 runner 結果。期限到達後 runner 找不到有效主視窗可正常關閉，終止自己啟動的受測 app（退出 -1）；沒有終止 Explorer。
+- 本機完整回歸仍 PASS：CTest 28/28（17.14 秒）、SDK 18/18、環境／採樣／封裝及隔離變異檢查；commit 7902c02 的 [CI 40803087109](https://github.com/act70255/DrillPaper/actions/runs/40803087109) 亦全數通過。這些不推翻上述 Windows 整合失敗。
+- 驗收工具已加實際 Shell PID／世代觀測、成功後 30 秒人工觀察；USER_GUIDE 改用標準 build 與完整路徑。FINAL_HANDOFF 已整合目前 A01–A16，不再沿用舊版功能缺漏表。
+- Commit：`test(desktop): 保存 Explorer 實機失敗與驗收工具`，分支 `feature/shell-recovery-acceptance`，完成本輪證據整理後提交推送。下一步在獨立 bugfix 分支修正 A04。
+
 ## 2026-10-29 主題負面測試 — 修正例外判斷誤報
 
 - Red：只在隔離副本移除 validator 的路徑檢查後，正式測試腳本仍退出 0，且將預期拒絕卻被接受的 traversal 封包印為 PASS。原生 validator／產品檔案未變更；此實驗驗證測試本身是否有辨識力。

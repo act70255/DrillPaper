@@ -8,6 +8,8 @@
 
 ## 版本及範圍
 
+補驗：包含負面測試變異回歸的 commit `7902c02` 已在 [run 40803087109](https://github.com/act70255/DrillPaper/actions/runs/40803087109) 全數通過。這次確認隔離副本停用路徑檢查時，測試確實會拒絕該退化；metadata 與節錄見 `oracle-run.json`／`oracle-run.log`。仍沒有執行 app RC job。
+
 使用 GitHub `windows-2022` runner、MSVC 19.44、SDK 10.0.26100、Node 22；這是乾淨建置環境，不是 Windows 10／11 桌面、乾淨一般使用者安裝或 GUI 相容性證明。
 
 WebView2 SDK 固定 1.0.2478.35，官方 NuGet 包 SHA-256：`B1DF2D7FE955A3378603735F910B126647E43033213B5CC071B8D6F0168A3B96`。本次亦透過官方 GitHub repository 的 tag API 核對 checkout／setup-node／upload-artifact 的 v7 參照存在，實際 run 已執行成功。

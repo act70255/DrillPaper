@@ -2,7 +2,9 @@
 param(
     [Parameter(Mandatory)][string]$ApplicationPath,
     [ValidateRange(1,20)][int]$RecoveryCycles = 5,
-    [ValidateRange(10,60)][int]$TimeoutSeconds = 30
+    [ValidateRange(10,60)][int]$TimeoutSeconds = 30,
+    [switch]$ObserveExplorerRestart,
+    [ValidateRange(30,900)][int]$ObservationSeconds = 900
 )
 $ErrorActionPreference = 'Stop'
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
@@ -195,6 +197,42 @@ try {
     $children = @($ids | Where-Object { $_ -ne $app.Id } | ForEach-Object { $child = Get-Process -Id $_ -ErrorAction SilentlyContinue; if ($child) { [void]$child.Handle; $child } })
     $summary.ObservedChildren = @($children | ForEach-Object { $_.Id })
     if ($children.Count -eq 0) { throw '未觀察到 WebView2 子程序，不能視為完整 app 整合通過。' }
+    if ($ObserveExplorerRestart) {
+        $summary.Observation = 'WAITING_FOR_USER_EXPLORER_RESTART'
+        $summary | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $evidence 'ready.json') -Encoding UTF8
+        Write-Output "桌面實機觀測已就緒：PID=$($app.Id)；請手動檢查桌面，並在 $ObservationSeconds 秒內重啟一次 Windows 檔案總管。"
+        $observeDeadline = [DateTime]::UtcNow.AddSeconds($ObservationSeconds)
+        while ([DateTime]::UtcNow -lt $observeDeadline) {
+            if ($app.HasExited) { throw 'Explorer 觀測期間 app 提前退出，未完成實機復原。' }
+            if (Test-Path -LiteralPath (Join-Path $evidence 'skip-observation')) {
+                $summary.Observation = 'NOT_RUN_USER_SKIPPED'
+                break
+            }
+            [uint32]$currentShell = 0
+            [void][DrillPaperDesktopProbe]::GetWindowThreadProcessId([DrillPaperDesktopProbe]::GetShellWindow(),[ref]$currentShell)
+            if ($currentShell -ne 0 -and $currentShell -ne $summary.Initial.ShellPid) {
+                try { $actual = Get-Attachment $window } catch { Start-Sleep -Milliseconds 250; continue }
+                if ($actual.DesktopEpoch -gt $summary.Recoveries[-1].DesktopEpoch) {
+                    $summary.ActualExplorerRestart = $true
+                    $summary.Observation = 'EXPLORER_PID_CHANGED_AND_REATTACHED'
+                    $summary.ActualRecovery = $actual
+                    break
+                }
+            }
+            Start-Sleep -Milliseconds 250
+        }
+        if (-not $summary.ActualExplorerRestart -and $summary.Observation -ne 'NOT_RUN_USER_SKIPPED') {
+            throw '期限內未觀察到不同 Shell PID 的成功重掛；真正 Explorer 復原未驗收。'
+        }
+        if ($summary.ActualExplorerRestart) {
+            Write-Output '已確認新的 Explorer PID 與成功重掛；保留桌布 30 秒，請觀察數值是否持續更新。'
+            $visualDeadline = [DateTime]::UtcNow.AddSeconds(30)
+            while ([DateTime]::UtcNow -lt $visualDeadline) {
+                if ($app.HasExited) { throw '重掛後的 30 秒觀測期間 app 提前退出。' }
+                Start-Sleep -Milliseconds 250
+            }
+        }
+    }
     if ($app.HasExited) { throw '受測 app 在正常關閉要求前已退出。' }
     $summary.Result = 'PASS'
 } catch {
