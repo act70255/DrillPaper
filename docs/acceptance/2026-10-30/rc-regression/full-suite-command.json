@@ -1,0 +1,5 @@
+{
+  "output": "C:\\Users\\James\\DrillPaperTests\\回歸 含空白\\rc-gate-48ad321d2ec240a88467f7f61e51a992",
+  "command": "pwsh -NoProfile -File scripts/package.ps1 -Configuration Release -Version 0.1.0-rc1 -OutputDirectory <非 Temp 使用者目錄>",
+  "started": "2026-10-30T15:48:15.9747900+08:00"
+}

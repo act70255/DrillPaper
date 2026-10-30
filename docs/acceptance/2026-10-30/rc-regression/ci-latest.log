@@ -1,0 +1,674 @@
+windows-build-test	Set up job	﻿2026-10-29T09:23:04.7221770Z Current runner version: '2.338.0'
+windows-build-test	Set up job	2026-10-29T09:23:04.7280892Z ##[group]Runner Image Provisioner
+windows-build-test	Set up job	2026-10-29T09:23:04.7282135Z Hosted Compute Agent
+windows-build-test	Set up job	2026-10-29T09:23:04.7283075Z Version: 20261021.618
+windows-build-test	Set up job	2026-10-29T09:23:04.7283909Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+windows-build-test	Set up job	2026-10-29T09:23:04.7284908Z Build Date: 2026-10-21T00:45:21Z
+windows-build-test	Set up job	2026-10-29T09:23:04.7285800Z Worker ID: {2a6e7895-c191-4389-b33a-826ef8c57f54}
+windows-build-test	Set up job	2026-10-29T09:23:04.7286744Z Region: centralus
+windows-build-test	Set up job	2026-10-29T09:23:04.7287437Z Cloud: Azure
+windows-build-test	Set up job	2026-10-29T09:23:04.7288084Z ##[endgroup]
+windows-build-test	Set up job	2026-10-29T09:23:04.7289954Z ##[group]Operating System
+windows-build-test	Set up job	2026-10-29T09:23:04.7290811Z Microsoft Windows Server 2022
+windows-build-test	Set up job	2026-10-29T09:23:04.7291649Z 10.0.20348
+windows-build-test	Set up job	2026-10-29T09:23:04.7292318Z Datacenter
+windows-build-test	Set up job	2026-10-29T09:23:04.7292977Z ##[endgroup]
+windows-build-test	Set up job	2026-10-29T09:23:04.7293631Z ##[group]Runner Image
+windows-build-test	Set up job	2026-10-29T09:23:04.7294401Z Image: windows-2022
+windows-build-test	Set up job	2026-10-29T09:23:04.7295102Z Version: 20261025.346.1
+windows-build-test	Set up job	2026-10-29T09:23:04.7296567Z Included Software: https://github.com/actions/runner-images/blob/win22/20261025.346/images/windows/Windows2022-Readme.md
+windows-build-test	Set up job	2026-10-29T09:23:04.7299296Z Image Release: https://github.com/actions/runner-images/releases/tag/win22%2F20261025.346
+windows-build-test	Set up job	2026-10-29T09:23:04.7300634Z ##[endgroup]
+windows-build-test	Set up job	2026-10-29T09:23:04.7302093Z ##[group]GITHUB_TOKEN Permissions
+windows-build-test	Set up job	2026-10-29T09:23:04.7304652Z Contents: read
+windows-build-test	Set up job	2026-10-29T09:23:04.7306565Z Metadata: read
+windows-build-test	Set up job	2026-10-29T09:23:04.7307341Z ##[endgroup]
+windows-build-test	Set up job	2026-10-29T09:23:04.7310079Z Secret source: Actions
+windows-build-test	Set up job	2026-10-29T09:23:04.7311301Z Cache mode: write
+windows-build-test	Set up job	2026-10-29T09:23:04.7312284Z Prepare workflow directory
+windows-build-test	Set up job	2026-10-29T09:23:04.7764119Z Prepare all required actions
+windows-build-test	Set up job	2026-10-29T09:23:04.7835095Z Getting action download info
+windows-build-test	Set up job	2026-10-29T09:23:05.1343973Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+windows-build-test	Set up job	2026-10-29T09:23:05.2410998Z Download action repository 'actions/setup-node@v7' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
+windows-build-test	Set up job	2026-10-29T09:23:05.3710922Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+windows-build-test	Set up job	2026-10-29T09:23:05.6099081Z Complete job name: windows-build-test
+windows-build-test	Run actions/checkout@v7	﻿2026-10-29T09:23:05.8382043Z ##[group]Run actions/checkout@v7
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8383527Z with:
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8384044Z   persist-credentials: false
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8384624Z   repository: act70255/DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8388620Z   token: ***
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8389091Z   ssh-strict: true
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8389563Z   ssh-user: git
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8390017Z   clean: true
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8390487Z   sparse-checkout-cone-mode: true
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8391041Z   fetch-depth: 1
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8391535Z   fetch-tags: false
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8392000Z   show-progress: true
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8392495Z   lfs: false
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8392930Z   submodules: false
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8393387Z   set-safe-directory: true
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8393946Z   allow-unsafe-pr-checkout: false
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:05.8394742Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:06.0111017Z Syncing repository: act70255/DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:06.0113685Z ##[group]Getting Git version info
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:06.0114735Z Working directory is 'D:\a\DrillPaper\DrillPaper'
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:06.0939471Z [command]"C:\Program Files\Git\bin\git.exe" version
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:07.0100387Z git version 2.56.0.windows.3
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0198248Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0208377Z Temporarily overriding HOME='D:\a\_temp\5d14c2c3-528d-4e85-9e7f-b9c0cb5e9a66' before making global git config changes
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0213075Z Adding repository directory to the temporary git global config as a safe directory
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0216797Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\DrillPaper\DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0222248Z Deleting the contents of 'D:\a\DrillPaper\DrillPaper'
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0225426Z ##[group]Determining repository object format
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0228279Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0236528Z ##[group]Initializing the repository
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0239248Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\DrillPaper\DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0242227Z Initialized empty Git repository in D:/a/DrillPaper/DrillPaper/.git/
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0248315Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/act70255/DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0254120Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0257110Z ##[group]Disabling automatic garbage collection
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0260691Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0266608Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0270147Z ##[group]Setting up auth
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0273048Z Removing SSH command configuration
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0276322Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.0285659Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.2433697Z Removing HTTP extra header
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.2445300Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.2760162Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.8440599Z Removing includeIf entries pointing to credentials config files
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.8443116Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:08.8760684Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.3965342Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.4356600Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/DrillPaper/DrillPaper/.git.path D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.4661212Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/DrillPaper/DrillPaper/.git/worktrees/*.path D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.5020352Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.5324943Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.5626963Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.5628104Z ##[group]Fetching the repository
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:09.5640102Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b4616ec690787cb5202426c633782cacf146b82e:refs/remotes/origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.8755877Z From https://github.com/act70255/DrillPaper
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.8762182Z  * [new ref]         b4616ec690787cb5202426c633782cacf146b82e -> origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.8812905Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9299553Z   origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9345299Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9669924Z b4616ec690787cb5202426c633782cacf146b82e
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9702178Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9703039Z ##[group]Determining the checkout info
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9705464Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:11.9719495Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5098976Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5100855Z ##[group]Checking out the ref
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5101683Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5102491Z Switched to a new branch 'main'
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5103008Z branch 'main' set up to track 'origin/main'.
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5104561Z ##[endgroup]
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5105896Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5106543Z b4616ec690787cb5202426c633782cacf146b82e
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5107821Z ##[group]Removing auth
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5108265Z Removing SSH command configuration
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5109110Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.5111278Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.8340252Z Removing HTTP extra header
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.8349832Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:12.8655668Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3660678Z Removing includeIf entries pointing to credentials config files
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3669758Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3939616Z includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3940689Z includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git/worktrees/*.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3944371Z includeif.gitdir:/github/workspace/.git.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.3960762Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.4031673Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.4283122Z D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.4370323Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git.path D\:\\a\\_temp\\git\-credentials\-63f2cb7a\-9319\-42a1\-8759\-a83846e7aede\.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.4703025Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git/worktrees/*.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.4969613Z D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.5009777Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/DrillPaper/DrillPaper/.git/worktrees/*.path D\:\\a\\_temp\\git\-credentials\-63f2cb7a\-9319\-42a1\-8759\-a83846e7aede\.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.5346528Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.5615031Z /github/runner_temp/git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.5653459Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-63f2cb7a\-9319\-42a1\-8759\-a83846e7aede\.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.5956762Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.6224943Z /github/runner_temp/git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.6267241Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-63f2cb7a\-9319\-42a1\-8759\-a83846e7aede\.config
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:13.6631047Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:14.1479919Z Removing credentials config 'D:\a\_temp\git-credentials-63f2cb7a-9319-42a1-8759-a83846e7aede.config'
+windows-build-test	Run actions/checkout@v7	2026-10-29T09:23:14.1495302Z ##[endgroup]
+windows-build-test	Run actions/setup-node@v7	﻿2026-10-29T09:23:14.1892621Z ##[group]Run actions/setup-node@v7
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1893093Z with:
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1893376Z   node-version: 22.x
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1893661Z   package-manager-cache: false
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1893956Z   check-latest: false
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1896408Z   token: ***
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.1896666Z ##[endgroup]
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:14.3576547Z Found in cache @ C:\hostedtoolcache\windows\node\22.23.4\x64
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:15.2360147Z ##[group]Environment details
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:19.6260155Z node: v22.23.4
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:19.6261102Z npm: 10.9.9
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:19.6261505Z yarn: 1.22.22
+windows-build-test	Run actions/setup-node@v7	2026-10-29T09:23:19.6262309Z ##[endgroup]
+windows-build-test	JavaScript SDK and manifest tests	﻿2026-10-29T09:23:19.6561152Z ##[group]Run npm run test:sdk
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:19.6561738Z [36;1mnpm run test:sdk[0m
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:19.6664540Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:19.6665026Z ##[endgroup]
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:20.8129506Z 
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:20.8137121Z > test:sdk
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:20.8138376Z > node --test tests/sdk/*.test.mjs
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:20.8138895Z 
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.0234482Z TAP version 13
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1052789Z # Subtest: ready sends one protocol hello and resolves on host.ready
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1053964Z ok 1 - ready sends one protocol hello and resolves on host.ready
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1063430Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1064162Z   duration_ms: 11.8364
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1064787Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1065257Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1066134Z # Subtest: DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1067371Z ok 2 - DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1068337Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1068801Z   duration_ms: 0.144
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1069342Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1069800Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1070549Z # Subtest: Theme SDK reports the current release candidate version
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1071470Z ok 3 - Theme SDK reports the current release candidate version
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1072149Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1072872Z   duration_ms: 0.0959
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1073404Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1073966Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1074679Z # Subtest: getSnapshot resolves only from the matching requestId response
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1075668Z ok 4 - getSnapshot resolves only from the matching requestId response
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1076369Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1076845Z   duration_ms: 0.8761
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1077358Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1077864Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1078637Z # Subtest: metrics listeners receive push updates and unsubscribe cleanly
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1079731Z ok 5 - metrics listeners receive push updates and unsubscribe cleanly
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1080436Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1080879Z   duration_ms: 0.399
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1081390Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1081960Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1082749Z # Subtest: getHistory clamps the request and returns the snapshot list
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1083698Z ok 6 - getHistory clamps the request and returns the snapshot list
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1084688Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1085154Z   duration_ms: 0.4779
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1085504Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1085856Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1086311Z # Subtest: subscribe and unsubscribe use bounded protocol messages
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1087098Z ok 7 - subscribe and unsubscribe use bounded protocol messages
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1087516Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1087744Z   duration_ms: 0.4564
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1088022Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1088276Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1088704Z # Subtest: subscribe drops unapproved metric names and clamps the update interval
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1089329Z ok 8 - subscribe drops unapproved metric names and clamps the update interval
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1089761Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1090015Z   duration_ms: 0.2286
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1090294Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1090528Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1178911Z # Subtest: a host with another protocol version cannot complete the handshake
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1180173Z ok 9 - a host with another protocol version cannot complete the handshake
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1181157Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1181538Z   duration_ms: 22.4536
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1181904Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1182265Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1323038Z # Subtest: a host with an invalid timestamp cannot complete the handshake
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1324233Z ok 10 - a host with an invalid timestamp cannot complete the handshake
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1324947Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1325278Z   duration_ms: 14.6258
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1327835Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1328093Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1491274Z # Subtest: pending requests time out instead of hanging forever
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1492292Z ok 11 - pending requests time out instead of hanging forever
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1492954Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1493420Z   duration_ms: 15.5012
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1493876Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1494280Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1820643Z # Subtest: pending requests are bounded
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1830850Z ok 12 - pending requests are bounded
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1831753Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1832250Z   duration_ms: 32.2043
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1833294Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1833938Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1834734Z # Subtest: MockHost supports SDK handshake, snapshot, and history in a browser-like window
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1845935Z ok 13 - MockHost supports SDK handshake, snapshot, and history in a browser-like window
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1846862Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1847336Z   duration_ms: 0.9734
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1847863Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1848329Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1849168Z # Subtest: MockHost rejects a malformed subscription payload with a protocol error
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1850307Z ok 14 - MockHost rejects a malformed subscription payload with a protocol error
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1850981Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1851476Z   duration_ms: 0.343
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1852016Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.1855328Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2637758Z # Subtest: accepts a valid v1 manifest and returns no errors
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2639094Z ok 15 - accepts a valid v1 manifest and returns no errors
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2639979Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2640479Z   duration_ms: 1.8484
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2641004Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2641449Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2642209Z # Subtest: rejects missing fields and unsupported API versions
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2643104Z ok 16 - rejects missing fields and unsupported API versions
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2643798Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2644286Z   duration_ms: 0.5151
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2644803Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2645363Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2646138Z # Subtest: rejects traversal paths, malformed ids, and non-semver versions
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2647239Z ok 17 - rejects traversal paths, malformed ids, and non-semver versions
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2647997Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2648490Z   duration_ms: 0.2193
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2648997Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2649470Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2650249Z # Subtest: rejects duplicate or unknown capabilities, permissions, and extra properties
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2655749Z ok 18 - rejects duplicate or unknown capabilities, permissions, and extra properties
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2656628Z   ---
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2657136Z   duration_ms: 1.1599
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2657675Z   type: 'test'
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2658125Z   ...
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2737641Z 1..18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2738378Z # tests 18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2738910Z # suites 0
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2739432Z # pass 18
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2739972Z # fail 0
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2740480Z # cancelled 0
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2740976Z # skipped 0
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2741402Z # todo 0
+windows-build-test	JavaScript SDK and manifest tests	2026-10-29T09:23:21.2741940Z # duration_ms 295.7253
+windows-build-test	Theme ZIP validation and sample packaging	﻿2026-10-29T09:23:21.4232366Z ##[group]Run ./scripts/test-theme-package.ps1
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4233019Z [36;1m./scripts/test-theme-package.ps1[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4233426Z [36;1m./scripts/test-theme-negative-oracle.ps1[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4233913Z [36;1mNew-Item -ItemType Directory -Force artifacts/theme-sdk | Out-Null[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4234614Z [36;1m./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/minimal -OutputFile artifacts/theme-sdk/minimal.dmt[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4235446Z [36;1m./scripts/package-theme.ps1 -ThemeDirectory sdk/examples/dashboard -OutputFile artifacts/theme-sdk/dashboard.dmt[0m
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4271183Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:21.4271646Z ##[endgroup]
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.0697528Z PASS accepted: valid.dmt (3 files)
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.1100855Z PASS rejected: traversal.dmt — Invalid DrillPaper theme package: unsafe archive path '../escape.js'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.1441663Z PASS rejected: duplicate-case.dmt — Invalid DrillPaper theme package: duplicate path (case-insensitive): 'INDEX.HTML'
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.1471925Z PASS rejected: unsupported-extension.dmt — Invalid DrillPaper theme package: unsupported file type in 'payload.exe'.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.1962746Z PASS rejected: wrong-api.dmt — Invalid DrillPaper theme package: apiVersion must be the string "1".
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.2307077Z PASS rejected: oversized-file.dmt — Invalid DrillPaper theme package: file 'large.js' exceeds 10 MiB.
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3277263Z 
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3284119Z [32;1mPath      : [0mC:\Users\runneradmin\AppData\Local\Temp\DrillPaperThemeTests-b11d045828574537a12556945918439b\minimal-examp
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3285170Z             le.dmt
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3286160Z [32;1mId        : [0mminimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3286921Z [32;1mVersion   : [0m1.0.0
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3287454Z [32;1mFileCount : [0m6
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3287976Z [32;1mBytes     : [0m6796
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3288270Z 
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:22.3526248Z PASS packaged and revalidated example: minimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2206980Z PASS：隔離副本刻意停用路徑檢查後，主題負面測試正確失敗；正式 validator 未修改。
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2370000Z 負面測試判斷驗證紀錄：D:\a\DrillPaper\DrillPaper\artifacts\acceptance\theme-oracle-20261029-092322-8f1d1b
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2691624Z [32;1mPath      : [0mD:\a\DrillPaper\DrillPaper\artifacts\theme-sdk\minimal.dmt
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2703929Z [32;1mId        : [0mminimal-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2705168Z [32;1mVersion   : [0m1.0.0
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2705861Z [32;1mFileCount : [0m6
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2706621Z [32;1mBytes     : [0m6796
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.2707102Z 
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3000759Z [32;1mPath      : [0mD:\a\DrillPaper\DrillPaper\artifacts\theme-sdk\dashboard.dmt
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3001811Z [32;1mId        : [0mdashboard-monitor
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3002665Z [32;1mVersion   : [0m1.0.0
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3003929Z [32;1mFileCount : [0m6
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3006471Z [32;1mBytes     : [0m7574
+windows-build-test	Theme ZIP validation and sample packaging	2026-10-29T09:23:28.3007897Z 
+windows-build-test	Restore pinned WebView2 SDK	﻿2026-10-29T09:23:28.3781589Z ##[group]Run $sdkRoot = Join-Path $env:RUNNER_TEMP 'webview2-sdk'
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:28.3782329Z [36;1m$sdkRoot = Join-Path $env:RUNNER_TEMP 'webview2-sdk'[0m
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:28.3782885Z [36;1m./scripts/restore-webview2-sdk.ps1 -Destination $sdkRoot[0m
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:28.3783486Z [36;1m"WEBVIEW2_SDK_ROOT=$sdkRoot" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append[0m
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:28.3817555Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:28.3817987Z ##[endgroup]
+windows-build-test	Restore pinned WebView2 SDK	2026-10-29T09:23:29.8189506Z WebView2 SDK 1.0.2478.35 已通過 SHA-256 驗證並還原：D:\a\_temp\webview2-sdk
+windows-build-test	Verify SDK bootstrap boundaries	﻿2026-10-29T09:23:29.9081029Z ##[group]Run ./scripts/test-webview2-bootstrap.ps1
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:29.9081749Z [36;1m./scripts/test-webview2-bootstrap.ps1[0m
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:29.9117626Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:29.9118115Z env:
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:29.9118403Z   WEBVIEW2_SDK_ROOT: D:\a\_temp\webview2-sdk
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:29.9118740Z ##[endgroup]
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:31.1837956Z WebView2 SDK 1.0.2478.35 已通過 SHA-256 驗證並還原：C:\Users\runneradmin\AppData\Local\Temp\DrillPaperSdkTest-8bf77072c54e4b219de079620240fd84\verified SDK with spaces
+windows-build-test	Verify SDK bootstrap boundaries	2026-10-29T09:23:31.1964596Z PASS：官方 SDK 還原、含空白路徑、竄改封包拒絕、既有目錄保留及 staging 清理。
+windows-build-test	Configure native build	﻿2026-10-29T09:23:31.3008652Z ##[group]Run cmake --preset windows-msvc-release
+windows-build-test	Configure native build	2026-10-29T09:23:31.3009516Z [36;1mcmake --preset windows-msvc-release[0m
+windows-build-test	Configure native build	2026-10-29T09:23:31.3060844Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Configure native build	2026-10-29T09:23:31.3061513Z env:
+windows-build-test	Configure native build	2026-10-29T09:23:31.3061924Z   WEBVIEW2_SDK_ROOT: D:\a\_temp\webview2-sdk
+windows-build-test	Configure native build	2026-10-29T09:23:31.3062494Z ##[endgroup]
+windows-build-test	Configure native build	2026-10-29T09:23:32.3790780Z Preset CMake variables:
+windows-build-test	Configure native build	2026-10-29T09:23:32.3791266Z 
+windows-build-test	Configure native build	2026-10-29T09:23:32.3792644Z   BUILD_TESTING="ON"
+windows-build-test	Configure native build	2026-10-29T09:23:32.3793314Z   CMAKE_CONFIGURATION_TYPES="Debug;Release"
+windows-build-test	Configure native build	2026-10-29T09:23:32.3793748Z 
+windows-build-test	Configure native build	2026-10-29T09:23:32.7791476Z -- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.20348.
+windows-build-test	Configure native build	2026-10-29T09:23:43.6645551Z -- The C compiler identification is MSVC 19.44.35229.0
+windows-build-test	Configure native build	2026-10-29T09:23:45.0240391Z -- The CXX compiler identification is MSVC 19.44.35229.0
+windows-build-test	Configure native build	2026-10-29T09:23:45.1463514Z -- Detecting C compiler ABI info
+windows-build-test	Configure native build	2026-10-29T09:23:46.2413370Z -- Detecting C compiler ABI info - done
+windows-build-test	Configure native build	2026-10-29T09:23:46.2565153Z -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+windows-build-test	Configure native build	2026-10-29T09:23:46.2578108Z -- Detecting C compile features
+windows-build-test	Configure native build	2026-10-29T09:23:46.2589319Z -- Detecting C compile features - done
+windows-build-test	Configure native build	2026-10-29T09:23:46.2888967Z -- Detecting CXX compiler ABI info
+windows-build-test	Configure native build	2026-10-29T09:23:46.9945012Z -- Detecting CXX compiler ABI info - done
+windows-build-test	Configure native build	2026-10-29T09:23:47.0096589Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+windows-build-test	Configure native build	2026-10-29T09:23:47.0100684Z -- Detecting CXX compile features
+windows-build-test	Configure native build	2026-10-29T09:23:47.0110159Z -- Detecting CXX compile features - done
+windows-build-test	Configure native build	2026-10-29T09:23:49.6518798Z -- Using the multi-header code from D:/a/DrillPaper/DrillPaper/build/windows-msvc-release/_deps/nlohmann_json-src/include/
+windows-build-test	Configure native build	2026-10-29T09:23:51.5972977Z CMake Deprecation Warning at build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt:1 (cmake_minimum_required):
+windows-build-test	Configure native build	2026-10-29T09:23:51.5974503Z   Compatibility with CMake < 3.10 will be removed from a future version of
+windows-build-test	Configure native build	2026-10-29T09:23:51.5976534Z   CMake.
+windows-build-test	Configure native build	2026-10-29T09:23:51.5976884Z 
+windows-build-test	Configure native build	2026-10-29T09:23:51.5977412Z   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+windows-build-test	Configure native build	2026-10-29T09:23:51.5978821Z   to tell CMake that the project requires at least <min> but has been updated
+windows-build-test	Configure native build	2026-10-29T09:23:51.5980519Z   to work with policies introduced by <max> or earlier.
+windows-build-test	Configure native build	2026-10-29T09:23:51.5981069Z 
+windows-build-test	Configure native build	2026-10-29T09:23:51.5981185Z 
+windows-build-test	Configure native build	2026-10-29T09:23:51.6268936Z -- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+windows-build-test	Configure native build	2026-10-29T09:23:53.0689547Z -- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Failed
+windows-build-test	Configure native build	2026-10-29T09:23:53.0691286Z -- Performing Test COMPILER_HAS_DEPRECATED
+windows-build-test	Configure native build	2026-10-29T09:23:53.7726335Z -- Performing Test COMPILER_HAS_DEPRECATED - Success
+windows-build-test	Configure native build	2026-10-29T09:23:56.2031387Z -- Configuring done (23.8s)
+windows-build-test	Configure native build	2026-10-29T09:23:56.3291719Z -- Generating done (0.1s)
+windows-build-test	Configure native build	2026-10-29T09:23:56.3302513Z -- Build files have been written to: D:/a/DrillPaper/DrillPaper/build/windows-msvc-release
+windows-build-test	Build native targets	﻿2026-10-29T09:23:56.4406744Z ##[group]Run cmake --build --preset windows-msvc-release --config Release
+windows-build-test	Build native targets	2026-10-29T09:23:56.4407849Z [36;1mcmake --build --preset windows-msvc-release --config Release[0m
+windows-build-test	Build native targets	2026-10-29T09:23:56.4445913Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Build native targets	2026-10-29T09:23:56.4446501Z env:
+windows-build-test	Build native targets	2026-10-29T09:23:56.4446875Z   WEBVIEW2_SDK_ROOT: D:\a\_temp\webview2-sdk
+windows-build-test	Build native targets	2026-10-29T09:23:56.4447381Z ##[endgroup]
+windows-build-test	Build native targets	2026-10-29T09:23:56.7952717Z MSBuild version 17.14.60+43b635718 for .NET Framework
+windows-build-test	Build native targets	2026-10-29T09:23:56.8238215Z 
+windows-build-test	Build native targets	2026-10-29T09:23:57.1314995Z   1>Checking Build System
+windows-build-test	Build native targets	2026-10-29T09:23:57.2788280Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:23:57.4635496Z   catch_chronometer.cpp
+windows-build-test	Build native targets	2026-10-29T09:23:58.3174262Z   catch_analyse.cpp
+windows-build-test	Build native targets	2026-10-29T09:23:58.7166516Z   catch_benchmark_function.cpp
+windows-build-test	Build native targets	2026-10-29T09:23:58.8872851Z   catch_run_for_at_least.cpp
+windows-build-test	Build native targets	2026-10-29T09:23:59.4093480Z   catch_stats.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:00.2732062Z   catch_generator_exception.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:00.3242815Z   catch_generators.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:00.7054049Z   catch_generators_random.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:01.1424133Z   catch_reporter_automake.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:01.5718244Z   catch_reporter_common_base.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:02.0221792Z   catch_reporter_compact.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:02.4560357Z   catch_reporter_console.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:02.9333570Z   catch_reporter_cumulative_base.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:03.2598113Z   catch_reporter_event_listener.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:03.5197637Z   catch_reporter_helpers.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:04.0419560Z   catch_reporter_json.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:04.5686941Z   catch_reporter_junit.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:05.0984872Z   catch_reporter_multi.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:05.5264122Z   catch_reporter_registrars.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:05.7336884Z   catch_reporter_sonarqube.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:06.2167788Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:10.8069391Z   Compiling...
+windows-build-test	Build native targets	2026-10-29T09:24:10.8070292Z   catch_reporter_streaming_base.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:11.0753401Z   catch_reporter_tap.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:11.5207584Z   catch_reporter_teamcity.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:11.9645535Z   catch_reporter_xml.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:12.4185913Z   catch_interfaces_capture.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:12.6460388Z   catch_interfaces_config.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:12.8918810Z   catch_interfaces_exception.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:13.1018347Z   catch_interfaces_generatortracker.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:13.3073399Z   catch_interfaces_registry_hub.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:13.5103091Z   catch_interfaces_reporter.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:13.9319680Z   catch_interfaces_reporter_factory.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:14.1378620Z   catch_interfaces_testcase.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:14.2963963Z   catch_approx.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:14.6797817Z   catch_assertion_result.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:15.0218524Z   catch_config.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:15.5048881Z   catch_get_random_seed.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:15.7676140Z   catch_message.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:16.1714725Z   catch_registry_hub.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:16.6003359Z   catch_session.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:18.2398029Z   catch_tag_alias_autoregistrar.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:18.4427545Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:21.7765277Z   Compiling...
+windows-build-test	Build native targets	2026-10-29T09:24:21.7766103Z   catch_test_case_info.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:22.1639751Z   catch_test_spec.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:22.6029477Z   catch_timer.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:22.7433001Z   catch_tostring.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:23.1774663Z   catch_totals.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:23.1929124Z   catch_translate_exception.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:23.4044176Z   catch_version.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:23.7367269Z   catch_assertion_handler.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:24.1386207Z   catch_case_insensitive_comparisons.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:24.3771567Z   catch_clara.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:24.8782417Z   catch_commandline.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:25.5081313Z   catch_console_colour.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:26.0176895Z   catch_context.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:26.0358254Z   catch_debug_console.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:26.4998584Z   catch_debugger.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:26.5963226Z   catch_decomposer.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:26.9765613Z   catch_enforce.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:27.3126889Z   catch_enum_values_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:27.5650346Z   catch_errno_guard.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:27.5806368Z   catch_exception_translator_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:27.9344162Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:32.0720129Z   Compiling...
+windows-build-test	Build native targets	2026-10-29T09:24:32.0720973Z   catch_fatal_condition_handler.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:32.5741361Z   catch_floating_point_helpers.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:32.7075845Z   catch_getenv.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:32.7321043Z   catch_istream.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:33.1096464Z   catch_jsonwriter.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:33.4671994Z   catch_lazy_expr.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:33.8460573Z   catch_leak_detector.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:34.0486696Z   catch_list.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:34.4214653Z   catch_message_info.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:34.6241833Z   catch_output_redirect.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:34.9729938Z   catch_parse_numbers.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:35.1869605Z   catch_polyfills.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:35.2206128Z   catch_random_number_generator.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:35.2359457Z   catch_random_seed_generation.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:35.6373949Z   catch_reporter_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:36.1719599Z   catch_reporter_spec_parser.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:36.4651624Z   catch_reusable_string_stream.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:36.8371300Z   catch_run_context.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:37.3376634Z   catch_section.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:37.5668789Z   catch_singletons.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:37.7291064Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:40.8287544Z   Compiling...
+windows-build-test	Build native targets	2026-10-29T09:24:40.8288459Z   catch_source_line_info.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:41.1682749Z   catch_startup_exception_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:41.3336115Z   catch_stdstreams.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:41.6633825Z   catch_string_manip.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:42.0379604Z   catch_stringref.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:42.3879545Z   catch_tag_alias_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:42.7770495Z   catch_test_case_info_hasher.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:42.9883435Z   catch_test_case_registry_impl.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:43.4759839Z   catch_test_case_tracker.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:43.8746659Z   catch_test_failure_exception.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:44.2178645Z   catch_test_registry.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:44.4488053Z   catch_test_spec_parser.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:44.7089896Z   catch_textflow.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:45.1027850Z   catch_uncaught_exceptions.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:45.1528450Z   catch_wildcard_pattern.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:45.5053565Z   catch_xmlwriter.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:45.9183528Z   catch_matchers.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:46.3023359Z   catch_matchers_container_properties.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:46.7180189Z   catch_matchers_exception.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:47.1051040Z   catch_matchers_floating_point.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:47.5656991Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:50.8454422Z   Compiling...
+windows-build-test	Build native targets	2026-10-29T09:24:50.8455190Z   catch_matchers_predicate.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:51.2241664Z   catch_matchers_quantifiers.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:51.6155790Z   catch_matchers_string.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:52.1997266Z   catch_matchers_templated.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:52.5988519Z   catch_matchers_impl.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:52.9822423Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:24:54.7505118Z   Catch2.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+windows-build-test	Build native targets	2026-10-29T09:24:54.8186804Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:24:54.8876988Z   catch_main.cpp
+windows-build-test	Build native targets	2026-10-29T09:24:55.4372108Z   Catch2WithMain.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+windows-build-test	Build native targets	2026-10-29T09:24:55.5159331Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:24:55.5863890Z   settings_store.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:03.9596033Z   desktopmonitor_settings.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+windows-build-test	Build native targets	2026-10-29T09:25:04.0348046Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:04.1306168Z   Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35229 for x64
+windows-build-test	Build native targets	2026-10-29T09:25:04.1307100Z   Copyright (C) Microsoft Corporation.  All rights reserved.
+windows-build-test	Build native targets	2026-10-29T09:25:04.1311361Z   cl /c /I"D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-src" /I"D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-build" /Zi /W3 /WX- /diagnostics:column /O2 /Ob2 /D _MBCS /D WIN32 /D _WINDOWS /D NDEBUG /D "CMAKE_INTDIR=\"Release\"" /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Fo"miniz.dir\Release\\" /Fd"D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-src\miniz.c" "D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-src\miniz_zip.c" "D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-src\miniz_tinfl.c" "D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-src\miniz_tdef.c"
+windows-build-test	Build native targets	2026-10-29T09:25:04.1314639Z   miniz.c
+windows-build-test	Build native targets	2026-10-29T09:25:04.1660017Z   miniz_zip.c
+windows-build-test	Build native targets	2026-10-29T09:25:04.2992638Z   miniz_tinfl.c
+windows-build-test	Build native targets	2026-10-29T09:25:04.3277262Z   miniz_tdef.c
+windows-build-test	Build native targets	2026-10-29T09:25:04.3634265Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:25:05.8513961Z   miniz.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+windows-build-test	Build native targets	2026-10-29T09:25:05.8954257Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:05.9607393Z   theme_manager.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:14.9581189Z   desktopmonitor_themes.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+windows-build-test	Build native targets	2026-10-29T09:25:15.0062326Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:15.0760407Z   main.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:17.2746027Z   theme_commands.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:18.8389403Z   desktop_host.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:18.9792781Z   power_notifications.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:19.4502937Z   management_shell.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:21.0917952Z   windows_metrics_collector.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:21.5338142Z   nvml_gpu_collector.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:21.6765897Z   protocol_v1.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:22.9903572Z   webview2_host.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:25.0558938Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:25:33.9379498Z   DrillPaper.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe
+windows-build-test	Build native targets	2026-10-29T09:25:34.1559359Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:34.2197073Z   parent_window_fixture.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:36.1739503Z   DrillPaperParentFixture.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperParentFixture.exe
+windows-build-test	Build native targets	2026-10-29T09:25:36.2364224Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:36.3071754Z   settings_store_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:39.4416996Z   DrillPaperSettingsTests.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe
+windows-build-test	Build native targets	2026-10-29T09:25:39.5789822Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:39.6460041Z   core_contracts_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:40.9582788Z   sampling_worker_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:42.6973357Z   desktop_recovery_retry_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:43.9087788Z   managed_playback_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:45.1186692Z   protocol_v1_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:46.3946198Z   protocol_v1.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:47.7275936Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:25:51.8011021Z   DrillPaperTests.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe
+windows-build-test	Build native targets	2026-10-29T09:25:51.9443643Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:52.0114686Z   theme_manager_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:56.7357985Z   DrillPaperThemeTests.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperThemeTests.exe
+windows-build-test	Build native targets	2026-10-29T09:25:56.7974285Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:56.8624190Z   desktop_host_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:58.2603594Z   desktop_host.cpp
+windows-build-test	Build native targets	2026-10-29T09:25:58.4153334Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:25:58.9378600Z   DrillPaperWindowsHostIntegrationTests.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsHostIntegrationTests.exe
+windows-build-test	Build native targets	2026-10-29T09:25:59.0578774Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Build native targets	2026-10-29T09:25:59.1326427Z   windows_metrics_collector_test.cpp
+windows-build-test	Build native targets	2026-10-29T09:26:00.5261297Z   windows_metrics_collector.cpp
+windows-build-test	Build native targets	2026-10-29T09:26:00.7125734Z   nvml_gpu_collector.cpp
+windows-build-test	Build native targets	2026-10-29T09:26:00.8557693Z   Generating Code...
+windows-build-test	Build native targets	2026-10-29T09:26:01.3581923Z   DrillPaperWindowsMetricsIntegrationTests.vcxproj -> D:\a\DrillPaper\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsMetricsIntegrationTests.exe
+windows-build-test	Build native targets	2026-10-29T09:26:01.4667493Z   Building Custom Rule D:/a/DrillPaper/DrillPaper/CMakeLists.txt
+windows-build-test	Run native tests	﻿2026-10-29T09:26:01.6409833Z ##[group]Run ctest --preset windows-msvc-release --output-on-failure
+windows-build-test	Run native tests	2026-10-29T09:26:01.6410890Z [36;1mctest --preset windows-msvc-release --output-on-failure[0m
+windows-build-test	Run native tests	2026-10-29T09:26:01.6448620Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-build-test	Run native tests	2026-10-29T09:26:01.6449062Z env:
+windows-build-test	Run native tests	2026-10-29T09:26:01.6449343Z   WEBVIEW2_SDK_ROOT: D:\a\_temp\webview2-sdk
+windows-build-test	Run native tests	2026-10-29T09:26:01.6449652Z ##[endgroup]
+windows-build-test	Run native tests	2026-10-29T09:26:02.4906556Z Test project D:/a/DrillPaper/DrillPaper/build/windows-msvc-release
+windows-build-test	Run native tests	2026-10-29T09:26:02.5335832Z       Start  1: CPU sampling marks the first reading as warm-up
+windows-build-test	Run native tests	2026-10-29T09:26:02.5432803Z  1/33 Test  #1: CPU sampling marks the first reading as warm-up .......................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5483767Z       Start  2: CPU sampling derives busy time from GetSystemTimes deltas
+windows-build-test	Run native tests	2026-10-29T09:26:02.5563032Z  2/33 Test  #2: CPU sampling derives busy time from GetSystemTimes deltas .............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5566711Z       Start  3: CPU sampling resets its baseline after counters decrease
+windows-build-test	Run native tests	2026-10-29T09:26:02.5640957Z  3/33 Test  #3: CPU sampling resets its baseline after counters decrease ..............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5644616Z       Start  4: A real zero metric differs from an unavailable metric
+windows-build-test	Run native tests	2026-10-29T09:26:02.5720165Z  4/33 Test  #4: A real zero metric differs from an unavailable metric .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5723817Z       Start  5: Snapshot units describe byte counts and byte rates
+windows-build-test	Run native tests	2026-10-29T09:26:02.5797164Z  5/33 Test  #5: Snapshot units describe byte counts and byte rates ....................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5800623Z       Start  6: Network rate uses monotonic counter deltas and elapsed time
+windows-build-test	Run native tests	2026-10-29T09:26:02.5874664Z  6/33 Test  #6: Network rate uses monotonic counter deltas and elapsed time ...........................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5878288Z       Start  7: An idle network interface is a valid zero rate
+windows-build-test	Run native tests	2026-10-29T09:26:02.5952351Z  7/33 Test  #7: An idle network interface is a valid zero rate ........................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.5955846Z       Start  8: Network rate rejects resets and zero-length intervals
+windows-build-test	Run native tests	2026-10-29T09:26:02.6029120Z  8/33 Test  #8: Network rate rejects resets and zero-length intervals .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6032501Z       Start  9: Metrics history retains only the newest 120 snapshots
+windows-build-test	Run native tests	2026-10-29T09:26:02.6104459Z  9/33 Test  #9: Metrics history retains only the newest 120 snapshots .................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6108042Z       Start 10: Snapshot coalescing keeps one latest pending value
+windows-build-test	Run native tests	2026-10-29T09:26:02.6181488Z 10/33 Test #10: Snapshot coalescing keeps one latest pending value ....................................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6184991Z       Start 11: Metric change detection uses units, quality, and a numeric threshold
+windows-build-test	Run native tests	2026-10-29T09:26:02.6256548Z 11/33 Test #11: Metric change detection uses units, quality, and a numeric threshold ..................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6260310Z       Start 12: Power state transitions debounce obscured changes and request fresh data on resume
+windows-build-test	Run native tests	2026-10-29T09:26:02.6330265Z 12/33 Test #12: Power state transitions debounce obscured changes and request fresh data on resume ....   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6333722Z       Start 13: Sampling scheduler pauses and resumes without catch-up loops
+windows-build-test	Run native tests	2026-10-29T09:26:02.6405360Z 13/33 Test #13: Sampling scheduler pauses and resumes without catch-up loops ..........................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6408915Z       Start 14: Sampling worker collects outside the caller thread and stops while paused
+windows-build-test	Run native tests	2026-10-29T09:26:02.6559497Z 14/33 Test #14: Sampling worker collects outside the caller thread and stops while paused .............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6576913Z       Start 15: Sampling worker resumes immediately with a fresh baseline
+windows-build-test	Run native tests	2026-10-29T09:26:02.6669771Z 15/33 Test #15: Sampling worker resumes immediately with a fresh baseline .............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6678877Z       Start 16: Sampling worker reports collector failure without terminating the process
+windows-build-test	Run native tests	2026-10-29T09:26:02.6935080Z 16/33 Test #16: Sampling worker reports collector failure without terminating the process .............   Passed    0.02 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.6941245Z       Start 17: Sampling worker discards an in-flight snapshot from the previous generation
+windows-build-test	Run native tests	2026-10-29T09:26:02.7066297Z 17/33 Test #17: Sampling worker discards an in-flight snapshot from the previous generation ...........   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7068979Z       Start 18: Desktop recovery waits for Shell readiness with a bounded retry budget
+windows-build-test	Run native tests	2026-10-29T09:26:02.7177149Z 18/33 Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget ................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7191633Z       Start 19: Manual pause survives power changes and resumes the current policy
+windows-build-test	Run native tests	2026-10-29T09:26:02.7237432Z 19/33 Test #19: Manual pause survives power changes and resumes the current policy ....................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7241019Z       Start 20: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+windows-build-test	Run native tests	2026-10-29T09:26:02.7316344Z 20/33 Test #20: Protocol v1 serializes a complete snapshot with units and UTC timestamp ...............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7320208Z       Start 21: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+windows-build-test	Run native tests	2026-10-29T09:26:02.7392027Z 21/33 Test #21: Protocol v1 echoes request identifiers and serializes unavailable memory as null ......   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7395722Z       Start 22: Protocol v1 parses bounded history requests and preserves request IDs
+windows-build-test	Run native tests	2026-10-29T09:26:02.7467620Z 22/33 Test #22: Protocol v1 parses bounded history requests and preserves request IDs .................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7471270Z       Start 23: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+windows-build-test	Run native tests	2026-10-29T09:26:02.7543601Z 23/33 Test #23: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ...   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7547224Z       Start 24: Protocol v1 subscription removes unknown and duplicate metric names
+windows-build-test	Run native tests	2026-10-29T09:26:02.7624094Z 24/33 Test #24: Protocol v1 subscription removes unknown and duplicate metric names ...................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7627681Z       Start 25: Protocol v1 serializes control envelopes without changing their payload
+windows-build-test	Run native tests	2026-10-29T09:26:02.7714292Z 25/33 Test #25: Protocol v1 serializes control envelopes without changing their payload ...............   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7716708Z       Start 26: Protocol v1 history snapshots carry their own timestamps
+windows-build-test	Run native tests	2026-10-29T09:26:02.7782972Z 26/33 Test #26: Protocol v1 history snapshots carry their own timestamps ..............................   Passed    0.01 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.7786496Z       Start 27: Settings preserve the chosen theme mode and sleep preference
+windows-build-test	Run native tests	2026-10-29T09:26:02.8060577Z 27/33 Test #27: Settings preserve the chosen theme mode and sleep preference ..........................   Passed    0.03 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.8063953Z       Start 28: Invalid settings and failed atomic replacement preserve existing preferences
+windows-build-test	Run native tests	2026-10-29T09:26:02.8991616Z 28/33 Test #28: Invalid settings and failed atomic replacement preserve existing preferences ..........   Passed    0.09 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.8995371Z       Start 29: Settings accept installed theme identifiers supported by the manifest
+windows-build-test	Run native tests	2026-10-29T09:26:02.9305922Z 29/33 Test #29: Settings accept installed theme identifiers supported by the manifest .................   Passed    0.03 sec
+windows-build-test	Run native tests	2026-10-29T09:26:02.9309787Z       Start 30: Windows metrics collector reports typed readings and warms up CPU/network rates
+windows-build-test	Run native tests	2026-10-29T09:26:03.2575233Z 30/33 Test #30: Windows metrics collector reports typed readings and warms up CPU/network rates .......   Passed    0.33 sec
+windows-build-test	Run native tests	2026-10-29T09:26:03.2579154Z       Start 31: Desktop fallback restores a normal top-level preview
+windows-build-test	Run native tests	2026-10-29T09:26:03.2781961Z 31/33 Test #31: Desktop fallback restores a normal top-level preview ..................................   Passed    0.02 sec
+windows-build-test	Run native tests	2026-10-29T09:26:03.2784828Z       Start 32: DrillPaperThemeTests
+windows-build-test	Run native tests	2026-10-29T09:26:03.6755349Z 32/33 Test #32: DrillPaperThemeTests ..................................................................   Passed    0.40 sec
+windows-build-test	Run native tests	2026-10-29T09:26:03.6758708Z       Start 33: DrillPaperThemeCli
+windows-build-test	Run native tests	2026-10-29T09:26:04.3264630Z 33/33 Test #33: DrillPaperThemeCli ....................................................................   Passed    0.65 sec
+windows-build-test	Run native tests	2026-10-29T09:26:04.3273229Z 
+windows-build-test	Run native tests	2026-10-29T09:26:04.3274148Z 100% tests passed, 0 tests failed out of 33
+windows-build-test	Run native tests	2026-10-29T09:26:04.3274773Z 
+windows-build-test	Run native tests	2026-10-29T09:26:04.3275180Z Total Test time (real) =   1.84 sec
+windows-build-test	Run actions/upload-artifact@v7	﻿2026-10-29T09:26:04.4939968Z ##[group]Run actions/upload-artifact@v7
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4940681Z with:
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4941142Z   name: drillpaper-theme-sdk-examples
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4941646Z   path: artifacts/theme-sdk/*.dmt
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4942096Z   if-no-files-found: error
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4942550Z   compression-level: 6
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4942968Z   overwrite: false
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4943372Z   include-hidden-files: false
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4943792Z   archive: true
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4944125Z env:
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4944562Z   WEBVIEW2_SDK_ROOT: D:\a\_temp\webview2-sdk
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.4945042Z ##[endgroup]
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.7153360Z With the provided path, there will be 2 files uploaded
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.7161030Z Artifact name is valid!
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:04.7161848Z Root directory input is valid!
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.0228225Z Uploading artifact: drillpaper-theme-sdk-examples.zip
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.0266081Z Beginning upload of artifact content to blob storage
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.2352521Z Uploaded bytes 14081
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.2848613Z Finished uploading artifact content to blob storage!
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.2850660Z SHA256 digest of uploaded artifact is 76bad7a7fd4fcafd58cadca7277408cd7a6de6c0fcf1dc0bcfb1dd8f8e1d5213
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.2851915Z Finalizing artifact upload
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.8356322Z Artifact drillpaper-theme-sdk-examples successfully finalized. Artifact ID 12886596566
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.8357813Z Artifact drillpaper-theme-sdk-examples has been successfully uploaded! Final size is 14081 bytes. Artifact ID is 12886596566
+windows-build-test	Run actions/upload-artifact@v7	2026-10-29T09:26:05.8364727Z Artifact download URL: https://github.com/act70255/DrillPaper/actions/runs/40849189915/artifacts/12886596566
+windows-build-test	Post Run actions/setup-node@v7	﻿2026-10-29T09:26:05.8708219Z Post job cleanup.
+windows-build-test	Post Run actions/checkout@v7	﻿2026-10-29T09:26:06.0439556Z Post job cleanup.
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.2320891Z [command]"C:\Program Files\Git\bin\git.exe" version
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.2727314Z git version 2.56.0.windows.3
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.2877354Z Temporarily overriding HOME='D:\a\_temp\6d8f4661-5e86-4f12-aed2-0e2cab48ad37' before making global git config changes
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.2879414Z Adding repository directory to the temporary git global config as a safe directory
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.2882100Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\DrillPaper\DrillPaper
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.3301631Z Removing SSH command configuration
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.3310209Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.3732256Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.8928973Z Removing HTTP extra header
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.8940632Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:06.9249561Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:07.4707760Z Removing includeIf entries pointing to credentials config files
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:07.4721044Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+windows-build-test	Post Run actions/checkout@v7	2026-10-29T09:26:07.5025993Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+windows-build-test	Complete job	﻿2026-10-29T09:26:08.0105168Z Cleaning up orphan processes
+windows-build-test	Complete job	2026-10-29T09:26:08.0341763Z Terminate orphan process: pid (4068) (vctip)

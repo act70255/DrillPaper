@@ -1,0 +1,3 @@
+{"phase":"minimal-baseline-ended","timestamp":"2026-10-30T16:06:05.4397081+08:00","dnsHost":"drillpaper-a800b9026217424a87c041fafa8ca718.example.com"}
+{"phase":"apply-True","timestamp":"2026-10-30T16:06:19.7981010+08:00"}
+{"phase":"apply-False","timestamp":"2026-10-30T16:07:00.1959601+08:00"}

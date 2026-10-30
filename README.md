@@ -12,13 +12,13 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 
 首次 app **試用 ZIP** 使用獨立流程，包含 Release app／兩個主題／SDK 執行資產／WebView2 loader／授權與繁中說明，不解除 RC gate。完整解壓後執行 `Start-DrillPaper.cmd`，以一般使用者開啟管理視窗並沿用保存模式；首次為 Minimal 桌布與主螢幕目標，保存 Preview 後重啟仍為 Preview。需要既有 VC++ v14 x64 與 WebView2 Evergreen，缺失會提示官方取得方式，不自動安裝。免安裝程式檔案仍沿用 `%LOCALAPPDATA%\DrillPaper` 資料，不是完全隨身模式。請先讀包內 README.zh-TW.md；隔離試用與來源 commit、重現命令見 [試用包流程](docs/TRIAL_PACKAGE.md) 及[實測報告](docs/acceptance/2026-10-29/trial-package/REPORT.md)。
 
-試用入口依已確認決策預設帶 `--no-smart-sleep`，暫時關閉智慧休眠；app 本身的預設不變。03 的「預設智慧休眠啟動」歷史 FAIL 保留，05 復測改記「未重現，疑似環境」，未做推測性修正；08 須在乾淨環境以產品預設驗證握手通過後才移除繞行並重新打包，09 持續追蹤。關閉期間不宣稱具備智慧休眠省電效果；人工畫面與其他未驗收矩陣見報告。
+RC 09 **拒絕放行**，見[最終回歸／必要 gate](docs/acceptance/2026-10-30/rc-regression/REPORT.md)。原 trial.6 與歷史 FAIL 保留；依票 08 已確認的本機多輪條件驗證產品預設後，trial.7 移除入口 `--no-smart-sleep`，新資料沿用預設開啟，既有保存偏好不自動改寫。產品／SDK 位元組未改，CMD 入口三輪通過；這不表示 03／08-D1 根因已修復、真正節能或乾淨使用者／CI／完整安全驗收已通過。另有 **09-D2 FAIL**：雙目標受控鎖定往返後解除手動暫停未恢復推送，原因待票 10 診斷；trial.7 仍僅供受限試用。
 
 ## 開發環境
 
 - Windows 10/11 x64、Visual Studio 2022 C++ 工作負載、Windows SDK、CMake 3.25+、Git。
 - WebView2 Evergreen Runtime；本機測試版本為 155.0.4283.62，SDK 1.0.2478.35。
-- Node.js 22 僅供 Theme SDK/manifest 測試，不是預定產品 runtime。
+- Node.js 22 以上供 SDK／作者工具及測試啟動器使用，不是產品 runtime 依賴。
 - NVIDIA NVML 為選配；不支援時應回報 `unavailable`。目前沒有產品 GPU 精度驗證。
 
 本機 Windows 11 環境的安裝版本與步驟見 [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md)。建置與測試：
@@ -34,11 +34,13 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 ctest --preset windows-msvc-release --output-on-failure
 ```
 
+完整測試入口與獨立 CTest 將 TEMP／TMP 導向 `%USERPROFILE%/DrillPaperTests` 的繁中空白目錄；主題 CLI 由 Node 直接啟動，保留六項原斷言與 15 秒期限。需要 USERPROFILE 與可寫入使用者目錄，證據與未自動清理的測試資料可留在該處。產品實測循序執行，避免從 Temp 或由 PowerShell 直接啟動 EXE；PowerShell 可協調 CMD／Node。
+
 ## 執行開發 Preview
 
 ```powershell
-.\build\windows-msvc-release\Release\DrillPaper.exe --preview --mock-metrics --theme=dashboard
-.\build\windows-msvc-release\Release\DrillPaper.exe --preview --theme=minimal
+cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --preview --mock-metrics --theme=dashboard"
+cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --preview --theme=minimal"
 ```
 
 `--version` 和 `--diagnostics` 顯示 build/runtime 資訊。`scripts/test-webview2-smoke.ps1` 會以視窗標題確認 hello、snapshot、subscribe 流程；它不是截圖或 visual QA。Preview 不代表 `--experimental-desktop` 桌面附掛獲得支援。
@@ -52,7 +54,7 @@ ctest --preset windows-msvc-release --output-on-failure
 ## 系統匣與管理入口
 
 ```powershell
-.\build\windows-msvc-release\Release\DrillPaper.exe --management --preview --theme=dashboard
+cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --management --preview --theme=dashboard"
 ```
 
 右下角系統匣圖示（可能在隱藏圖示區）可開啟同一個管理視窗，提供暫停／繼續、主題清單、預覽／套用、`.dmt` 匯入、使用者主題移除、智慧休眠與日誌入口。「套用並儲存設定」將主題、模式與智慧休眠保存至 `%LOCALAPPDATA%\DrillPaper\settings.json`；「取消設定變更」還原尚未套用的草稿，直接預覽則不保存。無參數啟動使用保存偏好，首次為 Minimal 桌布與啟用智慧休眠。
@@ -74,8 +76,8 @@ TypeScript 作者可從 SDK ZIP 複製 [`sdk/author-starter`](sdk/author-starter
 安裝與列舉主題：
 
 ```powershell
-.\build\windows-msvc-release\Release\DrillPaper.exe --import-theme "C:\Themes\example.dmt"
-.\build\windows-msvc-release\Release\DrillPaper.exe --list-themes
+cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --import-theme "C:\Themes\example.dmt""
+cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --list-themes"
 ```
 
 主題安裝到 `%LOCALAPPDATA%\DrillPaper\themes\<id>@<version>`，同版本禁止覆蓋；失敗會清除本次暫存安裝。Preview 的「主題」功能表可選擇內建及已安裝版本；執行中從 CLI 匯入後，選「重新整理已安裝主題」即可列出。管理視窗另提供匯入與確認移除；內建主題不提供移除。主題未於 20 秒內完成握手時會嘗試回復 Minimal。原生採集程序不因切換而重啟。

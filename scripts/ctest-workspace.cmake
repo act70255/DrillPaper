@@ -1,0 +1,10 @@
+# 獨立 CTest 也套用非 Temp 使用者目錄；不依賴外層 PowerShell。
+if("$ENV{USERPROFILE}" STREQUAL "")
+    message(FATAL_ERROR "缺少 USERPROFILE，無法建立非 Temp 測試目錄。")
+endif()
+file(TO_CMAKE_PATH "$ENV{USERPROFILE}" _drillpaper_profile)
+set(_drillpaper_workspace "${_drillpaper_profile}/DrillPaperTests/CTest 回歸 含空白")
+file(MAKE_DIRECTORY "${_drillpaper_workspace}")
+set(ENV{TEMP} "${_drillpaper_workspace}")
+set(ENV{TMP} "${_drillpaper_workspace}")
+message(STATUS "CTest 測試資料目錄：${_drillpaper_workspace}")

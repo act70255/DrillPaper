@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [ValidateSet('Debug', 'Release')][string]$Configuration = 'Debug',
     [switch]$SkipNative,
@@ -7,13 +7,22 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$previousTemp = $env:TEMP
+$previousTmp = $env:TMP
 Push-Location $repoRoot
 try {
+    . (Join-Path $PSScriptRoot 'test-workspace.ps1')
+    $workspace = New-DrillPaperTestWorkspace -Name full-suite
+    $env:TEMP = $workspace
+    $env:TMP = $workspace
+    Write-Output "完整測試資料目錄：$workspace"
     if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
         throw 'Node.js is required for SDK contract tests.'
     }
     node --test tests/sdk/*.test.mjs
     if ($LASTEXITCODE -ne 0) { throw "SDK tests failed with exit code $LASTEXITCODE." }
+    node --test tests/theme-cli-launcher.test.mjs tests/test-workspace.test.mjs
+    if ($LASTEXITCODE -ne 0) { throw '測試啟動與隔離目錄契約未通過。' }
 
     & (Join-Path $PSScriptRoot 'test-environment-check.ps1')
     & (Join-Path $PSScriptRoot 'test-performance-sampler.ps1')
@@ -41,4 +50,8 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "CTest failed with exit code $LASTEXITCODE." }
     }
 }
-finally { Pop-Location }
+finally {
+    $env:TEMP = $previousTemp
+    $env:TMP = $previousTmp
+    Pop-Location
+}

@@ -1,5 +1,5 @@
 ﻿[CmdletBinding()]
-param([Parameter(Mandatory)][string]$ApplicationPath)
+param([Parameter(Mandatory)][string]$ApplicationPath, [string]$EvidenceDirectory)
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'security-process.ps1')
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
@@ -125,11 +125,13 @@ function Test-NavigationRecovery {
             ($caption.ToString().Contains('導覽復原驗證') -or $caption.ToString().IndexOf('minimal', [StringComparison]::OrdinalIgnoreCase) -ge 0)
     } '外部導覽雖遭封鎖，但原頁面未繼續且沒有回復可信主題。'
 }
-$session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N'))))
 $previousLocal = $env:LOCALAPPDATA
 $app = $null
 $server = $null
 try {
+    $session = if ($EvidenceDirectory) { [IO.Path]::GetFullPath($EvidenceDirectory) }
+        else { [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ('../artifacts/acceptance/security-' + [Guid]::NewGuid().ToString('N')))) }
+    if (Test-Path -LiteralPath $session) { throw '證據目錄已存在，拒絕覆寫。' }
     $env:LOCALAPPDATA = Join-Path $session 'appdata'
     $source = Join-Path $session 'source'
     New-Item -ItemType Directory -Path $source -Force | Out-Null
@@ -288,6 +290,17 @@ try {
       navigation='PASS (原頁面繼續或可信 Minimal 回復)'; timestamp=(Get-Date -Format o)} |
         ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"
+} catch {
+    $reason = $_.Exception.Message
+    $details = $_ | Out-String
+    $diagnostic = Join-Path $PSScriptRoot ('../artifacts/acceptance/rc09-security-errors/' + [Guid]::NewGuid().ToString('N') + '.log')
+    [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+    try {
+        [void][IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($diagnostic))
+        [IO.File]::WriteAllText($diagnostic, $details, [Text.UTF8Encoding]::new($false))
+    } catch { [Console]::Error.WriteLine('錯誤：詳細安全日誌無法寫入，請確認工作區權限。') }
+    [Console]::Error.WriteLine("錯誤：安全整合觀測失敗：$reason 詳細日誌：$diagnostic")
+    exit 1
 } finally {
     $env:LOCALAPPDATA = $previousLocal
     if ($app) {

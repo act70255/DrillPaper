@@ -1,0 +1,24 @@
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 0 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-minimal
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-dashboard
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：one-target-fallback
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-True
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：rapid-switch-stale-notifications
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-restart
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：smart-sleep-enabled
+已記錄：manual-pause-survives-controlled-lock
+已記錄：condition-timeout
+錯誤：無法完成多目標整合觀測，請確認程式路徑、全新證據目錄與執行環境。診斷日誌：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\rc05-tool-errors\287567468b5844e9a53c3134bd862508.log

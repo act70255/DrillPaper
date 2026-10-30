@@ -1,4 +1,18 @@
 # 開發狀態
+## 2026-10-30 RC 09 — 完整回歸，拒絕 RC 放行
+
+- Commit message：`fix(delivery): 移除入口繞行並記錄回歸阻擋`，由commit-msg技能依最終暫存差異產生；隨本票唯一提交保存，hash以本分支Git記錄為準。
+
+- Branch／base：沿用 feature/rc-09-regression／d60816aff6e99ad1a3624075a74016909f76fa4d；最新確認決策授權先改測試，需求先寫REQUEST。保留既有票內決策，產品src／include／sdk與676bb47無差異，沒有推測性產品修正。09 resolved只代表可執行回歸及拒絕放行／人工交接完成，不代表RC通過。
+- Scope／TDD：CLI由Node直接啟動、JSON原始argv與UTF-8結果檔，六項原斷言與15秒／CTest60秒期限不變；完整test.ps1及獨立CTest的TEMP／TMP移到非Temp使用者繁中空白目錄。啟動／隔離公開工具先Red→Green，新契約6/6；相關CTest5/5與候選CLI均PASS。GUI與實際OS／硬體結果不由單元測試推論。
+- Commands／完整數量：原生CMake／CTest使用既有uv工具套件的data/bin（PATH Python launcher失效，沿08方式、不重裝）。scripts/build.ps1 -Configuration Release完成最終來源configure／build；scripts/package.ps1 -Configuration Release -Version 0.1.0-rc1 -OutputDirectory <非Temp新目錄>再次建置並實際跑完整scripts/test.ps1：**CTest43/43**、SDK18/18（封裝鏈四組18，共72次執行而非72獨立案例）、新工具6/6，環境／取樣／主題／oracle／SDK ZIP重封／解壓均PASS；另既有工具17/17、封裝與入口正負及固定TS5.9.3正負／作者建置PASS。正式gate預期exit1，沒有RC ZIP。完整log、命令、來源／hash見[REPORT](acceptance/2026-10-30/rc-regression/REPORT.md)。
+- Artifact／預設回歸：原trial.6 SHA FC08E190…9EFF8A5不變；候選EXE993FD4…97DA與最終本機建置25316B…6D26D來源相同但位元hash不同，不混稱。trial.6產品預設三輪不等待新Preview就緒及三輪待就緒／JS回應均PASS，各六次exit0；08-D1未重現、原FAIL不改寫、不宣稱根因修復。達08已確認的本機多輪前提後，入口預設契約Red→移除新CMD繞行→trial.7真CMD三輪Green（六次有效休眠1／exit0與各6個當下核實WebView2退出）。trial.7 ZIP472507bytes／SHA87FE10E27EB016D144F8C775BEEA4C81C724BD513BDDE61DE9F866465FDBC29D，53檔產品／SDK相同、僅CMD／README及manifest變；固定產品來源676bb47、工具逐檔hash另記，NotSigned、不宣稱位元可重現。原保存為關閉偏好不改寫。
+- Windows整合：非Temp使用者繁中空白目錄／全新LOCALAPPDATA、Node／CMD直接啟動、循序執行。候選安全原指定矩陣三份NetLog零SmartScreen POST／送出bytes；基本多目標原生幾何／viewport／設定／世代／網路／fixture／模式／全斷線及退出、作者正式匯入／同版拒絕／切換／原生取消確認移除／同版重匯入PASS。不是人眼／真正Explorer／OS電源或完整沙箱證據。
+- **必要FAIL／09-D2**：擴充雙目標smart-sleep-enabled及手動暫停受控WTS往返後，解除手動暫停未於原期限恢復新MetricsTick，兩宿主仍display-off／已暫停，16:09:44+08記FAIL；原因未定，沒有同步實際OS電源及有效狀態證據，不推定產品／工具／防毒根因。票10（owner James）收時間線、再現回歸及最小修正，不放寬判準；該次後續故障／無限迴圈等未到達NOT RUN。基本矩陣獨立PASS不覆蓋此FAIL。
+- CI／NOT RUN：只查既有遠端，最新run40849189915對應舊main b4616ec、CTest33／SDK18及SDK範例artifact PASS，RC job skipped；不當最終來源／app CI。相符來源CI／app artifact、真正桌面／Explorer／電源／拔插／人眼、完整安全／其他Runtime、NVIDIA／更長soak／100次切題、乾淨無工具一般使用者／真實缺依賴／更新回復／實際移除及資料清除仍缺證，票11及[GATES](acceptance/2026-10-30/rc-regression/GATES.md)有owner／下一步，[人工清單](acceptance/2026-10-30/rc-regression/MANUAL_CHECKLIST.md)逐項列原因／操作。06缺失及記憶體仍升、07A10 PARTIAL、03／08歷史FAIL及08移除BLOCKED保留。**拒絕放行**，不以文件或CI綠燈代替實機。
+- Safety／BLOCKED：原持續桌布83428 path／UtcTicks639288432499803524／SHA3C7AB5…15BCE前後相同；本票app及profile對應WebView2收尾無殘留、未重啟Explorer。Apex One可讀14.0（非完整build），BM日誌before／after均45890bytes／SHA C1550D…A7D88，未觀察新增事件不等於完整觀測；無已證實本票防毒BLOCKED，未知FAIL不改名。複製證據漏篩round-n/appdata，本次隔離profile誤複製；自動核准審查拒絕刪除，只回報blocked by policy。此工具清理BLOCKED，保留本機、精確gitignore排除、不繞過刪除限制，不作產品移除PASS。
+- 最終補驗：審查指出15:50完整輪後安全文件進SDK包的輸入已變；原輪保留基線，初始化友善錯誤與安全證據拒覆寫兩項Red→Green後，凍結輸入再跑完整公開封裝鏈。最終Release configure／build、CTest43/43（38.96秒）、SDK四組18/18、新工具6/6及所有腳本通過，SDK重封SHA E44D5CC58EEB8FC3B6C1C6C37B9942119F55FA9988C5BD241B20FD1EFE98ED19；正式gate仍exit1且無RC ZIP，詳見final-full-suite-*。
+- Review／commit：依implement與code-review做Standards／Spec兩軸，結果見REVIEW.md；最終語法／空白與來源指紋存同目錄。完成後依commit-msg實際暫存差異產生繁中Conventional Commit，本票唯一commit並push當前分支；本節隨該提交保存，hash以Git唯一提交記錄為準。沒有合併main、公開發布、release或tag；ADR無，未改產品架構或已確認預設。
 
 ## 2026-10-30 RC 08 — 接續完成交付候選包，保留繞行與人工 gate
 

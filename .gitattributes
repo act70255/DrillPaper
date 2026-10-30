@@ -1,3 +1,4 @@
 # 保留本票原始證據位元組，避免換行轉換使逐檔 SHA-256 失效。
 docs/acceptance/2026-10-30/delivery/** -text
 docs/acceptance/2026-10-30/delivery-final/** -text
+docs/acceptance/2026-10-30/rc-regression/** -text

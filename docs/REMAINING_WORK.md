@@ -1,8 +1,8 @@
 # 剩餘工作分類
 
-更新：2026-10-29。依使用者對剩餘工作的分類整理；實測狀態與證據仍以 FINAL_HANDOFF.md、STATUS.md 為準。
+更新：2026-10-30。RC 09 完成整合回歸及**拒絕放行**判定；實測狀態與證據以 FINAL_HANDOFF.md、STATUS.md 及 [09 gate 清單](acceptance/2026-10-30/rc-regression/GATES.md)為準。
 
-已建立 [9 張工作票與依賴表](../.scratch/rc-delivery/spec.md)，執行順序為 1 → 2 → 7A → 3～6 → 7B → 8。01 多螢幕與 02 固定設定視窗的程式及可自動執行驗證已完成，人工矩陣保留；03～09 仍 open，首次打包尚未執行。
+原 [01～09 工作票](../.scratch/rc-delivery/spec.md)的可執行範圍及報告完成，不表示必要 gate 通過。09 發現雙目標受控鎖定往返後解除手動暫停未恢復推送（09-D2 FAIL），交[票 10](../.scratch/rc-delivery/issues/10-controlled-resume-regression.md)診斷；CI／人工／硬體／乾淨機器等必要證據交[票 11](../.scratch/rc-delivery/issues/11-rc-gate-evidence.md)，有 owner／下一步。trial.6 不變，trial.7 依已確認條件移除入口繞行後仍只供受限試用，不是 RC。
 
 ## 必要的完整性功能
 

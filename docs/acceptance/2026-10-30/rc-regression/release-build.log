@@ -1,0 +1,53 @@
+Preset CMake variables:
+
+  BUILD_TESTING="ON"
+  CMAKE_CONFIGURATION_TYPES="Debug;Release"
+
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26200.
+-- Using the multi-header code from C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/nlohmann_json-src/include/
+CMake Deprecation Warning at build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Configuring done (20.3s)
+-- Generating done (3.8s)
+-- Build files have been written to: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_settings.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+  miniz.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_themes.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaper.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperManagementIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperMetricsAccuracyProbe.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMetricsAccuracyProbe.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperMonitorIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperParentFixture.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperParentFixture.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperSettingsTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperThemeTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperThemeTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperWindowsHostIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsHostIntegrationTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperWindowsMetricsIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsMetricsIntegrationTests.exe
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt

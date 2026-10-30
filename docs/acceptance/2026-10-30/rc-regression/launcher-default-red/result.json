@@ -1,0 +1,65 @@
+{
+  "result": "FAIL",
+  "started": "2026-10-30T15:56:53.9880483+08:00",
+  "phases": [],
+  "shutdowns": [
+    {
+      "observationError": null,
+      "exitObservationUtc": "2026-10-30T07:57:11.7063280Z",
+      "childrenExited": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 8078.4863,
+      "exitCommandUtc": "2026-10-30T07:57:03.6249016Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:56:59.5219536Z",
+          "id": 75268,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:56:59.6919333Z",
+          "id": 83348,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:57:00.2871058Z",
+          "id": 74664,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:57:00.3333001Z",
+          "id": 103196,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:57:00.4935574Z",
+          "id": 75652,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:57:00.9933862Z",
+          "id": 37712,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:57:02.4480930Z"
+    }
+  ],
+  "application": {
+    "sha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-6\\DrillPaper.exe"
+  },
+  "launcher": true,
+  "immediateExitAfterSave": false,
+  "expectedLauncherSmartSleep": 1,
+  "details": "Exception: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-delivery.ps1:154\r\nLine |\r\n 154 |  … ectedMode -ne [int]($mode -eq 'preview')) { throw '有效智慧休眠／網路／模式不符。' }\r\n     |                                                ~~~~~~~~~~~~~~~~~~~~~~~\r\n     | 有效智慧休眠／網路／模式不符。\r\n\r\n",
+  "ended": "2026-10-30T15:57:12.1600344+08:00"
+}

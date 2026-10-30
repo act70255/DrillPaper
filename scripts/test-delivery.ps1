@@ -4,7 +4,9 @@ param(
     [Parameter(Mandatory)][string]$PackageDirectory,
     [Parameter(Mandatory)][string]$EvidenceDirectory,
     [ValidateRange(2,5)][int]$Rounds = 3,
-    [switch]$UseLauncher
+    [switch]$UseLauncher,
+    [ValidateRange(0,1)][int]$ExpectedLauncherSmartSleep = 0,
+    [switch]$ImmediateExitAfterSave
 )
 $ErrorActionPreference='Stop'
 $app=$null
@@ -51,6 +53,8 @@ public static class DeliveryGeometry {
     $created=$true
     $result.application=@{path=$application; sha256=(Get-FileHash -LiteralPath $application).Hash}
     $result.launcher=[bool]$UseLauncher
+    $result.immediateExitAfterSave=[bool]$ImmediateExitAfterSave
+    $result.expectedLauncherSmartSleep=$ExpectedLauncherSmartSleep
 
     function Wait-Delivery([scriptblock]$Condition,[string]$Message) {
         <# 等待本次已核實程序的原生整合條件。
@@ -81,7 +85,7 @@ public static class DeliveryGeometry {
             正式退出與當下可觀察子程序證據。
         #>
         $children=[Collections.Generic.List[Diagnostics.Process]]::new()
-        $record=@{children=@(); observationError=$null}
+        $record=@{children=@(); observationError=$null; childObservationStartedUtc=[DateTime]::UtcNow.ToString('o')}
         try {
             try {
                 $entries=@(Get-CimInstance Win32_Process -Filter "Name='msedgewebview2.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains((Join-Path $data 'DrillPaper/WebView2')) })
@@ -98,8 +102,13 @@ public static class DeliveryGeometry {
             } catch { $record.observationError=$_ | Out-String }
             if (-not $app.HasExited) {
                 $notifications=@([PerformanceProbe]::Find($app.Id,'DrillPaperShellNotifications'))
+                $record.exitCommandUtc=[DateTime]::UtcNow.ToString('o')
+                $exitClock=[Diagnostics.Stopwatch]::StartNew()
                 if ($notifications.Count -eq 1) { [void][PerformanceProbe]::PostMessage($notifications[0],0x111,[UIntPtr]::new(20006),[IntPtr]::Zero) }
-                if (-not $app.WaitForExit(15000)) { throw '正式退出逾時，未強制終止。' }
+                $exited=$app.WaitForExit(15000)
+                $record.exitWaitMilliseconds=$exitClock.Elapsed.TotalMilliseconds
+                $record.exitObservationUtc=[DateTime]::UtcNow.ToString('o')
+                if (-not $exited) { throw '正式退出逾時，未強制終止。' }
             }
             $record.exitCode=$app.ExitCode
             $record.childrenExited=@($children | ForEach-Object { $_.WaitForExit(15000) })
@@ -140,7 +149,7 @@ public static class DeliveryGeometry {
                 $sleep=[PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20103),0xF0,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32()
                 $network=[PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20106),0xF0,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32()
                 $selectedMode=[PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20102),0x147,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32()
-                $expectedSleep=[int](-not $UseLauncher)
+                $expectedSleep=if ($UseLauncher) { $ExpectedLauncherSmartSleep } else { 1 }
                 $expectedNetwork=[int]($UseLauncher -and $mode -eq 'preview')
                 if ($sleep -ne $expectedSleep -or $network -ne $expectedNetwork -or $selectedMode -ne [int]($mode -eq 'preview')) { throw '有效智慧休眠／網路／模式不符。' }
                 $phase=@{round=$round; mode=$mode; smartSleep=$sleep; network=$network; id=$app.Id; start=$app.StartTime.ToUniversalTime().ToString('o'); ready=[PerformanceProbe]::GetProp($hostWindow,'DrillPaper.ReadyEpoch').ToInt64(); caption=[PerformanceProbe]::Caption($hostWindow); parent=[PerformanceProbe]::GetParent($hostWindow).ToInt64()}
@@ -158,26 +167,32 @@ public static class DeliveryGeometry {
                     if ([PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20106),0xF0,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32() -ne 0) { throw '取消未恢復網路草稿。' }
                     [void][PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20102),0x14E,[UIntPtr]::new(1),[IntPtr]::Zero)
                     if ($UseLauncher) { [void][PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20106),0xF1,[UIntPtr]::new(1),[IntPtr]::Zero) }
+                    $phase.saveCommandUtc=[DateTime]::UtcNow.ToString('o')
                     Command-Delivery 20010
+                    $phase.saveReturnedUtc=[DateTime]::UtcNow.ToString('o')
                     $settings=Join-Path $data 'DrillPaper/settings.json'
                     $saved=Get-Content -Raw -LiteralPath $settings | ConvertFrom-Json
                     if ($saved.displayMode -ne 'preview' -or $saved.smartSleep -ne [bool]$expectedSleep -or $saved.allowNetwork -ne [bool]$UseLauncher -or @($saved.monitorTargets).Count -ne 1) { throw '保存 Preview／入口偏好失敗。' }
                     $phase.saved=$saved
                     $savedHash=(Get-FileHash -LiteralPath $settings).Hash
-                    # 保存會重建宿主；先觀察新 Preview 真正完成握手與 JS 回應，再開始退出觀測。
-                    $observedPreview=@{}
-                    Wait-Delivery {
-                        $hosts=@([PerformanceProbe]::Find($app.Id,'DrillPaperPreviewWindow'))
-                        if ($hosts.Count -eq 1 -and [PerformanceProbe]::GetParent($hosts[0]) -eq [IntPtr]::Zero -and
-                            [PerformanceProbe]::GetProp($hosts[0],'DrillPaper.ReadyEpoch').ToInt64() -gt 0 -and
-                            [PerformanceProbe]::GetProp($hosts[0],'DrillPaper.HealthTick').ToInt64() -gt 0) {
-                            $observedPreview.window=$hosts[0]
-                            return $true
-                        }
-                        return $false
-                    } '保存後的新 Preview 未完成握手與 JS 回應。'
-                    $preview=$observedPreview.window
-                    $phase.savedPreview=@{hwnd=$preview.ToInt64(); parent=[PerformanceProbe]::GetParent($preview).ToInt64(); ready=[PerformanceProbe]::GetProp($preview,'DrillPaper.ReadyEpoch').ToInt64(); health=[PerformanceProbe]::GetProp($preview,'DrillPaper.HealthTick').ToInt64()}
+                    # 分開驗原始立即退出情境與保存後待新 Preview 就緒的情境；原判準及期限不變。
+                    if (-not $ImmediateExitAfterSave) {
+                        $observedPreview=@{}
+                        Wait-Delivery {
+                            $hosts=@([PerformanceProbe]::Find($app.Id,'DrillPaperPreviewWindow'))
+                            if ($hosts.Count -eq 1 -and [PerformanceProbe]::GetParent($hosts[0]) -eq [IntPtr]::Zero -and
+                                [PerformanceProbe]::GetProp($hosts[0],'DrillPaper.ReadyEpoch').ToInt64() -gt 0 -and
+                                [PerformanceProbe]::GetProp($hosts[0],'DrillPaper.HealthTick').ToInt64() -gt 0) {
+                                $observedPreview.window=$hosts[0]
+                                return $true
+                            }
+                            return $false
+                        } '保存後的新 Preview 未完成握手與 JS 回應。'
+                        $preview=$observedPreview.window
+                        $phase.savedPreview=@{hwnd=$preview.ToInt64(); parent=[PerformanceProbe]::GetParent($preview).ToInt64(); ready=[PerformanceProbe]::GetProp($preview,'DrillPaper.ReadyEpoch').ToInt64(); health=[PerformanceProbe]::GetProp($preview,'DrillPaper.HealthTick').ToInt64()}
+                    } else {
+                        $phase.savedPreviewObservation='NOT RUN：本情境於保存後立即要求退出，不等待新 Preview。'
+                    }
                 } else {
                     $reloaded=Get-Content -Raw -LiteralPath $settings | ConvertFrom-Json
                     if ($phase.parent -ne 0 -or (Get-FileHash -LiteralPath $settings).Hash -ne $savedHash -or (@($reloaded.monitorTargets) -join ',') -cne (@($saved.monitorTargets) -join ',')) { throw '重啟未沿用 Preview／目標或自行改寫偏好。' }

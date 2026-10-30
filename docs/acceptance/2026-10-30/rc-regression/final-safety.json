@@ -1,0 +1,10 @@
+{
+  "persistentVerified": true,
+  "timestamp": "2026-10-30T16:47:09.7588239+08:00",
+  "testApplications": [],
+  "antivirus": {
+    "bytes": 45890,
+    "sha256": "C1550D0520F87091EDB2A2BB76507B1C6B06174718843AD1C1EBD6B664DA7D88"
+  },
+  "testWebView2": []
+}

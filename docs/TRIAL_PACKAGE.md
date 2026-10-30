@@ -1,5 +1,7 @@
 # 首次試用包需求與重現流程
 
+2026-10-30 RC 09 最新：原 trial.6 不變，09 依已確認的本機產品預設多輪條件移除新入口繞行，另包 trial.7；EXE／SDK／主題均與 trial.6 相同，只改 CMD／README 及 manifest，逐檔差異與 hash 見 [09 報告](acceptance/2026-10-30/rc-regression/REPORT.md)。真正 CMD 三輪通過，但擴充雙目標解除手動暫停出現 09-D2 FAIL；必要 CI／實機證據仍缺，**拒絕 RC 放行**。下列 03／7A 固定來源、繞行與 FAIL 是歷史流程，不能套到 trial.7；03／08-D1 原 FAIL 保留，未宣稱根因修復。
+
 本文件落實已確認的 03／7A；01／02 均 implemented。產品來源固定為本票起始 HEAD `e6aa20e109da8cdd5402fe06ae0d11f3bc539d53`。無產品程式改動，正式 `package.ps1` 與 RC gate 保留。
 
 2026-10-30 已確認本票只調整打包入口，不改產品程式。入口帶 `--management --no-smart-sleep`，沿用使用者保存模式；全新資料首次為 Minimal 桌布、主螢幕目標，保存 Preview 後再次從相同入口啟動仍為 Preview。預設智慧休眠啟動仍為 **FAIL**，根因與修正交給 05；08 須移除繞行、回到產品預設重新打包驗證，09 持續列為 gate。關閉智慧休眠的本票啟動 PASS 不等於產品預設啟動 PASS。

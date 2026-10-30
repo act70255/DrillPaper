@@ -2,6 +2,8 @@
 
 主題是未受信任的 HTML、CSS 與 JavaScript。僅匯入信任的內容：**目前沒有完整第三方沙箱保證，A12 與 RC gate 保持未通過**。
 
+2026-10-30 RC 09：trial.7（與 trial.6 相同 EXE／主題／SDK）以非 Temp 使用者隔離資料、Node 直接啟動，重跑指定安全矩陣；三份 NetLog 均零 SmartScreen POST 嘗試、零 HTTP/2 送出 bytes。網路 off→on→off、重啟與指定接收端／來源／管理拒絕等結果及 hash 見 [09 報告](acceptance/2026-10-30/rc-regression/REPORT.md)。完整 DNS／TURN／proxy／handler／其他 Runtime／真實舊 COM 競態仍不足；不宣稱全程序零外連。03 原 SmartScreen 上傳 FAIL 保留；09 另有受控暫停恢復 FAIL 與必要證據缺口，拒絕 RC 放行。
+
 ## 已實作邊界
 
 - ThemeManager 先檢查 manifest、路徑、ZIP 屬性、CRC、檔案數量與容量，再 staging／原子安裝；禁止覆蓋同版本。移除只接受安裝目錄內驗證吻合的版本並拒絕重新解析點。

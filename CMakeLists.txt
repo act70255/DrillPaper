@@ -119,6 +119,8 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(Catch2)
     list(APPEND CMAKE_MODULE_PATH "${catch2_SOURCE_DIR}/extras")
     include(Catch)
+    set_property(DIRECTORY APPEND PROPERTY TEST_INCLUDE_FILES
+        "${PROJECT_SOURCE_DIR}/scripts/ctest-workspace.cmake")
 
     add_executable(DrillPaperTests
         tests/unit/core_contracts_test.cpp

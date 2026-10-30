@@ -1,0 +1,22 @@
+# 補齊 RC 必要實機、環境與 CI 證據
+
+Status: open
+Type: task
+Owner: James（發行維護者）
+Blocked by: 10 及必要驗證環境
+
+## Scope
+
+承接 09-G1～G6；不是公開發布授權。09 完成可執行回歸及拒絕放行判定，不等於本票必要證據已具備。
+
+## Acceptance
+
+- 依 `docs/acceptance/2026-10-30/rc-regression/GATES.md` 與 `MANUAL_CHECKLIST.md`，逐項固定版本／環境／命令／證據、owner／下一步；其他版本的 PASS 不代替候選重測。
+- 對 feature 分支取得精確 SHA 的 Windows configure／build／實際測試數／app artifact，及 gate 拒絕時無正式 RC artifact 的證據；skipped 不當 PASS，不合併 main、不建立 release／tag。
+- 在合適機器補真正桌面／Explorer／電源／多目標拔插、完整安全、NVIDIA／長期效能與獨立作者 GUI；Explorer 操作另行授權，不關閉原持續桌布。
+- 補真正乾淨無工具一般使用者、缺 Runtime／CRT、更新／回復／移除與資料保留／主動清除；不變更現用機防毒或依賴，每次攔截記錄並列 BLOCKED。
+- 09-D2 修正回歸及所有必要 gate 通過後才重新做 RC 判定；03／08-D1／09-D2 原始 FAIL 永久保留。試用包不是正式 RC。
+
+## Comments
+
+- 2026-10-30：09 查得最新 CI 40849189915 為舊 main `b4616ec`，CTest33／SDK18 通過、RC job skipped，artifact 只有兩個 SDK .dmt 範例，不是目前產品來源的 app CI。最終來源 CI／乾淨使用者、真實 OS／硬體及人工證據缺口見 09 報告。下一步在 09 分支推送後依既有 workflow 查驗，不以本機綠燈取代缺證。

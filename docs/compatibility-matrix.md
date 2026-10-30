@@ -1,5 +1,11 @@
 # Windows 相容性矩陣
 
+## 2026-10-30 RC 09 候選
+
+產品／SDK 固定來源 `676bb473efeca65614fddb40d98e3c88c302494b`，trial.6／trial.7 EXE SHA `993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA`。本機 Windows 11 Pro 25H2 26200.8737、Runtime 156.0.4314.50、Intel Graphics、雙 1920×1080／DPI144與96；有 Apex One 及開發工具，非乾淨機器。原生完整矩形、目標／設定／來源／世代與基本 fixture 回復通過；產品預設各三輪及 trial.7 CMD 三輪啟動／保存／退出通過。**受控鎖定往返後解除手動暫停未恢復推送為 09-D2 FAIL，A08 gate 未過。** 原因未定，剩餘擴充故障情境因未到達 NOT RUN。
+
+真正新版 Explorer／桌面互動、實體拔插、其他解析度／DPI／clone、真正鎖定／關屏／睡眠／全螢幕、NVIDIA、其他 Windows／Runtime 與乾淨使用者均 NOT RUN；歷史版本 PASS 不套用候選。09 拒絕 RC 放行，詳見 [最終交接](FINAL_HANDOFF.md)與[人工清單](acceptance/2026-10-30/rc-regression/MANUAL_CHECKLIST.md)。以下為先前版本的有限證據。
+
 只有完成 GUI 證據的組態才能標為支援。
 
 RC 01 新版多宿主：本機 Windows 11 兩個 1920×1080、DPI 144／96 的各目標附掛、握手、完整 viewport、重啟與網路回歸已完成原生程序驗證；仍未做人工桌面畫面、真正新版 Explorer 或實體拔插，不提升下表的 GUI 支援聲明。證據及待測清單見 [multi-monitor/REPORT.md](acceptance/2026-10-29/multi-monitor/REPORT.md)。

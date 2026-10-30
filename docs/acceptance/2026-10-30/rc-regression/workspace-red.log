@@ -1,0 +1,62 @@
+✖ 公開測試入口以非 Temp 使用者繁中空白目錄建立隔離資料 (3494.878ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3797.7075
+
+✖ failing tests:
+
+test at tests\test-workspace.test.mjs:6:1
+✖ 公開測試入口以非 Temp 使用者繁中空白目錄建立隔離資料 (3494.878ms)
+  AssertionError [ERR_ASSERTION]: . : �L�k���� './scripts/test-workspace.ps1' ���J�O�_�� Cmdlet�B��ơB���O�ɩΥi����{�����W�١C���ˬd�W�٫��r�O�_���T�A�p
+  �G�]�t���|���ܡA�нT�{���|�O�_���T�A�M��A�դ@���C
+  ��� �u��:1 �r��:3
+  + . ./scripts/test-workspace.ps1; $root = New-DrillPaperTestWorkspace - ...
+  +   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + CategoryInfo          : ObjectNotFound: (./scripts/test-workspace.ps1:String) [], CommandNotFoundException
+      + FullyQualifiedErrorId : CommandNotFoundException
+   
+  New-DrillPaperTestWorkspace : �L�k���� 'New-DrillPaperTestWorkspace' ���J�O�_�� Cmdlet�B��ơB���O�ɩΥi����{�����W�١C��
+  �ˬd�W�٫��r�O�_���T�A�p�G�]�t���|���ܡA�нT�{���|�O�_���T�A�M��A�դ@���C
+  ��� �u��:1 �r��:41
+  + ... ripts/test-workspace.ps1; $root = New-DrillPaperTestWorkspace -Name c ...
+  +                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + CategoryInfo          : ObjectNotFound: (New-DrillPaperTestWorkspace:String) [], CommandNotFoundException
+      + FullyQualifiedErrorId : CommandNotFoundException
+   
+  Test-Path : �L�k�N�޼�ô���� 'LiteralPath' �ѼơA�]�����O Null�C
+  ��� �u��:1 �r��:118
+  + ... kspace -Name contract; if (-not (Test-Path -LiteralPath $root -PathTy ...
+  +                                                             ~~~~~
+      + CategoryInfo          : InvalidData: (:) [Test-Path]�AParameterBindingValidationException
+      + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Commands.TestPathCom 
+     mand
+   
+  Remove-Item : 無法將引數繫結到 'LiteralPath' 參數，因為它是 Null。
+  位於 線路:1 字元:265
+  + ... w($false); Write-Output $root; Remove-Item -LiteralPath $root -Force;
+  +                                                             ~~~~~
+      + CategoryInfo          : InvalidData: (:) [Remove-Item]，ParameterBindingValidationException
+      + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Commands.RemoveItemC 
+     ommand
+   
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/test-workspace.test.mjs:10:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

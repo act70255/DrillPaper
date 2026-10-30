@@ -1,0 +1,9 @@
+✔ 主題 CLI 缺少 USERPROFILE 時記錄詳細日誌並顯示繁中友善提示 (1213.7856ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1393.0564

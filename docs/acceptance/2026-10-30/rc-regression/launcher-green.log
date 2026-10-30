@@ -1,0 +1,9 @@
+✔ CLI 啟動器直接保留參數、隔離設定、UTF-8 輸出與非零退出碼 (349.7501ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 757.1781

@@ -1,0 +1,46 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+  Test  #1: CPU sampling marks the first reading as warm-up
+  Test  #2: CPU sampling derives busy time from GetSystemTimes deltas
+  Test  #3: CPU sampling resets its baseline after counters decrease
+  Test  #4: A real zero metric differs from an unavailable metric
+  Test  #5: Snapshot units describe byte counts and byte rates
+  Test  #6: Network rate uses monotonic counter deltas and elapsed time
+  Test  #7: An idle network interface is a valid zero rate
+  Test  #8: Network rate rejects resets and zero-length intervals
+  Test  #9: Metrics history retains only the newest 120 snapshots
+  Test #10: Snapshot coalescing keeps one latest pending value
+  Test #11: Metric change detection uses units, quality, and a numeric threshold
+  Test #12: Power state transitions debounce obscured changes and request fresh data on resume
+  Test #13: Sampling scheduler pauses and resumes without catch-up loops
+  Test #14: Sampling worker collects outside the caller thread and stops while paused
+  Test #15: Sampling worker resumes immediately with a fresh baseline
+  Test #16: Sampling worker reports collector failure without terminating the process
+  Test #17: Sampling worker discards an in-flight snapshot from the previous generation
+  Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget
+  Test #19: Manual pause survives power changes and resumes the current policy
+  Test #20: Monitor selection uses only connected selected areas and restores returning targets
+  Test #21: Clone targets share one renderer area and empty selection never falls back
+  Test #22: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+  Test #23: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+  Test #24: Protocol v1 parses bounded history requests and preserves request IDs
+  Test #25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+  Test #26: Protocol v1 subscription removes unknown and duplicate metric names
+  Test #27: Protocol v1 serializes control envelopes without changing their payload
+  Test #28: Protocol v1 history snapshots carry their own timestamps
+  Test #29: Settings preserve the chosen theme mode and sleep preference
+  Test #30: Invalid settings and failed atomic replacement preserve existing preferences
+  Test #31: Settings accept installed theme identifiers supported by the manifest
+  Test #32: Monitor target settings migrate legacy preferences and preserve disconnected targets
+  Test #33: Invalid monitor target settings cannot replace a saved selection
+  Test #34: Windows metrics collector reports typed readings and warms up CPU/network rates
+  Test #35: Desktop fallback restores a normal top-level preview
+  Test #36: Management client stays 800 by 600 logical pixels on connected monitors
+  Test #37: Management refuses maximize and arbitrary resizing
+  Test #38: Management long messages and monitor identities remain readable and scrollable
+  Test #39: Management replaces unnamed device paths without losing monitor metadata
+  Test #40: Management layout and keyboard navigation stay reachable at connected DPI
+  Test #41: Connected monitors expose stable target identities and physical desktop rectangles
+  Test #42: DrillPaperThemeTests
+  Test #43: DrillPaperThemeCli
+
+Total Tests: 43

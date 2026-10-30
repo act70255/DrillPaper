@@ -1,0 +1,378 @@
+{
+  "result": "PASS",
+  "started": "2026-10-30T15:52:32.0260508+08:00",
+  "phases": [
+    {
+      "savedPreviewObservation": "NOT RUN：本情境於保存後立即要求退出，不等待新 Preview。",
+      "primary": {
+        "top": 0,
+        "bottom": 1080,
+        "left": 0,
+        "right": 1920
+      },
+      "saved": {
+        "allowNetwork": false,
+        "displayMode": "preview",
+        "monitorTargets": [
+          "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+        ],
+        "schemaVersion": 2,
+        "smartSleep": true,
+        "theme": "minimal"
+      },
+      "round": 1,
+      "start": "2026-10-30T07:52:34.8127101Z",
+      "saveCommandUtc": "2026-10-30T07:52:40.6867802Z",
+      "mode": "desktop",
+      "smartSleep": 1,
+      "parent": 70916314,
+      "saveReturnedUtc": "2026-10-30T07:52:41.2920815Z",
+      "ready": 1,
+      "id": 101504,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "network": 0
+    },
+    {
+      "id": 28612,
+      "network": 0,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "ready": 1,
+      "smartSleep": 1,
+      "round": 1,
+      "settingsSha256": "FDE1C85715FFCD6A0CF7B15097E4EFBE358E02E53741A1791147DD972F6A33BC",
+      "mode": "preview",
+      "dashboard": "PASS",
+      "parent": 0,
+      "start": "2026-10-30T07:52:55.1723651Z"
+    },
+    {
+      "savedPreviewObservation": "NOT RUN：本情境於保存後立即要求退出，不等待新 Preview。",
+      "primary": {
+        "top": 0,
+        "bottom": 1080,
+        "left": 0,
+        "right": 1920
+      },
+      "saved": {
+        "allowNetwork": false,
+        "displayMode": "preview",
+        "monitorTargets": [
+          "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+        ],
+        "schemaVersion": 2,
+        "smartSleep": true,
+        "theme": "minimal"
+      },
+      "round": 2,
+      "start": "2026-10-30T07:53:10.8584600Z",
+      "saveCommandUtc": "2026-10-30T07:53:14.1646071Z",
+      "mode": "desktop",
+      "smartSleep": 1,
+      "parent": 70916314,
+      "saveReturnedUtc": "2026-10-30T07:53:14.8419549Z",
+      "ready": 1,
+      "id": 98708,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "network": 0
+    },
+    {
+      "id": 90104,
+      "network": 0,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "ready": 1,
+      "smartSleep": 1,
+      "round": 2,
+      "settingsSha256": "FDE1C85715FFCD6A0CF7B15097E4EFBE358E02E53741A1791147DD972F6A33BC",
+      "mode": "preview",
+      "dashboard": "PASS",
+      "parent": 0,
+      "start": "2026-10-30T07:53:28.6558167Z"
+    },
+    {
+      "savedPreviewObservation": "NOT RUN：本情境於保存後立即要求退出，不等待新 Preview。",
+      "primary": {
+        "top": 0,
+        "bottom": 1080,
+        "left": 0,
+        "right": 1920
+      },
+      "saved": {
+        "allowNetwork": false,
+        "displayMode": "preview",
+        "monitorTargets": [
+          "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+        ],
+        "schemaVersion": 2,
+        "smartSleep": true,
+        "theme": "minimal"
+      },
+      "round": 3,
+      "start": "2026-10-30T07:53:40.6534763Z",
+      "saveCommandUtc": "2026-10-30T07:53:43.0851118Z",
+      "mode": "desktop",
+      "smartSleep": 1,
+      "parent": 70916314,
+      "saveReturnedUtc": "2026-10-30T07:53:43.4630565Z",
+      "ready": 1,
+      "id": 46512,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "network": 0
+    },
+    {
+      "id": 28264,
+      "network": 0,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "ready": 1,
+      "smartSleep": 1,
+      "round": 3,
+      "settingsSha256": "FDE1C85715FFCD6A0CF7B15097E4EFBE358E02E53741A1791147DD972F6A33BC",
+      "mode": "preview",
+      "dashboard": "PASS",
+      "parent": 0,
+      "start": "2026-10-30T07:53:52.5571921Z"
+    }
+  ],
+  "shutdowns": [
+    {
+      "exitObservationUtc": "2026-10-30T07:52:54.1916430Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:52:41.4608020Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:52:42.8232721Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:52:40.9323453Z",
+          "id": 56988,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:52:41.4083675Z",
+          "id": 83444,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 11362.5637
+    },
+    {
+      "exitObservationUtc": "2026-10-30T07:53:09.7604251Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:53:01.2433761Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:53:02.4451577Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:52:58.5088076Z",
+          "id": 95064,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:52:58.7861463Z",
+          "id": 56388,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:52:59.9457721Z",
+          "id": 10440,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:52:59.9801065Z",
+          "id": 83172,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:00.2445251Z",
+          "id": 86440,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:00.4452855Z",
+          "id": 71728,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 7315.1362
+    },
+    {
+      "exitObservationUtc": "2026-10-30T07:53:27.3862216Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:53:14.8603152Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:53:16.0402468Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:53:14.5972159Z",
+          "id": 64872,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:14.7897002Z",
+          "id": 55636,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 11345.8137
+    },
+    {
+      "exitObservationUtc": "2026-10-30T07:53:40.0220702Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:53:32.7903586Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:53:33.9348720Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:53:29.3806114Z",
+          "id": 51800,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:29.5498493Z",
+          "id": 12804,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:30.3383004Z",
+          "id": 91600,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:30.3630424Z",
+          "id": 104664,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:30.5193660Z",
+          "id": 57252,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:31.9046328Z",
+          "id": 102588,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 6086.5474
+    },
+    {
+      "exitObservationUtc": "2026-10-30T07:53:51.7663662Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:53:43.4787540Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:53:44.8534667Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:53:43.3118615Z",
+          "id": 52820,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:43.4941648Z",
+          "id": 104364,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:44.2343738Z",
+          "id": 103832,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:44.2652904Z",
+          "id": 102948,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 6912.7814
+    },
+    {
+      "exitObservationUtc": "2026-10-30T07:54:02.8316445Z",
+      "result": "PASS",
+      "childObservationStartedUtc": "2026-10-30T07:53:56.0636934Z",
+      "observationError": null,
+      "exitCommandUtc": "2026-10-30T07:53:57.0894866Z",
+      "children": [
+        {
+          "start": "2026-10-30T07:53:53.0690296Z",
+          "id": 105268,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:53.1616548Z",
+          "id": 102036,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:53.6850806Z",
+          "id": 5888,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:53.7083109Z",
+          "id": 100440,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:53.8417281Z",
+          "id": 32756,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        },
+        {
+          "start": "2026-10-30T07:53:55.3852957Z",
+          "id": 71612,
+          "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+        }
+      ],
+      "exitCode": 0,
+      "childrenExited": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "exitWaitMilliseconds": 5742.028
+    }
+  ],
+  "application": {
+    "sha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-6\\DrillPaper.exe"
+  },
+  "launcher": false,
+  "immediateExitAfterSave": true,
+  "ended": "2026-10-30T15:54:03.0668809+08:00"
+}

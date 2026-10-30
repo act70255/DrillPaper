@@ -17,3 +17,5 @@ node_modules/
 /sdk/author-starter/dist/
 /sdk/author-starter/src/desktop-monitor-sdk.d.ts
 /sdk/author-starter/src/mock-host.d.ts
+# 本機隔離瀏覽器資料不作驗收證據提交；清理受政策阻擋時亦保留在本機。
+/docs/acceptance/2026-10-30/rc-regression/**/appdata/

@@ -1,7 +1,8 @@
 ﻿[CmdletBinding()]
 param([Parameter(Mandatory)][string]$ApplicationPath,
     [string]$EvidenceDirectory,
-    [switch]$DesktopPowerRecovery)
+    [switch]$DesktopPowerRecovery,
+    [string]$ParentFixturePath)
 #requires -Version 7.0
 $ErrorActionPreference = 'Stop'
 try {
@@ -557,7 +558,9 @@ run().catch(error => console.error(error));
     $list = [DrillPaperMonitorProbe]::GetDlgItem($manager,20108)
     Record-Surfaces 'all-selected-restart'
     if ($DesktopPowerRecovery) { Test-DesktopPowerRecovery }
-    $fixturePath = Join-Path ([IO.Path]::GetDirectoryName($application)) 'DrillPaperParentFixture.exe'
+    # 候選 ZIP 不含測試工具，允許明確指定同次來源建置的外部 fixture。
+    $fixturePath = if ($ParentFixturePath) { [IO.Path]::GetFullPath($ParentFixturePath) }
+        else { Join-Path ([IO.Path]::GetDirectoryName($application)) 'DrillPaperParentFixture.exe' }
     if (-not (Test-Path -LiteralPath $fixturePath)) { throw '尚未建置跨程序父視窗 fixture。' }
     $fixtureReady = Join-Path $session 'parent-ready.txt'
     $fixture = Start-SecurityProcess -FilePath $fixturePath -ArgumentList $fixtureReady -EvidenceDirectory $session

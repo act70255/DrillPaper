@@ -1,0 +1,35 @@
+✖ 安全整合入口拒絕既有證據目錄並保留其中資料 (5318.811ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5513.7339
+
+✖ failing tests:
+
+test at tests\test-workspace.test.mjs:32:1
+✖ 安全整合入口拒絕既有證據目錄並保留其中資料 (5318.811ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /證據目錄已存在，拒絕覆寫/. Input:
+  
+  'Set-Content: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-webview2-security.ps1:171\r\n' +
+    'Line |\r\n' +
+    ` 171 |  �K ons":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') �K\r\n` +
+    '     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n' +
+    "     | Could not find a part of the path 'C:\\Users\\James\\DrillPaperTests\\�^�k\r\n" +
+    "     | �t�ť�\\existing-evidence-mOLBFA\\source\\theme.json'.\r\n"
+  
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/test-workspace.test.mjs:42:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `Set-Content: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-webview2-security.ps1:171\r\nLine |\r\n 171 |  �K ons":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') �K\r\n     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Could not find a part of the path 'C:\\Users\\James\\DrillPaperTests\\�^�k\r\n     | �t�ť�\\existing-evidence-mOLBFA\\source\\theme.json'.\r\n`,
+    expected: /證據目錄已存在，拒絕覆寫/,
+    operator: 'match',
+    diff: 'simple'
+  }

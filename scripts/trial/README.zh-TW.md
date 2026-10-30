@@ -35,12 +35,12 @@
 
 先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；沒有安裝器，不宣稱安裝器／解除安裝通過。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
 
-## 已知限制與票 09 交接
+## 已知限制與 RC 回歸
 
-- **交付入口固定帶 `--no-smart-sleep`**，每次只覆寫本次智慧休眠為關閉；產品自身預設不變。若按儲存，關閉值也會保存。此包不宣稱智慧休眠省電驗收通過；手動重開仍待回歸。03 歷史預設啟動 FAIL 保留，05 新版未重現不等於根因修復。
-- **08-D1：保存 Preview 後正式退出超過工具 15 秒觀測期限**；第 2 輪 FAIL 原樣保存，程序後來自行 exit 0。依 2026-10-30 確認決策停止追查，缺陷與繞行移除交給 09；本包保留繞行可供其餘交付驗證，不解除 RC gate。
+- **trial.7 入口移除 `--no-smart-sleep` 繞行**，全新資料沿用產品預設開啟智慧休眠；既有保存為關閉的設定仍保持關閉，不自動改寫。票 09 在本機非 Temp 使用者目錄、隔離資料以產品預設完成三輪立即退出及三輪待新 Preview 就緒的驗證後，依已確認條件移除；不代替真正鎖定／關屏／睡眠的省電驗收。原 trial.6 不變，仍帶繞行。03 歷史預設啟動 FAIL 保留，不宣稱根因已修復。
+- **08-D1：保存 Preview 後正式退出超過工具 15 秒觀測期限**；原第 2 輪 FAIL 保留。09 三輪未等待新 Preview 就緒即要求退出時未重現，仍用 15 秒期限且記錄命令／退出時間；不能推定已修正所有時序或防毒影響，後續再現須保存證據並重開缺陷。
 - 04 安全仍 PARTIAL：完整 DNS／其他 Runtime／TURN／proxy／外部 handler／真實舊 callback 競態未全部驗收；不保證第三方內容沙箱或 WebView2 零背景網路。
 - 05 真正桌面互動、Explorer、鎖定／關屏／睡眠、多 DPI／拔插等仍有 NOT RUN；06 長測達有限門檻但記憶體仍上升，不能排除洩漏，NVIDIA／真實電源與更長 soak 未驗。
-- 07／08 GUI 選檔／確認移除、完整版面、真正無來源與工具的一般使用者機器、真實缺 Runtime、更新／回復等仍須人工清單。完整測試、遠端 CI 與 A01～A16／RC 放行由 09 處理；本票本機隔離測試不代替這些結果。
+- 07／08 GUI 選檔／確認移除、完整版面、真正無來源與工具的一般使用者機器、真實缺 Runtime、更新／回復等仍須人工清單。09 完整自動測試不代替必要實機證據，本試用包不表示 RC 放行；以 repository 最終判定為準。
 
-逐項結果、來源／hash／命令與人工清單見 repository 的 `docs/acceptance/2026-10-30/delivery-final/`；先前探針證據保留於 `delivery/`。第一方 Apache-2.0 與第三方授權見 LICENSE、THIRD_PARTY_NOTICES.md、resources/licenses。
+逐項結果、來源／hash／命令與人工清單見 repository 的 `docs/acceptance/2026-10-30/rc-regression/`；票 08 原始交付與失敗證據保留於 `delivery-final/` 及 `delivery/`。第一方 Apache-2.0 與第三方授權見 LICENSE、THIRD_PARTY_NOTICES.md、resources/licenses。

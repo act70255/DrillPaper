@@ -1,0 +1,56 @@
+[
+  {
+    "sha256": "F8297B35D5C6FBEAA0A735CAE8EECFB079228385CFA7673213F55A52419D576A",
+    "result": "PASS",
+    "file": "scripts/test.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "942FE3F0F953740E70432C02293DA26B7D55069E41FCBB3CEA8D0C87FB7BD8B8",
+    "result": "PASS",
+    "file": "scripts/test-theme-cli.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "956B05F58D866EE66CAAA614DF8AA8302929062D937A129C40D4DD290CDAF30C",
+    "result": "PASS",
+    "file": "scripts/test-workspace.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "0759AF034D63F7F30EE7B39B7D7997F90EA8BC7A278E83F67FC5FDA64D83C7A3",
+    "result": "PASS",
+    "file": "scripts/test-delivery.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "886B6707ACE071E2D976027D3F4032AE9C6FC2DD40B27B43103361EDDF83ECDE",
+    "result": "PASS",
+    "file": "scripts/test-multi-monitor.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "29A6394A2B961A0C37457BF05695486CE05A22B4221F77EF14ECB27C1E8B9DBE",
+    "result": "PASS",
+    "file": "scripts/test-webview2-security.ps1",
+    "parser": "PowerShell 7"
+  },
+  {
+    "sha256": "ED79E31D3745BA81643720C1CA92D52140D91C523FEE0CBC0CECE05BEB48FFBB",
+    "result": "PASS",
+    "file": "tests/fixtures/theme-cli-launcher.mjs",
+    "parser": "Node --check"
+  },
+  {
+    "sha256": "F5F5C2BD738AEB30A2B2AD980E8E5B5D1D19170D3C702D4800513CB4B6BA6957",
+    "result": "PASS",
+    "file": "tests/theme-cli-launcher.test.mjs",
+    "parser": "Node --check"
+  },
+  {
+    "sha256": "2DF333B5A75791DE278DFE4E474206183833560AFF1C8FC52335290F24980790",
+    "result": "PASS",
+    "file": "tests/test-workspace.test.mjs",
+    "parser": "Node --check"
+  }
+]
