@@ -1,4 +1,14 @@
 # 開發狀態
+## 2026-10-30 RC 13 — 空選擇友善提示與 Preview 驗證範圍
+
+- Branch／base：從乾淨 HEAD `c8b9b0a9329704c719aad67bfb2533833725830f` 建立 `feature/rc-13-empty-selection-notice`；票 12 已完成，票 13 implemented 表示程式、自動驗證及人工交接完成。已讀 handoff／架構／相關 STATUS／票與 spec，前提成立、無決策衝突；需求見 [REQUEST](acceptance/2026-10-30/empty-selection/REQUEST.md)。
+- Scope／files：app 在副作用前共用桌布目標驗證，預期錯誤具體繁中提示及日誌，其他錯誤仍通用提示；SettingsStore 允許空／首次未解析 Preview 保存成 schema 2 空陣列，桌布保護保留。CLI 強制桌布覆寫同樣先驗證，空選擇 exit 1；原生管理僅轉送操作 BN_CLICKED，修正文字／焦點通知清掉提示的同票根因，標籤限「桌布至少一個」。新增設定／原生回歸、既有多螢幕 runner 的獨立空選擇模式及 README／政策／架構說明；未擴張票 14～15 或 09-D2，ADR 無。
+- TDD／related PASS：Preview 空保存、首次未解析保存、原通用提示、CLI 零宿主與原生通知各有 Red→Green。最終原生 CMake `cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperManagementIntegrationTests --parallel 8` PASS，較早建置 Tests／SettingsTests；選取設定／目標／全部管理相關 CTest **16/16 PASS**、2.92 秒，包含固定 800×600、長訊息／鍵盤；PS7 parser／證據拒覆寫 PASS。完整套件／SDK／其他工具／CI／封裝 **NOT RUN**，依指示留收尾。
+- Windows 自動整合 PASS：非 Temp 使用者繁中空白副本、隔離 LOCALAPPDATA、Node 直接啟動，產品測試循序。桌布空選擇保存／主題套用拒絕的訊息框及管理狀態具體原因、設定 hash 與有效 HWND／parent／幾何／世代不變；Preview 預覽／保存／新指標、非預期主題錯誤通用提示及詳細 log、CLI 空選擇覆寫 exit 1、重啟保留空 Preview／hash／提示、選回目標後恢復桌布均 PASS。兩次正式 exit 0、12 個當下已觀察 WebView2 退出；不當人眼／真實硬體或完整子程序捕捉證據。
+- Evidence／environment：Windows 11 26200、既有 WebView2 SDK 1.0.2478.35／Runtime 156.0.4314.50，管理原生幾何實測 DPI144／96。最終 EXE SHA `D586024E37062325B39527A1E5B711E359AFC83343AFCCEA2A159928E5059721`，來源 base＋工作樹與逐檔 hash、命令、全部前輪工具／產品 FAIL 與最終 PASS 見 [REPORT](acceptance/2026-10-30/empty-selection/REPORT.md)。最初訊息框定位／關閉工具問題與重啟後提示消失分開；後者經等待及重新找 HWND 仍重現，原生 Red 確認通知誤轉命令後才修正，不改寫歷史 FAIL、不推定防毒根因。
+- Safety／NOT RUN：原桌布 83428 path／UTC ticks639288432499803524／SHA3C7AB5…15BCE 前後不變、收尾唯一 app，無 RC13 profile WebView2 殘留；未重啟 Explorer、未關閉／替換原桌布。Apex One 可讀 BM log 前後45890bytes／14:51:46／SHA C1550D…A7D88 不變，未觀察新增攔截非完整觀測，無已證實防毒 BLOCKED。人工畫面可讀性、其他 DPI／OS／Runtime、真正拔插等 **NOT RUN**，原因及操作見 [人工清單](acceptance/2026-10-30/empty-selection/MANUAL_CHECKLIST.md)，既有 RC gate 保留。
+- Review／commit：implement／code-review 兩代理唯讀平行審查，Standards 0／Spec 初1項 CLI 缺口修正後0；原生通知修正複查亦0／0，見 [REVIEW](acceptance/2026-10-30/empty-selection/REVIEW.md)。更新票與本節後使用 commit-msg 依實際暫存差異產生繁中 Conventional Commit，本票唯一 commit 並 push 功能分支，hash以 Git 記錄為準。不合併 main、不公開發布。
+
 ## 2026-10-30 RC 12 — 無法辨識螢幕暫時退化與列舉失敗復原
 
 - Branch／base：從 HEAD `054c9017156098c36c33832c7740086e02aede97` 建立 `feature/rc-12-unidentified-monitor-degrade`，原工作樹乾淨。票 12 設為 implemented，表示程式及可自動驗證部分完成；已讀 handoff／架構／相關 STATUS／票與 spec，前提成立，沒有決策衝突。需求與方案見 [REQUEST](acceptance/2026-10-30/unidentified-monitor/REQUEST.md)。

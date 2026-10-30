@@ -35,6 +35,8 @@ RC 12 的螢幕錯誤邊界位於 platform/windows：可注入 Windows 裝置名
 
 `SettingsStore` 位於 app，管理版本化非敏感偏好、內容及路徑檢查、同目錄暫存／flush／原子取代；損毀原檔不覆蓋。原生管理視窗提供圖形化匯入／確認移除及設定草稿，沿用 ThemeManager 驗證與安裝邊界；移除目前主題先載入 Minimal 並關閉舊 controller。可信內建資產含 SDK 型別宣告，與受限制的第三方安裝內容分開載入，沒有放寬匯入副檔名政策。
 
+RC 13 的空選擇限制只適用桌布模式，app composition 在任何套用副作用前拋出具型別的設定驗證錯誤；管理命令顯示具體繁中提示並記日誌，其他例外仍走既有通用提示。Preview 的空目標可保存成 schema 2 空陣列，切回桌布時重新驗證；平台管理視窗只傳草稿與命令，不負責產品驗證政策。
+
 `web` 使用每次載入獨立的 GUID HTTPS 來源，透過 WebView2 資源事件提供含宿主 CSP 的本機回應；不啟動 HTTP server。HTTP／HTTPS 全域偏好同時接入 CSP 與 request policy，原生管理介面處理首次提示，通知不授權連網。外部導覽、框架、下載、權限及彈窗各自拒絕。由 folder mapping 改為宿主回應的理由、效能代價及限制見 `docs/adr/0001-host-controlled-theme-responses.md`。
 
 每次載入採不同可註冊 .invalid 網域，隔離父網域 Cookie；宿主 Connection-Allowlist 補足 WebRTC 與推測連線的政策。本機已證實 STUN／TURN-TCP 與單一 loopback preconnect，不推論所有 Runtime／DNS。失敗頂層導覽若提交來源外的錯誤頁，Web adapter 以世代通知 app 切回可信 Minimal；不寫回偏好，Minimal 也失敗則停止 renderer、保留原生管理入口。詳見 ADR 0002–0004。

@@ -36,13 +36,14 @@ struct ManagementFixture {
     HWND owner = nullptr;
     HWND manager = nullptr;
     win::ManagementShell shell;
+    std::vector<UINT> commands;
 
     /** 建立本測試擁有的原生管理視窗，不附掛或重啟 Explorer。 */
     ManagementFixture() {
         owner = CreateWindowExW(0, L"STATIC", L"設定視窗測試通知入口", WS_OVERLAPPED,
             0, 0, 1, 1, nullptr, nullptr, GetModuleHandleW(nullptr), nullptr);
         REQUIRE(owner);
-        REQUIRE(shell.Initialize(owner, [](UINT) {}));
+        REQUIRE(shell.Initialize(owner, [this](UINT command) { commands.push_back(command); }));
         EnumThreadWindows(GetCurrentThreadId(), [](HWND window, LPARAM data) -> BOOL {
             wchar_t name[128]{};
             GetClassNameW(window, name, 128);
@@ -148,6 +149,20 @@ TEST_CASE("Management client stays 800 by 600 logical pixels on connected monito
         REQUIRE(client.right == MulDiv(800, dpi, 96));
         REQUIRE(client.bottom == MulDiv(600, dpi, 96));
     }
+}
+
+TEST_CASE("Management text notifications do not become actions or erase validation notices", "[integration][management]") {
+    ManagementFixture fixture;
+    const auto status = GetDlgItem(fixture.manager, 20100);
+    fixture.shell.Update(L"Minimal", L"桌布模式至少需選擇一個目標螢幕。", false, false);
+    SendMessageW(fixture.manager, WM_COMMAND, MAKEWPARAM(20100, EN_SETFOCUS), reinterpret_cast<LPARAM>(status));
+    SendMessageW(fixture.manager, WM_COMMAND, MAKEWPARAM(20100, EN_CHANGE), reinterpret_cast<LPARAM>(status));
+    SendMessageW(fixture.manager, WM_COMMAND, MAKEWPARAM(win::kManageDesktop, BN_SETFOCUS),
+        reinterpret_cast<LPARAM>(GetDlgItem(fixture.manager, win::kManageDesktop)));
+    REQUIRE(fixture.commands.empty());
+    SendMessageW(fixture.manager, WM_COMMAND, MAKEWPARAM(win::kManageDesktop, BN_CLICKED),
+        reinterpret_cast<LPARAM>(GetDlgItem(fixture.manager, win::kManageDesktop)));
+    REQUIRE(fixture.commands == std::vector<UINT>{win::kManageDesktop});
 }
 
 TEST_CASE("Management unidentified monitors cannot be checked or returned for saving", "[integration][management]") {

@@ -1,0 +1,79 @@
+{
+  "result": "FAIL",
+  "reason": "沒有唯一可見且按鈕已建立的訊息框。",
+  "timestamp": "2026-10-30T18:02:08.3521798+08:00",
+  "evidence": [
+    {
+      "phase": "all-selected-minimal",
+      "surfaces": [
+        {
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "dpi": 144,
+          "load": 4,
+          "right": 1920,
+          "ready": 2,
+          "hwnd": 265689822,
+          "top": 0,
+          "tick": 0,
+          "bottom": 1080,
+          "health": 0,
+          "left": 0,
+          "attached": 1,
+          "parent": 70916314
+        },
+        {
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "dpi": 96,
+          "load": 5,
+          "right": 3840,
+          "ready": 3,
+          "hwnd": 9704960,
+          "top": 0,
+          "tick": 0,
+          "bottom": 1080,
+          "health": 0,
+          "left": 1920,
+          "attached": 2,
+          "parent": 70916314
+        }
+      ],
+      "timestamp": "2026-10-30T18:01:33.1208662+08:00"
+    },
+    {
+      "phase": "condition-timeout",
+      "surfaces": [
+        {
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "dpi": 144,
+          "load": 4,
+          "right": 1920,
+          "ready": 2,
+          "hwnd": 265689822,
+          "top": 0,
+          "tick": 1587220265,
+          "bottom": 1080,
+          "health": 1587215421,
+          "left": 0,
+          "attached": 1,
+          "parent": 70916314
+        },
+        {
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "dpi": 96,
+          "load": 5,
+          "right": 3840,
+          "ready": 3,
+          "hwnd": 9704960,
+          "top": 0,
+          "tick": 1587220265,
+          "bottom": 1080,
+          "health": 1587215421,
+          "left": 1920,
+          "attached": 2,
+          "parent": 70916314
+        }
+      ],
+      "timestamp": "2026-10-30T18:02:08.2837646+08:00"
+    }
+  ]
+}

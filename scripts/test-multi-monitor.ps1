@@ -2,12 +2,23 @@
 param([Parameter(Mandatory)][string]$ApplicationPath,
     [string]$EvidenceDirectory,
     [switch]$DesktopPowerRecovery,
+    [switch]$EmptySelectionNotice,
     [string]$ParentFixturePath)
 #requires -Version 7.0
 $ErrorActionPreference = 'Stop'
 try {
 . (Join-Path $PSScriptRoot 'security-process.ps1')
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
+if ($EmptySelectionNotice) {
+    if ($DesktopPowerRecovery) { throw '空選擇回歸與電源復原回歸必須分開循序執行。' }
+    if (-not $env:USERPROFILE -or -not $EvidenceDirectory) { throw '空選擇回歸需要 USERPROFILE 及明確的全新證據目錄。' }
+    $profileRoot = [IO.Path]::GetFullPath($env:USERPROFILE).TrimEnd('\') + '\'
+    $tempRoot = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd('\') + '\'
+    foreach ($path in @($application,[IO.Path]::GetFullPath($EvidenceDirectory))) {
+        if (-not $path.StartsWith($profileRoot,[StringComparison]::OrdinalIgnoreCase) -or
+            $path.StartsWith($tempRoot,[StringComparison]::OrdinalIgnoreCase)) { throw '空選擇回歸的 EXE 及證據必須位於非 Temp 使用者目錄。' }
+    }
+}
 Add-Type -TypeDefinition @'
 using System;
 using System.Text;
@@ -29,6 +40,7 @@ public static class DrillPaperMonitorProbe {
     [DllImport("user32.dll")] public static extern IntPtr GetDlgItem(IntPtr window, int id);
     [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr GetProp(IntPtr window, string name);
     [DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
+    [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr window, uint message, UIntPtr value, IntPtr data);
     [DllImport("user32.dll", CharSet=CharSet.Unicode, EntryPoint="SendMessageW")] public static extern IntPtr ReadText(IntPtr window, uint message, UIntPtr size, StringBuilder text);
     [DllImport("user32.dll")] public static extern IntPtr SetThreadDpiAwarenessContext(IntPtr context);
     [DllImport("kernel32.dll", SetLastError=true)] private static extern IntPtr OpenProcess(uint access, bool inherit, uint process);
@@ -188,6 +200,135 @@ function Get-SurfaceCaption([IntPtr]$Window) {
     $text = [Text.StringBuilder]::new(1024)
     [void][DrillPaperMonitorProbe]::ReadText($Window,0xD,[UIntPtr]::new(1024),$text)
     return $text.ToString()
+}
+function Get-TargetSignature {
+    <# 讀取公開宿主身分、幾何及載入世代，排除持續更新的時間戳。
+    Returns:
+        可比對的有效目標 JSON。
+    #>
+    @(foreach ($window in @(Get-Surfaces | Sort-Object { $_.ToInt64() })) {
+        $rect = [DrillPaperMonitorProbe+Rect]::new()
+        [void][DrillPaperMonitorProbe]::GetWindowRect($window,[ref]$rect)
+        @($window.ToInt64(),[DrillPaperMonitorProbe]::GetParent($window).ToInt64(),
+            [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.LoadEpoch').ToInt64(),
+            $rect.left,$rect.top,$rect.right,$rect.bottom)
+    }) | ConvertTo-Json -Compress -Depth 4
+}
+function Assert-CommandNotice([int]$Command, [string]$Expected) {
+    <# 觀察正式原生命令的訊息框及管理狀態，並確認拒絕後沒有變更。
+    Args:
+        Command: 可信管理命令。
+        Expected: 規格要求的完整提示。
+    #>
+    $managers = @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperManagementWindow'))
+    if ($managers.Count -ne 1) { throw '沒有唯一的目前程序管理視窗。' }
+    $manager = $managers[0]
+    $hash = (Get-FileHash -LiteralPath $settingsFile).Hash
+    $targets = Get-TargetSignature
+    if (-not [DrillPaperMonitorProbe]::PostMessage($notification,0x111,[UIntPtr]::new([uint32]$Command),[IntPtr]::Zero)) { throw '無法送出管理命令。' }
+    Wait-Condition {
+        @([DrillPaperMonitorProbe]::Find($app.Id,'#32770') | Where-Object {
+            [DrillPaperMonitorProbe]::IsWindowVisible($_) -and [DrillPaperMonitorProbe]::GetDlgItem($_,65535) -ne [IntPtr]::Zero
+        }).Count -eq 1
+    } '沒有唯一可見且文字已建立的訊息框。'
+    $dialog = @([DrillPaperMonitorProbe]::Find($app.Id,'#32770') | Where-Object {
+        [DrillPaperMonitorProbe]::IsWindowVisible($_) -and [DrillPaperMonitorProbe]::GetDlgItem($_,65535) -ne [IntPtr]::Zero
+    })[0]
+    $text = Get-SurfaceCaption ([DrillPaperMonitorProbe]::GetDlgItem($dialog,65535))
+    $evidence.Add(@{phase="dialog-$Command"; hwnd=$dialog.ToInt64(); text=$text; timestamp=(Get-Date -Format o)})
+    Record-Surfaces "dialog-$Command"
+    # 先關閉本次程序訊息框，再做斷言，避免失敗後留下模態視窗。
+    [void][DrillPaperMonitorProbe]::PostMessage($dialog,0x10,[UIntPtr]::Zero,[IntPtr]::Zero)
+    Wait-Condition { -not [DrillPaperMonitorProbe]::IsWindowVisible($dialog) } '訊息框未關閉。'
+    Wait-Condition {
+        (Get-SurfaceCaption ([DrillPaperMonitorProbe]::GetDlgItem($manager,20100))).Contains($Expected)
+    } '管理狀態未顯示指定原因。'
+    $status = Get-SurfaceCaption ([DrillPaperMonitorProbe]::GetDlgItem($manager,20100))
+    $evidence.Add(@{phase="notice-$Command"; manager=$manager.ToInt64(); expected=$Expected; dialog=$text; status=$status; timestamp=(Get-Date -Format o)})
+    Record-Surfaces "notice-$Command"
+    if ($text -ne $Expected -or -not $status.Contains($Expected)) { throw "提示不符，訊息框：$text；管理狀態：$status" }
+    if ((Get-FileHash -LiteralPath $settingsFile).Hash -ne $hash -or (Get-TargetSignature) -ne $targets) { throw '拒絕操作改寫設定或目前有效宿主。' }
+}
+function Test-EmptySelectionNotice {
+    <# 驗證桌布拒絕、Preview 空選擇及非預期錯誤；只操作本次隔離資料。 #>
+    $specific = '桌布模式至少需選擇一個目標螢幕。'
+    for ($index=0; $index -lt $count; $index++) { [DrillPaperMonitorProbe]::Check($app.Id,$list,$index,$false) }
+    Assert-CommandNotice 20010 $specific
+    Assert-CommandNotice 20013 $specific
+    # 主題預覽不保存；草稿仍為桌布模式，但命令本身要求 Preview。
+    $savedHash = (Get-FileHash -LiteralPath $settingsFile).Hash
+    Send-Command 20012
+    Wait-Ready 1
+    if ([DrillPaperMonitorProbe]::GetParent(@(Get-Surfaces)[0]) -ne [IntPtr]::Zero -or
+        (Get-FileHash -LiteralPath $settingsFile).Hash -ne $savedHash) { throw '空選擇主題預覽未生效或改寫保存設定。' }
+    [void][DrillPaperMonitorProbe]::SendMessage([DrillPaperMonitorProbe]::GetDlgItem($manager,20102),0x14E,[UIntPtr]::new(1),[IntPtr]::Zero)
+    [void][DrillPaperMonitorProbe]::SendMessage([DrillPaperMonitorProbe]::GetDlgItem($manager,20106),0xF1,[UIntPtr]::new(1),[IntPtr]::Zero)
+    Send-Command 20010
+    Wait-Ready 1
+    $allSurfaceCount = 1
+    Assert-FreshMetrics
+    $preview = Get-Content -Raw -Encoding UTF8 -LiteralPath $settingsFile | ConvertFrom-Json
+    if ($preview.displayMode -ne 'preview' -or @($preview.monitorTargets).Count -ne 0 -or -not $preview.allowNetwork) { throw 'Preview 空選擇及相關設定沒有保存。' }
+    Record-Surfaces 'empty-preview-saved'
+    Assert-CommandNotice 20003 $specific
+    # 同一空選擇 Preview 可再次保存；再以隔離安裝主題損毀觸發非預期錯誤。
+    Send-Command 20010
+    Wait-Ready 1
+    $manifest = Join-Path $session 'appdata/DrillPaper/themes/multi-probe@1.0.0/theme.json'
+    $original = [IO.File]::ReadAllBytes($manifest)
+    try {
+        [IO.File]::WriteAllText($manifest,'{broken')
+        [void][DrillPaperMonitorProbe]::SendMessage([DrillPaperMonitorProbe]::GetDlgItem($manager,20101),0x186,[UIntPtr]::new(2),[IntPtr]::Zero)
+        Assert-CommandNotice 20010 '無法完成管理操作，請查看日誌後重試。'
+    } finally { [IO.File]::WriteAllBytes($manifest,$original) }
+    $log = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $session 'appdata/DrillPaper/logs/management.log')
+    if (-not $log.Contains($specific) -or -not $log.Contains('所選或已保存的主題版本不存在或損毀')) { throw '預期驗證錯誤或主題詳細錯誤未寫入日誌。' }
+    Send-Command 20011
+    $restartHash = (Get-FileHash -LiteralPath $settingsFile).Hash
+    $children = Stop-TestApplication
+    $app.Dispose()
+    $script:app = $null
+    $script:notification = [IntPtr]::Zero
+    # 已保存的空 Preview 透過 CLI 強制桌布，也必須在建立宿主前友善拒絕。
+    $env:LOCALAPPDATA = Join-Path $session 'appdata'
+    $script:app = Start-SecurityProcess -FilePath $application -ArgumentList '--experimental-desktop','--no-smart-sleep' -EvidenceDirectory $session
+    $null = $app.Handle
+    $env:LOCALAPPDATA = $previousLocal
+    Wait-Condition { @([DrillPaperMonitorProbe]::Find($app.Id,'#32770') | Where-Object { [DrillPaperMonitorProbe]::IsWindowVisible($_) }).Count -eq 1 } 'CLI 桌布覆寫沒有友善拒絕空選擇。'
+    $dialog = @([DrillPaperMonitorProbe]::Find($app.Id,'#32770') | Where-Object { [DrillPaperMonitorProbe]::IsWindowVisible($_) })[0]
+    $text = Get-SurfaceCaption ([DrillPaperMonitorProbe]::GetDlgItem($dialog,65535))
+    $evidence.Add(@{phase='empty-preview-cli-desktop'; text=$text; timestamp=(Get-Date -Format o)})
+    Record-Surfaces 'empty-preview-cli-desktop'
+    [void][DrillPaperMonitorProbe]::PostMessage($dialog,0x10,[UIntPtr]::Zero,[IntPtr]::Zero)
+    if (-not $app.WaitForExit(15000) -or $app.ExitCode -ne 1 -or $text -ne $specific -or
+        (Get-FileHash -LiteralPath $settingsFile).Hash -ne $restartHash) { throw 'CLI 空選擇拒絕的提示、退出碼或原設定不符。' }
+    $app.Dispose()
+    $script:app = $null
+    $env:LOCALAPPDATA = Join-Path $session 'appdata'
+    $script:app = Start-SecurityProcess -FilePath $application -ArgumentList '--management','--no-smart-sleep' -EvidenceDirectory $session
+    $null = $app.Handle
+    $env:LOCALAPPDATA = $previousLocal
+    Wait-Condition { @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')).Count -eq 1 } 'Preview 重啟沒有通知入口。'
+    $script:notification = [DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')[0]
+    $script:manager = [DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperManagementWindow')[0]
+    $script:list = [DrillPaperMonitorProbe]::GetDlgItem($manager,20108)
+    Wait-Ready 1
+    Assert-FreshMetrics
+    if ([DrillPaperMonitorProbe]::GetParent(@(Get-Surfaces)[0]) -ne [IntPtr]::Zero -or
+        (Get-FileHash -LiteralPath $settingsFile).Hash -ne $restartHash) { throw 'Preview 空選擇重啟未保留。' }
+    Assert-CommandNotice 20003 $specific
+    # 選回有效目標後才允許切回桌布。
+    [DrillPaperMonitorProbe]::Check($app.Id,$list,0,$true)
+    Send-Command 20013
+    Wait-Ready 1
+    if ([DrillPaperMonitorProbe]::GetParent(@(Get-Surfaces)[0]) -eq [IntPtr]::Zero) { throw '選回目標後仍無法套用桌布。' }
+    Record-Surfaces 'desktop-restored-with-selection'
+    $children += Stop-TestApplication
+    $app.Dispose()
+    $script:app = $null
+    @{result='PASS'; application=$application; hash=(Get-FileHash -LiteralPath $application).Hash;
+        observedExitedChildren=$children; evidence=@($evidence); manualVisual='NOT RUN'; timestamp=(Get-Date -Format o)} |
+        ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
 }
 function Assert-FreshMetrics {
     <# 確認所有已握手宿主繼續推送新資料；不宣稱 DOM 或畫面已更新。 #>
@@ -476,6 +617,7 @@ run().catch(error => console.error(error));
     Assert-AllAreas
     $allSurfaceCount = @([DrillPaperMonitorProbe]::DesktopRects()).Count
     Record-Surfaces 'all-selected-minimal'
+    if ($EmptySelectionNotice) { Test-EmptySelectionNotice; Write-Output "PASS：空選擇提示及 Preview 範圍；$session"; return }
     Send-Command 10002
     Wait-Ready $allSurfaceCount
     Record-Surfaces 'all-selected-dashboard'

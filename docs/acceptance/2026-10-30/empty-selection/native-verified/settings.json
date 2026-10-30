@@ -1,0 +1,10 @@
+{
+  "allowNetwork": true,
+  "displayMode": "desktop",
+  "monitorTargets": [
+    "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+  ],
+  "schemaVersion": 2,
+  "smartSleep": false,
+  "theme": "minimal"
+}

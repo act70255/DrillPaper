@@ -1,0 +1,8 @@
+{
+  "allowNetwork": true,
+  "displayMode": "preview",
+  "monitorTargets": [],
+  "schemaVersion": 2,
+  "smartSleep": false,
+  "theme": "minimal"
+}

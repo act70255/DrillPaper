@@ -63,6 +63,8 @@ cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --management --pr
 
 管理視窗的「套用螢幕」可勾選一個或多個目標；各目標顯示完整的同一主題，未選螢幕保留 Windows 桌面。首次或舊設定遷移只選主螢幕；保存後依裝置 ID 恢復，未連接目標仍保留在清單。部分斷線只顯示仍連接目標；全部斷線時會明確提示並暫用主螢幕，不改寫原選擇，任一目標接回即恢復。鏡像群組共用一個桌面區域；Preview 維持單一視窗。細節、相關驗證命令與人工操作清單見 [多螢幕政策](docs/MULTI_MONITOR.md)，實測範圍以 STATUS 為準。
 
+桌布模式空選擇會顯示「桌布模式至少需選擇一個目標螢幕。」，保留原設定與有效目標。Preview 不要求勾選螢幕，可直接預覽、保存及重啟；切回桌布時須先選至少一個目標。相關原生回歸使用 `scripts/test-multi-monitor.ps1 -ApplicationPath <非 Temp 使用者目錄的隔離 EXE> -EvidenceDirectory <全新證據目錄> -EmptySelectionNotice`，與其他產品測試循序執行；人工畫面缺口見 [RC 13 清單](docs/acceptance/2026-10-30/empty-selection/MANUAL_CHECKLIST.md)。
+
 「允許主題連網」預設關閉；首次封鎖 HTTP／HTTPS 時只提示前往設定，不會自動允許。勾選後按「套用並儲存設定」才允許所有網域的 HTTP／HTTPS 資源，取消會還原草稿；重新啟動會恢復偏好。開關不放行外部導覽、框架、WebSocket、下載、權限或彈窗。設定套用會重新載入主題。
 
 關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊、檔案選擇器、移除確認與 Explorer 重啟依 STATUS 另行驗收。

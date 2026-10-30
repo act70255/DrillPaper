@@ -104,9 +104,10 @@ TEST_CASE("Invalid monitor target settings cannot replace a saved selection", "[
     store.Save(valid);
     auto invalid = valid;
     SECTION("empty desktop selection") { invalid.monitorTargets = std::vector<std::string>{}; }
-    SECTION("empty preview selection cannot become a saved wallpaper target") { invalid.desktop = false; invalid.monitorTargets = std::vector<std::string>{}; }
     SECTION("duplicate target") { invalid.monitorTargets = std::vector<std::string>{"monitor-a", "monitor-a"}; }
     SECTION("empty target ID") { invalid.monitorTargets = std::vector<std::string>{""}; }
+    SECTION("preview still rejects empty target ID") { invalid.desktop = false; invalid.monitorTargets = std::vector<std::string>{""}; }
+    SECTION("preview still rejects duplicate targets") { invalid.desktop = false; invalid.monitorTargets = std::vector<std::string>{"monitor-a", "monitor-a"}; }
     SECTION("unresolved migration") { invalid.monitorTargets.reset(); }
     SECTION("serialized targets exceed readable file size") {
         invalid.monitorTargets = std::vector<std::string>{};
@@ -114,5 +115,36 @@ TEST_CASE("Invalid monitor target settings cannot replace a saved selection", "[
     }
     REQUIRE_THROWS(store.Save(invalid));
     REQUIRE(store.Load() == valid);
+    std::filesystem::remove_all(root);
+}
+
+TEST_CASE("Preview settings save without monitor targets and reject switching to empty desktop", "[settings][monitors]") {
+    using namespace desktopmonitor::app;
+    const auto root = std::filesystem::temp_directory_path() / ("DrillPaper-preview-settings-" + std::to_string(GetCurrentProcessId()));
+    SettingsStore store(root / "settings.json");
+    AppSettings preview;
+    preview.desktop = false;
+    preview.theme = "dashboard";
+    preview.smartSleep = false;
+    preview.allowNetwork = true;
+    preview.monitorTargets = std::vector<std::string>{};
+    store.Save(preview);
+    REQUIRE(store.Load() == preview);
+    auto desktop = preview;
+    desktop.desktop = true;
+    REQUIRE_THROWS(store.Save(desktop));
+    REQUIRE(store.Load() == preview);
+    std::filesystem::remove_all(root);
+}
+
+TEST_CASE("First Preview settings can save before a monitor identity is resolved", "[settings][monitors]") {
+    using namespace desktopmonitor::app;
+    const auto root = std::filesystem::temp_directory_path() / ("DrillPaper-first-preview-" + std::to_string(GetCurrentProcessId()));
+    SettingsStore store(root / "settings.json");
+    AppSettings preview;
+    preview.desktop = false;
+    store.Save(preview);
+    preview.monitorTargets = std::vector<std::string>{};
+    REQUIRE(store.Load() == preview);
     std::filesystem::remove_all(root);
 }

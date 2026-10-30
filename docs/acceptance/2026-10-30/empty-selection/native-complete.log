@@ -1,0 +1,22 @@
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 0 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-minimal
+已記錄：dialog-20010
+已記錄：notice-20010
+已記錄：dialog-20013
+已記錄：notice-20013
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：empty-preview-saved
+已記錄：dialog-20003
+已記錄：notice-20003
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：dialog-20010
+已記錄：notice-20010
+已記錄：empty-preview-cli-desktop
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：dialog-20003
+已記錄：notice-20003
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：desktop-restored-with-selection
+PASS：空選擇提示及 Preview 範圍；C:\Users\James\DrillPaperTests\RC13 空選擇 complete evidence

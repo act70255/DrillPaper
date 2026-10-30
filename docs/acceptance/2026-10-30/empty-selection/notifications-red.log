@@ -1,0 +1,34 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 40: Management text notifications do not become actions or erase validation notices
+1/1 Test #40: Management text notifications do not become actions or erase validation notices ...***Failed    0.19 sec
+Filters: "Management text notifications do not become actions or erase validation notices"
+Randomness seeded to: 664525257
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management text notifications do not become actions or erase validation notices
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(154)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(160): FAILED:
+  REQUIRE( fixture.commands.empty() )
+with expansion:
+  false
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 4 | 3 passed | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.27 sec
+
+The following tests FAILED:
+	 40 - Management text notifications do not become actions or erase validation notices (Failed)
+Errors while running CTest

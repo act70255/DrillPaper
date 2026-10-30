@@ -42,7 +42,7 @@ void Validate(const AppSettings& settings) {
         throw std::runtime_error("設定中的主題識別不合法。");
     if (settings.monitorTargets) {
         const auto& targets = *settings.monitorTargets;
-        if (targets.size() > 64 || targets.empty())
+        if (targets.size() > 64 || (settings.desktop && targets.empty()))
             throw std::runtime_error("桌布至少需選擇一個螢幕，且目標不可超過 64 個。");
         for (std::size_t index = 0; index < targets.size(); ++index) {
             const auto& id = targets[index];
@@ -86,11 +86,11 @@ AppSettings SettingsStore::Load() const {
 
 void SettingsStore::Save(const AppSettings& settings) const {
     Validate(settings);
-    if (!settings.monitorTargets) throw std::runtime_error("尚未解析首次或舊版設定的主螢幕目標，未保存設定。");
+    if (settings.desktop && !settings.monitorTargets) throw std::runtime_error("尚未解析首次或舊版設定的主螢幕目標，未保存設定。");
     // 已存在的損毀設定必須明確處理，不能在保存時靜默覆蓋。
     Load();
     const nlohmann::json json{{"schemaVersion", 2}, {"theme", settings.theme},
-        {"monitorTargets", *settings.monitorTargets},
+        {"monitorTargets", settings.monitorTargets.value_or(std::vector<std::string>{})},
         {"displayMode", settings.desktop ? "desktop" : "preview"},
         {"smartSleep", settings.smartSleep}, {"allowNetwork", settings.allowNetwork}};
     const auto bytes = json.dump(2) + "\n";

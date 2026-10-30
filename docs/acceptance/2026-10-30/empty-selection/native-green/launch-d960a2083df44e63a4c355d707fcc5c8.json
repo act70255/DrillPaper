@@ -1,0 +1,8 @@
+{
+  "captureNetwork": false,
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC13 空選擇 green binary\\DrillPaper.exe",
+  "args": [
+    "--import-theme",
+    "C:\\Users\\James\\DrillPaperTests\\RC13 空選擇 green evidence\\source"
+  ]
+}

@@ -39,7 +39,7 @@ constexpr std::array<Control, 22> kControls{{
     {kManageRemove, L"BUTTON", L"移除所選主題…", 206, 380, 174, 32, BS_PUSHBUTTON},
     {kManageRefresh, L"BUTTON", L"重新整理主題", 20, 420, 174, 32, BS_PUSHBUTTON},
     {kManageLogs, L"BUTTON", L"開啟日誌", 206, 420, 174, 32, BS_PUSHBUTTON},
-    {20107, L"STATIC", L"套用螢幕（可多選；至少一個）：", 400, 148, 380, 24, SS_LEFT},
+    {20107, L"STATIC", L"套用螢幕（可多選；桌布至少一個）：", 400, 148, 380, 24, SS_LEFT},
     {20108, WC_LISTVIEWW, L"", 400, 172, 380, 156, LVS_REPORT | LVS_NOCOLUMNHEADER | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER},
     {20109, L"EDIT", L"選取螢幕可查看完整名稱與識別。", 400, 340, 380, 112, ES_MULTILINE | ES_READONLY | ES_AUTOVSCROLL | WS_VSCROLL | WS_BORDER},
     {20105, L"STATIC", L"保存的顯示模式：", 20, 466, 150, 26, SS_LEFT},
@@ -339,7 +339,12 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
             const auto selected = SendDlgItemMessageW(window, kThemeList, LB_GETCURSEL, 0, 0);
             const bool removable = selected >= 0 && static_cast<std::size_t>(selected) < self->themes_.size() && !self->themes_[selected].builtin;
             EnableWindow(GetDlgItem(window, kManageRemove), removable);
-        } else if (self->command_) self->command_(LOWORD(value));
+        } else if (HIWORD(value) == BN_CLICKED && self->command_ &&
+            ((LOWORD(value) >= kManageOpen && LOWORD(value) <= kManageExit) ||
+             (LOWORD(value) >= kManageApply && LOWORD(value) <= kManageRefresh))) {
+            // 文字、焦點及設定草稿通知不是操作命令，不能清除驗證提示。
+            self->command_(LOWORD(value));
+        }
         return 0;
     case WM_NOTIFY: {
         const auto notification = reinterpret_cast<NMHDR*>(data);

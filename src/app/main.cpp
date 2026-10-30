@@ -501,14 +501,23 @@ void ReconcileSurfaces() {
     gChangingSurfaces = false; UpdateManagement();
 }
 
+/** 在副作用前驗證桌布目標；首次未解析偏好留給既有主螢幕遷移。
+ * Args:
+ *     settings: 要套用或啟動的偏好。
+ *     requireResolved: 保存時必須已解析桌布目標。
+ */
+void ValidateDesktopSelection(const app::AppSettings& settings, bool requireResolved) {
+    if (settings.desktop && (settings.monitorTargets ? settings.monitorTargets->empty() : requireResolved))
+        throw app::SettingsValidationError("桌布模式至少需選擇一個目標螢幕。");
+}
+
 /** 套用完整草稿，保存成功才更新保存偏好。
  * Args:
  *     settings: 使用者明確套用的草稿。
  *     persist: 是否保存至版本化設定。
  */
 void ApplyPreferences(const app::AppSettings& settings, bool persist) {
-    if ((persist || settings.monitorTargets) && (!settings.monitorTargets || settings.monitorTargets->empty()))
-        throw std::runtime_error("桌布模式至少需選擇一個目標螢幕。");
+    ValidateDesktopSelection(settings, persist);
     const auto info = ResolveTheme(settings.theme);
     gEffective = settings; gCurrentThemeKey = settings.theme; gCurrentTheme = NativeText(info.name) + L" · " + NativeText(info.version);
     RefreshMonitors();
@@ -566,6 +575,9 @@ void HandleCommand(UINT command) {
             settings.theme = command == 10001 ? "minimal" : command == 10002 ? "dashboard" : gInstalledThemes[command - 11000].id + "@" + gInstalledThemes[command - 11000].version;
             ApplyPreferences(settings, false);
         }
+    } catch (const app::SettingsValidationError& error) {
+        LogError(error.what()); gNotice = NativeText(error.what());
+        MessageBoxW(nullptr, gNotice.c_str(), L"DrillPaper", MB_OK | MB_ICONWARNING);
     } catch (const std::exception& error) {
         LogError(error.what()); if (gNotice.empty()) gNotice = L"無法完成管理操作，請查看日誌後重試。";
         MessageBoxW(nullptr, gNotice.c_str(), L"DrillPaper", MB_OK | MB_ICONWARNING);
@@ -700,6 +712,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
         gEffective = gSaved;
         if (forcePreview || gMockMetrics) gEffective.desktop = false;
         if (HasFlag(commandLine, L"--experimental-desktop") && !forcePreview && !gMockMetrics) gEffective.desktop = true;
+        ValidateDesktopSelection(gEffective, false);
         if (HasFlag(commandLine, L"--no-smart-sleep")) gEffective.smartSleep = false;
         if (HasFlag(commandLine, L"--theme=dashboard")) gEffective.theme = "dashboard";
         else if (HasFlag(commandLine, L"--theme=minimal")) gEffective.theme = "minimal";
@@ -752,6 +765,8 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
             TranslateMessage(&message); DispatchMessageW(&message);
         }
         result = received == -1 ? 1 : static_cast<int>(message.wParam);
+    } catch (const app::SettingsValidationError& error) {
+        LogError(error.what()); MessageBoxW(nullptr, NativeText(error.what()).c_str(), L"DrillPaper", MB_OK | MB_ICONWARNING);
     } catch (const std::exception& error) { LogError(error.what()); MessageBoxW(nullptr, L"無法初始化 DrillPaper，請查看日誌，並檢查設定檔、主題資產與顯示配置。原設定未被覆蓋。", L"DrillPaper", MB_OK | MB_ICONERROR); }
     gClosing = true;
     if (gWorker) { gWorker->Stop(); gWorker.reset(); }
