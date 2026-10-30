@@ -1,0 +1,9 @@
+{
+  "args": [
+    "--management",
+    "--preview",
+    "--no-smart-sleep"
+  ],
+  "captureNetwork": false,
+  "file": "C:\\Users\\James\\DrillPaperTests\\交付收尾 含空白\\final-trial-5\\DrillPaper.exe"
+}

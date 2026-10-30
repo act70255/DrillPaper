@@ -1,5 +1,30 @@
 # 開發狀態
 
+## 2026-10-30 RC 08 — 接續完成交付候選包，保留繞行與人工 gate
+
+- Commit message：`build(delivery): 完成交付候選封裝與驗證交接`，由commit-msg技能依實際暫存差異產生；本節隨本票唯一提交保存，commit hash以本分支Git記錄為準。
+
+- Branch／source：沿用 `feature/rc-08-delivery-finalization`、base／產品來源 `676bb473efeca65614fddb40d98e3c88c302494b`。票08最新「停止後」確認決策取代先前多輪前提：不追08-D1、保留`--no-smart-sleep`；原第2輪FAIL與原證據逐檔hash不變。08 implemented只代表可執行交付／人工交接完成，不是RC放行；不改產品C++、智慧休眠預設或其他票狀態。
+- Scope：沿用前輪未提交SDK白名單／hash驗證／CI與工具；補完缺必要主題資產fail-fast slice、正式交付README（未簽章防毒／IT例外、依賴、資料與更新回復／ZIP移除）、CMD檢查後直接啟動EXE。新測試擴充最終入口保存網路／目標、原生移除確認／取消及同版重匯入，未提供HTML原生旁路。
+- Artifact：正式交付候選`0.1.0-trial.6`，ZIP472421bytes／SHA`FC08E190ACF481696F560CB7136478D9CF6E9DADF45E6EEF505CD62EB9EFF8A5`、EXE`993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA`。沿用前輪固定commit乾淨MSVC19.44.35217.0 Release建置並核實EXEhash後重封，最新工具逐檔hash入manifest／sidecar；55檔白名單＋manifest／hash PASS。trial.1～4／trial.5.probe未覆寫。Authenticode NotSigned，不宣稱已簽章／位元可重現／RC。
+- TDD／checks：原公開封裝Red→Green與缺資產Red沿用；本輪缺資產Green補完（獨立pwsh退出0），最終缺主題入口／loader／minimumVcRuntime及過舊CRT繁中fail-fast PASS。封裝正負／拒覆寫、相關targets建置、CTest18/18、8檔PS parser與diff空白PASS。PATH CMake的Python啟動器缺檔在編譯前失敗，原日誌保留；改呼叫既有套件原生data/bin/cmake.exe／ctest.exe configure／build及相關測試成功，未重裝Python、不推定防毒原因。
+- Windows整合：非Temp使用者繁中空白目錄／獨立LOCALAPPDATA，Windows11 Pro25H2 26200／Runtime156.0.4314.50／Intel。最終CMD兩輪首次唯一主屏桌布實體矩形／握手、有效休眠0、取消網路草稿、保存Preview／單目標／網路1並重啟保持hash、Dashboard握手PASS；四次exit0及當下每次核實6個WebView2退出；保存後唯一新Preview握手與HealthTick的JS回應亦通過。另Node直接啟動同包EXE，正式CLI匯入／同版拒絕、作者切換、原生取消／確認移除與Minimal回退、同版重匯入載入PASS，exit0與6個核實子程序退出；不冒充人手GUI選檔／像素畫面或產品預設休眠回歸。產品測試循序執行。
+- Blockers／NOT RUN：實際刪除trial.5解壓目錄被自動核准政策兩次拒絕（只回報blocked by policy），BLOCKED且未繞過；trial.6依相同政策限制未再嘗試，NOT RUN；已確認本票程序退出與資料hash不變。主動清除資料複本／更新回復／真正乾淨一般使用者、真實缺依賴、GUI人眼、其他OS／Runtime與真正OS／硬體項NOT RUN，附逐項人工清單。沒有安裝器，不宣稱解除安裝PASS。完整套件與遠端CI依指示留09；08-D1／繞行移除、03歷史FAIL、04安全PARTIAL、06記憶體上升／缺失、07 A10 PARTIAL等全部由09承接，必要gate不解除。
+- Safety／evidence：原持續桌布83428的path／UtcTicks639288432499803524／hash前後不變；本票app與隔離profile對應WebView2無殘留，未重啟Explorer、未關閉／替換原桌布。Apex One早期可讀BM27830bytes／14:30:45修改時間／hash不變；最終45890bytes／14:51:46修改，新增14:51:36另一AIPortal專案pytest／Python的NON_POLICY_JUST_ADC攔截已另存antivirus-final-events.json，不當本票產品攔截或根因，觀測仍不完整；歷史Temp／PowerShell攔截分記、不改防毒。新[REPORT](acceptance/2026-10-30/delivery-final/REPORT.md)、[人工清單](acceptance/2026-10-30/delivery-final/MANUAL_CHECKLIST.md)與原始JSON／log保存完整命令、來源／hash及限制；舊delivery目錄完全保留；.gitattributes對本票兩個證據目錄關閉換行轉換以保留逐檔SHA位元組。ADR無，未改架構／產品決策。
+- Review／commit：Standards初2項＋複查1項、Spec1項皆修正，未解決各0；缺CMD及CMD雙擊錯誤停留真Red→Green通過，結果見REVIEW.md。因入口資產修正保留審查前trial.5另包trial.6，52檔產品／SDK／主題hash相同，僅PS／CMD／README三檔異動。trial.6兩次CIM→handle間程序消失導致工具FAIL／CLEANUP_FAILED保留，App均exit0，不當08-D1；工具補上保存後唯一Preview握手／JS回應後退出的不同情境，原15秒退出／30秒等待及子程序身分檢查不變，最終兩輪／四次退出與24個已觀察子程序PASS，不把原立即退出FAIL改綠。完成審查後使用commit-msg依實際暫存差異產生繁中Conventional Commit，本票一次commit並push當前分支，hash以Git為準。不合併main、不公開發布。
+
+
+## 2026-10-30 RC 08 — 退出觀測逾時，停止未提交
+
+- Branch／base：由乾淨HEAD `676bb473efeca65614fddb40d98e3c88c302494b` 建 `feature/rc-08-delivery-finalization`，停止HEAD未變、08維持in-progress；已讀08全部確認決策、03～07交接、spec／handoff／架構。最新本機隔離多輪決策取代05乾淨機器前提，但本輪未全通過，不能移除入口繞行。
+- Scope／草稿：沿03固定來源Release與白名單，補最新SDK／MockHost宣告／TypeScript作者範本／schema／作者工具；新增ZIP來源／清單／hash驗證及CI步驟、三輪原生觀測工具、缺必要主題資產提前拒絕草稿。未改src/include或智慧休眠預設，`--no-smart-sleep`保留，未覆寫trial.1～4。草稿尚未完成審查／驗收，不作最終交付。
+- Build／package：固定commit獨立MSVC Release／BUILD_TESTING=OFF PASS，調查包 `artifacts/DrillPaper-0.1.0-trial.5.probe-win-x64-unsigned.zip` 471313bytes，ZIP SHA`EB6A3ABF5FBDB913A336BD8B215F32350918422E1FBBA16E446F96DE759F89FC`／EXE SHA`993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA`。含04／05產品與07SDK，工具／說明為當時工作樹且另記hash；白名單55檔＋manifest／逐檔與sidecar PASS，不宣稱EXE／ZIP位元可重現或RC。遠端CI NOT RUN。
+- Related／TDD：`cmake --build --preset windows-msvc-release --target DrillPaperTests DrillPaperSettingsTests DrillPaperThemeTests --parallel 8` PASS；`ctest --preset windows-msvc-release -V -R '^(Settings |Invalid settings|Invalid monitor|Monitor target|Monitor selection|Clone targets|Manual pause|Protocol v1 |Power state|Sampling scheduler|DrillPaperThemeTests$)'` 18/18 PASS。`test-trial-package.ps1` 最新SDK缺失Red→補白名單Green，既有負面／排除／hash PASS；`verify-trial-archive.ps1` PASS。缺主題入口CheckOnly Red→補檢查後綠測嘗試仍FAIL（舊fixture缺resources，遮住最低runtime分支）；已補fixture但重跑NOT RUN，因本輪已停止，不冒稱slice完成。新runner PS parser無錯；完整套件依指示留09。
+- Windows整合／停止點：非Temp使用者繁中空白目錄、全新隔離LOCALAPPDATA、Node直接啟動新EXE `--management`，產品預設智慧休眠=1／網路=0。第1輪唯一主屏1920×1080桌布／握手／取消／保存Preview／重啟／Dashboard及兩次正式exit0、共12個當下核實子程序退出PASS。第2輪首次桌布／握手／保存成功，但退出等待超過工具15秒，CLEANUP_FAILED，第二輪Preview及第三輪未執行。Node退出紀錄顯示14:25:35.608+08:00稍後自行exit0，工具14:25:28.865已記FAIL；未取得精確退出命令時間或堆疊，原因待釐清，不能據此宣稱持續卡死或原啟動未握手重現。
+- Defect／gate：開啟08-D1「保存Preview後退出觀測逾時」，後續先補可重現時間線／失敗回歸，不直接放寬期限；多輪皆通過前提尚未達。依使用者指示停止、不commit／push、不移除繞行。03歷史FAIL、04安全／05人工／06硬體效能／07作者流程PARTIAL／NOT RUN及RC gate保留。08剩餘最終入口／重包／README防毒說明／匯入移除／停止後移除／乾淨環境等NOT RUN，完整操作清單交09。
+- Environment／cleanup：Windows11 build26200／Runtime156.0.4314.50／SDK1.0.2478.35／Intel Graphics；本機有來源樹、建置工具與Apex One，不是乾淨一般使用者環境。可讀BM日誌fingerprint前後相同，未觀察新增攔截，非完整觀測，沒有已證實的防毒BLOCKED；不修改防毒。收尾原持續桌布83428的path／UtcTicks639288432499803524／hash不變，無本票app或profile對應WebView2殘留；未強制終止、未重啟Explorer或替換原桌布。
+- Evidence／commands／next：完整[REPORT](acceptance/2026-10-30/delivery/REPORT.md)、[原始結果](acceptance/2026-10-30/delivery/default-rounds-result.json)、[人工清單](acceptance/2026-10-30/delivery/MANUAL_CHECKLIST.md)保存建置／封裝／測試命令、tooling provenance、退出及防毒證據。真正乾淨使用者／人工／其他OS與Runtime／完整套件NOT RUN，原因及步驟均列出。ADR無，未變產品架構或已確認決策。code-review／commit-msg／唯一commit／push皆NOT RUN，因未達可提交完成狀態，依明示停止規則保持未提交；不合併main、不公開發布。
+
 ## 2026-10-30 RC 07 — 第三方 TypeScript 主題作者流程
 
 - Commit message：`feat(sdk): 補齊 TypeScript 主題作者流程`，由commit-msg技能依實際暫存差異產生；本節隨本票唯一提交保存，hash以本分支Git記錄為準。

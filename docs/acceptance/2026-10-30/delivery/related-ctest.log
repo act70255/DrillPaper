@@ -1,0 +1,249 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 12
+      Start 12: Power state transitions debounce obscured changes and request fresh data on resume
+
+12: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+12: Test timeout computed to be: 20
+12: Filters: "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Randomness seeded to: 748479080
+12: ===============================================================================
+12: All tests passed (8 assertions in 1 test case)
+12: 
+ 1/18 Test #12: Power state transitions debounce obscured changes and request fresh data on resume .....   Passed    0.19 sec
+test 13
+      Start 13: Sampling scheduler pauses and resumes without catch-up loops
+
+13: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling scheduler pauses and resumes without catch-up loops"
+13: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+13: Test timeout computed to be: 20
+13: Filters: "Sampling scheduler pauses and resumes without catch-up loops"
+13: Randomness seeded to: 3010975960
+13: ===============================================================================
+13: All tests passed (7 assertions in 1 test case)
+13: 
+ 2/18 Test #13: Sampling scheduler pauses and resumes without catch-up loops ...........................   Passed    0.13 sec
+test 19
+      Start 19: Manual pause survives power changes and resumes the current policy
+
+19: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Manual pause survives power changes and resumes the current policy"
+19: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+19: Test timeout computed to be: 20
+19: Filters: "Manual pause survives power changes and resumes the current policy"
+19: Randomness seeded to: 4249939911
+19: ===============================================================================
+19: All tests passed (8 assertions in 1 test case)
+19: 
+ 3/18 Test #19: Manual pause survives power changes and resumes the current policy .....................   Passed    0.33 sec
+test 20
+      Start 20: Monitor selection uses only connected selected areas and restores returning targets
+
+20: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Monitor selection uses only connected selected areas and restores returning targets"
+20: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+20: Test timeout computed to be: 20
+20: Filters: "Monitor selection uses only connected selected areas and restores returning targets"
+20: Randomness seeded to: 2947294728
+20: ===============================================================================
+20: All tests passed (7 assertions in 1 test case)
+20: 
+ 4/18 Test #20: Monitor selection uses only connected selected areas and restores returning targets ....   Passed    0.38 sec
+test 21
+      Start 21: Clone targets share one renderer area and empty selection never falls back
+
+21: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Clone targets share one renderer area and empty selection never falls back"
+21: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+21: Test timeout computed to be: 20
+21: Filters: "Clone targets share one renderer area and empty selection never falls back"
+21: Randomness seeded to: 488440320
+21: ===============================================================================
+21: All tests passed (6 assertions in 1 test case)
+21: 
+ 5/18 Test #21: Clone targets share one renderer area and empty selection never falls back .............   Passed    0.66 sec
+test 22
+      Start 22: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+
+22: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+22: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+22: Test timeout computed to be: 20
+22: Filters: "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+22: Randomness seeded to: 1521634540
+22: ===============================================================================
+22: All tests passed (1 assertion in 1 test case)
+22: 
+ 6/18 Test #22: Protocol v1 serializes a complete snapshot with units and UTC timestamp ................   Passed    0.16 sec
+test 23
+      Start 23: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+
+23: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+23: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+23: Test timeout computed to be: 20
+23: Filters: "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+23: Randomness seeded to: 83150803
+23: ===============================================================================
+23: All tests passed (1 assertion in 1 test case)
+23: 
+ 7/18 Test #23: Protocol v1 echoes request identifiers and serializes unavailable memory as null .......   Passed    0.40 sec
+test 24
+      Start 24: Protocol v1 parses bounded history requests and preserves request IDs
+
+24: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 parses bounded history requests and preserves request IDs"
+24: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+24: Test timeout computed to be: 20
+24: Filters: "Protocol v1 parses bounded history requests and preserves request IDs"
+24: Randomness seeded to: 1880978939
+24: ===============================================================================
+24: All tests passed (4 assertions in 1 test case)
+24: 
+ 8/18 Test #24: Protocol v1 parses bounded history requests and preserves request IDs ..................   Passed    0.25 sec
+test 25
+      Start 25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+
+25: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+25: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+25: Test timeout computed to be: 20
+25: Filters: "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+25: Randomness seeded to: 2974471921
+25: ===============================================================================
+25: All tests passed (5 assertions in 1 test case)
+25: 
+ 9/18 Test #25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ....   Passed    0.25 sec
+test 26
+      Start 26: Protocol v1 subscription removes unknown and duplicate metric names
+
+26: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 subscription removes unknown and duplicate metric names"
+26: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+26: Test timeout computed to be: 20
+26: Filters: "Protocol v1 subscription removes unknown and duplicate metric names"
+26: Randomness seeded to: 3161755996
+26: ===============================================================================
+26: All tests passed (4 assertions in 1 test case)
+26: 
+10/18 Test #26: Protocol v1 subscription removes unknown and duplicate metric names ....................   Passed    0.18 sec
+test 27
+      Start 27: Protocol v1 serializes control envelopes without changing their payload
+
+27: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 serializes control envelopes without changing their payload"
+27: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+27: Test timeout computed to be: 20
+27: Filters: "Protocol v1 serializes control envelopes without changing their payload"
+27: Randomness seeded to: 1948992556
+27: ===============================================================================
+27: All tests passed (1 assertion in 1 test case)
+27: 
+11/18 Test #27: Protocol v1 serializes control envelopes without changing their payload ................   Passed    0.14 sec
+test 28
+      Start 28: Protocol v1 history snapshots carry their own timestamps
+
+28: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 history snapshots carry their own timestamps"
+28: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+28: Test timeout computed to be: 20
+28: Filters: "Protocol v1 history snapshots carry their own timestamps"
+28: Randomness seeded to: 1545455493
+28: ===============================================================================
+28: All tests passed (2 assertions in 1 test case)
+28: 
+12/18 Test #28: Protocol v1 history snapshots carry their own timestamps ...............................   Passed    0.15 sec
+test 29
+      Start 29: Settings preserve the chosen theme mode and sleep preference
+
+29: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings preserve the chosen theme mode and sleep preference"
+29: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+29: Test timeout computed to be: 20
+29: Filters: "Settings preserve the chosen theme mode and sleep preference"
+29: Randomness seeded to: 3263192464
+29: ===============================================================================
+29: All tests passed (3 assertions in 1 test case)
+29: 
+13/18 Test #29: Settings preserve the chosen theme mode and sleep preference ...........................   Passed    0.32 sec
+test 30
+      Start 30: Invalid settings and failed atomic replacement preserve existing preferences
+
+30: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Invalid settings and failed atomic replacement preserve existing preferences"
+30: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+30: Test timeout computed to be: 20
+30: Filters: "Invalid settings and failed atomic replacement preserve existing preferences"
+30: Randomness seeded to: 4264797859
+30: ===============================================================================
+30: All tests passed (11 assertions in 1 test case)
+30: 
+14/18 Test #30: Invalid settings and failed atomic replacement preserve existing preferences ...........   Passed    0.69 sec
+test 31
+      Start 31: Settings accept installed theme identifiers supported by the manifest
+
+31: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings accept installed theme identifiers supported by the manifest"
+31: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+31: Test timeout computed to be: 20
+31: Filters: "Settings accept installed theme identifiers supported by the manifest"
+31: Randomness seeded to: 2073973180
+31: ===============================================================================
+31: All tests passed (1 assertion in 1 test case)
+31: 
+15/18 Test #31: Settings accept installed theme identifiers supported by the manifest ..................   Passed    0.19 sec
+test 32
+      Start 32: Monitor target settings migrate legacy preferences and preserve disconnected targets
+
+32: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Monitor target settings migrate legacy preferences and preserve disconnected targets"
+32: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+32: Test timeout computed to be: 20
+32: Filters: "Monitor target settings migrate legacy preferences and preserve disconnected targets"
+32: Randomness seeded to: 2421325938
+32: ===============================================================================
+32: All tests passed (2 assertions in 1 test case)
+32: 
+16/18 Test #32: Monitor target settings migrate legacy preferences and preserve disconnected targets ...   Passed    0.25 sec
+test 33
+      Start 33: Invalid monitor target settings cannot replace a saved selection
+
+33: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Invalid monitor target settings cannot replace a saved selection"
+33: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+33: Test timeout computed to be: 20
+33: Filters: "Invalid monitor target settings cannot replace a saved selection"
+33: Randomness seeded to: 1984801744
+33: ===============================================================================
+33: All tests passed (12 assertions in 1 test case)
+33: 
+17/18 Test #33: Invalid monitor target settings cannot replace a saved selection .......................   Passed    0.66 sec
+test 42
+      Start 42: DrillPaperThemeTests
+
+42: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperThemeTests.exe
+42: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+42: Test timeout computed to be: 60
+42: Randomness seeded to: 2609052900
+42: ===============================================================================
+42: All tests passed (98 assertions in 10 test cases)
+42: 
+18/18 Test #42: DrillPaperThemeTests ...................................................................   Passed    8.29 sec
+
+The following tests passed:
+	Power state transitions debounce obscured changes and request fresh data on resume
+	Sampling scheduler pauses and resumes without catch-up loops
+	Manual pause survives power changes and resumes the current policy
+	Monitor selection uses only connected selected areas and restores returning targets
+	Clone targets share one renderer area and empty selection never falls back
+	Protocol v1 serializes a complete snapshot with units and UTC timestamp
+	Protocol v1 echoes request identifiers and serializes unavailable memory as null
+	Protocol v1 parses bounded history requests and preserves request IDs
+	Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+	Protocol v1 subscription removes unknown and duplicate metric names
+	Protocol v1 serializes control envelopes without changing their payload
+	Protocol v1 history snapshots carry their own timestamps
+	Settings preserve the chosen theme mode and sleep preference
+	Invalid settings and failed atomic replacement preserve existing preferences
+	Settings accept installed theme identifiers supported by the manifest
+	Monitor target settings migrate legacy preferences and preserve disconnected targets
+	Invalid monitor target settings cannot replace a saved selection
+	DrillPaperThemeTests
+
+100% tests passed, 0 tests failed out of 18
+
+Total Test time (real) =  14.40 sec

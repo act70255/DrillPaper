@@ -1,0 +1,16 @@
+{
+  "since": "2026-10-30T14:41:06+08:00",
+  "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+  "records": [
+    {
+      "epoch": 1793343096,
+      "version": "可讀程序ProductVersion14.0，完整build未取得",
+      "product": "Trend Micro Apex One",
+      "target": "C:\\Users\\James\\AppData\\Roaming\\uv\\python\\cpython-3.13.1-windows-x86_64-none\\python.exe|c:\\workspace\\-pmt\\ai\\aiportal\\tools\\lack-of-parts\\.venv-win\\scripts\\pytest.exe",
+      "code": "200",
+      "rule": "NON_POLICY_JUST_ADC",
+      "source": "C:\\Users\\James\\AppData\\Local\\Temp\\tmp0sc7sg6z\\binary-output\\result.xlsx",
+      "time": "2026-10-30T14:51:36.0000000+08:00"
+    }
+  ]
+}

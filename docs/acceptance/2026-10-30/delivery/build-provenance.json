@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "676bb473efeca65614fddb40d98e3c88c302494b",
+  "minimumVcRuntime": "14.44.35112.0",
+  "command": "MSVC x64 Release; BUILD_TESTING=OFF",
+  "compiler": "19.44.35217.0",
+  "executableSha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA"
+}

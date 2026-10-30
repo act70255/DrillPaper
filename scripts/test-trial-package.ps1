@@ -30,6 +30,10 @@ $archive = [IO.Compression.ZipFile]::OpenRead($zip.FullName)
 try {
     $expected = @($entries | ForEach-Object { if ($_.destination) { $_.destination } else { $_.path } }) + 'package-manifest.json'
     $actual = @($archive.Entries | ForEach-Object FullName)
+    foreach ($required in @('sdk/javascript/mock-host.d.ts', 'sdk/author-starter/package-lock.json',
+        'sdk/author-starter/src/main.ts', 'docs/theme-sdk.md', 'scripts/package-theme.ps1')) {
+        if ($actual -cnotcontains $required) { throw "交付包缺少最新 SDK 作者資產：$required" }
+    }
     if (@(Compare-Object $expected $actual).Count -ne 0) { throw 'ZIP 必須恰好只有白名單與 manifest，不能帶入額外資料。' }
     $reader = [IO.StreamReader]::new($archive.GetEntry('package-manifest.json').Open())
     try { $manifest = $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }

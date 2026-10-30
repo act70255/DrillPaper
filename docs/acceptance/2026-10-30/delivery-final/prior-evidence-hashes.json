@@ -1,0 +1,114 @@
+[
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\build-probe.log",
+    "sha256": "093E6CACAE9E5D19B4D15B82BCA88111149650337052474089DCF3BAF9263932"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\build-provenance.json",
+    "sha256": "43D88596971C277A9E6169A30DB9BDDF48CBF68877900FCACB3D906FD876930E"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\default-rounds-result.json",
+    "sha256": "FA806FAF0378FAA8E6F869853C2DF292C74FB3E5A823A215616118006F9381B9"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\default-rounds.log",
+    "sha256": "9AC7FABC532C901C569464FE726C0BD7E2B4AB270D1B2E60BA190F8B60420176"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\environment-after.json",
+    "sha256": "84AA08233521B5E9F07AD907D1D5DB9220D70364FFC1D6A674983C00AC0FB56A"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\environment-before.json",
+    "sha256": "89713A88D0910753873948E569901B6D3A28A5BFB232B6860DA8097B3116736E"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\MANUAL_CHECKLIST.md",
+    "sha256": "12E84403196A06C63EDAE3678A1F236156AE99E7CC4B8D2A6DEA319570DB6B64"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\package-green.log",
+    "sha256": "F99E56F2B8420521A1A220ED667F7406DA396227CF6508253C8C977C5687425C"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\package-red.log",
+    "sha256": "E1476564C127EAAAE10243357D902CADB27BBFADFA96C966A6080DF090A3EFB3"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\probe-inventory.log",
+    "sha256": "7DEA3CB0F33B02C7F7DD0D185C5331476DF9BCB0B78C630DC840091C5672E738"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\probe-package-metadata.json",
+    "sha256": "B38B7EF495AC4C99499C32A19E967909E7D1021608D5772203F444A03DD0A211"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\related-build.log",
+    "sha256": "56EA7974BA903921BACFDEBBA636C0A7F1B4DF17C6FB7D5EBBB7EF02A50CB293"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\related-ctest.log",
+    "sha256": "AFA1CEC9755A918EA84E74A92E5FB9F2BE419170C6BA1657DA0C3B41B3416BB5"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\REPORT.md",
+    "sha256": "421750DF0496E417679455C73CB0A04A1660C09AFE7BF291165DADD4C8596978"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\resources-green.log",
+    "sha256": "D63130891845E521D1B1FAEEE0B15DD4FBB3E44E0BC29B3BA0BB5412017530C7"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\resources-red.log",
+    "sha256": "4256ED9FFEF4337A656FF873653EA15CFF74E1DDAC3A16AFC59AACC14F0E176F"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-desktop-launch-9a160f0cceec44f99ec138c065fc9595.json",
+    "sha256": "C9FFE8CC571143BE3AC431DFB50CFBA463F3ECC5CBE2189039D75FEB018216BA"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-desktop-launch-9a160f0cceec44f99ec138c065fc9595.json.exit.json",
+    "sha256": "A63E5B72D7FD01ADE695070A1613E1D120CEE602F5B408C6243BB782E1B45E6F"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-desktop-launch-9a160f0cceec44f99ec138c065fc9595.json.identity.json",
+    "sha256": "C9AF65E8922F53159B17BD843F33C75519B674220466BA948A53D1ADC65B835B"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-desktop-launch-9a160f0cceec44f99ec138c065fc9595.json.started.json",
+    "sha256": "8ADDF615E2932D9783C24499EFC88360E799C3B5FC674A2661023437AA8E7281"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-preview-launch-fae3b2c6cfb54280b3616b8770f2283f.json",
+    "sha256": "C9FFE8CC571143BE3AC431DFB50CFBA463F3ECC5CBE2189039D75FEB018216BA"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-preview-launch-fae3b2c6cfb54280b3616b8770f2283f.json.exit.json",
+    "sha256": "BFE8ED7491B08AF5573BE15863BFE459F4E83B1449B290A00ABA0052C1862B2D"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-preview-launch-fae3b2c6cfb54280b3616b8770f2283f.json.identity.json",
+    "sha256": "0F17D615DBAACDBC468524E7354F53D916C59D9C5C0D5832F3F6DE75951828AA"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-1-preview-launch-fae3b2c6cfb54280b3616b8770f2283f.json.started.json",
+    "sha256": "65FA7D2E0CB4071CC9486D3FC1EC7CC6F3A430E8BA70FB0E47CD1506FE9387B6"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-2-desktop-launch-63e8118180fb4f4299c2bf6acff5ba60.json",
+    "sha256": "C9FFE8CC571143BE3AC431DFB50CFBA463F3ECC5CBE2189039D75FEB018216BA"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-2-desktop-launch-63e8118180fb4f4299c2bf6acff5ba60.json.exit.json",
+    "sha256": "17A5D8DAD93F59A9BF0C1D81DC056B4EC2F8FDE1114EBA45A5DD635A155807F4"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-2-desktop-launch-63e8118180fb4f4299c2bf6acff5ba60.json.identity.json",
+    "sha256": "FD39DB3AC9971C22B1FEF16F219FCD73210796A14220FB1A41A2A79B1CBB90EF"
+  },
+  {
+    "path": "docs\\acceptance\\2026-10-30\\delivery\\launch-evidence\\round-2-desktop-launch-63e8118180fb4f4299c2bf6acff5ba60.json.started.json",
+    "sha256": "9B99280C2BAECFEFACFF92E048E3EFB23433C4DE098C6E74F9A02DB29054F641"
+  }
+]

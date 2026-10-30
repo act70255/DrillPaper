@@ -1,41 +1,46 @@
-# DrillPaper 試用版（未簽章）
+# DrillPaper 交付候選版（未簽章）
 
-這是本機評估用 app ZIP，含 Release EXE、兩個內建主題與 SDK 執行資產，不是 RC 或公開發行。版本／來源 commit／各檔案與 EXE SHA-256 見 package-manifest.json；ZIP SHA-256 見 ZIP 旁同名 JSON。EXE 的 --version 仍顯示 0.1.0-dev，以 manifest 識別試用版本。
+本票正式交付版本為 **0.1.0-trial.6**：供票 09 回歸的本機候選 ZIP，尚未通過 RC 放行，未公開發布。沿用 trial 封裝格式（manifest kind=trial），與 trial.1～4、trial.5.probe 及審查前候選 trial.5 分開保存。產品來源 commit、工具逐檔 hash、版本與 EXE SHA-256 見 package-manifest.json；ZIP hash 見 ZIP 旁同名 JSON。EXE 的 --version 仍是產品 0.1.0-dev，交付版本以 manifest 為準。
 
 ## 安裝與依賴
 
-完整解壓至可讀取的 Windows x64 目錄後，雙擊 Start-DrillPaper.cmd。請以一般使用者操作；此入口檢查依賴，開啟管理視窗並沿用使用者保存的顯示模式。全新資料首次啟動為 Minimal 桌布、目標為主螢幕；保存 Preview 後再次由此入口啟動仍為 Preview。試用入口預設關閉智慧休眠，原因見下方已知限制。也可執行 `powershell -NoProfile -ExecutionPolicy Bypass -File ./Start-DrillPaper.ps1 -CheckOnly` 只檢查。
+完整解壓至非 Temp 的使用者目錄（可含空白、繁中），雙擊 **Start-DrillPaper.cmd**。以一般使用者操作，入口先檢查資產及依賴，再由 CMD 直接啟動 EXE；不需要 Node、Python、Visual Studio 或來源樹。不自動安裝依賴、不提升權限、不修改防毒或系統執行原則。雙擊啟動檢查失敗時會停留，供閱讀繁中錯誤與取得方式，按鍵後以代碼 1 結束；也可用 `Start-DrillPaper.cmd -CheckOnly` 只檢查。
 
-- 系統：Windows 10／11 x64。不同 Windows、DPI、Shell、硬體仍須實測；本包沒有安裝器或自動更新。
-- WebView2Loader.dll 1.0.2478.35 隨包提供，BSD-3-Clause 授權與 NOTICE 在 resources/licenses。完整 WebView2 Evergreen 瀏覽器不隨包提供；請從 https://developer.microsoft.com/microsoft-edge/webview2/ 取得。一般使用者安裝方式見 https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution 。
-- MSVC /MD 依賴 Microsoft Visual C++ v14 x64 Runtime，最低工具鏈版本見 manifest；需使用不早於建置工具鏈的版本。未隨包複製系統 CRT DLL；取得 https://aka.ms/vc14/vc_redist.x64.exe ，說明 https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist 。缺少時停止並提示，若安裝需管理員，請交由管理人員準備後再以一般使用者執行 app。
-- 不要求 Node、Python、Visual Studio、原始碼或開發者路徑。NVML 僅選配，使用既有驅動 DLL，不隨包再散布；GPU 不可用時不應顯示假 0。
+- 目標平台：Windows 10／11 x64。這次只在 Windows 11 Pro 25H2 build 26200／Intel Graphics／雙 1920×1080（DPI 144、96）本機測試；Windows 10、其他 Shell、混合配置尚待驗收，不保證所有版本相容。
+- WebView2Loader.dll 1.0.2478.35 隨包提供，授權及 NOTICE 在 resources/licenses；WebView2 Evergreen Runtime 為外部必要依賴。本次 Runtime 156.0.4314.50，其他版本待測。由 https://developer.microsoft.com/microsoft-edge/webview2/ 取得；安裝部署方式見 https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution 。
+- Microsoft Visual C++ v14 x64 Runtime 最低版本由 manifest 的 minimumVcRuntime 指定，需不早於建置工具鏈；本包未複製系統 CRT。由 https://aka.ms/vc14/vc_redist.x64.exe 取得；若安裝需管理員，交由 IT 準備後再以一般使用者執行 app。
+- NVML 僅選配，使用既有 NVIDIA 驅動 DLL，不隨包再散布；無支援時 GPU 顯示 unavailable，不能當成 0。
 
-本包不自動下載、不安裝依賴、不提升權限、不變更系統或執行原則設定。直接啟動 EXE 會略過上述檢查；缺少 DLL 時可能先看到 Windows loader 訊息。缺檔請完整重新解壓，不要只取單一 EXE。
+**未簽章 EXE 可能被企業防毒攔截或警告。** 本包沒有 Authenticode 簽章。先核對可信來源提供的 ZIP／EXE SHA-256；向 IT 申請針對核實來源與 hash 的例外，不自行停用防毒、不忽略警告。記錄防毒產品／完整版本、每次攔截時間（含時區）、規則、目標 hash、啟動方式及受影響步驟；受攔截項目列 BLOCKED。03 曾有 Apex One 攔截；08-D1 時段另見 WinVerifyTrust 失敗，可能影響時序但未證實因果。缺少完整日誌只能記觀測不足，不能宣稱沒有攔截。避免從 Temp 或經 PowerShell 包裝直接啟動 EXE。
 
-## 使用
+缺檔／空主題資產會提前拒絕並提示完整重新解壓；不要只複製單一 EXE。直接 EXE 會略過入口檢查，缺 CRT 可能出現 Windows loader 訊息。真實無依賴機器測試尚未執行。
 
-管理視窗可選 Minimal／Dashboard、勾選目標螢幕、設定預覽或桌布、智慧休眠與網路，按「套用並儲存設定」生效。「取消設定變更」還原草稿；關閉管理視窗只隱藏。系統匣可重開唯一管理視窗、暫停／繼續，使用「結束 DrillPaper」正式退出。固定用戶區為 800×600 DIP，長清單／訊息可捲動，Tab／Shift+Tab 移動焦點。
+## 使用與功能
 
-每個選中螢幕顯示完整同一主題，未選螢幕保留 Windows 桌布。多螢幕保存以裝置識別恢復，全部斷線才提示並暫用主螢幕。桌布使用未公開保證的 Shell 附掛方式，失敗會退回 Preview；不要同時用試用包替換你原本運行的持續桌布。
+入口開啟唯一管理視窗，沿用已保存的主題、模式、目標及網路偏好；全新資料首次為 Minimal／主螢幕桌布、網路關閉。Minimal／Dashboard 顯示 CPU、RAM、磁碟、網路、時間及可用 GPU，兩個內建主題與 SDK 作者資產隨包提供。只匯入可信 DMT，透過管理視窗選檔匯入／確認移除；第三方內容未宣稱已沙箱化。
 
-主題網路在全新資料中預設關閉，首次封鎖只提示；既有設定若已允許連網會沿用。開啟僅放行 HTTP／HTTPS 資源，外部導覽、框架、WebSocket、權限、下載與彈窗仍受限制。沒有遙測；WebView2 會有多個子程序與瀏覽器本身的資源成本。
+選擇主題、桌布／Preview、目標與網路後，按「套用並儲存設定」生效；「取消設定變更」還原草稿，關閉管理視窗僅隱藏。系統匣可重開、暫停／繼續及「結束 DrillPaper」正式退出。設定用戶區 800×600 DIP，長清單可捲動、Tab／Shift+Tab 可移動焦點。人工外觀／系統匣點擊尚待驗收。
 
-## 免安裝 ZIP 與資料
+每個選取螢幕完整顯示相同主題，未選螢幕維持 Windows 桌布；離線目標保留設定，全部離線暫用主螢幕且不寫回，恢復後套回原選擇。Shell 附掛失敗回退 Preview。不要在測試中關閉／替換原持續桌布或重啟 Explorer。
 
-這是免安裝程式檔案，不是完全隨身資料模式。設定在 `%LOCALAPPDATA%\DrillPaper\settings.json`，已匯入主題在其 `themes`，日誌在其 `logs`；WebView2 profile 也在 `%LOCALAPPDATA%\DrillPaper` 下。啟動會讀取既有偏好／主題，不會自動隔離、重設或清除。試用入口只覆寫本次智慧休眠為關閉，不因啟動自動寫回設定；若按「套用並儲存設定」，目前草稿的關閉值也會保存。直接無參數 EXE 恢復保存模式及智慧休眠偏好，全新資料的產品預設仍為智慧休眠開啟。
+主題網路全新預設關閉，首次封鎖只提示；保存允許後沿用，僅放行 HTTP／HTTPS 資源。外部導覽、框架、WebSocket、權限、下載與彈窗仍受限制。產品無遙測功能；WebView2 有多個子程序，其背景網路仍有未完成邊界驗證，**不宣稱整個程序零外連**。
 
-安全試用方式：在新的 PowerShell 行程將 `$env:LOCALAPPDATA` 設為你建立的全新完整目錄，再執行 Start-DrillPaper.cmd；隔離僅作用於該子行程，不永久改環境。不要在原持續桌布資料上測試。若需要既有資料，先正常退出其 app、備份整個資料目錄，測後退出試用 app 再還原並核對檔案 hash；本輪不做此操作。
+## 資料、更新與回復
 
-移除時先正式退出，再刪除解壓目錄。使用者資料不會隨之刪除；只有確認無需保留且沒有其他 DrillPaper 使用它時，才另外刪除你指定的資料目錄。不要誤刪原桌布資料。
+免安裝 ZIP 不是完全隨身資料模式。資料根目錄是 `%LOCALAPPDATA%\DrillPaper`：設定 settings.json、已匯入主題 themes、日誌 logs、WebView2 瀏覽器資料 WebView2。啟動會讀取現存資料，不自動隔離或清除。隔離試用可在新的命令提示字元執行 `set "LOCALAPPDATA=C:\Users\你的帳號\DrillPaperTests\專用資料"`，再由該視窗呼叫完整 CMD 路徑；只影響此命令視窗的子程序，路徑須自行建立且不可使用原持續桌布資料。
 
-## 未驗收與限制
+更新前以「結束 DrillPaper」正常退出使用該資料的舊版及 WebView2 子程序，備份整個資料根目錄及舊版 ZIP／hash；將新版完整解壓到新的非 Temp 目錄，核對 hash，再啟動新版 CMD。不要覆寫運行中的程式檔。回復時先退出新版，再啟動已保留且核實 hash 的舊版；若資料不相容，先備份新版資料再還原舊資料備份，不將兩版同時指向同一資料根目錄。跨版本更新／回復的真正乾淨機器操作仍待人工驗證。
 
-- **已知啟動缺陷：預設智慧休眠啟動仍為 FAIL。** 全新隔離資料、智慧休眠開啟時，曾觀察到 30 秒未完成主題握手，根因待 05 診斷。本試用入口帶 `--no-smart-sleep` 暫時關閉智慧休眠；app 本身的預設不變。手動重新開啟可能重現缺陷，且本入口每次啟動仍關閉它；關閉期間不宣稱具備智慧休眠的省電效果。05 修正後，08 重新打包須移除此繞行、回到產品預設行為重驗，09 持續追蹤 FAIL，不能以本試用包的啟動通過解除。
-- 04／原 3：完整 DNS／推測連線、其他 Runtime、舊頁面競態與權限／scheme 安全矩陣；未宣稱第三方主題已沙箱化，只匯入可信內容。
-- 05／原 4：其他 Windows、真實 Explorer／桌面互動、拔插、鎖定／待機／喚醒／顯示器電源與 DPI 完整矩陣。
-- 06／原 5：GPU/NVML／NVIDIA、硬體精度、10～30 分鐘 CPU／GPU／記憶體與休眠效能對照。
-- 07／原 6：完全獨立第三方作者依文件開發／打包／匯入／移除的完整流程。
-- 08／09：乾淨一般使用者安裝／移除、缺 runtime 實機、完整回歸與正式 RC 放行。人工外觀、真正系統匣點擊與桌面互動未由自動握手測試證明。
+## 移除與保留
 
-本包實測／NOT RUN 清單由交付時的 trial-package REPORT 與 STATUS 記錄；以上缺口不因產生 ZIP 而解除。第一方 Apache-2.0 與第三方授權見 LICENSE、THIRD_PARTY_NOTICES.md、resources/licenses。
+先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；沒有安裝器，不宣稱安裝器／解除安裝通過。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
+
+## 已知限制與票 09 交接
+
+- **交付入口固定帶 `--no-smart-sleep`**，每次只覆寫本次智慧休眠為關閉；產品自身預設不變。若按儲存，關閉值也會保存。此包不宣稱智慧休眠省電驗收通過；手動重開仍待回歸。03 歷史預設啟動 FAIL 保留，05 新版未重現不等於根因修復。
+- **08-D1：保存 Preview 後正式退出超過工具 15 秒觀測期限**；第 2 輪 FAIL 原樣保存，程序後來自行 exit 0。依 2026-10-30 確認決策停止追查，缺陷與繞行移除交給 09；本包保留繞行可供其餘交付驗證，不解除 RC gate。
+- 04 安全仍 PARTIAL：完整 DNS／其他 Runtime／TURN／proxy／外部 handler／真實舊 callback 競態未全部驗收；不保證第三方內容沙箱或 WebView2 零背景網路。
+- 05 真正桌面互動、Explorer、鎖定／關屏／睡眠、多 DPI／拔插等仍有 NOT RUN；06 長測達有限門檻但記憶體仍上升，不能排除洩漏，NVIDIA／真實電源與更長 soak 未驗。
+- 07／08 GUI 選檔／確認移除、完整版面、真正無來源與工具的一般使用者機器、真實缺 Runtime、更新／回復等仍須人工清單。完整測試、遠端 CI 與 A01～A16／RC 放行由 09 處理；本票本機隔離測試不代替這些結果。
+
+逐項結果、來源／hash／命令與人工清單見 repository 的 `docs/acceptance/2026-10-30/delivery-final/`；先前探針證據保留於 `delivery/`。第一方 Apache-2.0 與第三方授權見 LICENSE、THIRD_PARTY_NOTICES.md、resources/licenses。

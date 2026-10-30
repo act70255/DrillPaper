@@ -1,0 +1,10 @@
+{
+  "action": "移除已測解壓目錄",
+  "reason": "自動核准政策兩次拒絕Remove-Item -LiteralPath -Recurse -Force，工具僅回報blocked by policy；未改用其他刪除方式",
+  "timestamp": "2026-10-30T14:50:11.4466347+08:00",
+  "dataUnchanged": true,
+  "manualClear": "NOT RUN：主動清除專用資料複本交人工清單",
+  "result": "BLOCKED",
+  "preconditions": "PASS：本票app與profile對應WebView2已退出，資料hash保留",
+  "target": "C:\\Users\\James\\DrillPaperTests\\交付收尾 含空白\\final-trial-5"
+}

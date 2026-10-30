@@ -1,0 +1,6 @@
+DrillPaper 0.1.0-trial.5.probe 試用版；產品 commit 676bb473efeca65614fddb40d98e3c88c302494b；WebView2 156.0.4314.50
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-trial-launcher.ps1:16
+Line |
+  16 |  … " -notlike '*缺少必要主題資產*重新完整解壓*') { throw '缺少必要主題入口時，應在啟動前以繁中提示完整解壓。' }
+     |                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 缺少必要主題入口時，應在啟動前以繁中提示完整解壓。

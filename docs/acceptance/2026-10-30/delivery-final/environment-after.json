@@ -1,0 +1,20 @@
+{
+  "applications": [
+    {
+      "utcTicks": 639288432499803524,
+      "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "id": 83428
+    }
+  ],
+  "remainingTestWebView2": [],
+  "scope": "只讀可取得日誌，不代表完整防毒觀測",
+  "timestamp": "2026-10-30T14:50:32.2558929+08:00",
+  "antivirus": {
+    "productVersion": "14.0",
+    "sha256": "A62A71B541E9A7617673AB177117CA76688DC4E426D3DAEAA6E3C117F57408FB",
+    "bytes": 27830,
+    "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+    "modified": "2026-10-30T14:30:45.7323777+08:00"
+  }
+}

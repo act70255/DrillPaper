@@ -7,7 +7,8 @@ param(
     [string]$ExpectedName = '作者離線儀表板',
     [switch]$MockMetrics,
     [switch]$Desktop,
-    [switch]$AllowNetwork
+    [switch]$AllowNetwork,
+    [switch]$VerifyRemoval
 )
 $ErrorActionPreference = 'Stop'
 $app = $null
@@ -125,6 +126,34 @@ try {
     Command-Author 11000
     Record-Author 'switch-author' $ExpectedName $expected
     if ((Get-FileHash -LiteralPath $settings).Hash -ne $savedHash) { throw '第三方命令或非保存切換改變設定。' }
+    if ($VerifyRemoval) {
+        foreach ($response in @(7,6)) {
+            [void][PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20101),0x186,[UIntPtr]::new(2),[IntPtr]::Zero)
+            [void][PerformanceProbe]::PostMessage($notification,0x111,[UIntPtr]::new(20015),[IntPtr]::Zero)
+            Wait-Author { @([PerformanceProbe]::Find($app.Id,'#32770') | Where-Object { [PerformanceProbe]::Caption($_) -eq '移除主題' }).Count -eq 1 } '未出現唯一的主題移除確認。'
+            $dialog=@([PerformanceProbe]::Find($app.Id,'#32770') | Where-Object { [PerformanceProbe]::Caption($_) -eq '移除主題' })[0]
+            [void][PerformanceProbe]::PostMessage($dialog,0x111,[UIntPtr]::new([uint32]$response),[IntPtr]::Zero)
+            Wait-Author { @([PerformanceProbe]::Find($app.Id,'#32770')).Count -eq 0 } '移除確認未結束。'
+            $expectedCount=if ($response -eq 7) { 3 } else { 2 }
+            Wait-Author { [PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20101),0x18B,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32() -eq $expectedCount } '取消／確認移除後的主題清單不符。'
+            if ($response -eq 7) {
+                if ((Get-FileHash -LiteralPath $settings).Hash -ne $savedHash) { throw '取消移除不應改寫設定。' }
+                Record-Author 'remove-cancelled' $ExpectedName $expected
+            } else { Record-Author 'removed-fallback' 'Minimal Monitor' $expected }
+        }
+        $env:LOCALAPPDATA=Join-Path $session 'appdata'
+        try {
+            $cli=Start-SecurityProcess -FilePath $application -ArgumentList '--import-theme',$package -EvidenceDirectory $session -CommandOnly
+            try { if (-not $cli.WaitForExit(15000) -or $cli.ExitCode -ne 0) { throw '確認移除後同版重匯入失敗。' } }
+            finally { $cli.Dispose() }
+        } finally { $env:LOCALAPPDATA=$previousLocal }
+        Command-Author 20016
+        Wait-Author { [PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20101),0x18B,[UIntPtr]::Zero,[IntPtr]::Zero).ToInt32() -eq 3 } '重新匯入後清單未更新。'
+        [void][PerformanceProbe]::SendMessage([PerformanceProbe]::GetDlgItem($manager,20101),0x186,[UIntPtr]::new(2),[IntPtr]::Zero)
+        Command-Author 20010
+        Record-Author 'reimported-author' $ExpectedName $expected
+        $result.removal='PASS：取消不變、確認移除與 Minimal 回退、同版重匯入及載入'
+    }
     $result.result='PASS'
 } catch {
     $result.details=$_ | Out-String

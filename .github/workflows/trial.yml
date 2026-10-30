@@ -41,6 +41,12 @@ jobs:
         env:
           TRIAL_VERSION: ${{ inputs.version }}
         run: ./scripts/build-trial.ps1 -SourceCommit $env:GITHUB_SHA -Version $env:TRIAL_VERSION -OutputDirectory artifacts/trial
+      - name: Verify delivery inventory and hashes
+        shell: pwsh
+        run: |
+          $archive = Get-ChildItem artifacts/trial -Filter '*.zip'
+          ./scripts/verify-trial-archive.ps1 -ArchivePath $archive.FullName -SourceCommit $env:GITHUB_SHA
+          if ($LASTEXITCODE -ne 0) { throw '交付清單驗證失敗。' }
       - uses: actions/upload-artifact@v7
         with:
           name: drillpaper-trial-unsigned

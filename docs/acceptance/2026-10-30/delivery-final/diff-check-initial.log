@@ -1,0 +1,9 @@
+warning: in the working copy of '.github/workflows/trial.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.scratch/rc-delivery/issues/08-delivery-finalization.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/package-trial.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/test-theme-author-flow.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/test-trial-launcher.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/test-trial-package.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/trial/README.zh-TW.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/trial/Start-DrillPaper.cmd', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/trial/Start-DrillPaper.ps1', LF will be replaced by CRLF the next time Git touches it

@@ -50,7 +50,8 @@ try {
         Copy-Item -LiteralPath $inputFile.source -Destination $target
         @{ path=$inputFile.path; sha256=(Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash }
     })
-    $tooling = @(foreach ($file in @('scripts/build-trial.ps1','scripts/package-trial.ps1','scripts/trial-files.json')) {
+    $toolingFiles = @('scripts/build-trial.ps1','scripts/package-trial.ps1','scripts/trial-files.json') + @($entries | Where-Object root -eq 'tooling' | ForEach-Object path)
+    $tooling = @(foreach ($file in ($toolingFiles | Sort-Object -Unique)) {
         @{path=$file; sha256=(Get-FileHash -LiteralPath (Join-Path $roots.tooling $file) -Algorithm SHA256).Hash}
     })
     $metadata = [ordered]@{ kind='trial'; version=$Version; sourceCommit=$SourceCommit; configuration='Release'; architecture='x64';

@@ -1,0 +1,8 @@
+PASS：缺少必要 EXE 時拒絕封裝並提供繁中錯誤。
+試用包：C:\WorkSpace\-James\DrillPaper\artifacts\trial-package-tests-d5c3b09d6b6d4877a1396ab76bb6c49c\out\DrillPaper-0.1.0-trial.test-win-x64-unsigned.zip
+SHA-256：2003016B9591FEADB964A6527428FA623C07BF479BE3F0FE726E8BF0B368763B
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-trial-package.ps1:35
+Line |
+  35 |  … ctual -cnotcontains $required) { throw "交付包缺少最新 SDK 作者資產：$required" }
+     |                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 交付包缺少最新 SDK 作者資產：sdk/javascript/mock-host.d.ts
