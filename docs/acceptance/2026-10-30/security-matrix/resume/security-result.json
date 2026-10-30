@@ -1,0 +1,28 @@
+{
+  "webrtc": "PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)",
+  "workers": "PASS (Dedicated、Shared、Service)",
+  "preconnect": "PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)",
+  "tlsPreconnect": "PASS (關閉零新增連線、開啟 ClientHello)",
+  "prompt": "PASS",
+  "dnsHost": "drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com",
+  "managementMessages": "PASS (三種拒絕回覆及 snapshot 正向控制)",
+  "hash": "AA41960045CBDDE7B6EDB585A84D7E92E235C215C202137EEA4A9AB023151D8E",
+  "http": "PASS",
+  "switch": "off-on-off",
+  "permissions": "PASS (通知、定位、camera/microphone 實際呼叫)",
+  "timestamp": "2026-10-30T09:53:15.0596285+08:00",
+  "application": "C:\\Users\\James\\DrillPaperTests\\安全矩陣 含空白\\SmartScreen-20261030-095223\\DrillPaper.exe",
+  "navigation": "PASS (原頁面繼續或可信 Minimal 回復)",
+  "storage": "PASS (local/session storage、Cookie、IndexedDB、Cache Storage)",
+  "https": "PASS (example.com no-cors)",
+  "result": "PASS",
+  "observedChildren": [
+    74732,
+    94540,
+    54668,
+    88828,
+    89700,
+    82244,
+    101716
+  ]
+}

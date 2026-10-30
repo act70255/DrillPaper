@@ -1,0 +1,37 @@
+{
+  "runningApps": [
+    {
+      "id": 83428,
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "start": "2026-10-29T12:00:49.9803524+08:00"
+    }
+  ],
+  "persistent": {
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "id": 83428,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "start": "2026-10-29T12:00:49.9803524+08:00"
+  },
+  "antivirus": {
+    "behaviorLog": {
+      "length": 8332,
+      "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log",
+      "modified": "2026-10-30T09:22:30.9964599+08:00"
+    },
+    "product": "Trend Micro Apex One",
+    "interceptions": [],
+    "note": "本輪未觀察到新增攔截，可讀行為日誌未變；不代表完整防毒觀測。"
+  },
+  "securitySession": "artifacts/acceptance/security-a083a9169b2346fca1787dd3aea17cf7",
+  "timestamp": "2026-10-30T09:55:45.265014+08:00",
+  "windows": {
+    "build": "26200",
+    "displayVersion": "25H2",
+    "product": "Windows 10 Pro",
+    "ubr": 8737,
+    "cimCaption": "Microsoft Windows 11 專業版",
+    "productNote": "ProductName 為登錄原始值，Windows 11 仍可能沿用 Windows 10 標籤；實際 Caption／build 如本紀錄。"
+  },
+  "runtime": "156.0.4314.50（隔離 profile EBWebView/Last Version）",
+  "multiSession": "artifacts/acceptance/multi-monitor-9ed2472f90554451bc36038cc600978b"
+}

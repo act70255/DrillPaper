@@ -32,6 +32,18 @@ const preconnectProbe = net.createServer(socket => {
   socket.destroy();
 });
 await new Promise(resolve => preconnectProbe.listen(0, '127.0.0.1', resolve));
+// 專用 TLS 接收端與 WSS 分開，記錄 ClientHello 而不依賴可信憑證。
+const tlsPreconnectProbe = net.createServer(socket => {
+  fs.appendFileSync(path.join(directory, 'tls-preconnect.jsonl'), '{"connection":true}\n');
+  socket.once('data', data => {
+    fs.appendFileSync(path.join(directory, 'tls-preconnect.jsonl'), JSON.stringify({
+      clientHello: data[0] === 22 && data[1] === 3, bytes: data.length,
+    }) + '\n');
+    socket.destroy();
+  });
+  socket.setTimeout(2000, () => socket.destroy());
+});
+await new Promise(resolve => tlsPreconnectProbe.listen(0, '127.0.0.1', resolve));
 const server = http.createServer((request, response) => {
   record({ method: request.method, url: request.url });
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -55,5 +67,5 @@ server.on('upgrade', (request, socket) => {
   socket.destroy();
 });
 server.listen(0, '127.0.0.1', () => {
-  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port, stunPort: stunProbe.address().port, preconnectPort: preconnectProbe.address().port }));
+  fs.writeFileSync(path.join(directory, 'server.json'), JSON.stringify({ port: server.address().port, securePort: secureProbe.address().port, stunPort: stunProbe.address().port, preconnectPort: preconnectProbe.address().port, tlsPreconnectPort: tlsPreconnectProbe.address().port }));
 });

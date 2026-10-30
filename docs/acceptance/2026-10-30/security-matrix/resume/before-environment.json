@@ -1,0 +1,22 @@
+{
+  "persistent": {
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "id": 83428,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "start": "2026-10-29T12:00:49.9803524+08:00"
+  },
+  "browserArguments": null,
+  "timestamp": "2026-10-30T09:52:11.0615049+08:00",
+  "antivirus": {
+    "product": "Trend Micro Apex One",
+    "interceptions": [],
+    "note": "只記錄可讀日誌與可見攔截，不代表完整防毒觀測。",
+    "behaviorLogs": [
+      {
+        "length": 8332,
+        "modified": "2026-10-30T09:22:30.9964599+08:00",
+        "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log"
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 ﻿[CmdletBinding()]
 param([Parameter(Mandatory)][string]$ApplicationPath)
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'security-process.ps1')
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
 Add-Type -TypeDefinition @'
 using System;
@@ -180,6 +181,29 @@ function Assert-AllAreas {
         if ($matches.Count -ne 1) { throw '有效桌面區域沒有唯一且完整的宿主矩形。' }
     }
 }
+function Assert-StaleNotifications([object[]]$Previous) {
+    <# 驗證排隊的舊世代／其他宿主通知無法改動目前宿主或偏好。
+    Args:
+        Previous: 切換或重建前的宿主與世代。
+    #>
+    $hash = (Get-FileHash -LiteralPath $settingsFile).Hash
+    foreach ($window in @(Get-Surfaces)) {
+        $epoch = [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.LoadEpoch').ToInt64()
+        $ready = [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.ReadyEpoch').ToInt64()
+        foreach ($old in $Previous) {
+            if ($old.epoch -eq $epoch) { throw '測試前提錯誤：舊世代仍是目前世代。' }
+            foreach ($message in @(0x8042,0x8038)) {
+                [void][DrillPaperMonitorProbe]::SendMessage($window,$message,[UIntPtr]::new([uint64]$old.epoch),[IntPtr]::Zero)
+            }
+            [void][DrillPaperMonitorProbe]::SendMessage($window,0x8041,[UIntPtr]::Zero,[IntPtr]::new($old.epoch))
+        }
+        if ([DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.LoadEpoch').ToInt64() -ne $epoch -or
+            [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.ReadyEpoch').ToInt64() -ne $ready) { throw '舊世代通知更新了目前宿主。' }
+        $tick = [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.MetricsTick').ToInt64()
+        Wait-Condition { [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.MetricsTick').ToInt64() -gt $tick } '拒絕舊訊息後目前頁面沒有繼續接收指標。'
+    }
+    if ((Get-FileHash -LiteralPath $settingsFile).Hash -ne $hash) { throw '舊世代通知改變了保存偏好。' }
+}
 function Stop-TestApplication {
     <# 正式退出並等待當下可觀察到的 WebView2 子程序。
     Returns:
@@ -234,15 +258,21 @@ async function run() {
   await client.ready();
   await client.getSnapshot();
   await client.subscribe({ metrics: ['cpu'], intervalMs: 1000 });
+  // 留下已排程的舊頁面工作，在切換、停用及退出時與 controller 清理競爭。
+  setInterval(() => {
+    for (const type of ['metrics.unsubscribe', 'settings.apply', 'theme.remove', 'app.exit']) {
+      chrome.webview.postMessage({ apiVersion: '1', type, requestId: null, timestamp: new Date().toISOString(), payload: {} });
+    }
+  }, 200);
 }
 run().catch(error => console.error(error));
 '@
     $probeTemplate.Replace('__ENABLED__','false').Replace('__BASE__',"http://127.0.0.1:$port") | Set-Content -LiteralPath (Join-Path $source 'main.js') -Encoding UTF8
-    $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $source + '"') -WindowStyle Hidden -PassThru
+    $import = Start-SecurityProcess -FilePath $application -ArgumentList '--import-theme',$source -EvidenceDirectory $session -CommandOnly
     $null = $import.Handle
     if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '多宿主探針主題匯入失敗。' }
     $import.Dispose()
-    $app = Start-Process -FilePath $application -ArgumentList '--management','--preview','--no-smart-sleep' -WindowStyle Hidden -PassThru
+    $app = Start-SecurityProcess -FilePath $application -ArgumentList '--management','--preview','--no-smart-sleep' -EvidenceDirectory $session
     $null = $app.Handle
     $env:LOCALAPPDATA = $previousLocal
     Wait-Condition { @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperManagementWindow')).Count -eq 1 } '管理介面未建立。'
@@ -331,12 +361,17 @@ run().catch(error => console.error(error));
         Record-Surfaces "network-$enabled"
     }
     # 保存回 Minimal，先以未改動的全部螢幕設定重啟一次。
+    $stale = @(Get-Surfaces | ForEach-Object { @{window=$_; epoch=[DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64()} })
+    for ($iteration=0; $iteration -lt 20; $iteration++) { Send-Command $(if ($iteration % 2) { 10001 } else { 10002 }) }
+    Wait-Ready $allSurfaceCount
+    Assert-StaleNotifications $stale
+    Record-Surfaces 'rapid-switch-stale-notifications'
     [void][DrillPaperMonitorProbe]::SendMessage([DrillPaperMonitorProbe]::GetDlgItem($manager,20101),0x186,[UIntPtr]::Zero,[IntPtr]::Zero)
     Send-Command 20010; Wait-Ready $allSurfaceCount
     $restartHash = (Get-FileHash -LiteralPath $settingsFile).Hash
     $children = Stop-TestApplication; $app.Dispose()
     $env:LOCALAPPDATA = Join-Path $session 'appdata'
-    $app = Start-Process -FilePath $application -ArgumentList '--management','--no-smart-sleep' -WindowStyle Hidden -PassThru
+    $app = Start-SecurityProcess -FilePath $application -ArgumentList '--management','--no-smart-sleep' -EvidenceDirectory $session
     $null = $app.Handle; $env:LOCALAPPDATA = $previousLocal
     Wait-Condition { @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')).Count -eq 1 } '雙屏重啟沒有通知入口。'
     $notification = [DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')[0]
@@ -348,7 +383,7 @@ run().catch(error => console.error(error));
     $fixturePath = Join-Path ([IO.Path]::GetDirectoryName($application)) 'DrillPaperParentFixture.exe'
     if (-not (Test-Path -LiteralPath $fixturePath)) { throw '尚未建置跨程序父視窗 fixture。' }
     $fixtureReady = Join-Path $session 'parent-ready.txt'
-    $fixture = Start-Process -FilePath $fixturePath -ArgumentList ('"' + $fixtureReady + '"') -WindowStyle Hidden -PassThru
+    $fixture = Start-SecurityProcess -FilePath $fixturePath -ArgumentList $fixtureReady -EvidenceDirectory $session
     $null = $fixture.Handle
     try {
         Wait-Condition { Test-Path -LiteralPath $fixtureReady } 'fixture 未建立父視窗。'
@@ -363,8 +398,12 @@ run().catch(error => console.error(error));
         Record-Surfaces 'all-targets-parent-crash-recovery'
     } finally { if (-not $fixture.HasExited) { $fixture.Kill(); [void]$fixture.WaitForExit(10000) }; $fixture.Dispose() }
     if ($count -gt 1) {
+        $stale = @(Get-Surfaces | ForEach-Object { @{window=$_; epoch=[DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64()} })
         for ($index=1; $index -lt $count; $index++) { [DrillPaperMonitorProbe]::Check($app.Id,$list,$index,$false) }
         Send-Command 20010; Wait-Ready 1
+        # 重新選題建立新世代後再投遞舊宿主通知，避免把仍有效的世代誤當過期。
+        Send-Command 10002; Wait-Ready 1
+        Assert-StaleNotifications $stale
         Record-Surfaces 'single-selected'
         if (@((Get-Content -Raw -Encoding UTF8 -LiteralPath $settingsFile | ConvertFrom-Json).monitorTargets).Count -ne 1) { throw '取消其中目標後未保存單選。' }
     }
@@ -380,7 +419,7 @@ run().catch(error => console.error(error));
     $settings | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $settingsFile -Encoding UTF8
     $offlineHash = (Get-FileHash -LiteralPath $settingsFile).Hash
     $env:LOCALAPPDATA = Join-Path $session 'appdata'
-    $app = Start-Process -FilePath $application -ArgumentList '--management','--no-smart-sleep' -WindowStyle Hidden -PassThru
+    $app = Start-SecurityProcess -FilePath $application -ArgumentList '--management','--no-smart-sleep' -EvidenceDirectory $session
     $null = $app.Handle; $env:LOCALAPPDATA = $previousLocal
     Wait-Condition { @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')).Count -eq 1 } '重啟沒有通知視窗。'
     $notification = [DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperShellNotifications')[0]

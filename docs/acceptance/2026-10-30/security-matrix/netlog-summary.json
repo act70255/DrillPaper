@@ -1,0 +1,1480 @@
+{
+  "dnsHost": "drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com",
+  "attribution": "觀測點限 WebView2 NetLog；未歸因背景端點不代表主題或產品遙測。",
+  "summaries": [
+    {
+      "file": "launch-1cc2e9fe672f4082a88372124c6e0b9a.json.netlog.json",
+      "events": 1882,
+      "endpoints": [
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-ef018a15-1c8a-46b7-a4de-45cf46f0aefa.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-ef018a15-1c8a-46b7-a4de-45cf46f0aefa.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-ef018a15-1c8a-46b7-a4de-45cf46f0aefa.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-ef018a15-1c8a-46b7-a4de-45cf46f0aefa.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-ef018a15-1c8a-46b7-a4de-45cf46f0aefa.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "nav-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50463/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:50464/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50465/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "dl-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "file": "launch-a1df14f71650490587345a5f202bff3d.json.netlog.json",
+      "events": 3053,
+      "endpoints": [
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-09c60919-5d41-4808-afc1-b94038001204.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-09c60919-5d41-4808-afc1-b94038001204.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-09c60919-5d41-4808-afc1-b94038001204.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-09c60919-5d41-4808-afc1-b94038001204.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-09c60919-5d41-4808-afc1-b94038001204.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "nav-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50463/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:50464/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50465/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "dl-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-29c1ac34-9c15-4cba-9336-486e8a0708ba.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-29c1ac34-9c15-4cba-9336-486e8a0708ba.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-29c1ac34-9c15-4cba-9336-486e8a0708ba.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-29c1ac34-9c15-4cba-9336-486e8a0708ba.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-29c1ac34-9c15-4cba-9336-486e8a0708ba.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "apply-False",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/api/browser/edge/telemetry/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "telem-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-85da20c3-41a2-4bf0-b0ae-0940a91e2901.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-85da20c3-41a2-4bf0-b0ae-0940a91e2901.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-85da20c3-41a2-4bf0-b0ae-0940a91e2901.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-85da20c3-41a2-4bf0-b0ae-0940a91e2901.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-85da20c3-41a2-4bf0-b0ae-0940a91e2901.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-1d0a26d7-5d2b-41fe-bf07-70b4de8382a6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-1d0a26d7-5d2b-41fe-bf07-70b4de8382a6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-1d0a26d7-5d2b-41fe-bf07-70b4de8382a6.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-1d0a26d7-5d2b-41fe-bf07-70b4de8382a6.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-1d0a26d7-5d2b-41fe-bf07-70b4de8382a6.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "launch-a449d095940348d88adfbdfc81ba7175.json.netlog.json",
+      "events": 4683,
+      "endpoints": [
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://config.edge.skype.com/config/v1/Edge/156.0.4314.50",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://config.edge.skype.com/",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://config.edge.skype.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "config.edge.skype.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.123.224.194:443",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.123.224.194:443",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-993907f1-29e6-4584-bcbc-1f657b7b4e41.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-993907f1-29e6-4584-bcbc-1f657b7b4e41.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-993907f1-29e6-4584-bcbc-1f657b7b4e41.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-993907f1-29e6-4584-bcbc-1f657b7b4e41.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-993907f1-29e6-4584-bcbc-1f657b7b4e41.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "nav-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://data-edge.smartscreen.microsoft.com/api/browser/edge/data/settings/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://data-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://data-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "data-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/api/browser/edge/telemetry/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "telem-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-72a311eb-4d13-433a-b9bb-8162e95de898.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-72a311eb-4d13-433a-b9bb-8162e95de898.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-72a311eb-4d13-433a-b9bb-8162e95de898.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-72a311eb-4d13-433a-b9bb-8162e95de898.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-72a311eb-4d13-433a-b9bb-8162e95de898.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.140.232.67:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "dl-edge.smartscreen.microsoft.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-85144d17-e0b8-4375-acc0-2c3018c943e5.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-85144d17-e0b8-4375-acc0-2c3018c943e5.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-85144d17-e0b8-4375-acc0-2c3018c943e5.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-85144d17-e0b8-4375-acc0-2c3018c943e5.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-85144d17-e0b8-4375-acc0-2c3018c943e5.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-a94c5a02-cd5d-47ab-bcd1-562a65d45500.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-a94c5a02-cd5d-47ab-bcd1-562a65d45500.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-a94c5a02-cd5d-47ab-bcd1-562a65d45500.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-a94c5a02-cd5d-47ab-bcd1-562a65d45500.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-a94c5a02-cd5d-47ab-bcd1-562a65d45500.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-ab977760-eac9-4142-b774-f878311e11c6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-ab977760-eac9-4142-b774-f878311e11c6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-ab977760-eac9-4142-b774-f878311e11c6.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-ab977760-eac9-4142-b774-f878311e11c6.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-ab977760-eac9-4142-b774-f878311e11c6.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50463/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:50464/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50463",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50464",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:50465",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:50465/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:50465/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-fbfb8a4a-51b0-4bf4-8477-eee02e9e0bbb.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-fbfb8a4a-51b0-4bf4-8477-eee02e9e0bbb.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-fbfb8a4a-51b0-4bf4-8477-eee02e9e0bbb.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "drillpaper-theme-fbfb8a4a-51b0-4bf4-8477-eee02e9e0bbb.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "drillpaper-theme-fbfb8a4a-51b0-4bf4-8477-eee02e9e0bbb.invalid:443",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

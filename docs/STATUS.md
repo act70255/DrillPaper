@@ -1,5 +1,30 @@
 # 開發狀態
 
+## 2026-10-30 RC 04 — 接續完成有界安全矩陣與 SmartScreen 修正
+
+- Branch／base：沿用 `feature/rc-04-security-matrix` 與 HEAD `1c62cc41e54a642f5ae5ed0d723e9b0893cef542` 的未提交測試／證據，不另開分支。依票內確認決策續作；04 設 resolved，代表有界可執行驗證與報告完成，安全 PARTIAL／NOT RUN 不因此放行 RC。
+- Scope：web adapter 每個 controller 導覽前以 Settings8 關閉信譽檢查；介面或設定失敗走既有 ReportFailure。保留原測試擴充，新增可重現的 NetLog POST 檢查及 ADR 0005／安全文件／接續證據；沒有改防毒、系統代理、全域 SmartScreen、採樣／休眠或正式 RC gate。
+- TDD：先對原三份實機 NetLog 執行檢查取得 Red（19 次 SmartScreen POST 嘗試，HTTP/2 送出 57489 bytes，含原 telemetry 4510／4619），再最小修正並建置。新三份 NetLog Green：Minimal、HTTP／HTTPS off→on→off、管理／獨立重啟，SmartScreen POST 嘗試 0、送出 0 bytes；POST 嘗試即 FAIL，比只看實際傳輸更嚴格，僅聲明指定觀測時段。
+- PASS／commands：`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperTests DrillPaperSettingsTests DrillPaperThemeTests --parallel 8`；新 EXE 的 `test-webview2-security.ps1`、`test-multi-monitor.ps1`；相關 CTest 15/15（新建置後）；5 個 JS／3 個 PS parser。完整命令、原始 log、父子 PID／時間／退出碼及 hash 見 [接續報告](acceptance/2026-10-30/security-matrix/REPORT.md) 與 resume/。
+- 環境：Windows 11 Pro 25H2 26200.8737／WebView2 156.0.4314.50／SDK 1.0.2478.35；兩個 1920×1080、DPI 144／96。新 EXE SHA-256 `AA41960045CBDDE7B6EDB585A84D7E92E235C215C202137EEA4A9AB023151D8E`，未提交工作樹來源；trial.4 解壓至非 Temp 使用者繁中／空白路徑並替換 EXE，非新交付 ZIP。03 原 ZIP／EXE 不變，08 必須重包。
+- 背景／安全限制：SmartScreen 關閉有失去惡意網站／下載信譽保護的代價；仍觀察到 WPAD 與 Edge ECS GET，後者 query 含識別／版本資訊，衍生摘要已去除值。依確認決策逐項歸因，不宣稱整個 app 零外連／零背景資料傳送；未證實 ECS 可否由 app 關閉，不擅改額外政策。
+- 防毒／清理：Trend Micro Apex One 可讀 AEGIS_BM.log 修改時間仍 09:22:30，未觀察本輪新增攔截；未改防毒設定。原持續桌布 PID 83428 path／StartTime／hash 前後相同且收尾為唯一剩餘 app，未關閉替換、未重啟 Explorer。
+- PARTIAL／NOT RUN：DNS／prefetch、真正舊 controller COM 訊息送達、外部 URI handler／其他設備／TURN-UDP／TLS／其他介面／proxy／OS／Runtime／escape、人工畫面均保留報告限制與接續清單。雙目標此輪不擷取 NetLog，不外推背景流量。全套測試留 09、CI／重包／乾淨帳號留後票；05 智慧休眠缺陷未修，08／09 gate 保留。
+- Review：依 implement 的 code-review 技能做 Standards／Spec 平行審查，工具入口錯誤與缺 capture 日誌兩項皆補 Red→Green；三項工具測試 3/3，完整原／新 NetLog 重播仍為 Red／Green。兩軸複查未解決各 0，詳見 resume/REVIEW.md；最終語法檢查含 6 個 JS／3 個 PS。
+- 工具相容性：Windows PowerShell 5.1 parser 另重現新增 helper 缺 UTF-8 BOM，補標記後三個 PS 腳本通過；Red／Green log 保留，沒有變更產品 EXE 或重做實機證據。
+- Commit：`fix(web): 關閉 SmartScreen 信譽檢查並補安全矩陣`，由 commit-msg 技能依實際 staged diff 產生；本票單次提交並 push `origin/feature/rc-04-security-matrix`，交付時核對遠端與本機相同。不合併 main、不公開發行。
+
+## 2026-10-30 RC 04 — 無遙測決策衝突，停止未提交
+
+- Branch／base：從乾淨 HEAD `1c62cc41e54a642f5ae5ed0d723e9b0893cef542` 建立 `feature/rc-04-security-matrix`；03 implemented。本票維持 in-progress／BLOCKED，依使用者「決策與現況衝突即停止、不 commit」規則，**未 commit、未 push**。
+- Scope／files：先記有界矩陣；未提交測試草稿新增 Node 直接啟動與身分／退出紀錄、隔離 NetLog、camera／microphone 實際呼叫、HTML 管理命令拒絕、TLS preconnect／DNS hint／prefetch、雙目標快速切換與舊世代通知；新增本票報告／證據及 ticket Comments。沒有修改產品 src/include、沒有停用 SmartScreen、防毒或變更全域設定。
+- **衝突／BLOCKED**：handoff §7.7 要求「無遙測、無背景上傳」；WebView2 在內建 Minimal、網路預設關閉時，仍 POST 4510 bytes 至 `telem-edge.smartscreen.microsoft.com/api/browser/edge/telemetry/3`（09:38:57.157+08:00），最後關閉階段另 POST 4619 bytes（09:39:36.485+08:00），均 HTTP 200。由同 HTTP/2 source／stream 的 SEND_HEADERS／SEND_DATA／RECV_HEADERS 確認，並非只有請求嘗試。這是瀏覽器自身流量，不等於證實上傳系統指標；不自行將無遙測範圍限縮為 C++。停止後只保存證據／狀態與核對程序，待要求釐清。
+- 環境／版本：Windows 11 Pro 25H2 **26200.8737**、WebView2 **156.0.4314.50**、兩個 1920×1080／DPI 144／96；trial.4 ZIP SHA-256 `C3ECF566EAB58D4A015D44D749E60F1E6872F5830F31AEB0F3B303ECC40C3287`，EXE `B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781`。產品來源 e6aa20e，EXE 解壓於 `%USERPROFILE%/DrillPaperTests/安全矩陣 含空白/20261030-093658`，逐檔核對 manifest；測試工具為本票未提交工作樹，不冒稱相同來源 commit。
+- PASS（已執行範圍）：相關 CTest **15/15**；相關 targets 建置／JS syntax／PS parser；既有與擴充安全、HTTP／HTTPS off→on→off、管理／獨立重啟、實際 getUserMedia／定位／通知拒絕、三種 HTML 管理命令拒絕與 snapshot 正向控制；HTTP／TLS preconnect 於關閉零新增、開啟收到 TLS ClientHello；雙目標來源／Cookie、20 次快速切換、目標停用、fixture crash 重建、舊／跨宿主原生通知無法改新世代／偏好且指標持續、正式退出與已觀察子程序清理。TDD：未重現票內產品缺陷，沒有偽造 Red 或修改產品。
+- PARTIAL／NOT RUN：DNS hint 只有指定主機的 NetLog 正向／負面觀測，沒有受控 DNS／全介面接收端；prefetch 未建立獨立判準；舊頁面排程與原生通知不代表所有舊 COM callback race。外部 URI handler／其他設備、TURN-UDP／TLS、其他介面／proxy／Windows／Runtime、瀏覽器／OS escape、人工 GUI 均依報告原因維持未驗。完整套件留 09；CI／code-review／commit-msg／commit／push 因停止規則 NOT RUN；停止後未重新執行剛建置的 CTest binary 或最後 phase 格式微調的安全腳本。
+- 防毒／清理：Trend Micro Apex One，PccNTMon 14.0.0.21008；本輪未觀察新增攔截，可讀行為日誌仍最後修改 09:22:30（03 的 Temp／PowerShell 舊事件）。未修改防毒；原持續桌布 83428 路徑／建立時間不變且為唯一剩餘 DrillPaper；未關閉／替換，未重啟 Explorer。
+- Commands／results／next：完整矩陣、命令、hash、去除敏感標頭的背景上傳證據及 03 試用限制、08 重新打包／政策、09 gate 影響見 [RC 04 報告](acceptance/2026-10-30/security-matrix/REPORT.md)。無遙測適用範圍釐清前不續作、不完成 ticket、不解除 gate；沒有合併或發布。
+
 ## 2026-10-30 RC 03 — 接續完成首次試用包
 
 - Branch／base：沿用 `feature/rc-03-trial-package` 既有未提交工作；開始 HEAD `fe292da667a94adfa0bf7c0de87dd14bca08a579` 僅比產品來源多決策文件。產品仍為上輪乾淨建置的 `e6aa20e109da8cdd5402fe06ae0d11f3bc539d53`，不重建產品、不另開分支。ticket 設 implemented，代表已確認的試用範圍完成。

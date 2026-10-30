@@ -1,6 +1,7 @@
 ﻿[CmdletBinding()]
 param([Parameter(Mandatory)][string]$ApplicationPath)
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'security-process.ps1')
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
 Add-Type -TypeDefinition @'
 using System;
@@ -150,6 +151,8 @@ try {
     $control.Dispose()
     $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $serverConfig.preconnectPort)
     $control.Dispose()
+    $control = [Net.Sockets.TcpClient]::new('127.0.0.1', $serverConfig.tlsPreconnectPort)
+    $control.Dispose()
     Start-Sleep -Milliseconds 200
     $secureLog = Join-Path $session 'secure-connections.jsonl'
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 連線接收端的正向控制未通過。' }
@@ -159,13 +162,17 @@ try {
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw 'STUN UDP 接收端的正向控制未通過。' }
     $probe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-probe.js')).Replace('__BASE__', "http://127.0.0.1:$port").Replace('__WSS__', "wss://127.0.0.1:$securePort/socket").Replace('__STUN__', "stun:127.0.0.1:$($serverConfig.stunPort)").Replace('__TURN__', "turn:127.0.0.1:$securePort`?transport=tcp")
     $probe = $probe.Replace('__PRECONNECT__', "http://127.0.0.1:$($serverConfig.preconnectPort)")
+    $dnsHost = 'drillpaper-' + [Guid]::NewGuid().ToString('N') + '.example.com'
+    $probe = $probe.Replace('__TLS_PRECONNECT__', "https://127.0.0.1:$($serverConfig.tlsPreconnectPort)").Replace('__DNS_HOST__', $dnsHost)
+    $tlsLog = Join-Path $session 'tls-preconnect.jsonl'
+    if (@(Get-Content -LiteralPath $tlsLog).Count -ne 1) { throw 'TLS preconnect 接收端正向控制失敗。' }
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../sdk/javascript/desktop-monitor-sdk.js') -Destination $source
     '{"id":"security-probe","name":"安全驗證","version":"1.0.0","apiVersion":"1","entry":"index.html","author":"DrillPaper","description":"","capabilities":["cpu"],"permissions":[]}' | Set-Content -LiteralPath (Join-Path $source 'theme.json') -Encoding UTF8
     '<!doctype html><body><script type="module" src="main.js"></script>' | Set-Content -LiteralPath (Join-Path $source 'index.html') -Encoding UTF8
     '{"download":"必須拒絕"}' | Set-Content -LiteralPath (Join-Path $source 'download.json') -Encoding UTF8
     'globalThis.onconnect = event => event.ports[0].postMessage("executed"); if (typeof postMessage === "function") postMessage("executed");' | Set-Content -LiteralPath (Join-Path $source 'worker.js') -Encoding UTF8
     $probe.Replace('__ENABLED__', 'false') | Set-Content -LiteralPath (Join-Path $source 'main.js') -Encoding UTF8
-    $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $source + '"') -WindowStyle Hidden -PassThru
+    $import = Start-SecurityProcess -FilePath $application -ArgumentList '--import-theme',$source -EvidenceDirectory $session -CommandOnly
     $handle = $import.Handle
     if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '無法匯入安全測試主題。' }
     $import.Dispose()
@@ -175,11 +182,11 @@ try {
     [IO.File]::WriteAllText((Join-Path $navigationSource 'theme.json'), $manifest, [Text.UTF8Encoding]::new($false))
     $navigationProbe = [IO.File]::ReadAllText((Join-Path $PSScriptRoot '../tests/fixtures/security-navigation.js')).Replace('__BASE__', "http://127.0.0.1:$port")
     [IO.File]::WriteAllText((Join-Path $navigationSource 'main.js'), $navigationProbe, [Text.UTF8Encoding]::new($false))
-    $import = Start-Process -FilePath $application -ArgumentList '--import-theme',('"' + $navigationSource + '"') -WindowStyle Hidden -PassThru
+    $import = Start-SecurityProcess -FilePath $application -ArgumentList '--import-theme',$navigationSource -EvidenceDirectory $session -CommandOnly
     $handle = $import.Handle
     if (-not $import.WaitForExit(15000) -or $import.ExitCode -ne 0) { throw '無法匯入導覽復原測試主題。' }
     $import.Dispose()
-    $app = Start-Process -FilePath $application -ArgumentList '--management','--preview','--mock-metrics','--no-smart-sleep' -WindowStyle Hidden -PassThru
+    $app = Start-SecurityProcess -FilePath $application -ArgumentList '--management','--preview','--mock-metrics','--no-smart-sleep' -EvidenceDirectory $session -CaptureNetwork
     $handle = $app.Handle
     $env:LOCALAPPDATA = $previousLocal
     Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '缺少管理命令入口。'
@@ -188,6 +195,10 @@ try {
     Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow') -ne [IntPtr]::Zero } '缺少初始宿主。'
     $wallpaper = [SecurityProbe]::Find($app.Id, 'DrillPaperPreviewWindow')
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } '初始主題未就緒。'
+    # Minimal 的閒置時段作為同一瀏覽器程序的背景觀測對照。
+    Start-Sleep -Seconds 3
+    @{phase='minimal-baseline-ended'; timestamp=(Get-Date -Format o); dnsHost=$dnsHost} | ConvertTo-Json -Compress |
+        Set-Content -LiteralPath (Join-Path $session 'network-phases.jsonl') -Encoding UTF8
     $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
     [void][SecurityProbe]::PostMessage($wallpaper, 0x111, [UIntPtr]::new([uint32]11000), [IntPtr]::Zero)
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.NetworkPrompt').ToInt64() -eq 1 } '首次封鎖外連沒有出現設定提示。'
@@ -195,6 +206,7 @@ try {
     Wait-Security { [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.DownloadBlocked').ToInt64() -eq 1 } '沒有觀察到真實下載拒絕事件。'
     if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { throw '預設封鎖時測試伺服器仍收到請求。' }
     if (@(Get-Content -LiteralPath $preconnectLog).Count -ne 1) { throw '預設網路關閉時仍建立 preconnect TCP 連線。' }
+    if (@(Get-Content -LiteralPath $tlsLog).Count -ne 1) { throw '預設網路關閉時仍建立 TLS preconnect 連線。' }
     if (@(Get-Content -LiteralPath $stunLog).Count -ne 1) { throw '預設網路關閉時 WebRTC 仍傳送 UDP／STUN 封包。' }
     Test-NavigationRecovery
     $networkCheck = [SecurityProbe]::GetDlgItem($manager, 20106)
@@ -215,13 +227,18 @@ try {
         $ready = [SecurityProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64()
         $before = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
         $preconnectBefore = @(Get-Content -LiteralPath $preconnectLog).Count
+        $tlsBefore = @(Get-Content -LiteralPath $tlsLog).Count
+        @{phase="apply-$enabled"; timestamp=(Get-Date -Format o)} | ConvertTo-Json -Compress |
+            Add-Content -LiteralPath (Join-Path $session 'network-phases.jsonl') -Encoding UTF8
         [void][SecurityProbe]::PostMessage($notification, 0x111, [UIntPtr]::new([uint32]20010), [IntPtr]::Zero)
         Wait-Security { Test-ProbeComplete $ready } "實際網路切換測試未通過，allowNetwork=$enabled。"
         $after = if (Test-Path -LiteralPath (Join-Path $session 'requests.jsonl')) { @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count } else { 0 }
         if (($enabled -and $after -le $before) -or (-not $enabled -and $after -ne $before)) { throw '瀏覽器結果與伺服器實際請求不一致。' }
         if (-not $enabled -and @(Get-Content -LiteralPath $preconnectLog).Count -ne $preconnectBefore) { throw '關閉網路後仍建立 preconnect TCP 連線。' }
+        if (-not $enabled -and @(Get-Content -LiteralPath $tlsLog).Count -ne $tlsBefore) { throw '關閉網路後仍建立 TLS preconnect 連線。' }
         if ($enabled) {
             Wait-Security { @(Get-Content -LiteralPath $preconnectLog).Count -gt $preconnectBefore } '開啟網路時沒有觀察到瀏覽器 preconnect 正向控制。'
+            Wait-Security { @(Get-Content -LiteralPath $tlsLog | Select-Object -Skip $tlsBefore | ForEach-Object { $_ | ConvertFrom-Json } | Where-Object { $_.clientHello }).Count -gt 0 } '開啟網路時沒有觀察到 TLS ClientHello 正向控制。'
         }
         $settings = Get-Content -Raw -LiteralPath (Join-Path $session 'appdata/DrillPaper/settings.json') | ConvertFrom-Json
         if ($settings.allowNetwork -ne $enabled) { throw '網路設定未正確保存。' }
@@ -240,7 +257,7 @@ try {
             $arguments = @('--mock-metrics','--no-smart-sleep')
             if ($mode -eq 'managed') { $arguments += '--management' } else { $arguments += '--preview' }
             $requestBeforeRestart = @(Get-Content -LiteralPath (Join-Path $session 'requests.jsonl')).Count
-            $app = Start-Process -FilePath $application -ArgumentList $arguments -WindowStyle Hidden -PassThru
+            $app = Start-SecurityProcess -FilePath $application -ArgumentList $arguments -EvidenceDirectory $session -CaptureNetwork
             $handle = $app.Handle
             $env:LOCALAPPDATA = $previousLocal
             Wait-Security { [SecurityProbe]::Find($app.Id, 'DrillPaperShellNotifications') -ne [IntPtr]::Zero } '重啟後沒有管理入口。'
@@ -256,6 +273,8 @@ try {
         }
     }
     $children = @(Stop-SecurityApp)
+    & node (Join-Path $PSScriptRoot 'check-security-netlog.mjs') $session
+    if ($LASTEXITCODE -ne 0) { throw 'SmartScreen 背景 POST 仍存在；停止，不可提交，詳見 smartscreen-result.json。' }
     if (@(Get-Content -LiteralPath $secureLog).Count -ne 1) { throw 'WSS 在設定切換或重啟期間仍嘗試 TCP／TLS 連線。' }
     $packets = @(Get-Content -LiteralPath $stunLog | ForEach-Object { $_ | ConvertFrom-Json })
     if ($packets.Count -ne 1 -or -not $packets[0].control) { throw 'WebRTC 在設定切換或重啟期間仍傳送 UDP／STUN 封包。' }
@@ -264,7 +283,8 @@ try {
       webrtc='PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)';
       preconnect='PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)';
       storage='PASS (local/session storage、Cookie、IndexedDB、Cache Storage)';
-      workers='PASS (Dedicated、Shared、Service)'; permissions='PASS (通知、定位；camera/microphone 狀態 denied)';
+      workers='PASS (Dedicated、Shared、Service)'; permissions='PASS (通知、定位、camera/microphone 實際呼叫)';
+      tlsPreconnect='PASS (關閉零新增連線、開啟 ClientHello)'; dnsHost=$dnsHost; managementMessages='PASS (三種拒絕回覆及 snapshot 正向控制)';
       navigation='PASS (原頁面繼續或可信 Minimal 回復)'; timestamp=(Get-Date -Format o)} |
         ConvertTo-Json | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：首次封鎖提示，證據：$session"

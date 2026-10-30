@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-30T09:39:40.5199833+08:00",
+  "http": "PASS",
+  "storage": "PASS (local/session storage、Cookie、IndexedDB、Cache Storage)",
+  "permissions": "PASS (通知、定位、camera/microphone 實際呼叫)",
+  "preconnect": "PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)",
+  "navigation": "PASS (原頁面繼續或可信 Minimal 回復)",
+  "result": "PASS",
+  "observedChildren": [
+    64400,
+    11272,
+    93788,
+    97496,
+    79844,
+    82796,
+    61392
+  ],
+  "managementMessages": "PASS (三種拒絕回覆及 snapshot 正向控制)",
+  "dnsHost": "drillpaper-536af503b0454dc28a44a7ad6a50396b.example.com",
+  "switch": "off-on-off",
+  "application": "C:\\Users\\James\\DrillPaperTests\\安全矩陣 含空白\\20261030-093658\\DrillPaper.exe",
+  "webrtc": "PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)",
+  "https": "PASS (example.com no-cors)",
+  "tlsPreconnect": "PASS (關閉零新增連線、開啟 ClientHello)",
+  "workers": "PASS (Dedicated、Shared、Service)",
+  "hash": "B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781",
+  "prompt": "PASS"
+}

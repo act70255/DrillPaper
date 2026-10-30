@@ -1,0 +1,11 @@
+✔ check-security-netlog.mjs 缺少必填目錄時顯示繁中提示並隱藏原始堆疊 (232.0374ms)
+✔ summarize-security-netlog.mjs 缺少必填目錄時顯示繁中提示並隱藏原始堆疊 (209.0605ms)
+✔ 管理或獨立重啟缺少任一 NetLog 時不得通過 (241.3049ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 919.416

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "launch-a1df14f71650490587345a5f202bff3d.json.netlog.json",
+    "phase": "off-final",
+    "time": "2026-10-30T01:39:36.485Z",
+    "source": 90,
+    "stream": 9,
+    "headers": [
+      ":method: POST",
+      ":authority: telem-edge.smartscreen.microsoft.com",
+      ":scheme: https",
+      ":path: /api/browser/edge/telemetry/3",
+      "content-length: 4619"
+    ],
+    "sentBytes": 4619,
+    "response": [
+      ":status: 200"
+    ]
+  },
+  {
+    "file": "launch-a449d095940348d88adfbdfc81ba7175.json.netlog.json",
+    "phase": "minimal-baseline",
+    "time": "2026-10-30T01:38:57.157Z",
+    "source": 73,
+    "stream": 5,
+    "headers": [
+      ":method: POST",
+      ":authority: telem-edge.smartscreen.microsoft.com",
+      ":scheme: https",
+      ":path: /api/browser/edge/telemetry/3",
+      "content-length: 4510"
+    ],
+    "sentBytes": 4510,
+    "response": [
+      ":status: 200"
+    ]
+  }
+]

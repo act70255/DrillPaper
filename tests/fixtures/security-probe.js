@@ -12,6 +12,16 @@ async function runSecurityProbe() {
   preconnect.rel = 'preconnect';
   preconnect.href = '__PRECONNECT__';
   document.head.append(preconnect);
+  const tlsPreconnect = document.createElement('link');
+  tlsPreconnect.rel = 'preconnect';
+  tlsPreconnect.href = '__TLS_PRECONNECT__';
+  document.head.append(tlsPreconnect);
+  for (const [rel, href] of [['dns-prefetch', '//__DNS_HOST__'], ['prefetch', base + '/prefetch']]) {
+    const hint = document.createElement('link');
+    hint.rel = rel;
+    hint.href = href;
+    document.head.append(hint);
+  }
   const local = await fetch('./download.json').then(r => r.json());
   if (local.download !== '必須拒絕') throw new Error('離線主題不能讀取自己的 JSON 資產');
   /** 斷言真實瀏覽器可觀察行為。
@@ -99,6 +109,30 @@ async function runSecurityProbe() {
   check(await navigator.serviceWorker.register('./worker.js').then(() => false, error => error.name === 'SecurityError'), 'ServiceWorker 未拒絕');
   for (const name of ['camera', 'microphone']) {
     check((await navigator.permissions.query({ name })).state === 'denied', name + ' 權限未拒絕');
+    const result = await navigator.mediaDevices.getUserMedia(name === 'camera' ? { video: true } : { audio: true })
+      .then(stream => { stream.getTracks().forEach(track => track.stop()); return 'allowed'; }, error => error.name);
+    check(result === 'NotAllowedError', name + ' 實際 getUserMedia 未明確拒絕：' + result);
+  }
+  // 未知管理命令必須得到實際拒絕回覆，且既有 snapshot 正向控制仍可使用。
+  for (const type of ['settings.apply', 'theme.remove', 'app.exit']) {
+    const id = 'security-' + type;
+    const denied = new Promise((resolve, reject) => {
+      const timer = setTimeout(() => { chrome.webview.removeEventListener('message', listener); reject(Error('管理命令沒有拒絕回覆')); }, 3000);
+      /** 比對本次請求的宿主拒絕回覆。
+       * Args:
+       *     event: WebView2 原生訊息事件。
+       */
+      function listener(event) {
+        if (event.data?.requestId !== id) return;
+        clearTimeout(timer);
+        chrome.webview.removeEventListener('message', listener);
+        resolve(event.data.type === 'host.error' && event.data.payload?.code === 'unsupported-message');
+      }
+      chrome.webview.addEventListener('message', listener);
+    });
+    chrome.webview.postMessage({ apiVersion: '1', type, requestId: id, timestamp: new Date().toISOString(), payload: {} });
+    check(await denied, 'HTML 管理命令沒有明確拒絕：' + type);
+    await client.getSnapshot();
   }
   /** 取得外部資源載入結果。
    * Args:

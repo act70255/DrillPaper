@@ -425,6 +425,10 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 if (SUCCEEDED(result)) result = settings->put_AreDevToolsEnabled(FALSE);
                                 if (SUCCEEDED(result)) result = settings->put_AreDefaultContextMenusEnabled(FALSE);
                                 if (SUCCEEDED(result)) result = settings->put_AreDefaultScriptDialogsEnabled(FALSE);
+                                // 每個 controller 均停用信譽檢查，避免 SmartScreen 背景上傳；見 ADR 0005。
+                                ComPtr<ICoreWebView2Settings8> settings8;
+                                if (SUCCEEDED(result)) result = settings.As(&settings8);
+                                if (SUCCEEDED(result)) result = settings8->put_IsReputationCheckingRequired(FALSE);
                             }
                             if (FAILED(result)) {
                                 ReportFailure(result);

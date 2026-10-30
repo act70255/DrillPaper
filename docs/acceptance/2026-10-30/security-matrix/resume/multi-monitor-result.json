@@ -1,0 +1,326 @@
+{
+  "manualVisual": "NOT RUN",
+  "hash": "AA41960045CBDDE7B6EDB585A84D7E92E235C215C202137EEA4A9AB023151D8E",
+  "evidence": [
+    {
+      "phase": "all-selected-minimal",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 4,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 2,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 5,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 3,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "all-selected-dashboard",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 6,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 4,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 7,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 5,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "one-target-fallback",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 8,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 6,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 7,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 5,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "network-False",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 9,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 7,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 10,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 8,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "network-True",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 11,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 9,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 12,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 10,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "network-False",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 13,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 11,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 14,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 12,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "rapid-switch-stale-notifications",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 53,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 4917508,
+          "ready": 13,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 54,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 4332654,
+          "ready": 14,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "all-selected-restart",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 1,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 78582956,
+          "ready": 2,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 2,
+          "left": 1920,
+          "attached": 2,
+          "hwnd": 60490340,
+          "ready": 1,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "all-targets-parent-crash-recovery",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 3,
+          "left": 0,
+          "attached": 3,
+          "hwnd": 107091356,
+          "ready": 3,
+          "dpi": 144
+        },
+        {
+          "right": 3840,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 4,
+          "left": 1920,
+          "attached": 4,
+          "hwnd": 6817346,
+          "ready": 4,
+          "dpi": 96
+        }
+      ]
+    },
+    {
+      "phase": "single-selected",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 6,
+          "left": 0,
+          "attached": 3,
+          "hwnd": 107091356,
+          "ready": 6,
+          "dpi": 144
+        }
+      ]
+    },
+    {
+      "phase": "mode-roundtrip",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 10,
+          "left": 0,
+          "attached": 5,
+          "hwnd": 107222428,
+          "ready": 8,
+          "dpi": 144
+        }
+      ]
+    },
+    {
+      "phase": "all-disconnected-primary-fallback",
+      "surfaces": [
+        {
+          "right": 1920,
+          "top": 0,
+          "parent": 70916314,
+          "bottom": 1080,
+          "load": 1,
+          "left": 0,
+          "attached": 1,
+          "hwnd": 6948418,
+          "ready": 1,
+          "dpi": 144
+        }
+      ]
+    }
+  ],
+  "result": "PASS",
+  "application": "C:\\Users\\James\\DrillPaperTests\\安全矩陣 含空白\\SmartScreen-20261030-095223\\DrillPaper.exe",
+  "distinctAreas": 2,
+  "physicalHotplug": "NOT RUN",
+  "connectedTargets": 2,
+  "timestamp": "2026-10-30T09:54:27.6370074+08:00",
+  "observedExitedChildren": 19,
+  "realExplorerRestart": "NOT RUN"
+}

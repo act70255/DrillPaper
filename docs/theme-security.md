@@ -12,11 +12,12 @@
 - 另附宿主 Connection-Allowlist，固定拒絕 WebRTC；關閉網路只允許目前來源，開啟後加入 HTTP／HTTPS，CSP 與原生限制繼續生效。本機 Runtime 155.0.4283.62 的 data channel／STUN 負面有舊版收件與修正版零收件證據；不同 Runtime 不由此建立支援聲明，見 [ADR 0003](adr/0003-connection-allowlist.md)。
 - 若被拒絕的頂層導覽仍造成瀏覽器錯誤頁，原生失敗事件以載入世代觸發可信 Minimal 回復，不改已保存偏好；可信回復亦失敗時保留管理入口與友善提示，見 [ADR 0004](adr/0004-recover-blocked-navigation.md)。
 - 首次封鎖 HTTP／HTTPS 顯示可信原生設定提示，每個 app 工作階段最多一次，不放行、不保存。固定注入的 CSP 通知僅能觸發一次提示；即使主題偽造同一通知，也無法更改設定或執行管理命令。
-- 一般使用者權限；私有 WebView2 user-data 目錄；只提供核准的彙總指標，產品沒有遙測。
+- 一般使用者權限；私有 WebView2 user-data 目錄；只提供核准的彙總指標，自有程式不送遙測。每個 WebView 在導覽前關閉 SmartScreen 信譽檢查，不受 allowNetwork 影響；設定無法套用時拒絕載入。此取捨失去該 WebView 的惡意網站／下載信譽保護，見 [ADR 0005](adr/0005-disable-smartscreen-reputation-checking.md)。
+- RC 04 在 Windows 11 26200.8737／Runtime 156.0.4314.50 的指定 NetLog 時段重驗 SmartScreen POST 為零。仍觀察到 WPAD 解析及 Edge 組態服務請求；網路開關只管理主題，不代表整個 WebView2 程序零外連。完整範圍、hash 與限制見 [RC 04 報告](acceptance/2026-10-30/security-matrix/REPORT.md)。
 
 ## 真實 WebView2 驗證
 
-執行 scripts/test-webview2-security.ps1，指定 -ApplicationPath build/windows-msvc-release/Release/DrillPaper.exe。使用隔離 LOCALAPPDATA、實際匯入的測試主題與 loopback Node HTTP fixture；Node 只供測試，不是產品依賴。以瀏覽器結果、既有 SDK 訂閱及伺服器實收紀錄交叉判定，不以單元 policy 代替流量證據。HTTPS 正向案例對 https://example.com/ 發出固定 no-cors 測試請求，需要可用網路；不略過憑證驗證。
+執行 scripts/test-webview2-security.ps1，-ApplicationPath 指向解壓至非 Temp 使用者目錄的隔離 EXE。依防毒決策使用 Node 直接啟動 EXE，保存父子 PID／退出紀錄；PowerShell 只協調。使用隔離 LOCALAPPDATA、實際匯入的測試主題與 loopback Node HTTP fixture；Node 只供測試，不是產品依賴。以瀏覽器結果、既有 SDK 訂閱及伺服器實收紀錄交叉判定，不以單元 policy 代替流量證據。HTTPS 正向案例對 https://example.com/ 發出固定 no-cors 測試請求，需要可用網路；不略過憑證驗證。腳本退出 WebView2 後自動檢查 NetLog；SmartScreen POST 嘗試即失敗，原始日誌只留 artifacts。
 
 已重現舊攔截器未阻止 WebSocket；加入強制 CSP 後通過同一負面案例。HTTP／HTTPS 開關、首次提示、保存／取消／重啟、本機 JSON、script、image、fetch、XHR、iframe、WebSocket、HTTP redirect、redirect 至 file、外部導覽、彈窗、通知／定位權限、下載事件及非支援 scheme 的結果見 [階段 3 報告](acceptance/2026-10-29/management/PHASE3.md)。
 
@@ -26,6 +27,8 @@
 
 另以獨立 TCP 接收端實測單一 loopback HTTP preconnect：舊版在關閉時仍連線；目前政策下，開啟時有瀏覽器正向連線，關閉時無新增連線。這不等於完整 DNS／TLS preconnect 或背景流量驗收。
 
-NOT RUN：完整 WebRTC（含 TURN-UDP／TLS）、完整 DNS／preconnect／推測連線、瀏覽器自身背景流量、舊頁面訊息競態、完整權限種類／設備 API、所有 scheme 組合、瀏覽器漏洞與 OS sandbox 逃逸。STUN 與 X-DNS-Prefetch-Control 不等於已量測所有 WebRTC／DNS 流量，不能證明完全阻止網路外傳。
+RC 04 另驗真實 camera／microphone getUserMedia 拒絕、TLS preconnect ClientHello 正向控制與關閉零新增、DNS hint 的指定主機 NetLog、三種 HTML 管理命令拒絕及雙目標舊世代原生通知。舊 controller 真實 COM 競態、DNS 與背景流量觀測仍有 PARTIAL 限制；不能將原生通知注入等同所有舊頁面事件送達。
+
+NOT RUN：完整 WebRTC（含 TURN-UDP／TLS）、完整 DNS／preconnect／推測連線、完整背景流量與其他 Runtime、完整權限種類／設備 API、外部 URI handler 與所有 scheme 組合、其他介面／proxy、瀏覽器漏洞與 OS sandbox 逃逸。STUN 與 X-DNS-Prefetch-Control 不等於已量測所有 WebRTC／DNS 流量，不能證明完全阻止網路外傳。
 
 檔案檢查不是 OS 隔離，無法保證同使用者並行替換路徑的安全性。無限迴圈與資源耗盡另屬復原／效能矩陣。這些限制及未完成的 Windows 相容性、乾淨安裝等 gate 仍阻擋 app RC；不得將套件驗證或目前通訊測試稱為完整沙箱。

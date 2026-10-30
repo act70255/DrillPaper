@@ -1,0 +1,285 @@
+{
+  "result": "FAIL",
+  "criterion": "SmartScreen POST 嘗試即失敗；HTTP/2 source／stream 關聯 SEND_DATA 另證實實際上傳。僅限這些 NetLog 的觀測時段。",
+  "expectedNetlogs": [
+    "launch-1cc2e9fe672f4082a88372124c6e0b9a.json.netlog.json",
+    "launch-a1df14f71650490587345a5f202bff3d.json.netlog.json",
+    "launch-a449d095940348d88adfbdfc81ba7175.json.netlog.json"
+  ],
+  "reports": [
+    {
+      "file": "launch-1cc2e9fe672f4082a88372124c6e0b9a.json.netlog.json",
+      "sha256": "3f50579e4af75f66b339af9e1490e40677d57b977642904b7efc23ea92fffa9e",
+      "events": 1882,
+      "attempts": [
+        {
+          "time": "2026-10-30T01:39:18.474Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:24.015Z",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3"
+        }
+      ],
+      "streams": [
+        {
+          "source": 90,
+          "stream": 1,
+          "time": "2026-10-30T01:39:18.677Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 3,
+          "time": "2026-10-30T01:39:24.032Z",
+          "sentBytes": 2685,
+          "response": [
+            ":status: 200"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "launch-a1df14f71650490587345a5f202bff3d.json.netlog.json",
+      "sha256": "1f31cb2a39bfcc7def3c08be7ea915ce0cf757c14feb53e972af8180be67d464",
+      "events": 3053,
+      "attempts": [
+        {
+          "time": "2026-10-30T01:39:28.270Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:33.726Z",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3"
+        },
+        {
+          "time": "2026-10-30T01:39:34.733Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:36.311Z",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3"
+        },
+        {
+          "time": "2026-10-30T01:39:36.480Z",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/api/browser/edge/telemetry/3"
+        },
+        {
+          "time": "2026-10-30T01:39:37.072Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:38.570Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        }
+      ],
+      "streams": [
+        {
+          "source": 90,
+          "stream": 1,
+          "time": "2026-10-30T01:39:28.496Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 3,
+          "time": "2026-10-30T01:39:33.731Z",
+          "sentBytes": 2685,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 5,
+          "time": "2026-10-30T01:39:34.734Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 7,
+          "time": "2026-10-30T01:39:36.311Z",
+          "sentBytes": 2685,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 9,
+          "time": "2026-10-30T01:39:36.485Z",
+          "sentBytes": 4619,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 11,
+          "time": "2026-10-30T01:39:37.072Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 90,
+          "stream": 13,
+          "time": "2026-10-30T01:39:38.571Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "launch-a449d095940348d88adfbdfc81ba7175.json.netlog.json",
+      "sha256": "03bd4d32b4024e66f752c86319b09e9f9e3aa5578bb41408ac83405bb3b5d499",
+      "events": 4683,
+      "attempts": [
+        {
+          "time": "2026-10-30T01:38:56.971Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:38:57.146Z",
+          "endpoint": "https://data-edge.smartscreen.microsoft.com/api/browser/edge/data/settings/3"
+        },
+        {
+          "time": "2026-10-30T01:38:57.152Z",
+          "endpoint": "https://telem-edge.smartscreen.microsoft.com/api/browser/edge/telemetry/3"
+        },
+        {
+          "time": "2026-10-30T01:39:00.719Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:05.785Z",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3"
+        },
+        {
+          "time": "2026-10-30T01:39:06.844Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:08.088Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:09.568Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        },
+        {
+          "time": "2026-10-30T01:39:11.499Z",
+          "endpoint": "https://dl-edge.smartscreen.microsoft.com/api/browser/edge/download/3"
+        },
+        {
+          "time": "2026-10-30T01:39:12.440Z",
+          "endpoint": "https://nav-edge.smartscreen.microsoft.com/api/browser/edge/navigate/3"
+        }
+      ],
+      "streams": [
+        {
+          "source": 73,
+          "stream": 1,
+          "time": "2026-10-30T01:38:57.102Z",
+          "sentBytes": 2926,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 73,
+          "stream": 3,
+          "time": "2026-10-30T01:38:57.152Z",
+          "sentBytes": 2119,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 73,
+          "stream": 5,
+          "time": "2026-10-30T01:38:57.157Z",
+          "sentBytes": 4510,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 1,
+          "time": "2026-10-30T01:39:00.827Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 3,
+          "time": "2026-10-30T01:39:05.794Z",
+          "sentBytes": 2685,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 5,
+          "time": "2026-10-30T01:39:06.845Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 7,
+          "time": "2026-10-30T01:39:08.088Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 9,
+          "time": "2026-10-30T01:39:09.569Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 11,
+          "time": "2026-10-30T01:39:11.500Z",
+          "sentBytes": 2685,
+          "response": [
+            ":status: 200"
+          ]
+        },
+        {
+          "source": 160,
+          "stream": 13,
+          "time": "2026-10-30T01:39:12.441Z",
+          "sentBytes": 2989,
+          "response": [
+            ":status: 200"
+          ]
+        }
+      ]
+    }
+  ]
+}
