@@ -1,4 +1,14 @@
 # 開發狀態
+## 2026-10-30 RC 15 — SDK 與交付文件通用路徑
+
+- Branch／base：從乾淨 HEAD `746d66af9dbdb2e010f3dbc2eb3f8ba8a65fa482` 建立 `feature/rc-15-sdk-personal-path`，票14已implemented，票15前提成立、無決策衝突。已核對AGENTS／handoff／架構／spec與相關STATUS，實作前方案及結果見[REPORT](acceptance/2026-10-30/sdk-personal-path/REPORT.md)。
+- Scope：作者README與theme-sdk以`$env:USERPROFILE`／Join-Path指定SDK根目錄及完整DMT輸出；試用README以`%USERPROFILE%`指定隔離資料，FINAL_HANDOFF改用`$env:APPDATA`，ENVIRONMENT移除個人工作區名稱。SDK、scripts/trial、交付來源及現行docs掃描0筆個人名稱／絕對使用者路徑；docs/acceptance與本檔歷史紀錄不改。純文件，不改產品／SDK API／封裝工具／白名單；無新測試、不虛構Red，ADR無。
+- Related PASS：`pwsh -NoProfile -File scripts/test-sdk-package.ps1`最終exit0，來源兩組＋解壓一組SDK各18/18、清單／授權／本機產物排除／兩個DMT validator通過，兩次重封SHA一致。另`package-sdk.ps1 -OutputFile <使用者目錄>/final-sdk.zip`及來源SDK18/18 PASS；44 entries／64874bytes、SHA `663322E82D4AE5DE0A1AEC2CAD6C5399166BDFE0A73843B1F33746395CD2F94B`。兩包完整內容掃描無個人路徑，不手改歷史manifest。
+- Author／hash PASS：最終SDK解壓至獨立繁中空白作者目錄，npm ci／configure／check／build及正式DMT封裝驗證全部通過，TypeScript5.9.3正用法與四個刻意錯誤診斷相符；DMT SHA `82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546`。公開package-trial使用假程式fixture（不啟動）驗55檔白名單＋manifest、逐檔／工具／ZIP hash及內外manifest相符。不是app交付或實機驗收；原始log／來源hash與產物hash見REPORT同目錄。
+- 初輪FAIL與修正：舊相對OutputFile經.NET工作目錄解析，DMT落在工作區父目錄，下一步驗證找不到；保留原結果，核對身分後將該單一輸出移回使用者測試目錄。票內文件改為從`$PWD.Path`建立完整路徑，兩步共用；最終來源重封及完整作者流程PASS。未改封裝器，該工具相對路徑行為留後續票，不推定產品／防毒根因。
+- Environment／NOT RUN：Windows11、Node24.17.0／npm11.12.1／PowerShell7.6.3。非Temp使用者目錄，TEMP／TMP指向其staging；首次輸出偏移另記。未啟動產品EXE，未操作Explorer或關閉／替換原桌布83428。未觀察攔截，未讀防毒日誌，不宣稱完整觀測，無已證實防毒BLOCKED。完整套件／CTest／CI／正式app或RC重封 **NOT RUN**，依指示留收尾；獨立作者／GUI **NOT RUN**，報告附人工操作清單。既有RC gate不變。
+- Review／commit：依implement要求使用code-review兩代理唯讀審查，Standards0／Spec0，原始結論見REPORT。最終暫存diff空白檢查PASS；原始log以ZIP完整保留。更新票與本節後使用commit-msg依實際暫存差異產生繁中Conventional Commit，本票僅commit一次並push功能分支，hash以Git記錄為準；不合併main、不公開發布。
+
 ## 2026-10-30 RC 14 — Win32 桌布宿主邊界純重構
 
 - Branch／base：從乾淨 HEAD `e3c7bdae12ba85143be25d190fba14c0a4ee1e2b` 建立 `feature/rc-14-win32-host-boundary`，票13已implemented。已核對handoff／架構／票與spec／STATUS，前提成立、無決策衝突；需求先記[REQUEST](acceptance/2026-10-30/win32-host-boundary/REQUEST.md)。票14 implemented代表純重構、自動驗證與人工交接完成，非RC放行。

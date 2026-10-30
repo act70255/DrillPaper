@@ -27,7 +27,7 @@
 
 ## 資料、更新與回復
 
-免安裝 ZIP 不是完全隨身資料模式。資料根目錄是 `%LOCALAPPDATA%\DrillPaper`：設定 settings.json、已匯入主題 themes、日誌 logs、WebView2 瀏覽器資料 WebView2。啟動會讀取現存資料，不自動隔離或清除。隔離試用可在新的命令提示字元執行 `set "LOCALAPPDATA=C:\Users\你的帳號\DrillPaperTests\專用資料"`，再由該視窗呼叫完整 CMD 路徑；只影響此命令視窗的子程序，路徑須自行建立且不可使用原持續桌布資料。
+免安裝 ZIP 不是完全隨身資料模式。資料根目錄是 `%LOCALAPPDATA%\DrillPaper`：設定 settings.json、已匯入主題 themes、日誌 logs、WebView2 瀏覽器資料 WebView2。啟動會讀取現存資料，不自動隔離或清除。隔離試用可在新的命令提示字元執行 `set "LOCALAPPDATA=%USERPROFILE%\DrillPaperTests\專用資料"`，再由該視窗呼叫完整 CMD 路徑；只影響此命令視窗的子程序，路徑須自行建立且不可使用原持續桌布資料。
 
 更新前以「結束 DrillPaper」正常退出使用該資料的舊版及 WebView2 子程序，備份整個資料根目錄及舊版 ZIP／hash；將新版完整解壓到新的非 Temp 目錄，核對 hash，再啟動新版 CMD。不要覆寫運行中的程式檔。回復時先退出新版，再啟動已保留且核實 hash 的舊版；若資料不相容，先備份新版資料再還原舊資料備份，不將兩版同時指向同一資料根目錄。跨版本更新／回復的真正乾淨機器操作仍待人工驗證。
 

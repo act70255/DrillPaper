@@ -4,11 +4,12 @@
 
 ## 安裝
 
-先解壓 SDK ZIP，再把本目錄完整複製到新的作者目錄，例如 `C:\Users\James\DrillPaperTests\我的主題`。以下在新目錄執行，SDK 路徑改為自己的實際解壓路徑：
+先解壓 SDK ZIP，再把本目錄完整複製到新的作者目錄，例如 `%USERPROFILE%\DrillPaperTests\我的主題`。以下在新目錄的 PowerShell 執行；`$sdkRoot` 須指向包含 `sdk` 與 `scripts` 的實際解壓根目錄：
 
 ```powershell
+$sdkRoot = Join-Path $env:USERPROFILE 'DrillPaperTests\SDK'
 npm ci --ignore-scripts --no-audit --no-fund
-npm run configure -- 'C:\Users\James\DrillPaperTests\SDK\sdk\javascript'
+npm run configure -- (Join-Path $sdkRoot 'sdk\javascript')
 npm run check
 npm run build
 ```
@@ -20,8 +21,9 @@ npm run build
 修改 `static/theme.json` 的 id、名稱、作者與版本，編輯 `src/main.ts` 和 `static/` 內 HTML／CSS。再次 `npm run check`、`npm run build`。`src` 的 `.d.ts` 僅供編譯；`dist` 只有編譯 JS、HTML、CSS、manifest，不含 compiler、Node、來源或宣告。
 
 ```powershell
-& 'C:\Users\James\DrillPaperTests\SDK\scripts\package-theme.ps1' -ThemeDirectory .\dist -OutputFile ..\my-theme.dmt
-& 'C:\Users\James\DrillPaperTests\SDK\scripts\validate-theme-package.ps1' -Path ..\my-theme.dmt
+$themePackage = Join-Path (Split-Path -Parent $PWD.Path) 'my-theme.dmt'
+& (Join-Path $sdkRoot 'scripts\package-theme.ps1') -ThemeDirectory .\dist -OutputFile $themePackage
+& (Join-Path $sdkRoot 'scripts\validate-theme-package.ps1') -Path $themePackage
 ```
 
 SDK 執行模組由正式封裝器加入，請勿自行在 dist 放入同名 `desktop-monitor-sdk.js`／`mock-host.js`，以免碰到保留名稱檢查。不要直接封裝整個作者目錄；`.ts`／`.d.ts`／`.mjs` 不在匯入白名單內。打包後 app 離線執行不需要作者目錄、Node 或 TypeScript。

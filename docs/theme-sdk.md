@@ -61,15 +61,17 @@ window.addEventListener('pagehide', () => {
 
 ## 從 SDK ZIP 建立 TypeScript 主題
 
-SDK ZIP 包含 `sdk/author-starter/`、宣告、範例與正式 `scripts/package-theme.ps1`／`validate-theme-package.ps1`，不需要開發來源樹。將範本複製到自己的乾淨目錄，依其 [README](../sdk/author-starter/README.md) 安裝、準備宣告、執行 compiler 正負檢查並建置。完整命令如下；在複製出的作者目錄執行，路徑改成實際 SDK 解壓位置：
+SDK ZIP 包含 `sdk/author-starter/`、宣告、範例與正式 `scripts/package-theme.ps1`／`validate-theme-package.ps1`，不需要開發來源樹。將範本複製到自己的乾淨目錄，依其 [README](../sdk/author-starter/README.md) 安裝、準備宣告、執行 compiler 正負檢查並建置。完整命令如下；在複製出的作者目錄的 PowerShell 執行，`$sdkRoot` 須指向包含 `sdk` 與 `scripts` 的實際解壓根目錄：
 
 ```powershell
+$sdkRoot = Join-Path $env:USERPROFILE 'DrillPaperTests\SDK'
 npm ci --ignore-scripts --no-audit --no-fund
-npm run configure -- 'C:\Users\James\DrillPaperTests\SDK\sdk\javascript'
+npm run configure -- (Join-Path $sdkRoot 'sdk\javascript')
 npm run check
 npm run build
-& 'C:\Users\James\DrillPaperTests\SDK\scripts\package-theme.ps1' -ThemeDirectory .\dist -OutputFile ..\my-theme.dmt
-& 'C:\Users\James\DrillPaperTests\SDK\scripts\validate-theme-package.ps1' -Path ..\my-theme.dmt
+$themePackage = Join-Path (Split-Path -Parent $PWD.Path) 'my-theme.dmt'
+& (Join-Path $sdkRoot 'scripts\package-theme.ps1') -ThemeDirectory .\dist -OutputFile $themePackage
+& (Join-Path $sdkRoot 'scripts\validate-theme-package.ps1') -Path $themePackage
 ```
 
 TypeScript **5.9.3** 由範本 `package.json` 與 lockfile 固定；`check` 明確核對版本，實際以 compiler 驗證 SDK／MockHost 正確用法及四個指定型別錯誤。編譯使用 ES2022 modules、strict、noEmitOnError，不略過宣告檢查。設定語意見 [TypeScript 官方 TSConfig](https://www.typescriptlang.org/tsconfig/)。Node／npm／compiler 僅用於作者建置，首次 npm ci 需取得 compiler；封裝後的 app 不需要這些工具或 HTTP server。

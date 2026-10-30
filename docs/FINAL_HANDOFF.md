@@ -36,7 +36,8 @@
 本機 Windows 11 Pro 25H2 build 26200.8737、MSVC 19.44.35217、Windows SDK 10.0.26100、CMake 3.31.6、WebView2 SDK 1.0.2478.35／Runtime 156.0.4314.50、Intel Graphics、雙 1920×1080（DPI 144／96），有 Apex One／來源樹／開發工具，不是真正乾淨一般使用者環境。PATH 的 CMake Python 啟動器失效，本輪使用既有套件內原生 cmake.exe／ctest.exe，沒有改系統安裝。
 
 ```powershell
-$env:PATH = 'C:/Users/James/AppData/Roaming/uv/tools/cmake/Lib/site-packages/cmake/data/bin;' + $env:PATH
+$cmakeBin = Join-Path $env:APPDATA 'uv\tools\cmake\Lib\site-packages\cmake\data\bin'
+$env:PATH = $cmakeBin + ';' + $env:PATH
 cmake --preset windows-msvc-release
 cmake --build --preset windows-msvc-release --config Release
 pwsh -NoProfile -File scripts/test.ps1 -Configuration Release
