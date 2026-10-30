@@ -1,5 +1,11 @@
 # 效能量測
 
+## RC 06 的可重現矩陣
+
+`scripts/test-metrics-performance.ps1` 以非 Temp 使用者副本及隔離資料，循序量測 Minimal／Dashboard、單／雙目標與正式手動暫停；EXE 由 Node 直接啟動。保留逐程序 CPU／Private Bytes／WS／handles／threads、GPU Engine 與宿主推送／JS 回應時間戳；分析器排除缺失樣本及身分改變區間，輸出 JSON 摘要與 CSV。新硬體探針手動 target `DrillPaperMetricsAccuracyProbe` 對同期系統參考交叉核對，不加入一般 CTest。
+
+方法、預定門檻、命令及當前結果以 [RC 06 報告](acceptance/2026-10-30/metrics-performance/REPORT.md) 為準；真正 OS 事件、NVIDIA 等依 [人工清單](acceptance/2026-10-30/metrics-performance/MANUAL_CHECKLIST.md) 另驗。推送頻率不是實際 collector 呼叫次數，手動暫停不是鎖定／關屏，有限觀測不能保證無洩漏。下列資料是舊版本歷史，不套到 RC 05／06 的 EXE。
+
 ## 已完成的 30 分鐘觀測
 
 Minimal Runtime 版本已取得 343 筆、1804.606 秒的混合狀態資料；active／locked 平均 CPU 約 0.1159%／0.00628%，全程 7 程序，已正常清理。實際 active 穩定區間為 596.194 秒，仍不宣稱達到完整 600 秒或全部效能矩陣。原始資料、方法及圖表見 [30 分鐘報告](acceptance/2026-10-28/long-observation/REPORT.md)。

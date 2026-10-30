@@ -1,0 +1,6 @@
+{
+  "normalizedEqual": true,
+  "mixedComparisonEqual": false,
+  "beforeDefaultType": "System.DateTime",
+  "afterStringType": "System.String"
+}

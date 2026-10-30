@@ -1,0 +1,165 @@
+{
+  "phases": [
+    {
+      "phase": 0,
+      "samples": 30,
+      "excludedWindows": 0,
+      "cpu": {
+        "samples": 30,
+        "meanAbsoluteError": 0.23882177772761098,
+        "maximumAbsoluteError": 0.6047171420744064,
+        "referenceMean": 33.65861558983429,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "memoryUsed": {
+        "samples": 30,
+        "meanAbsoluteError": 291498.6666666667,
+        "maximumAbsoluteError": 1871872,
+        "referenceMean": 26387823138.133335,
+        "threshold": 67108864,
+        "result": "PASS"
+      },
+      "memoryTotal": {
+        "samples": 30,
+        "meanAbsoluteError": 0,
+        "maximumAbsoluteError": 0,
+        "referenceMean": 33777467392,
+        "threshold": 4096,
+        "result": "PASS"
+      },
+      "disk": {
+        "samples": 30,
+        "meanAbsoluteError": 0.011507852733664396,
+        "maximumAbsoluteError": 0.15200970099208666,
+        "referenceMean": 1.2625782612150371,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "receive": {
+        "samples": 30,
+        "meanAbsoluteError": 84.28085146940849,
+        "maximumAbsoluteError": 424.11140472135594,
+        "referenceMean": 8568.67560325236,
+        "threshold": 65536,
+        "result": "PASS"
+      },
+      "transmit": {
+        "samples": 30,
+        "meanAbsoluteError": 13.495009531754004,
+        "maximumAbsoluteError": 156.50179093762563,
+        "referenceMean": 2581.754456507763,
+        "threshold": 65536,
+        "result": "PASS"
+      }
+    },
+    {
+      "phase": 1,
+      "samples": 30,
+      "excludedWindows": 0,
+      "cpu": {
+        "samples": 30,
+        "meanAbsoluteError": 0.23902456086686213,
+        "maximumAbsoluteError": 0.7680374650055697,
+        "referenceMean": 40.185301842041405,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "memoryUsed": {
+        "samples": 30,
+        "meanAbsoluteError": 608392.5333333333,
+        "maximumAbsoluteError": 7811072,
+        "referenceMean": 26347462929.066666,
+        "threshold": 67108864,
+        "result": "PASS"
+      },
+      "memoryTotal": {
+        "samples": 30,
+        "meanAbsoluteError": 0,
+        "maximumAbsoluteError": 0,
+        "referenceMean": 33777467392,
+        "threshold": 4096,
+        "result": "PASS"
+      },
+      "disk": {
+        "samples": 30,
+        "meanAbsoluteError": 0.01231764984476715,
+        "maximumAbsoluteError": 0.1504655395065121,
+        "referenceMean": 1.6562665848288955,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "receive": {
+        "samples": 30,
+        "meanAbsoluteError": 164.82610825619375,
+        "maximumAbsoluteError": 1338.7506969000358,
+        "referenceMean": 5062.129803827158,
+        "threshold": 65536,
+        "result": "PASS"
+      },
+      "transmit": {
+        "samples": 30,
+        "meanAbsoluteError": 24.97437794384292,
+        "maximumAbsoluteError": 257.22771256405747,
+        "referenceMean": 880.4433804431828,
+        "threshold": 65536,
+        "result": "PASS"
+      }
+    },
+    {
+      "phase": 2,
+      "samples": 30,
+      "excludedWindows": 0,
+      "cpu": {
+        "samples": 30,
+        "meanAbsoluteError": 0.22023374008804525,
+        "maximumAbsoluteError": 0.5269532341758776,
+        "referenceMean": 35.58717127222162,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "memoryUsed": {
+        "samples": 30,
+        "meanAbsoluteError": 799266.1333333333,
+        "maximumAbsoluteError": 4988928,
+        "referenceMean": 26417019562.666668,
+        "threshold": 67108864,
+        "result": "PASS"
+      },
+      "memoryTotal": {
+        "samples": 30,
+        "meanAbsoluteError": 0,
+        "maximumAbsoluteError": 0,
+        "referenceMean": 33777467392,
+        "threshold": 4096,
+        "result": "PASS"
+      },
+      "disk": {
+        "samples": 30,
+        "meanAbsoluteError": 0.010504483853565701,
+        "maximumAbsoluteError": 0.14113039442612796,
+        "referenceMean": 1.7426767715467109,
+        "threshold": 5,
+        "result": "PASS"
+      },
+      "receive": {
+        "samples": 30,
+        "meanAbsoluteError": 391.58528197316224,
+        "maximumAbsoluteError": 9893.121310248505,
+        "referenceMean": 27558.427521519687,
+        "threshold": 65536,
+        "result": "PASS"
+      },
+      "transmit": {
+        "samples": 30,
+        "meanAbsoluteError": 24.568937158341964,
+        "maximumAbsoluteError": 137.79151715537546,
+        "referenceMean": 5213.589053321908,
+        "threshold": 65536,
+        "result": "PASS"
+      }
+    }
+  ],
+  "gpuAvailableSamples": 0,
+  "gpuUnavailableSamples": 90
+}

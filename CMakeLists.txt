@@ -170,6 +170,16 @@ if(BUILD_TESTING)
         )
     endif()
     catch_discover_tests(DrillPaperWindowsMetricsIntegrationTests PROPERTIES TIMEOUT 60)
+    # 受控負載的實機觀測需明確執行，不加入一般 CTest。
+    add_executable(DrillPaperMetricsAccuracyProbe
+        tests/integration/metrics_accuracy_probe.cpp
+        src/monitoring/windows_metrics_collector.cpp
+        src/monitoring/nvml_gpu_collector.cpp)
+    target_compile_definitions(DrillPaperMetricsAccuracyProbe PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperMetricsAccuracyProbe PRIVATE desktopmonitor_core nlohmann_json::nlohmann_json iphlpapi pdh psapi)
+    if(MSVC)
+        target_compile_options(DrillPaperMetricsAccuracyProbe PRIVATE /W4 /permissive- /utf-8)
+    endif()
     add_executable(DrillPaperWindowsHostIntegrationTests
         tests/integration/desktop_host_test.cpp
         src/platform/windows/desktop_host.cpp)

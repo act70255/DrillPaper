@@ -1,0 +1,33 @@
+{
+  "limitations": "開發與一般桌面背景程序仍運作，非乾淨獨占主機；不設定防睡或電源保持。",
+  "profileIsolation": "每情境獨立 LOCALAPPDATA；全域原桌布未變更",
+  "battery": {
+    "BatteryStatus": 2,
+    "EstimatedChargeRemaining": 100
+  },
+  "os": {
+    "displayVersion": "25H2",
+    "name": "Windows 10 Pro",
+    "build": "26200",
+    "ubr": 8737
+  },
+  "recorded": "2026-10-30T11:57:30.5801225+08:00",
+  "gpu": {
+    "Name": "Intel(R) Graphics",
+    "DriverVersion": "32.0.101.8860"
+  },
+  "cpu": {
+    "Name": "Intel(R) Core(TM) Ultra 7 155U",
+    "NumberOfCores": 12,
+    "NumberOfLogicalProcessors": 14
+  },
+  "disks": {
+    "Model": "NVMe PC SN740 NVMe WD 1TB",
+    "MediaType": "Fixed hard disk media",
+    "Size": 1024203640320
+  },
+  "ram": 33777467392,
+  "source": "c244682204bc3a85b50cd46e15bc50e066eea3b7",
+  "powerScheme": "電源配置 GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (平衡)",
+  "webviewVersion": "156.0.4314.50"
+}

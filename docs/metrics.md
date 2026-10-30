@@ -16,6 +16,8 @@
 
 ## 驗證證據界線
 
+RC06已新增三種負載各30個同期窗口，CPU／RAM／實體網路自然流量及PDH磁碟counter均達事先定義的單位／容差。參考API、原始讀值、skew、負載、工具版本與限制見 [RC06報告](acceptance/2026-10-30/metrics-performance/REPORT.md)。這是同機OS來源交叉核對，非獨立儀器校準；網路高流量／介面消失及NVIDIA仍NOT RUN，不能因unavailable契約或Intel GPU Engine可讀而判NVML通過。下列21/21為舊版本歷史範圍，不取代新證據。
+
 CTest 21/21 已由 MSVC 19.41.34120/CMake Release build 實際執行。Windows collectors integration test 呼叫本機 CPU/RAM/Network/Disk API，檢查 typed readings 及 CPU/network warm-up。這只證明 API 有回報合法型別/品質並通過該整合測試，沒有以獨立工具或受控 workload 核對數值精度；GPU/NVML adapter 尚無產品硬體測試。WebView2 smoke 僅驗證 snapshot protocol 流程，不作為指標正確性證據。
 
 ## 官方 API 參考

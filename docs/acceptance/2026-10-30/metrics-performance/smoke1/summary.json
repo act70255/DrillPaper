@@ -1,0 +1,29 @@
+{
+  "cpuMeanPercent": 0.21219116342880343,
+  "cpuP95Percent": 0.2631021544498363,
+  "invalidCpuIntervals": 0,
+  "samples": 3,
+  "spanSeconds": 12.6233882,
+  "durationMet": true,
+  "privateSlopeMiBPerMinute": 10.382523367902833,
+  "privateWindowDeltaMiB": 0,
+  "workingMeanMiB": 431.3020833333333,
+  "privateMeanMiB": 219.55989583333334,
+  "handlesWindowDelta": 0,
+  "threadsWindowDelta": 0,
+  "surfaceRates": [
+    {
+      "hwnd": "86053334",
+      "metricsHz": 0.9506164121610392,
+      "healthHz": 0.15843606869350654
+    }
+  ],
+  "gpuEngineSumMeanPercent": 0.24591899628454952,
+  "gpuValidSamples": 3,
+  "collectionResult": "COMPLETED",
+  "shutdown": true,
+  "incompleteSamples": 0,
+  "processCounts": [
+    7
+  ]
+}

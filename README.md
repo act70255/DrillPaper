@@ -47,6 +47,8 @@ ctest --preset windows-msvc-release --output-on-failure
 
 桌面／電源整合觀測使用 PowerShell 7：`scripts/test-multi-monitor.ps1 -ApplicationPath <非 Temp 使用者目錄的隔離 EXE> -EvidenceDirectory <尚不存在的證據目錄> -DesktopPowerRecovery`。擴充模式驗證所有宿主的手動暫停、受控工作階段通知、renderer／browser 故障、有限退化與 JS 無限迴圈；EXE 由 Node 直接啟動。測試會建立隔離資料、短暫附掛自己的桌布及建立／銷毀 fixture 父視窗，不重啟 Explorer。真正 OS 事件與目視結果須依 [RC 05 人工清單](docs/acceptance/2026-10-30/desktop-power-recovery/MANUAL_CHECKLIST.md) 另驗，不以原生屬性／資料推送視為畫面通過。
 
+效能及硬體精度觀測工具、事先定義的時長／容差、程序歸屬與未驗項目見 [RC 06 報告](docs/acceptance/2026-10-30/metrics-performance/REPORT.md)。工具需 PowerShell 7／Node，EXE 使用非 Temp 使用者副本；不透過測試喚醒螢幕，也不關閉原持續桌布。
+
 ## 系統匣與管理入口
 
 ```powershell

@@ -1,5 +1,21 @@
 # 開發狀態
 
+## 2026-10-30 RC 06 — 硬體精度與多目標效能省電
+
+- Commit message：`test(perf): 新增硬體精度與多目標效能驗證`，由commit-msg技能依實際暫存差異產生；本節隨唯一提交保存，hash以本分支Git記錄為準。
+
+- Branch／base：從乾淨HEAD `c244682204bc3a85b50cd46e15bc50e066eea3b7` 建立 `feature/rc-06-metrics-performance`；05 resolved。06設resolved，表示可執行驗證／報告完成，A05／A13仍有PARTIAL／NOT RUN，不解除RC gate；完整套件依使用者指示留09。
+- Scope／files：未改產品src/include或試用包；新增手動原生精度target `DrillPaperMetricsAccuracyProbe`、`test-metrics-performance.ps1`／Win32與PDH helper、分析／圖表與工具測試，更新README、metrics/performance文件、06及08／09交接。測試邊界為公開collector、runtime／bounded／latest-wins及Windows實機；沒有以單元測試宣稱GUI／真實OS事件通過。
+- Unit／TDD：相關CTest18/18、原生螢幕列舉1/1、Node工具12/12 PASS。工具循序Red→Green覆蓋CPU正規化／PID重用、時長／斜率／缺失樣本、GPU歸屬、雙端點skew、原證據不可覆寫、有效主題與RAM total容差；純驗證沒有製造產品Red，沒有產品修正。PS7 parser、Node syntax、Python AST PASS，C++相關targets及最終probe W4建置PASS。
+- Commands：`cmake --build --preset windows-msvc-release --target DrillPaperMetricsAccuracyProbe DrillPaperWindowsMetricsIntegrationTests DrillPaperTests --parallel 8`；`ctest ... -R '^(CPU sampling|A real zero|Snapshot units|Network rate|An idle network|Metrics history|Snapshot coalescing|Metric change|Sampling worker|Sampling scheduler|Manual pause|Windows metrics collector)'`；`ctest ... -R '^Connected monitors '`；`node --test tests/metrics-performance-analysis.test.mjs`；五組 `pwsh -NoProfile -File scripts/test-metrics-performance.ps1 ...`；Node直接啟動原生probe、`analyze-metrics-performance.mjs`、`uv run --no-project --with matplotlib==3.11.2 python scripts/plot-metrics-performance.py ...`。完整參數／原始log見報告。
+- Windows／hardware：Windows11 Pro25H2 26200.8737／WebView2 156.0.4314.50／SDK1.0.2478.35，Core Ultra7 155U／14邏輯CPU、Intel Graphics、雙1920×1080 DPI144／96；中等權限、非Temp使用者繁中空白副本與隔離LOCALAPPDATA，EXE由Node直接啟動。產品EXE SHA `25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D`（沿用05，來源c244682）；正式probe為本票工作樹，SHA `F3DAE15387A58BEA726E25CAA6B8A227C11204404974A5D6AF6AE79788DB3FF8`。
+- Performance：每組先60秒暖機，Minimal單目標1805.80秒／282筆；Dashboard單目標603.49／95、Minimal雙目標602.01／92、Dashboard雙目標603.59／97、雙目標暫停603.81／98。Active CPU平均0.178～0.324%、p95<=0.528%達預定門檻；1800秒組Private Bytes首末窗口中位數+14.17MiB、OLS+0.569MiB/min、handles／threads增量-9／-4，達門檻但仍上升，不宣稱無洩漏。雙目標8對單目標7程序；Dashboard平均Private Bytes約250.62→301.96MiB。暫停CPU平均0.0372%，較同主題雙目標Active下降86.82%，兩宿主推送／JS變化0、98筆有效GPU engine皆0；非瓦數或真正鎖定／關屏驗收。
+- Precision：基線／單執行緒CPU／64MiB RAM及本機寫入各30同期窗口，CPU、RAM、PDH disk counter、實體網路自然流量均達預定容差；最大雙端點skew23.99ms、正式collector最大15.06ms。CPU平均絕對差<=0.2391百分點，RAM used<=0.7623MiB／total差0，disk<=0.01232百分點，RX／TX<=391.59／24.98B/s。這是同機系統來源交叉核對，非獨立儀器。GPU90筆unavailable/null，不代表NVIDIA實讀通過。
+- Evidence／known limits：完整[報告](acceptance/2026-10-30/metrics-performance/REPORT.md)、原始JSONL／CSV／摘要／版本／hash與[圖表](acceptance/2026-10-30/metrics-performance/summary.png)。三組各1筆缺失資源／相鄰共6個CPU區間排除，資料完整性PARTIAL；第一輪38.626秒因CIM程序消失的工具失敗保留，非產品FAIL。前段有開發背景活動、非獨占主機，初版runner與後續修正差異、100ms觀察空窗與實際collector呼叫未觀測均明列，不推論因果成本。
+- Cleanup／antivirus：五次正式退出0，33個已觀察核實WebView2子程序退出；不宣稱取得所有短命程序。原持續桌布83428的path／精確建立時間／hash不變、收尾唯一app，未重啟Explorer或替換原桌布。收尾日期混型比較誤判由原始ISO字串／DateTimeOffset重核排除。Apex One14.0.0.21008可讀BM日誌fingerprint未變，未觀察新增攔截，非完整防毒觀測；未改防毒設定，沒有已證實受攔截項目。
+- NOT RUN／next：真正Locked／DisplayOff／睡眠／全螢幕、NVIDIA實讀與故障、網路高流量／介面消失、產品逐次collector呼叫、其他OS／Runtime／硬體、100次熱切換／更長soak、探針獨立因果增量見[人工清單](acceptance/2026-10-30/metrics-performance/MANUAL_CHECKLIST.md)，傳遞08／09；原03歷史FAIL保留。CI／重新打包／乾淨帳號／完整套件NOT RUN，留後票。ADR：無，產品架構與決策未變；07可依序接續。
+- Review／commit：code-review兩軸工具初審各3項均修正、複查各0；最終結果見[REVIEW.md](acceptance/2026-10-30/metrics-performance/REVIEW.md)。本節與本票全部工具／證據同一次提交；commit-msg依暫存差異產生繁中Conventional Commit後push `origin/feature/rc-06-metrics-performance`，hash以該分支Git記錄為準，不合併main／公開發布。
+
 ## 2026-10-30 RC 05 — 接續完成桌面／電源矩陣與無回應復原
 
 - Branch／base：沿用 `feature/rc-05-desktop-power-recovery`、HEAD `2a69ed18a649770359c03b76b1503cfd51262a0c` 與前輪未提交調查、`test-default-startup.ps1`、版本化證據，不另開分支。依 ticket 最新使用者確認決策，原啟動缺陷改記「未重現，疑似環境」，不追 Red、不做推測性啟動修正；03 歷史 FAIL 與 08 的乾淨環境前提保留。05 設 resolved，只表示可執行驗證與報告完成。

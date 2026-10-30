@@ -1,0 +1,12 @@
+✔ 程序樹 CPU 依整機容量及同期時間差計算 (3.4608ms)
+✔ PID 重用區間不偽造成有效零 CPU (0.7174ms)
+✔ 長測按完整時間序列算記憶體斜率與首末五分鐘中位數 (0.7918ms)
+✔ 觀察頻率使用屬性變化計數，缺失 GPU 不當作零活動 (1.116ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 316.2477
