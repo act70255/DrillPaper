@@ -254,9 +254,8 @@ void LogError(const std::string& error) {
  *     HWND 與所有權均有效時為 true。
  */
 bool OwnsWindow(const Surface& surface) {
-    DWORD process = 0;
-    return surface.window && GetWindowThreadProcessId(surface.window, &process) == GetCurrentThreadId() &&
-        process == GetCurrentProcessId() && reinterpret_cast<Surface*>(GetWindowLongPtrW(surface.window, GWLP_USERDATA)) == &surface;
+    return surface.desktop.IsCurrentThreadWindow(surface.window) &&
+        reinterpret_cast<Surface*>(GetWindowLongPtrW(surface.window, GWLP_USERDATA)) == &surface;
 }
 
 /** 將每個目標的有效狀態呈現於唯一可信管理入口。 */
@@ -471,21 +470,16 @@ void ReconcileSurfaces() {
             }
             if (!gEffective.desktop) continue;
             if (geometryChanged) surface.retry.Reset();
-            DWORD parentProcess = 0, shellProcess = 0;
-            const HWND parent = GetParent(surface.window);
-            GetWindowThreadProcessId(parent, &parentProcess); GetWindowThreadProcessId(GetShellWindow(), &shellProcess);
-            if (geometryChanged || !parent || !shellProcess || parentProcess != shellProcess) surface.attached = false;
+            if (geometryChanged || !surface.desktop.IsAttached(surface.window)) surface.attached = false;
             if (!surface.attached && surface.retry.CanAttempt(GetTickCount64())) {
                 win::DesktopAttachFailure failure{};
                 surface.attached = surface.desktop.TryAttach(surface.window, surface.bounds, &failure);
                 if (surface.attached) {
                     surface.retry.Reset();
-                    SetPropW(surface.window, L"DrillPaper.DesktopEpoch", reinterpret_cast<HANDLE>(++gDesktopEpoch));
-                    RemovePropW(surface.window, L"DrillPaper.DesktopFailure");
-                    SetPropW(surface.window, L"DrillPaper.TargetDpi", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(surface.dpi)));
+                    surface.desktop.RecordAttachment(surface.window, ++gDesktopEpoch, surface.dpi);
                 } else {
                     ShowWindow(surface.window, SW_HIDE);
-                    SetPropW(surface.window, L"DrillPaper.DesktopFailure", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(failure)));
+                    surface.desktop.RecordAttachmentFailure(surface.window, failure);
                     surface.retry.RecordFailure(GetTickCount64());
                     LogError("目標桌面附掛失敗，代碼：" + std::to_string(static_cast<int>(failure)));
                     gNotice = L"部分桌面尚未附掛；可由管理介面切換預覽或重試桌布模式。";

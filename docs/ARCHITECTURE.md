@@ -21,6 +21,8 @@
 
 ## 目前實作邊界
 
+RC 14 將桌布 parent／Shell PID 的附掛判斷與 DesktopEpoch、DesktopFailure、TargetDpi 診斷屬性集中於 Win32DesktopHost。app 只呼叫宿主介面，仍負責全程序成功世代、重試政策及 Surface userdata 身分；thread／process 所有權檢查也由宿主封裝。判斷條件、屬性名稱／值與成功清除失敗、失敗保留先前成功值的時序不變，原生整合工具可沿用。
+
 RC 12 的螢幕錯誤邊界位於 platform/windows：可注入 Windows 裝置名稱讀取，無法辨識者保留原生矩形／DPI 並回傳空 ID；MonitorInventory 保留上次成功列舉，首次失敗暫取主螢幕。runtime 只看 ID／area 值，任一空 ID 暫時選全區域並去重；app 負責提示、記錄錯誤與繼續 reconcile，不持久化退化結果。獨立 Preview 不讀取拓樸，管理控制項拒絕勾選空 ID。相關 fixture 不編入產品 EXE，實機及人眼證據仍分開記錄。
 
 多螢幕由 app composition 持有每個有效桌面區域的 Surface，各自管理 HWND、Win32DesktopHost、WebView2Host、附掛重試與載入逾時；Preview 僅一個 Surface。platform/windows 透過 QueryDisplayConfig 提供 monitorDevicePath、source 群組、實體矩形與 DPI；runtime 公開目標解析處理部分／全部斷線及 clone 去重，不接觸 Win32。SettingsStore schema 2 保存 ID 陣列，schema 1 在 composition 首次列舉時遷移至主螢幕，保存沿用原子取代。詳見 MULTI_MONITOR.md。

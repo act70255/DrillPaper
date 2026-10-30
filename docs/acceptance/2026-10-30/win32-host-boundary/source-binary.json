@@ -1,0 +1,56 @@
+{
+  "branch": "feature/rc-14-win32-host-boundary",
+  "sourceBase": "e3c7bdae12ba85143be25d190fba14c0a4ee1e2b",
+  "files": [
+    {
+      "path": "src/app/main.cpp",
+      "sha256": "167A1CF77818F6CC3D939D6138DD0AEDB80FEF01693FCA451793C44725BC8D64"
+    },
+    {
+      "path": "src/platform/windows/desktop_host.cpp",
+      "sha256": "6E8C16C27D8F2057920DE912F5F9056BAF2537EF6A3C34E94CBBAF9AF4C435E5"
+    },
+    {
+      "path": "include/desktopmonitor/platform/windows/desktop_host.h",
+      "sha256": "4973E7BEF13EF94F345F33F84A7C90E6778B8E03CFBB8414F18F6A2AD4CFF77D"
+    },
+    {
+      "path": "tests/integration/desktop_host_test.cpp",
+      "sha256": "DAE9E5B9474A27F8D5A7F32EA092CC6D4A6D2CF74B0E0FC2BCE1F9687435D767"
+    },
+    {
+      "path": "scripts/test-multi-monitor.ps1",
+      "sha256": "56FBC0F7CABF0CA123E7159BF913B5EBFAC9AD54D980E18F451EEBE3099BC376"
+    },
+    {
+      "path": "scripts/security-process.ps1",
+      "sha256": "4A509F00439746EFE9FEDD2D5137644AA60734727D2781FC7EFF4BAEA2CD65BB"
+    },
+    {
+      "path": "tests/fixtures/security-launcher.mjs",
+      "sha256": "9867F25FD3F4DD6AABE759E1F6F2C3254CF5DDF6C7D70729B810E2E0DD53A240"
+    },
+    {
+      "path": "tests/fixtures/theme-cli-launcher.mjs",
+      "sha256": "ED79E31D3745BA81643720C1CA92D52140D91C523FEE0CBC0CECE05BEB48FFBB"
+    }
+  ],
+  "binary": [
+    {
+      "sha256": "8E8953FA98842F37965C4FC0C8F3C3FD93E22FD7E1A161B8D9AED3180CE6214A",
+      "name": "DrillPaper.exe"
+    },
+    {
+      "sha256": "0BAB8F01DCD71036AD80C520AA16C0774F80D62EA436DA218CA28AB0D501AC56",
+      "name": "DrillPaperParentFixture.exe"
+    },
+    {
+      "sha256": "4FCED0F254A33DF66F46B29582AF80C66C85FBB24EE82C63D7229F0226D08A1E",
+      "name": "DrillPaperWindowsHostIntegrationTests.exe"
+    },
+    {
+      "sha256": "1CBCA1698175936A93D0C4D4148ED355E1B91415C6A4DB6D762F017DE3B6EB9A",
+      "name": "WebView2Loader.dll"
+    }
+  ]
+}

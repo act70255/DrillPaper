@@ -84,6 +84,30 @@ bool SetWindowStyle(HWND window, LONG_PTR style) {
 }
 } // namespace
 
+bool Win32DesktopHost::IsCurrentThreadWindow(HWND window) const {
+    DWORD process = 0;
+    return window && GetWindowThreadProcessId(window, &process) == GetCurrentThreadId() &&
+        process == GetCurrentProcessId();
+}
+
+bool Win32DesktopHost::IsAttached(HWND window) const {
+    DWORD parentProcess = 0, shellProcess = 0;
+    const HWND parent = GetParent(window);
+    GetWindowThreadProcessId(parent, &parentProcess);
+    GetWindowThreadProcessId(GetShellWindow(), &shellProcess);
+    return parent && shellProcess && parentProcess == shellProcess;
+}
+
+void Win32DesktopHost::RecordAttachment(HWND window, ULONG_PTR epoch, UINT dpi) const {
+    SetPropW(window, L"DrillPaper.DesktopEpoch", reinterpret_cast<HANDLE>(epoch));
+    RemovePropW(window, L"DrillPaper.DesktopFailure");
+    SetPropW(window, L"DrillPaper.TargetDpi", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(dpi)));
+}
+
+void Win32DesktopHost::RecordAttachmentFailure(HWND window, DesktopAttachFailure failure) const {
+    SetPropW(window, L"DrillPaper.DesktopFailure", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(failure)));
+}
+
 bool Win32DesktopHost::TryAttach(HWND window, DesktopAttachFailure* failure) {
     RECT bounds{GetSystemMetrics(SM_XVIRTUALSCREEN), GetSystemMetrics(SM_YVIRTUALSCREEN),
         GetSystemMetrics(SM_XVIRTUALSCREEN) + GetSystemMetrics(SM_CXVIRTUALSCREEN),

@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <windows.h>
 #include <string>
+#include <thread>
 
 #include "desktopmonitor/platform/windows/desktop_host.h"
 
@@ -29,6 +30,57 @@ struct WindowsFixture {
 };
 } // namespace
 
+TEST_CASE("Desktop ownership rejects invalid and other-thread windows", "[integration][desktop]") {
+    WindowsFixture fixture;
+    REQUIRE(IsWindow(fixture.preview));
+    desktopmonitor::platform::windows::Win32DesktopHost host;
+    REQUIRE(host.IsCurrentThreadWindow(fixture.preview));
+    REQUIRE_FALSE(host.IsCurrentThreadWindow(nullptr));
+    bool ownedOnOtherThread = true;
+    std::thread otherThread([&] { ownedOnOtherThread = host.IsCurrentThreadWindow(fixture.preview); });
+    otherThread.join();
+    REQUIRE_FALSE(ownedOnOtherThread);
+    REQUIRE(DestroyWindow(fixture.preview));
+    REQUIRE_FALSE(host.IsCurrentThreadWindow(fixture.preview));
+    fixture.preview = nullptr;
+}
+
+TEST_CASE("Desktop attachment rejects fixture parents and top-level previews", "[integration][desktop]") {
+    WindowsFixture fixture;
+    REQUIRE(IsWindow(fixture.preview));
+    desktopmonitor::platform::windows::Win32DesktopHost host;
+    REQUIRE_FALSE(host.IsAttached(nullptr));
+    REQUIRE_FALSE(host.IsAttached(fixture.preview));
+    host.RestorePreview(fixture.preview);
+    REQUIRE_FALSE(host.IsAttached(fixture.preview));
+    REQUIRE(DestroyWindow(fixture.preview));
+    REQUIRE_FALSE(host.IsAttached(fixture.preview));
+    fixture.preview = nullptr;
+}
+
+TEST_CASE("Desktop diagnostics preserve success values on failure and clear recovered errors", "[integration][desktop]") {
+    WindowsFixture fixture;
+    REQUIRE(IsWindow(fixture.preview));
+    desktopmonitor::platform::windows::Win32DesktopHost host;
+    using Failure = desktopmonitor::platform::windows::DesktopAttachFailure;
+    host.RecordAttachmentFailure(fixture.preview, Failure::ProgramManagerNotFound);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.DesktopFailure")) == 1);
+    REQUIRE(GetPropW(fixture.preview, L"DrillPaper.DesktopEpoch") == nullptr);
+    REQUIRE(GetPropW(fixture.preview, L"DrillPaper.TargetDpi") == nullptr);
+    host.RecordAttachment(fixture.preview, 0x100000001ULL, 144);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.DesktopEpoch")) == 0x100000001ULL);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.TargetDpi")) == 144);
+    REQUIRE(GetPropW(fixture.preview, L"DrillPaper.DesktopFailure") == nullptr);
+    host.RecordAttachmentFailure(fixture.preview, Failure::WindowPlacementFailed);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.DesktopFailure")) == 5);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.DesktopEpoch")) == 0x100000001ULL);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.TargetDpi")) == 144);
+    host.RecordAttachment(fixture.preview, 0x100000002ULL, 96);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.DesktopEpoch")) == 0x100000002ULL);
+    REQUIRE(reinterpret_cast<ULONG_PTR>(GetPropW(fixture.preview, L"DrillPaper.TargetDpi")) == 96);
+    REQUIRE(GetPropW(fixture.preview, L"DrillPaper.DesktopFailure") == nullptr);
+}
+
 TEST_CASE("Desktop fallback restores a normal top-level preview", "[integration][desktop]") {
     WindowsFixture fixture;
     REQUIRE(IsWindow(fixture.parent));
@@ -53,6 +105,7 @@ TEST_CASE("Live Shell attachment uses the Explorer wallpaper layer", "[integrati
     const bool attached = host.TryAttach(fixture.preview, &failure);
     INFO("DesktopAttachFailure=" << static_cast<int>(failure));
     REQUIRE(attached);
+    REQUIRE(host.IsAttached(fixture.preview));
     const HWND wallpaper = GetParent(fixture.preview);
     REQUIRE(IsWindow(wallpaper));
     DWORD shellProcess = 0;
@@ -77,4 +130,5 @@ TEST_CASE("Live Shell attachment uses the Explorer wallpaper layer", "[integrati
     REQUIRE(childBounds.bottom - childBounds.top == parentBounds.bottom - parentBounds.top);
     host.RestorePreview(fixture.preview);
     REQUIRE(GetParent(fixture.preview) == nullptr);
+    REQUIRE_FALSE(host.IsAttached(fixture.preview));
 }

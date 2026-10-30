@@ -1,4 +1,14 @@
 # 開發狀態
+## 2026-10-30 RC 14 — Win32 桌布宿主邊界純重構
+
+- Branch／base：從乾淨 HEAD `e3c7bdae12ba85143be25d190fba14c0a4ee1e2b` 建立 `feature/rc-14-win32-host-boundary`，票13已implemented。已核對handoff／架構／票與spec／STATUS，前提成立、無決策衝突；需求先記[REQUEST](acceptance/2026-10-30/win32-host-boundary/REQUEST.md)。票14 implemented代表純重構、自動驗證與人工交接完成，非RC放行。
+- Scope／files：Win32DesktopHost封裝原parent／Shell PID附掛與thread／process所有權判斷、成功／失敗診斷屬性寫入，app保留Surface身分、全程序成功世代及重試政策。DesktopEpoch／DesktopFailure／TargetDpi名稱、代碼、寬度與時序相容，命令／訊息不變；新增原生介面契約案例與live Shell斷言、架構及驗收文件。裸WM_APP、腳本helper與09-D2不在本票，ADR無。
+- Related PASS：重構前CTest23/23；既有uv CMake套件原生data/bin工具執行`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperWindowsHostIntegrationTests DrillPaperManagementIntegrationTests DrillPaperMonitorIntegrationTests DrillPaperSettingsTests DrillPaperTests DrillPaperParentFixture --parallel 8`成功；相同篩選及新增原生案例最終**26/26 PASS**、4.09秒。純重構沿用保護、不虛構Red；新增所有權／附掛／診斷契約與超過32位元世代測試。完整CTest／SDK／其他工具／CI／封裝 **NOT RUN**，依指示留收尾。
+- Windows自動整合PASS：非Temp使用者繁中空白副本／隔離資料，CTest原生或Node直接啟動EXE，產品測試循序。live Shell 1案例／17斷言；正式`test-multi-monitor.ps1`雙目標幾何／viewport／DPI144與96、握手與世代／網路／保存取消重啟／父fixture崩潰復原／模式往返及全斷線不改設定通過，三次GUI exit0、19個當下已觀察WebView2退出。首次cmd工具呼叫exit1、無案例結果，改既有Node工具後取得PASS，未放寬判準或推定防毒。未啟用09-D2電源擴充，不覆蓋其FAIL。
+- Evidence／environment：Windows11專業版26200、SDK1.0.2478.35、兩個1920×1080；已安裝Runtime版本另記，未宣稱採集實際載入版本或跨Runtime通過。最終產品SHA `8E8953FA98842F37965C4FC0C8F3C3FD93E22FD7E1A161B8D9AED3180CE6214A`，來源base＋工作樹、逐檔hash、命令及原始log／JSON見[REPORT](acceptance/2026-10-30/win32-host-boundary/REPORT.md)。
+- Safety／NOT RUN：原桌布83428 path／UTC ticks639288432499803524／SHA3C7AB5…15BCE前後不變，收尾唯一app、無RC14 profile WebView2殘留；未重啟Explorer、不關閉／替換原桌布。Apex One可讀BM log前後45890bytes／14:51:46／SHA C1550D…A7D88不變，未觀察新增攔截非完整觀測，無已證實防毒BLOCKED。人工畫面／真正Explorer／拔插／電源及其他Windows／Runtime **NOT RUN**，原因與操作見[人工清單](acceptance/2026-10-30/win32-host-boundary/MANUAL_CHECKLIST.md)，既有RC gate保留。
+- Review／commit：依implement／code-review兩代理唯讀平行審查Standards0／Spec0，未執行測試，見[REVIEW](acceptance/2026-10-30/win32-host-boundary/REVIEW.md)。更新本節與票後依commit-msg實際暫存差異產生繁中Conventional Commit，只commit一次並push本票功能分支，hash以Git記錄為準。不合併main、不公開發布。
+
 ## 2026-10-30 RC 13 — 空選擇友善提示與 Preview 驗證範圍
 
 - Branch／base：從乾淨 HEAD `c8b9b0a9329704c719aad67bfb2533833725830f` 建立 `feature/rc-13-empty-selection-notice`；票 12 已完成，票 13 implemented 表示程式、自動驗證及人工交接完成。已讀 handoff／架構／相關 STATUS／票與 spec，前提成立、無決策衝突；需求見 [REQUEST](acceptance/2026-10-30/empty-selection/REQUEST.md)。

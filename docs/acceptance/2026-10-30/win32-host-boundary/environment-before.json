@@ -1,0 +1,18 @@
+{
+  "os": "Microsoft Windows NT 10.0.26200.0",
+  "time": "2026-10-30T18:23:40.8041743+08:00",
+  "source": "e3c7bdae12ba85143be25d190fba14c0a4ee1e2b",
+  "wallpaper": {
+    "pid": 83428,
+    "startUtcTicks": 639288432499803524,
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe"
+  },
+  "antivirusLogs": [
+    {
+      "FullName": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log",
+      "Length": 45890,
+      "LastWriteTime": "2026-10-30T14:51:46.7839053+08:00"
+    }
+  ]
+}
