@@ -12,7 +12,7 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 
 首次 app **試用 ZIP** 使用獨立流程，包含 Release app／兩個主題／SDK 執行資產／WebView2 loader／授權與繁中說明，不解除 RC gate。完整解壓後執行 `Start-DrillPaper.cmd`，以一般使用者開啟管理視窗並沿用保存模式；首次為 Minimal 桌布與主螢幕目標，保存 Preview 後重啟仍為 Preview。需要既有 VC++ v14 x64 與 WebView2 Evergreen，缺失會提示官方取得方式，不自動安裝。免安裝程式檔案仍沿用 `%LOCALAPPDATA%\DrillPaper` 資料，不是完全隨身模式。請先讀包內 README.zh-TW.md；隔離試用與來源 commit、重現命令見 [試用包流程](docs/TRIAL_PACKAGE.md) 及[實測報告](docs/acceptance/2026-10-29/trial-package/REPORT.md)。
 
-試用入口依已確認決策預設帶 `--no-smart-sleep`，暫時關閉智慧休眠；app 本身的預設不變。「預設智慧休眠啟動」仍為 FAIL，根因待 05，08 須回到產品預設重新打包驗證，09 持續追蹤。關閉期間不宣稱具備智慧休眠省電效果；人工畫面與其他未驗收矩陣見報告。
+試用入口依已確認決策預設帶 `--no-smart-sleep`，暫時關閉智慧休眠；app 本身的預設不變。03 的「預設智慧休眠啟動」歷史 FAIL 保留，05 復測改記「未重現，疑似環境」，未做推測性修正；08 須在乾淨環境以產品預設驗證握手通過後才移除繞行並重新打包，09 持續追蹤。關閉期間不宣稱具備智慧休眠省電效果；人工畫面與其他未驗收矩陣見報告。
 
 ## 開發環境
 
@@ -44,6 +44,8 @@ ctest --preset windows-msvc-release --output-on-failure
 `--version` 和 `--diagnostics` 顯示 build/runtime 資訊。`scripts/test-webview2-smoke.ps1` 會以視窗標題確認 hello、snapshot、subscribe 流程；它不是截圖或 visual QA。Preview 不代表 `--experimental-desktop` 桌面附掛獲得支援。
 
 採集已在背景執行，Windows 工作階段與電源事件會調整採樣及 WebView2 暫停／恢復；`--no-smart-sleep` 可停用這項政策供除錯。鎖定／解鎖已有本機人工與受控事件證據，真實顯示器電源、待機及完整相容性仍待驗收，見 [`docs/runtime.md`](docs/runtime.md)。
+
+桌面／電源整合觀測使用 PowerShell 7：`scripts/test-multi-monitor.ps1 -ApplicationPath <非 Temp 使用者目錄的隔離 EXE> -EvidenceDirectory <尚不存在的證據目錄> -DesktopPowerRecovery`。擴充模式驗證所有宿主的手動暫停、受控工作階段通知、renderer／browser 故障、有限退化與 JS 無限迴圈；EXE 由 Node 直接啟動。測試會建立隔離資料、短暫附掛自己的桌布及建立／銷毀 fixture 父視窗，不重啟 Explorer。真正 OS 事件與目視結果須依 [RC 05 人工清單](docs/acceptance/2026-10-30/desktop-power-recovery/MANUAL_CHECKLIST.md) 另驗，不以原生屬性／資料推送視為畫面通過。
 
 ## 系統匣與管理入口
 

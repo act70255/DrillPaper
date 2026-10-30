@@ -560,6 +560,7 @@ LRESULT CALLBACK SurfaceProcedure(HWND window, UINT message, WPARAM value, LPARA
     case WM_APP + 0x42: if (epoch == value) FallbackSurface(*surface); return 0;
     case WM_APP + 0x38:
         if (epoch == value) {
+            LogError("WebView2 目標程序故障或無回應；載入世代=" + std::to_string(epoch) + "; 類型=" + std::to_string(data));
             try {
                 if (SUCCEEDED(surface->renderer.Recover())) surface->loadStarted = GetTickCount64(); else FallbackSurface(*surface);
             } catch (const std::exception& error) { LogError(error.what()); FallbackSurface(*surface); }
@@ -629,7 +630,9 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM value, 
             if (gEffective.smartSleep && !gSurfaces.empty()) {
                 gPowerState.ObserveObscured(win::PowerNotifications::ForegroundIsFullscreen(gSurfaces.front()->window), GetTickCount64(), 1000); ApplyRuntimePolicy();
             }
-            for (auto& surface : gSurfaces) if (surface->loadStarted) {
+            for (auto& surface : gSurfaces) {
+                surface->renderer.CheckResponsiveness();
+                if (!surface->loadStarted) continue;
                 if (surface->renderer.IsReady()) surface->loadStarted = 0;
                 else if (gAppliedState != runtime::PowerState::Active) surface->loadStarted = GetTickCount64();
                 else if (GetTickCount64() - surface->loadStarted >= 20000) FallbackSurface(*surface);

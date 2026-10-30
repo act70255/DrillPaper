@@ -601,6 +601,8 @@ HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
     const auto previous = state_;
     const auto epoch = ++runtimeEpoch_;
     state_ = state;
+    // 不把真正睡眠／受控暫停的經過時間誤判為 JS 無回應。
+    healthTick_ = GetTickCount64();
     const bool active = state == runtime::PowerState::Active;
     if (controller_ == nullptr || webview_ == nullptr) return S_OK;
     ComPtr<ICoreWebView2_3> webview3;
@@ -651,6 +653,39 @@ HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
     }
     UpdateCaption();
     return result;
+}
+
+void WebView2Host::CheckResponsiveness() {
+    const auto now = GetTickCount64();
+    if (!IsReady() || state_ != runtime::PowerState::Active) {
+        healthTick_ = now;
+        return;
+    }
+    if (!webview_ || healthFailed_) return;
+    if (healthPending_) {
+        if (now - healthTick_ >= 15000) {
+            healthFailed_ = true;
+            PostMessageW(parentWindow_, kRendererFailedMessage, static_cast<WPARAM>(loadEpoch_),
+                COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_UNRESPONSIVE);
+        }
+        return;
+    }
+    if (healthTick_ != 0 && now - healthTick_ < 5000) return;
+    healthPending_ = true;
+    healthTick_ = now;
+    const HRESULT result = webview_->ExecuteScript(L"0", Callback<ICoreWebView2ExecuteScriptCompletedHandler>(
+        [this, lifetime = lifetime_](HRESULT error, LPCWSTR) -> HRESULT {
+            if (!*lifetime) return S_OK;
+            healthPending_ = false;
+            healthTick_ = GetTickCount64();
+            if (FAILED(error)) ReportFailure(error);
+            else SetPropW(parentWindow_, L"DrillPaper.HealthTick", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(healthTick_)));
+            return S_OK;
+        }).Get());
+    if (FAILED(result)) {
+        healthPending_ = false;
+        ReportFailure(result);
+    }
 }
 
 void WebView2Host::UpdateCaption() {
@@ -846,6 +881,7 @@ void WebView2Host::Shutdown() {
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.LoadEpoch");
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.ReadyEpoch");
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.MetricsTick");
+    if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.HealthTick");
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);
@@ -879,6 +915,9 @@ void WebView2Host::Shutdown() {
     suspended_ = false;
     suspendPending_ = false;
     resumeSnapshotPending_ = true;
+    healthTick_ = 0;
+    healthPending_ = false;
+    healthFailed_ = false;
 }
 
 } // namespace desktopmonitor::web

@@ -1,0 +1,26 @@
+{
+  "dpiAwareness": "PER_MONITOR_AWARE_V2",
+  "timestamp": "2026-10-30T11:02:20.7485079+08:00",
+  "surfaces": [
+    {
+      "window": 94766180,
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "right": 1920,
+        "bottom": 1080
+      },
+      "dpi": 144
+    },
+    {
+      "window": 87561902,
+      "rect": {
+        "left": 1920,
+        "top": 0,
+        "right": 3840,
+        "bottom": 1080
+      },
+      "dpi": 96
+    }
+  ]
+}

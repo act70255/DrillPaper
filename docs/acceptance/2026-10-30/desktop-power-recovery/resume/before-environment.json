@@ -1,0 +1,24 @@
+{
+  "head": "2a69ed18a649770359c03b76b1503cfd51262a0c",
+  "branch": "feature/rc-05-desktop-power-recovery",
+  "timestamp": "2026-10-30T10:57:34.3039204+08:00",
+  "applications": [
+    {
+      "Id": 83428,
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "StartTime": "2026-10-29T12:00:49.9803524+08:00"
+    }
+  ],
+  "antivirus": {
+    "modified": "2026-10-30T09:22:30.9964599+08:00",
+    "length": 8332,
+    "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+    "hash": "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E"
+  },
+  "persistent": {
+    "id": 83428,
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "start": "2026-10-29T12:00:49.9803524+08:00"
+  }
+}

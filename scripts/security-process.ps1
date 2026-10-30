@@ -27,13 +27,28 @@
         }
         Start-Sleep -Milliseconds 50
     }
-    $record = Get-Content -Raw -LiteralPath ($requestPath + '.started.json') | ConvertFrom-Json
+    $record = Get-Content -Raw -Encoding UTF8 -LiteralPath ($requestPath + '.started.json') | ConvertFrom-Json
+    $launchTime = [DateTimeOffset]$record.started
     try {
-        $process = Get-Process -Id $record.pid -ErrorAction Stop
-        $null = $process.Handle
-        if ($process.Path -ne $FilePath -or $process.StartTime.ToUniversalTime() -lt [DateTime]::Parse($record.started).ToUniversalTime().AddSeconds(-1)) {
-            throw '隔離 EXE 程序身分不符。'
-        }
-        return $process
+        $identityClock = [Diagnostics.Stopwatch]::StartNew()
+        $observations = @()
+        do {
+            $process = Get-Process -Id $record.pid -ErrorAction SilentlyContinue
+            if ($process) {
+                try {
+                    $null = $process.Handle
+                    $entry = Get-CimInstance Win32_Process -Filter "ProcessId=$($record.pid)"
+                    $observations += @{id=$process.Id; path=$process.Path; start=$process.StartTime.ToString('o'); launch=$launchTime.ToString('o'); parent=$entry.ParentProcessId}
+                    $observations | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath ($requestPath + '.identity.json') -Encoding UTF8
+                    if ($entry -and $process.Path -eq $FilePath -and $entry.ParentProcessId -eq $record.parent -and
+                        [Math]::Abs(($process.StartTime.ToUniversalTime() - $entry.CreationDate.ToUniversalTime()).TotalMilliseconds) -lt 1 -and
+                        $process.StartTime.ToUniversalTime() -ge $launchTime.UtcDateTime.AddSeconds(-1) -and
+                        $process.StartTime.ToUniversalTime() -le $launchTime.UtcDateTime.AddSeconds(15)) { return $process }
+                } catch { $process.Dispose(); throw }
+                $process.Dispose()
+            }
+            Start-Sleep -Milliseconds 50
+        } while ($identityClock.Elapsed.TotalSeconds -lt 5)
+        throw "隔離 EXE 程序身分不符；未終止未知程序，請查看啟動與身分紀錄：$requestPath"
     } finally { $launcher.Dispose() }
 }

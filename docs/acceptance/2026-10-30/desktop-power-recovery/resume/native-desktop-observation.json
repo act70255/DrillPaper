@@ -1,0 +1,46 @@
+{
+  "foregroundBefore": 2563442,
+  "visual": "NOT RUN",
+  "timestamp": "2026-10-30T11:00:37.7423962+08:00",
+  "surfaces": [
+    {
+      "appWindow": false,
+      "dpi": 144,
+      "toolWindow": true,
+      "noActivate": true,
+      "parent": 70916314,
+      "hwnd": 94766180,
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720
+      },
+      "hitTest": -1,
+      "exStyle": 134217856
+    },
+    {
+      "appWindow": false,
+      "dpi": 96,
+      "toolWindow": true,
+      "noActivate": true,
+      "parent": 70916314,
+      "hwnd": 87561902,
+      "rect": {
+        "left": 1920,
+        "top": 0,
+        "right": 3840,
+        "bottom": 1080
+      },
+      "hitTest": -1,
+      "exStyle": 134217856
+    }
+  ],
+  "process": {
+    "start": "2026-10-30T10:59:50.1805310+08:00",
+    "id": 99680,
+    "path": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-baseline\\DrillPaper.exe"
+  },
+  "foregroundAfter": 2563442,
+  "managementWindows": 1
+}

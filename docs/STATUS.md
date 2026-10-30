@@ -1,5 +1,29 @@
 # 開發狀態
 
+## 2026-10-30 RC 05 — 接續完成桌面／電源矩陣與無回應復原
+
+- Branch／base：沿用 `feature/rc-05-desktop-power-recovery`、HEAD `2a69ed18a649770359c03b76b1503cfd51262a0c` 與前輪未提交調查、`test-default-startup.ps1`、版本化證據，不另開分支。依 ticket 最新使用者確認決策，原啟動缺陷改記「未重現，疑似環境」，不追 Red、不做推測性啟動修正；03 歷史 FAIL 與 08 的乾淨環境前提保留。05 設 resolved，只表示可執行驗證與報告完成。
+- Scope／TDD：擴充既有多宿主原生整合，原 HEAD 在雙宿主握手後真正 JS 無限迴圈 180 秒不復原，MetricsTick 仍前進，取得票內無回應 Red。web adapter 新增每五秒一個、至多一個 pending 的 JS 回應探針，Active 十五秒未回應沿既有世代檢查與三次重建／Minimal／停止路徑；非 Active 不計時，Shutdown 撤銷舊 callback。HealthTick 僅在 JS 回呼成功更新，原生日誌記世代／故障類型；採集、權限、智慧休眠預設及試用入口不變。
+- Green／實機：修正版完整 power4 PASS；兩宿主約 91.66 秒完成 JS 無限迴圈的有界 Minimal 回復及新 JS 回應。手動暫停十七秒不誤判、受控 lock／unlock、renderer／browser 故障交錯、八輪有界停止、browser＋受控鎖定／手動暫停＋fixture 父視窗銷毀後雙屏新握手／矩形／JS 回應通過；雙屏選擇／保存／viewport／模式及三次正式退出共 19 個當下可觀察子程序通過。原生 NOACTIVATE／TOOLWINDOW／HTTRANSPARENT／唯一管理 HWND 有證據，不視為人工互動 PASS。
+- 預設啟動回歸：新 EXE 單次全新 LOCALAPPDATA 約 1.18 秒 ReadyEpoch=1，觀測約三十秒、原生智慧休眠勾選=1、正式退出 0、6 個已驗證子程序退出、未知身分數 0。沿用前輪原版本兩輪證據，沒有重做或改寫；本輪不是 08 乾淨環境驗收。
+- Commands／checks：`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperTests DrillPaperParentFixture --parallel 8`，加入 HealthTick 後再建 DrillPaper；相關 `ctest ... -R '^(Power state|Sampling scheduler|Sampling worker|Desktop recovery|Manual pause|Monitor selection|Clone targets|Connected monitors|Protocol v1)'` 18/18；`pwsh -NoProfile -File scripts/test-multi-monitor.ps1 ... -DesktopPowerRecovery`、`test-default-startup.ps1 ...` PASS。工具入口 Red 2/2→Green 2/2、PS parser 3/3、Node syntax PASS；完整套件留 09。
+- 環境／證據：Windows 11 Pro 25H2 26200.8737／Runtime 156.0.4314.50／SDK 1.0.2478.35，雙 1920×1080、DPI 144／96。非 Temp 使用者繁中／空白副本與隔離資料、Node 直接 spawn EXE；新 EXE SHA-256 `25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D`，來源為 base＋本票工作樹，非新交付包。完整命令、原始 Red／各輪結果、時序、父子建立／退出與 hash 見 [接續報告](acceptance/2026-10-30/desktop-power-recovery/resume/REPORT.md)。
+- 工具與審查：保留第一次套用智慧休眠後等待逾時（缺狀態證據，原因未定），第三輪無限迴圈局部成功後的 fixture 身分工具失敗也不算全輪 PASS；漏接 fixture 經 path／精確建立時間／handle 核對單獨清理。shared helper 補 UTF-8／DateTimeOffset／parent／CIM 精確時間及五秒 metadata 等待；兩個入口捕捉必填路徑錯誤並保留詳細日誌、子程序空／未知身分不宣稱清理成功。code-review 的 Standards 1／Spec 3 項均修正，複查未解決各 0，見 resume/REVIEW.md。
+- 防毒／原桌布：Apex One 可讀行為日誌 hash／09:22:30 修改時間前後不變，未觀察新增攔截；不是完整防毒觀測，未改防毒。原持續桌布 83428 的 path、精確建立時間與 hash 前後相同，收尾為唯一 app，沒有 fixture；未關閉／替換、未重啟 Explorer。
+- NOT RUN／gate：真正 Explorer／系統匣點擊、桌面圖示／工作列／Alt+Tab／焦點／虛擬桌面、全螢幕／部分覆蓋、拔插及其他解析度／DPI、真正鎖定／關屏／待機與其故障交錯、其他 Windows／Runtime，均依已確認決策附 [人工清單](acceptance/2026-10-30/desktop-power-recovery/MANUAL_CHECKLIST.md)。舊特定 Explorer 人工 PASS 保留，不外推到新配置。06 量測健康探針成本；08 在乾淨環境以產品預設握手通過後才移除繞行，並重包本票／04；09 承接本票 NOT RUN、首次逾時、03 歷史 FAIL 與完整回歸。CI／重包／全套 NOT RUN，留後票，不解除 RC gate。
+- Commit：`fix(web): 為無回應主題加入有界復原檢查`，由 commit-msg 技能依 staged diff 產生；本節與本票程式／工具／證據同一次提交並 push `origin/feature/rc-05-desktop-power-recovery`。提交 hash 以該分支 Git 記錄為準；不合併 main、不公開發行。
+
+## 2026-10-30 RC 05 — 預設啟動失敗未重現，停止未提交
+
+- Branch／base：從 `2a69ed18a649770359c03b76b1503cfd51262a0c` 建立 `feature/rc-05-desktop-power-recovery`，停止時 HEAD 不變，05 維持 in-progress。已讀本票 2026-10-30 決策、03 防毒補記、spec、handoff、架構與 04 結果；前置 04 resolved。
+- Scope／停止點：新增未提交的 `test-default-startup.ps1` 草稿及 [版本化證據](acceptance/2026-10-30/desktop-power-recovery/REPORT.md)。原失敗 EXE 的兩輪隔離啟動均握手，尚無可重現 Red；依使用者「前提不成立時停止、不 commit」停於根因診斷前。沒有改產品程式、智慧休眠預設、03 ZIP 或入口，不宣稱修復。
+- 環境：Windows 11 Pro 25H2 26200.8737／Runtime 156.0.4314.50／SDK 1.0.2478.35，雙 1920×1080、DPI 144／96；非 Temp 使用者繁中／空白解壓路徑、Node 直接啟動 EXE、全新 LOCALAPPDATA。Apex One 可讀 AEGIS_BM.log hash／時間前後相同，未觀察新增攔截；不是完整觀測，也不判定歷史防毒介入為根因。
+- 啟動觀察：原產品來源 `e6aa20e`、EXE `B0FF9A…71781`（trial.3／trial.4 相同）兩輪分別約 2.49／2.55 秒 ReadyEpoch=1，觀測至約 30 秒，正式退出 0、已觀察子程序 handle 均退出；第二輪原生管理智慧休眠勾選=1。HEAD EXE `AA4196…51D8E` 首次約 1.74 秒握手，但草稿清理入口誤用類別導致退出 -1，不列正常退出 PASS；另一輪 Windows PowerShell 5.1 身分檢查失敗無握手樣本，不算產品 Red。完整工具失敗／清理與限制見 REPORT。
+- Commands／相關檢查：`pwsh -NoProfile -File scripts/test-default-startup.ps1 -ApplicationPath <原版本隔離副本> -EvidenceDirectory artifacts/acceptance/rc05-startup-original1`／`original2` 均退出 0；`ctest --preset windows-msvc-release -V -R '^Connected monitors '` PASS 1/1、12 assertions，只驗列舉。沒有以舊 metrics 標題宣稱畫面持續存活。
+- NOT RUN：產品 Red／根因／最小修正、後續多宿主桌布幾何／全螢幕／故障交錯／無回應 renderer／暫停繼續，因第一步尚未達成而停止。真正 Explorer／系統匣點擊、桌面互動／焦點／虛擬桌面、拔插、鎖定／電源／睡眠及其他 Windows／Runtime 的人工清單留 REPORT；完整套件留 09。產品重新建置／封裝與 code-review／commit-msg／commit／push NOT RUN，因未達可提交完成狀態。
+- 後續／gate：03 原 FAIL 不因本輪未重現解除，08 不據此移除繞行，09 gate 保留。需要原失敗時的前景／電源／工作階段／載入時間線／防毒等重現條件，或確認環境／時序調查方向後續作。收尾只剩原持續桌布 83428，精確 path／StartTime／hash 不變，未操作替換、未重啟 Explorer。
+- Commit：NOT RUN，依使用者停止規則保持未提交／未推送；本票尚未完成。
+
 ## 2026-10-30 RC 04 — 接續完成有界安全矩陣與 SmartScreen 修正
 
 - Branch／base：沿用 `feature/rc-04-security-matrix` 與 HEAD `1c62cc41e54a642f5ae5ed0d723e9b0893cef542` 的未提交測試／證據，不另開分支。依票內確認決策續作；04 設 resolved，代表有界可執行驗證與報告完成，安全 PARTIAL／NOT RUN 不因此放行 RC。

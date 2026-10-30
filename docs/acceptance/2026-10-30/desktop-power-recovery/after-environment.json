@@ -1,0 +1,18 @@
+{
+  "windows": {
+    "DisplayVersion": "25H2",
+    "CurrentBuild": "26200",
+    "UBR": 8737
+  },
+  "browserArgumentOverridePresent": false,
+  "persistent": {
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "id": 83428,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "start": "2026-10-29T12:00:49.9803524+08:00"
+  },
+  "timestamp": "2026-10-30T10:16:03.9950040+08:00",
+  "applications": [
+    83428
+  ]
+}

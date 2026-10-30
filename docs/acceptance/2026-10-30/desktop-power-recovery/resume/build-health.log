@@ -1,0 +1,12 @@
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+  miniz.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+  desktopmonitor_settings.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_themes.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  webview2_host.cpp
+  DrillPaper.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe

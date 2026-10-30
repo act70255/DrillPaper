@@ -1,0 +1,735 @@
+{
+  "started": "2026-10-30T10:14:45.6459202+08:00",
+  "file": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-original\\DrillPaper.exe",
+  "sha256": "B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781",
+  "smartSleep": true,
+  "result": "PASS_HANDSHAKE",
+  "samples": [
+    {
+      "seconds": 0.010093,
+      "hosts": 0,
+      "caption": "",
+      "epoch": 0
+    },
+    {
+      "seconds": 0.3765173,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 0.7422564,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 1.0297779,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 1.373113,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 1.6622684,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 1.932159,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 2.2102842,
+      "hosts": 1,
+      "caption": "DrillPaper — 正在載入主題",
+      "epoch": 0
+    },
+    {
+      "seconds": 2.5462273,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 2.8576645,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 3.2404139,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 3.4998085,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 3.7741268,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 4.0521781,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 4.3236211,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 4.6409697,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 4.9015402,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 5.1643896,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 5.4302428,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 5.7048359,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 5.9702652,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 6.2295126,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 6.4855344,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 6.7511627,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 7.0059321,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 7.264978,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 7.5217187,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 7.7883387,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 8.0549589,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 8.3199202,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 8.5743742,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 8.8325882,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 9.0910104,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 9.3536828,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 9.6161053,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 9.8839767,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 10.1436402,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 10.4094498,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 10.6750698,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 10.9458077,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+      "epoch": 1
+    },
+    {
+      "seconds": 11.2110609,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 11.4712522,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 11.729226,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 11.9882039,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 12.2448205,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 12.5036317,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 12.7631647,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 13.0230178,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 13.2795235,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 13.5398873,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 13.7990016,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 14.0575358,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 14.3165576,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 14.5760484,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 14.8334248,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 15.0924964,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 15.3516509,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 15.6126273,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 15.8685419,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 16.1247308,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 16.3849402,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 16.6443403,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 16.9003675,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 17.1724935,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 17.4573973,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 17.7304182,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 17.9992909,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 18.2648609,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 18.5210407,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 18.7773227,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 19.0385326,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 19.2990599,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 19.5581767,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 19.8212572,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 20.0888436,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 20.3526584,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 20.6087013,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 20.8639202,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 21.1330243,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 21.3974362,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 21.6574826,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 21.9252093,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 22.1922754,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 22.4509699,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 22.7094843,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 22.9753959,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 23.2484667,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 23.5135125,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 23.7807724,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 24.0421855,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 24.2997184,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 24.5592972,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 24.8241989,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 25.0785018,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 25.3394088,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 25.5980188,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 25.8569502,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 26.1153996,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 26.3751956,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 26.6345025,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 26.8927206,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 27.1539389,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 27.420562,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 27.6834409,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 27.9432331,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 28.2016876,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 28.4597338,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 28.7205664,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 28.9787275,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 29.2447703,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 29.5114953,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    },
+    {
+      "seconds": 29.7781251,
+      "hosts": 1,
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "epoch": 1
+    }
+  ],
+  "antivirusBefore": {
+    "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+    "length": 8332,
+    "hash": "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+    "modified": "2026-10-30T09:22:30.9964599+08:00"
+  },
+  "process": {
+    "path": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-original\\DrillPaper.exe",
+    "start": "2026-10-30T10:14:46.2925676+08:00",
+    "id": 78708
+  },
+  "effectiveSmartSleep": 1,
+  "children": [
+    {
+      "id": 74860,
+      "start": "2026-10-30T10:14:46.5824200+08:00"
+    },
+    {
+      "id": 57320,
+      "start": "2026-10-30T10:14:46.7482080+08:00"
+    },
+    {
+      "id": 9520,
+      "start": "2026-10-30T10:14:47.3041202+08:00"
+    },
+    {
+      "id": 91880,
+      "start": "2026-10-30T10:14:47.3557588+08:00"
+    },
+    {
+      "id": 89992,
+      "start": "2026-10-30T10:14:47.4744186+08:00"
+    },
+    {
+      "id": 97176,
+      "start": "2026-10-30T10:14:47.9261922+08:00"
+    }
+  ],
+  "exitCode": 0,
+  "childrenExited": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "antivirusAfter": {
+    "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+    "length": 8332,
+    "hash": "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+    "modified": "2026-10-30T09:22:30.9964599+08:00"
+  },
+  "ended": "2026-10-30T10:15:19.7063484+08:00"
+}

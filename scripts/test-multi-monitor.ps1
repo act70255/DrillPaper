@@ -1,6 +1,10 @@
 ﻿[CmdletBinding()]
-param([Parameter(Mandatory)][string]$ApplicationPath)
+param([Parameter(Mandatory)][string]$ApplicationPath,
+    [string]$EvidenceDirectory,
+    [switch]$DesktopPowerRecovery)
+#requires -Version 7.0
 $ErrorActionPreference = 'Stop'
+try {
 . (Join-Path $PSScriptRoot 'security-process.ps1')
 $application = (Resolve-Path -LiteralPath $ApplicationPath).Path
 Add-Type -TypeDefinition @'
@@ -100,8 +104,9 @@ public static class DrillPaperMonitorProbe {
     }
 }
 '@
-$session = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ("../artifacts/acceptance/multi-monitor-" + [Guid]::NewGuid().ToString('N'))))
-New-Item -ItemType Directory -Path $session -Force | Out-Null
+$session = if ($EvidenceDirectory) { [IO.Path]::GetFullPath($EvidenceDirectory) }
+    else { [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ("../artifacts/acceptance/multi-monitor-" + [Guid]::NewGuid().ToString('N')))) }
+New-Item -ItemType Directory -Path $session -ErrorAction Stop | Out-Null
 $previousLocal = $env:LOCALAPPDATA
 $app = $null
 $server = $null
@@ -121,6 +126,7 @@ function Wait-Condition([scriptblock]$Condition, [string]$Failure) {
         if (& $Condition) { return }
         Start-Sleep -Milliseconds 100
     } while ($timer.Elapsed.TotalSeconds -lt 35)
+    Record-Surfaces 'condition-timeout'
     throw $Failure
 }
 function Send-Command([int]$Command) {
@@ -162,11 +168,174 @@ function Record-Surfaces([string]$Phase) {
             dpi=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.TargetDpi').ToInt64();
             attached=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.DesktopEpoch').ToInt64();
             load=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.LoadEpoch').ToInt64();
-            ready=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.ReadyEpoch').ToInt64()}
+            ready=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.ReadyEpoch').ToInt64();
+            tick=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.MetricsTick').ToInt64();
+            health=[DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.HealthTick').ToInt64();
+            caption=(Get-SurfaceCaption $window)}
     })
-    $evidence.Add(@{phase=$Phase; surfaces=$records})
+    $evidence.Add(@{phase=$Phase; timestamp=(Get-Date -Format o); surfaces=$records})
     $evidence | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $session 'phases.json') -Encoding UTF8
     Write-Output "已記錄：$Phase"
+}
+function Get-SurfaceCaption([IntPtr]$Window) {
+    <# 讀取目前宿主的原生狀態，不能單獨證明像素存活。
+    Args:
+        Window: 本次受測宿主。
+    Returns:
+        原生標題文字。
+    #>
+    $text = [Text.StringBuilder]::new(1024)
+    [void][DrillPaperMonitorProbe]::ReadText($Window,0xD,[UIntPtr]::new(1024),$text)
+    return $text.ToString()
+}
+function Assert-FreshMetrics {
+    <# 確認所有已握手宿主繼續推送新資料；不宣稱 DOM 或畫面已更新。 #>
+    $windows = @(Get-Surfaces)
+    if ($windows.Count -ne $allSurfaceCount) { throw '持續資料驗證的宿主數量不符。' }
+    foreach ($window in $windows) {
+        $tick = [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.MetricsTick').ToInt64()
+        Wait-Condition { [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.MetricsTick').ToInt64() -gt $tick } '宿主沒有繼續推送新的指標。'
+        if ($DesktopPowerRecovery) {
+            $health = [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.HealthTick').ToInt64()
+            Wait-Condition { [DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.HealthTick').ToInt64() -gt $health } '頁面沒有回應新的 JS 探針。'
+        }
+    }
+}
+function Set-ControlledLock([bool]$Locked) {
+    <# 僅送受控通知到隔離程序，不鎖定真正工作階段。
+    Args:
+        Locked: 是否模擬工作階段鎖定通知。
+    #>
+    $power = @([DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperPowerEvents'))
+    if ($power.Count -ne 1) { throw '沒有唯一的受測電源事件入口。' }
+    $event = if ($Locked) { 7 } else { 8 }
+    [void][DrillPaperMonitorProbe]::SendMessage($power[0],0x2B1,[UIntPtr]::new([uint32]$event),[IntPtr]::Zero)
+}
+function Stop-OwnedWebView([string]$Kind) {
+    <# 持有精確程序實體後才注入故障，拒絕 PID 重用或 profile 不符。
+    Args:
+        Kind: browser 或 renderer。
+    #>
+    $webviewProfile = Join-Path $session 'appdata/DrillPaper/WebView2'
+    $browser = @(Get-CimInstance Win32_Process -Filter "ParentProcessId=$($app.Id) AND Name='msedgewebview2.exe'" |
+        Where-Object { $_.CommandLine -and $_.CommandLine -notmatch '--type=' -and $_.CommandLine.IndexOf($webviewProfile,[StringComparison]::OrdinalIgnoreCase) -ge 0 })
+    if ($browser.Count -ne 1) { throw '無法驗證唯一的隔離 browser，未終止程序。' }
+    $browserProcess = Get-Process -Id $browser[0].ProcessId -ErrorAction Stop
+    try {
+    $null = $browserProcess.Handle
+    if ($browserProcess.Path -ne $browser[0].ExecutablePath -or
+        [Math]::Abs(($browserProcess.StartTime.ToUniversalTime() - $browser[0].CreationDate.ToUniversalTime()).TotalMilliseconds) -ge 1 -or
+        $browserProcess.StartTime -lt $app.StartTime) { throw 'browser 實體身分不符，未終止程序。' }
+    $targets = if ($Kind -eq 'browser') { $browser } else {
+        @(Get-CimInstance Win32_Process -Filter "ParentProcessId=$($browser[0].ProcessId) AND Name='msedgewebview2.exe'" |
+            Where-Object { $_.CommandLine -match '--type=renderer(?:\s|$)' })
+    }
+    if (@($targets).Count -eq 0) { throw '沒有可驗證的 WebView2 故障目標。' }
+    $victims = @()
+    foreach ($entry in $targets) {
+        if ($browserProcess.HasExited) { throw '列舉期間 browser 已退出，拒絕沿用其 PID。' }
+        $victim = Get-Process -Id $entry.ProcessId -ErrorAction Stop
+        try {
+            $null = $victim.Handle
+            if ([Math]::Abs(($victim.StartTime.ToUniversalTime() - $entry.CreationDate.ToUniversalTime()).TotalMilliseconds) -ge 1 -or
+                $victim.StartTime -lt $app.StartTime -or $victim.Path -ne $entry.ExecutablePath) { throw '故障目標的精確身分不符，未終止。' }
+            $victims += @{id=$victim.Id; start=$victim.StartTime.ToString('o'); path=$victim.Path}
+            $victim.Kill()
+            if (-not $victim.WaitForExit(5000)) { throw '故障目標未在期限內退出。' }
+        } finally { $victim.Dispose() }
+    }
+    $evidence.Add(@{phase="injected-$Kind"; victims=$victims; timestamp=(Get-Date -Format o)})
+    } finally { $browserProcess.Dispose() }
+}
+function Test-DesktopPowerRecovery {
+    <# 在目前全部目標上驗證受控政策、真實程序故障及 JS 無回應的有界復原。 #>
+    # 由可信設定介面開啟智慧休眠；不改產品預設，也不操控其他桌布。
+    [void][DrillPaperMonitorProbe]::SendMessage([DrillPaperMonitorProbe]::GetDlgItem($manager,20103),0xF1,[UIntPtr]::new(1),[IntPtr]::Zero)
+    Send-Command 20010
+    Wait-Ready $allSurfaceCount
+    if (-not (Get-Content -Raw -Encoding UTF8 -LiteralPath $settingsFile | ConvertFrom-Json).smartSleep) { throw '智慧休眠沒有透過設定生效。' }
+    Assert-FreshMetrics
+    Record-Surfaces 'smart-sleep-enabled'
+    Send-Command 20002
+    Wait-Condition { $windows=@(Get-Surfaces); $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object { (Get-SurfaceCaption $_) -notlike '*display-off*已暫停' }).Count -eq 0 } '並非所有目標均完成手動暫停。'
+    Set-ControlledLock $true
+    Set-ControlledLock $false
+    # 超過健康探針期限仍暫停，確認不把省電時間誤判為 renderer 卡死。
+    $pauseEpochs = @((Get-Surfaces) | ForEach-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64() })
+    Start-Sleep -Seconds 17
+    $afterPauseEpochs = @((Get-Surfaces) | ForEach-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64() })
+    if (@(Compare-Object $pauseEpochs $afterPauseEpochs).Count) { throw '手動暫停期間錯誤觸發了渲染重建。' }
+    if (@(Get-Surfaces | Where-Object { [DrillPaperMonitorProbe]::IsWindowVisible($_) }).Count) { throw '受控電源往返取消了手動暫停。' }
+    Record-Surfaces 'manual-pause-survives-controlled-lock'
+    Send-Command 20002
+    Assert-FreshMetrics
+    foreach ($kind in @('renderer','browser')) {
+        Send-Command 10002
+        Wait-Ready $allSurfaceCount
+        $oldReady = @((Get-Surfaces) | ForEach-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() } | Measure-Object -Maximum).Maximum
+        Set-ControlledLock $true
+        Wait-Condition { $windows=@(Get-Surfaces); $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object { (Get-SurfaceCaption $_) -notlike '*locked*已暫停' }).Count -eq 0 } '受控鎖定未暫停全部目標。'
+        Record-Surfaces "$kind-before-fault-controlled-lock"
+        Stop-OwnedWebView $kind
+        Set-ControlledLock $false
+        Wait-Condition { $windows = @(Get-Surfaces); $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() -le $oldReady }).Count -eq 0 } '故障與受控電源交錯後未全部重新握手。'
+        Assert-FreshMetrics
+        Record-Surfaces "$kind-recovered-after-controlled-unlock"
+    }
+    # 連續 renderer 故障涵蓋原主題 3 次重建、Minimal 與 Minimal 的 3 次重建後停止。
+    Send-Command 10002
+    Wait-Ready $allSurfaceCount
+    for ($round=1; $round -le 8; $round++) {
+        $oldReady = @((Get-Surfaces) | ForEach-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() } | Measure-Object -Maximum).Maximum
+        Stop-OwnedWebView 'renderer'
+        if ($round -eq 8) {
+            Wait-Condition { $windows=@(Get-Surfaces); $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object { (Get-SurfaceCaption $_) -notlike '*渲染已停止*' -or [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() -ne 0 }).Count -eq 0 } '超過額度後未全部友善停止渲染。'
+        } else {
+            Wait-Condition { $windows=@(Get-Surfaces); $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() -le $oldReady }).Count -eq 0 } '連續故障後沒有新的握手。'
+            Assert-FreshMetrics
+        }
+        Record-Surfaces "bounded-renderer-$round"
+    }
+    # 新選題重設額度；以真正 JS 無限迴圈觸發 Runtime 的 unresponsive 通知。
+    $loopScript = @'
+import { DrillPaperClient } from './desktop-monitor-sdk.js';
+const client = new DrillPaperClient(chrome.webview);
+await client.ready();
+await client.getSnapshot();
+await client.subscribe({metrics:['cpu'],intervalMs:1000});
+setTimeout(async () => { await client.subscribe({metrics:['cpu'],intervalMs:1000}); while (true) {} }, 3000);
+'@
+    $loopScript | Set-Content -LiteralPath (Join-Path $session 'appdata/DrillPaper/themes/multi-probe@1.0.0/main.js') -Encoding UTF8
+    Send-Command 11000
+    Wait-Ready $allSurfaceCount
+    $loopStart = @(Get-Surfaces | ForEach-Object {
+        if ((Get-SurfaceCaption $_) -notlike '*多宿主驗證*') { throw '無限迴圈探針未載入，不得以 Minimal 冒充成功。' }
+        @{window=$_; load=[DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64(); ready=[DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64()}
+    })
+    Record-Surfaces 'infinite-loop-initial-handshake'
+    Wait-Condition {
+        @($loopStart | Where-Object { [DrillPaperMonitorProbe]::GetProp($_.window,'DrillPaper.LoadEpoch').ToInt64() -ne $_.load -or
+            [DrillPaperMonitorProbe]::GetProp($_.window,'DrillPaper.ReadyEpoch').ToInt64() -le $_.ready }).Count -eq 0
+    } '尚未觀察到原探針進入無限迴圈前的第二次訂閱。'
+    Record-Surfaces 'infinite-loop-entered'
+    $clock = [Diagnostics.Stopwatch]::StartNew()
+    do {
+        Record-Surfaces 'infinite-loop-observation'
+        if ($app.HasExited) { throw 'JS 無回應導致原生程序退出。' }
+        $windows = @(Get-Surfaces)
+        $recovered = $windows.Count -eq $allSurfaceCount -and @($windows | Where-Object {
+            (Get-SurfaceCaption $_) -notlike '*Minimal Monitor*Live metrics' -or
+            [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() -le 0
+        }).Count -eq 0
+        if ($recovered) { break }
+        Start-Sleep -Seconds 2
+    } while ($clock.Elapsed.TotalSeconds -lt 180)
+    if (-not $recovered) { throw 'JS 無限迴圈未在 180 秒內有界退回可信 Minimal。' }
+    Assert-FreshMetrics
+    Record-Surfaces 'infinite-loop-bounded-minimal'
+    $evidence.Add(@{phase='infinite-loop-duration'; seconds=$clock.Elapsed.TotalSeconds})
+    Send-Command 10001
+    Wait-Ready $allSurfaceCount
 }
 function Assert-AllAreas {
     <# 以獨立 Windows 列舉結果斷言完整螢幕幾何與宿主數量。 #>
@@ -220,7 +389,14 @@ function Stop-TestApplication {
     $children = @(foreach ($childId in $ids) {
         if ($childId -ne $app.Id) {
             $child = Get-Process -Id $childId -ErrorAction SilentlyContinue
-            if ($child) { $null = $child.Handle; $child }
+            if ($child) {
+                $null = $child.Handle
+                $entry = $tree | Where-Object { $_.ProcessId -eq $childId }
+                if ([Math]::Abs(($child.StartTime.ToUniversalTime() - $entry.CreationDate.ToUniversalTime()).TotalMilliseconds) -ge 1 -or $child.StartTime -lt $app.StartTime) {
+                    $child.Dispose(); throw '子程序身分已改變，拒絕以重用 PID 判定退出。'
+                }
+                $child
+            }
         }
     })
     if ($children.Count -eq 0) { throw '未觀察到子程序，無法驗證清理。' }
@@ -380,6 +556,7 @@ run().catch(error => console.error(error));
     $manager = [DrillPaperMonitorProbe]::Find($app.Id,'DrillPaperManagementWindow')[0]
     $list = [DrillPaperMonitorProbe]::GetDlgItem($manager,20108)
     Record-Surfaces 'all-selected-restart'
+    if ($DesktopPowerRecovery) { Test-DesktopPowerRecovery }
     $fixturePath = Join-Path ([IO.Path]::GetDirectoryName($application)) 'DrillPaperParentFixture.exe'
     if (-not (Test-Path -LiteralPath $fixturePath)) { throw '尚未建置跨程序父視窗 fixture。' }
     $fixtureReady = Join-Path $session 'parent-ready.txt'
@@ -389,13 +566,17 @@ run().catch(error => console.error(error));
         Wait-Condition { Test-Path -LiteralPath $fixtureReady } 'fixture 未建立父視窗。'
         $parent = [IntPtr]::new([long][IO.File]::ReadAllText($fixtureReady))
         $previousReady = @((Get-Surfaces) | ForEach-Object { [DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.ReadyEpoch').ToInt64() } | Measure-Object -Maximum).Maximum
+        if ($DesktopPowerRecovery) { Set-ControlledLock $true; Send-Command 20002 }
         foreach ($window in @(Get-Surfaces)) { [DrillPaperMonitorProbe]::AttachFixture($window,$app.Id,$parent,$fixture.Id) }
+        if ($DesktopPowerRecovery) { Stop-OwnedWebView 'browser' }
         $fixture.Kill(); [void]$fixture.WaitForExit(10000)
+        if ($DesktopPowerRecovery) { Set-ControlledLock $false; Send-Command 20002 }
         Wait-Ready $allSurfaceCount; Assert-AllAreas
         foreach ($window in @(Get-Surfaces)) {
             if ([DrillPaperMonitorProbe]::GetProp($window,'DrillPaper.ReadyEpoch').ToInt64() -le $previousReady) { throw '跨程序父視窗銷毀後未重建所有目標。' }
         }
         Record-Surfaces 'all-targets-parent-crash-recovery'
+        if ($DesktopPowerRecovery) { Assert-FreshMetrics }
     } finally { if (-not $fixture.HasExited) { $fixture.Kill(); [void]$fixture.WaitForExit(10000) }; $fixture.Dispose() }
     if ($count -gt 1) {
         $stale = @(Get-Surfaces | ForEach-Object { @{window=$_; epoch=[DrillPaperMonitorProbe]::GetProp($_,'DrillPaper.LoadEpoch').ToInt64()} })
@@ -436,6 +617,10 @@ run().catch(error => console.error(error));
         evidence=@($evidence); manualVisual='NOT RUN'; realExplorerRestart='NOT RUN'; physicalHotplug='NOT RUN';
         timestamp=(Get-Date -Format o)} | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath (Join-Path $session 'result.json') -Encoding UTF8
     Write-Output "PASS：螢幕選擇／保存／取消、各宿主握手／世代隔離、暫停／模式、全斷線暫用與子程序清理；$session"
+} catch {
+    @{result='FAIL'; reason=$_.Exception.Message; timestamp=(Get-Date -Format o); evidence=@($evidence)} |
+        ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $session 'failure.json') -Encoding UTF8
+    throw
 } finally {
     $env:LOCALAPPDATA = $previousLocal
     if ($app) {
@@ -444,4 +629,10 @@ run().catch(error => console.error(error));
     }
     [void][DrillPaperMonitorProbe]::SetThreadDpiAwarenessContext($previousDpi)
     if ($server) { if (-not $server.HasExited) { $server.Kill(); [void]$server.WaitForExit(5000) }; $server.Dispose() }
+}
+} catch {
+    $diagnostic = Join-Path $PSScriptRoot ('../artifacts/acceptance/rc05-tool-errors/' + [Guid]::NewGuid().ToString('N') + '.log')
+    try { [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($diagnostic)) | Out-Null; $_ | Out-String | Set-Content -LiteralPath $diagnostic -Encoding UTF8 } catch {}
+    [Console]::Error.WriteLine("錯誤：無法完成多目標整合觀測，請確認程式路徑、全新證據目錄與執行環境。診斷日誌：$diagnostic")
+    exit 1
 }

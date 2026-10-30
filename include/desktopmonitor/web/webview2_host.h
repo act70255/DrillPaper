@@ -89,6 +89,10 @@ public:
      *     遞增的載入世代。
      */
     unsigned long long LoadEpoch() const { return loadEpoch_; }
+    /** 由 UI 計時器檢查 JS 回應，逾時沿用有界 renderer 復原。
+     * 暫停期間不累計逾時，同一 controller 最多保留一個非同步探針。
+     */
+    void CheckResponsiveness();
 
 private:
     /** 記錄本工作階段首次封鎖的 HTTP／HTTPS 請求並通知可信原生介面。 */
@@ -141,6 +145,9 @@ private:
     unsigned long long loadEpoch_ = 0;
     double rasterizationScale_ = 0;
     unsigned recoveryAttempts_ = 0;
+    unsigned __int64 healthTick_ = 0;
+    bool healthPending_ = false;
+    bool healthFailed_ = false;
     std::shared_ptr<bool> lifetime_ = std::make_shared<bool>(true);
     runtime::ThemeNetworkPolicy networkPolicy_;
 };

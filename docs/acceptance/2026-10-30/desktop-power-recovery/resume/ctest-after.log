@@ -1,0 +1,252 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 12
+      Start 12: Power state transitions debounce obscured changes and request fresh data on resume
+
+12: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+12: Test timeout computed to be: 20
+12: Filters: "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Randomness seeded to: 1986185796
+12: ===============================================================================
+12: All tests passed (8 assertions in 1 test case)
+12: 
+ 1/18 Test #12: Power state transitions debounce obscured changes and request fresh data on resume ....   Passed    0.17 sec
+test 13
+      Start 13: Sampling scheduler pauses and resumes without catch-up loops
+
+13: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling scheduler pauses and resumes without catch-up loops"
+13: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+13: Test timeout computed to be: 20
+13: Filters: "Sampling scheduler pauses and resumes without catch-up loops"
+13: Randomness seeded to: 421716757
+13: ===============================================================================
+13: All tests passed (7 assertions in 1 test case)
+13: 
+ 2/18 Test #13: Sampling scheduler pauses and resumes without catch-up loops ..........................   Passed    0.44 sec
+test 14
+      Start 14: Sampling worker collects outside the caller thread and stops while paused
+
+14: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker collects outside the caller thread and stops while paused"
+14: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+14: Test timeout computed to be: 20
+14: Filters: "Sampling worker collects outside the caller thread and stops while paused"
+14: Randomness seeded to: 2375809641
+14: ===============================================================================
+14: All tests passed (5 assertions in 1 test case)
+14: 
+ 3/18 Test #14: Sampling worker collects outside the caller thread and stops while paused .............   Passed    0.34 sec
+test 15
+      Start 15: Sampling worker resumes immediately with a fresh baseline
+
+15: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker resumes immediately with a fresh baseline"
+15: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+15: Test timeout computed to be: 20
+15: Filters: "Sampling worker resumes immediately with a fresh baseline"
+15: Randomness seeded to: 1205532428
+15: ===============================================================================
+15: All tests passed (8 assertions in 1 test case)
+15: 
+ 4/18 Test #15: Sampling worker resumes immediately with a fresh baseline .............................   Passed    0.18 sec
+test 16
+      Start 16: Sampling worker reports collector failure without terminating the process
+
+16: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker reports collector failure without terminating the process"
+16: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+16: Test timeout computed to be: 20
+16: Filters: "Sampling worker reports collector failure without terminating the process"
+16: Randomness seeded to: 1120059197
+16: ===============================================================================
+16: All tests passed (3 assertions in 1 test case)
+16: 
+ 5/18 Test #16: Sampling worker reports collector failure without terminating the process .............   Passed    0.26 sec
+test 17
+      Start 17: Sampling worker discards an in-flight snapshot from the previous generation
+
+17: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+17: Test timeout computed to be: 20
+17: Filters: "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Randomness seeded to: 536271358
+17: ===============================================================================
+17: All tests passed (5 assertions in 1 test case)
+17: 
+ 6/18 Test #17: Sampling worker discards an in-flight snapshot from the previous generation ...........   Passed    0.41 sec
+test 18
+      Start 18: Desktop recovery waits for Shell readiness with a bounded retry budget
+
+18: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Desktop recovery waits for Shell readiness with a bounded retry budget"
+18: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+18: Test timeout computed to be: 20
+18: Filters: "Desktop recovery waits for Shell readiness with a bounded retry budget"
+18: Randomness seeded to: 3906274648
+18: ===============================================================================
+18: All tests passed (28 assertions in 1 test case)
+18: 
+ 7/18 Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget ................   Passed    0.48 sec
+test 19
+      Start 19: Manual pause survives power changes and resumes the current policy
+
+19: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Manual pause survives power changes and resumes the current policy"
+19: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+19: Test timeout computed to be: 20
+19: Filters: "Manual pause survives power changes and resumes the current policy"
+19: Randomness seeded to: 4019170517
+19: ===============================================================================
+19: All tests passed (8 assertions in 1 test case)
+19: 
+ 8/18 Test #19: Manual pause survives power changes and resumes the current policy ....................   Passed    0.23 sec
+test 20
+      Start 20: Monitor selection uses only connected selected areas and restores returning targets
+
+20: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Monitor selection uses only connected selected areas and restores returning targets"
+20: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+20: Test timeout computed to be: 20
+20: Filters: "Monitor selection uses only connected selected areas and restores returning targets"
+20: Randomness seeded to: 2929204471
+20: ===============================================================================
+20: All tests passed (7 assertions in 1 test case)
+20: 
+ 9/18 Test #20: Monitor selection uses only connected selected areas and restores returning targets ...   Passed    0.14 sec
+test 21
+      Start 21: Clone targets share one renderer area and empty selection never falls back
+
+21: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Clone targets share one renderer area and empty selection never falls back"
+21: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+21: Test timeout computed to be: 20
+21: Filters: "Clone targets share one renderer area and empty selection never falls back"
+21: Randomness seeded to: 3350377522
+21: ===============================================================================
+21: All tests passed (6 assertions in 1 test case)
+21: 
+10/18 Test #21: Clone targets share one renderer area and empty selection never falls back ............   Passed    0.15 sec
+test 22
+      Start 22: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+
+22: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+22: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+22: Test timeout computed to be: 20
+22: Filters: "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+22: Randomness seeded to: 2232206769
+22: ===============================================================================
+22: All tests passed (1 assertion in 1 test case)
+22: 
+11/18 Test #22: Protocol v1 serializes a complete snapshot with units and UTC timestamp ...............   Passed    0.30 sec
+test 23
+      Start 23: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+
+23: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+23: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+23: Test timeout computed to be: 20
+23: Filters: "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+23: Randomness seeded to: 3535045873
+23: ===============================================================================
+23: All tests passed (1 assertion in 1 test case)
+23: 
+12/18 Test #23: Protocol v1 echoes request identifiers and serializes unavailable memory as null ......   Passed    0.34 sec
+test 24
+      Start 24: Protocol v1 parses bounded history requests and preserves request IDs
+
+24: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 parses bounded history requests and preserves request IDs"
+24: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+24: Test timeout computed to be: 20
+24: Filters: "Protocol v1 parses bounded history requests and preserves request IDs"
+24: Randomness seeded to: 2229564199
+24: ===============================================================================
+24: All tests passed (4 assertions in 1 test case)
+24: 
+13/18 Test #24: Protocol v1 parses bounded history requests and preserves request IDs .................   Passed    0.46 sec
+test 25
+      Start 25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+
+25: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+25: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+25: Test timeout computed to be: 20
+25: Filters: "Protocol v1 rejects invalid envelopes\, unsupported versions\, and oversized messages"
+25: Randomness seeded to: 3531072495
+25: ===============================================================================
+25: All tests passed (5 assertions in 1 test case)
+25: 
+14/18 Test #25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ...   Passed    0.19 sec
+test 26
+      Start 26: Protocol v1 subscription removes unknown and duplicate metric names
+
+26: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 subscription removes unknown and duplicate metric names"
+26: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+26: Test timeout computed to be: 20
+26: Filters: "Protocol v1 subscription removes unknown and duplicate metric names"
+26: Randomness seeded to: 874749730
+26: ===============================================================================
+26: All tests passed (4 assertions in 1 test case)
+26: 
+15/18 Test #26: Protocol v1 subscription removes unknown and duplicate metric names ...................   Passed    0.29 sec
+test 27
+      Start 27: Protocol v1 serializes control envelopes without changing their payload
+
+27: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 serializes control envelopes without changing their payload"
+27: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+27: Test timeout computed to be: 20
+27: Filters: "Protocol v1 serializes control envelopes without changing their payload"
+27: Randomness seeded to: 2673907090
+27: ===============================================================================
+27: All tests passed (1 assertion in 1 test case)
+27: 
+16/18 Test #27: Protocol v1 serializes control envelopes without changing their payload ...............   Passed    0.30 sec
+test 28
+      Start 28: Protocol v1 history snapshots carry their own timestamps
+
+28: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Protocol v1 history snapshots carry their own timestamps"
+28: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+28: Test timeout computed to be: 20
+28: Filters: "Protocol v1 history snapshots carry their own timestamps"
+28: Randomness seeded to: 4197302701
+28: ===============================================================================
+28: All tests passed (2 assertions in 1 test case)
+28: 
+17/18 Test #28: Protocol v1 history snapshots carry their own timestamps ..............................   Passed    0.49 sec
+test 41
+      Start 41: Connected monitors expose stable target identities and physical desktop rectangles
+
+41: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+41: Test timeout computed to be: 20
+41: Filters: "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Randomness seeded to: 647155970
+41: \\?\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:0 primary=1 rect=0,0,1920,1080 dpi=144
+41: \\?\display#delf15e#4&25f3787d&0&uid8263#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:1 primary=0 rect=1920,0,3840,1080 dpi=96
+41: ===============================================================================
+41: All tests passed (12 assertions in 1 test case)
+41: 
+18/18 Test #41: Connected monitors expose stable target identities and physical desktop rectangles ....   Passed    1.03 sec
+
+The following tests passed:
+	Power state transitions debounce obscured changes and request fresh data on resume
+	Sampling scheduler pauses and resumes without catch-up loops
+	Sampling worker collects outside the caller thread and stops while paused
+	Sampling worker resumes immediately with a fresh baseline
+	Sampling worker reports collector failure without terminating the process
+	Sampling worker discards an in-flight snapshot from the previous generation
+	Desktop recovery waits for Shell readiness with a bounded retry budget
+	Manual pause survives power changes and resumes the current policy
+	Monitor selection uses only connected selected areas and restores returning targets
+	Clone targets share one renderer area and empty selection never falls back
+	Protocol v1 serializes a complete snapshot with units and UTC timestamp
+	Protocol v1 echoes request identifiers and serializes unavailable memory as null
+	Protocol v1 parses bounded history requests and preserves request IDs
+	Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+	Protocol v1 subscription removes unknown and duplicate metric names
+	Protocol v1 serializes control envelopes without changing their payload
+	Protocol v1 history snapshots carry their own timestamps
+	Connected monitors expose stable target identities and physical desktop rectangles
+
+100% tests passed, 0 tests failed out of 18
+
+Total Test time (real) =   7.50 sec

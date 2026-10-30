@@ -1,0 +1,88 @@
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 0 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-minimal
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-dashboard
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：one-target-fallback
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-True
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：rapid-switch-stale-notifications
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-restart
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：smart-sleep-enabled
+已記錄：manual-pause-survives-controlled-lock
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：renderer-before-fault-controlled-lock
+已記錄：renderer-recovered-after-controlled-unlock
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：browser-before-fault-controlled-lock
+已記錄：browser-recovered-after-controlled-unlock
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：bounded-renderer-1
+已記錄：bounded-renderer-2
+已記錄：bounded-renderer-3
+已記錄：bounded-renderer-4
+已記錄：bounded-renderer-5
+已記錄：bounded-renderer-6
+已記錄：bounded-renderer-7
+已記錄：bounded-renderer-8
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：infinite-loop-initial-handshake
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-observation
+已記錄：infinite-loop-bounded-minimal
+等待 2 個目標握手（0 表示依目前有效區域）。
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\security-process.ps1:35
+Line |
+  35 |              throw '隔離 EXE 程序身分不符。'
+     |              ~~~~~~~~~~~~~~~~~~~~~~
+     | 隔離 EXE 程序身分不符。

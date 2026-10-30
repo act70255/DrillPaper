@@ -1,0 +1,48 @@
+{
+  "process": {
+    "id": 92060,
+    "start": "2026-10-30T11:07:16.6827014+08:00",
+    "path": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-fixed\\DrillPaper.exe",
+    "hash": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D"
+  },
+  "visual": "NOT RUN",
+  "managementWindows": 1,
+  "foregroundAfter": 185667454,
+  "dpiAwareness": "PER_MONITOR_AWARE_V2",
+  "surfaces": [
+    {
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "right": 1920,
+        "bottom": 1080
+      },
+      "toolWindow": true,
+      "noActivate": true,
+      "appWindow": false,
+      "dpi": 144,
+      "parent": 70916314,
+      "hwnd": 136255060,
+      "exStyle": 134217856,
+      "hitTest": -1
+    },
+    {
+      "rect": {
+        "left": 1920,
+        "top": 0,
+        "right": 3840,
+        "bottom": 1080
+      },
+      "toolWindow": true,
+      "noActivate": true,
+      "appWindow": false,
+      "dpi": 96,
+      "parent": 70916314,
+      "hwnd": 7211440,
+      "exStyle": 134217856,
+      "hitTest": -1
+    }
+  ],
+  "timestamp": "2026-10-30T11:11:30.2915417+08:00",
+  "foregroundBefore": 185667454
+}
