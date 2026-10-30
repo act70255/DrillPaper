@@ -1,0 +1,81 @@
+{
+  "result": "CLEANUP_FAILED",
+  "started": "2026-10-30T13:53:21.6537320+08:00",
+  "phases": [
+    {
+      "utc": "2026-10-30T13:53:26.6816494+08:00",
+      "phase": "author-loaded",
+      "surfaces": [
+        {
+          "load": 2,
+          "caption": "DrillPaper Preview — 作者離線儀表板 — Live metrics",
+          "parent": 0,
+          "hwnd": 89854422,
+          "ready": 2,
+          "tick": 1572298828
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-30T13:53:28.8098090+08:00",
+      "phase": "switch-minimal",
+      "surfaces": [
+        {
+          "load": 3,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "parent": 0,
+          "hwnd": 89854422,
+          "ready": 3,
+          "tick": 1572300890
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-30T13:53:30.8480696+08:00",
+      "phase": "switch-author",
+      "surfaces": [
+        {
+          "load": 4,
+          "caption": "DrillPaper Preview — 作者離線儀表板 — Live metrics",
+          "parent": 0,
+          "hwnd": 89854422,
+          "ready": 4,
+          "tick": 1572303000
+        }
+      ]
+    }
+  ],
+  "application": {
+    "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "package": {
+    "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\author-final.dmt"
+  },
+  "scenario": {
+    "mock": true,
+    "desktop": false,
+    "allowNetwork": false
+  },
+  "process": {
+    "id": 55208,
+    "start": "2026-10-30T05:53:23.1182499Z",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "settings": {
+    "allowNetwork": false,
+    "displayMode": "preview",
+    "monitorTargets": [
+      "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+    ],
+    "schemaVersion": 2,
+    "smartSleep": false,
+    "theme": "author-starter@1.0.0"
+  },
+  "observedChildren": [],
+  "observationDetails": "Exception: \r\nLine |\r\n   2 |  …  -eq \"Name='msedgewebview2.exe'\") { throw '受控測試：清理時CIM觀測不可用。' }; CimC …\r\n     |                                        ~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | 受控測試：清理時CIM觀測不可用。\r\n",
+  "exitCode": 0,
+  "cleanupDetails": "Exception: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-theme-author-flow.ps1:165\r\nLine |\r\n 165 |  … dles.Count -eq 0 -or $app.ExitCode -ne 0) { throw '正常退出／子程序觀測證據不足。' }\r\n     |                                                ~~~~~~~~~~~~~~~~~~~~~~~\r\n     | 正常退出／子程序觀測證據不足。\r\n\r\n",
+  "ended": "2026-10-30T13:53:31.2564775+08:00"
+}

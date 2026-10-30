@@ -1,0 +1,30 @@
+✔ ready sends one protocol hello and resolves on host.ready (6.6653ms)
+✔ DrillPaper is the primary SDK name and DesktopMonitor remains a compatibility alias (0.2811ms)
+✔ Theme SDK reports the current release candidate version (0.1899ms)
+✔ getSnapshot resolves only from the matching requestId response (1.38ms)
+✔ metrics listeners receive push updates and unsubscribe cleanly (0.4653ms)
+✔ getHistory clamps the request and returns the snapshot list (0.4843ms)
+✔ subscribe and unsubscribe use bounded protocol messages (0.659ms)
+✔ subscribe drops unapproved metric names and clamps the update interval (0.4031ms)
+✔ a host with another protocol version cannot complete the handshake (12.1802ms)
+✔ a host with an invalid timestamp cannot complete the handshake (12.9132ms)
+✔ pending requests time out instead of hanging forever (14.6661ms)
+✔ pending requests are bounded (30.9396ms)
+✔ MockHost supports SDK handshake, snapshot, and history in a browser-like window (0.8235ms)
+✔ MockHost rejects a malformed subscription payload with a protocol error (0.2805ms)
+✔ accepts a valid v1 manifest and returns no errors (2.2599ms)
+✔ rejects missing fields and unsupported API versions (0.5071ms)
+✔ rejects traversal paths, malformed ids, and non-semver versions (0.2102ms)
+✔ rejects duplicate or unknown capabilities, permissions, and extra properties (0.1926ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 234.5751
+
+Path                                                              Version            Bytes SHA256
+----                                                              -------            ----- ------
+C:\Users\James\DrillPaperTests\RC07 作者流程\SDK-final-repeat.zip 1.0.0-rc3.author.1 64412 376906271C8FBF0E3EDAFC9E866…

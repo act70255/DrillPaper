@@ -1,0 +1,31 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 41
+    Start 41: Connected monitors expose stable target identities and physical desktop rectangles
+
+41: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+41: Test timeout computed to be: 20
+41: Filters: "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Randomness seeded to: 303647110
+41: \\?\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:0 primary=1 rect=0,0,1920,1080 dpi=144
+41: \\?\display#delf15e#4&25f3787d&0&uid8263#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:1 primary=0 rect=1920,0,3840,1080 dpi=96
+41: ===============================================================================
+41: All tests passed (12 assertions in 1 test case)
+41:
+1/1 Test #41: Connected monitors expose stable target identities and physical desktop rectangles ...   Passed    0.11 sec
+
+The following tests passed:
+	Connected monitors expose stable target identities and physical desktop rectangles
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.22 sec

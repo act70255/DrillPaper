@@ -21,7 +21,7 @@ export interface HostReady {
   hostVersion: string;
   capabilities: string[];
   state: HostState;
-  limits: { maxHistory: number; minUpdateIntervalMs: number };
+  limits: { history: number; messageBytes: number };
 }
 
 export interface SubscribeOptions {

@@ -42,6 +42,8 @@
 
 SDK 將 `getHistory` 限制在 1–120 筆。訂閱指標僅接受 `cpu`、`gpu`、`memory`、`disk`、`network`、`clock`，並移除重複與未知項目；更新間隔限制在 1,000–60,000 ms。原生 host 必須重複檢查，並可因能力或省電政策施加更嚴格限制。空指標清單表示訂閱 host 宣告能力範圍內的所有指標。
 
+`host.ready.limits` 為 `{ history: 120, messageBytes: 65536 }`，原生 host、MockHost 與 TypeScript 宣告一致。訂閱間隔限制是 SDK 常數與 host 驗證契約，不是 ready 裡的 `minUpdateIntervalMs`。舊版宣告／MockHost 的不同欄位已於 RC 07 對齊，repository 的 `docs/acceptance/2026-10-30/theme-author-flow/REPORT.md` 保存證據。
+
 ## 資料型別
 
 `HostState` 為 `active | obscured | locked | display-off | recovering`；`MetricQuality` 為 `available | unavailable | stale | error`。`MetricValue` 格式為 `{ value: number | null, unit, quality }`。`null` 表示沒有讀值，不能當成零。單位是 `percent`、`bytes`、`bytes_per_second` 或 `celsius`。
@@ -58,4 +60,4 @@ SDK 版本與協定版本分開。相容的 v1 host 可增加 capability 名稱�
 
 ## 實作與尚未實作項目
 
-JavaScript SDK 與 MockHost 支援握手、snapshot/history 查詢、訂閱、metrics 事件、歷史與更新間隔上限、請求逾時、32 個請求上限與版本拒絕；Node tests 覆蓋上述行為。原生端使用 `PostWebMessageAsJson`/`WebMessageReceived`，有 64 KiB、深度/節點數、欄位和 API version 檢查，並將內建 theme 映射到固定本機 virtual host；CTest 覆蓋 JSON parser/serializer，程序 smoke 覆蓋 hello→snapshot→subscribe。尚未以惡意 WebView message 做整合負面測試，也未執行 renderer crash recovery、截圖/人工視覺驗收。WebView2 host 的安全限制另見 `docs/theme-security.md`。
+JavaScript SDK 與 MockHost 支援握手、snapshot/history 查詢、訂閱、metrics 事件、歷史與更新間隔上限、請求逾時、32 個請求上限與版本拒絕；Node tests 覆蓋上述行為。原生端使用 `PostWebMessageAsJson`/`WebMessageReceived`，有 64 KiB、深度/節點數、欄位和 API version 檢查；主題經每次載入獨立 HTTPS origin 與宿主資產回應載入。CTest 覆蓋 parser/serializer，Windows 整合另覆蓋指定負面訊息、renderer 復原與多目標，但不代表所有安全／人工視覺驗收通過。範圍與限制見 `STATUS.md`、[安全模型](theme-security.md)。

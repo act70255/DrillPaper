@@ -67,7 +67,11 @@ ctest --preset windows-msvc-release --output-on-failure
 
 ## Theme SDK
 
-SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與作者指南位於 `sdk/`。執行 `npm run test:sdk` 驗證 JS API。安裝與列舉主題：
+SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與作者指南位於 `sdk/`。執行 `npm run test:sdk` 驗證 JS API。
+
+TypeScript 作者可從 SDK ZIP 複製 [`sdk/author-starter`](sdk/author-starter/README.md)，以 lockfile 固定的 TypeScript 5.9.3 執行正負型別檢查並建置離線 `dist`，再用包內工具產出 `.dmt`；安裝、使用及功能說明見範本 README 與 [作者指南](docs/theme-sdk.md)。Node／compiler 僅供作者建置，不加入 app runtime；不可把 `.ts`／`.d.ts` 或整個作者目錄直接匯入。
+
+安裝與列舉主題：
 
 ```powershell
 .\build\windows-msvc-release\Release\DrillPaper.exe --import-theme "C:\Themes\example.dmt"

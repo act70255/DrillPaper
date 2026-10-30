@@ -1,0 +1,21 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 22: Protocol v1 serializes a complete snapshot with units and UTC timestamp
+1/8 Test #22: Protocol v1 serializes a complete snapshot with units and UTC timestamp ...............   Passed    0.03 sec
+    Start 23: Protocol v1 echoes request identifiers and serializes unavailable memory as null
+2/8 Test #23: Protocol v1 echoes request identifiers and serializes unavailable memory as null ......   Passed    0.02 sec
+    Start 24: Protocol v1 parses bounded history requests and preserves request IDs
+3/8 Test #24: Protocol v1 parses bounded history requests and preserves request IDs .................   Passed    0.03 sec
+    Start 25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages
+4/8 Test #25: Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages ...   Passed    0.02 sec
+    Start 26: Protocol v1 subscription removes unknown and duplicate metric names
+5/8 Test #26: Protocol v1 subscription removes unknown and duplicate metric names ...................   Passed    0.03 sec
+    Start 27: Protocol v1 serializes control envelopes without changing their payload
+6/8 Test #27: Protocol v1 serializes control envelopes without changing their payload ...............   Passed    0.03 sec
+    Start 28: Protocol v1 history snapshots carry their own timestamps
+7/8 Test #28: Protocol v1 history snapshots carry their own timestamps ..............................   Passed    0.02 sec
+    Start 42: DrillPaperThemeTests
+8/8 Test #42: DrillPaperThemeTests ..................................................................   Passed    1.60 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   1.90 sec

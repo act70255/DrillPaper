@@ -21,6 +21,8 @@ Blocked by: 01, 02, 03, 04, 05, 06, 07, 08
 
 ## Comments
 
+- 2026-10-30 07傳遞：SDK固定TypeScript5.9.3正負編譯／獨立ZIP作者建置、正式包內工具封裝、Preview／雙目標SDK與DOM／指定HTTP及HTML管理拒絕已有版本化證據；A10仍PARTIAL，人工GUI／完整版面／乾淨使用者與其他OS／完整安全邊界NOT RUN，見 `docs/acceptance/2026-10-30/theme-author-flow/REPORT.md`／`MANUAL_CHECKLIST.md`。SDK ZIP與app08交付分記；本票需完整回歸，保留03歷史FAIL及既有RC gate。
+
 - 2026-10-30 06傳遞：06 resolved只代表可執行矩陣與報告完成，非A05／A13全部PASS。五組664筆（3筆資源／6個CPU區間排除），長測1805.80秒、暫停相對同主題雙目標CPU下降86.82%；硬體三負載各30同期窗口達容差。NVIDIA、真正Locked／DisplayOff／睡眠／全螢幕、高流量／介面消失、逐次collector頻率、其他環境、更長soak／100次切題與探針因果增量仍NOT RUN，見 `docs/acceptance/2026-10-30/metrics-performance/REPORT.md` 與人工清單。只跑相關CTest18＋1及工具12；完整套件／CI／候選包仍由本票收尾。保留3筆缺失、記憶體上升及03歷史FAIL，不因06結案放行。
 
 - 2026-10-30 03 傳遞：**預設智慧休眠啟動＝FAIL**，根因未定，05 負責失敗回歸／診斷／最小修正；08 必須移除 7A 的 `--no-smart-sleep` 繞行並以產品預設重包重驗。03 關閉智慧休眠的入口驗收只適用試用包，不代表產品預設或 RC gate 通過。核對 05／08 對應版本及新證據前持續列 gate，原失敗見 `docs/acceptance/2026-10-29/trial-package/REPORT.md`。

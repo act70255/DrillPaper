@@ -13,3 +13,7 @@
 *.dmt
 /artifacts/
 TestResults/
+node_modules/
+/sdk/author-starter/dist/
+/sdk/author-starter/src/desktop-monitor-sdk.d.ts
+/sdk/author-starter/src/mock-host.d.ts

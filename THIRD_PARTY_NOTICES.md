@@ -11,7 +11,11 @@
 
 app 使用 MSVC /MD。VC++ v14 x64 runtime 與 Windows 系統 DLL 未複製進試用包；runtime 最低版本由建置工具鏈的 VCRedistVersion 記錄並寫入 manifest。缺失時啟動入口提供 [官方取得方式](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)，不自動安裝或提升權限。NVML 仍只動態讀取既有驅動，不再散布 NVIDIA DLL。
 
-## Catch2
+## TypeScript 作者工具
+
+- TypeScript 5.9.3，Microsoft，Apache-2.0；來源與 integrity 固定在 `sdk/author-starter/package-lock.json`，由作者執行 npm ci 取得。此處只散布作者範本與 lockfile，不散布 compiler 或 node_modules，不是 app runtime 依賴。上游授權：https://github.com/microsoft/TypeScript/blob/v5.9.3/LICENSE.txt 。
+
+## Catch2（原生測試）
 
 - Version: 3.8.1 (pinned Git tag `v3.8.1` in CMake FetchContent)
 - Source: https://github.com/catchorg/Catch2

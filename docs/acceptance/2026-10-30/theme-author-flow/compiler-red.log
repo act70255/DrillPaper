@@ -1,0 +1,1 @@
+sdk/author-starter/contracts/valid.ts(5,44): error TS7016: Could not find a declaration file for module '../src/mock-host.js'. 'C:/WorkSpace/-James/DrillPaper/sdk/author-starter/src/mock-host.js' implicitly has an 'any' type.

@@ -1,0 +1,11 @@
+
+> check
+> node check-types.mjs
+
+Version 5.9.3
+contracts/valid.ts(13,42): error TS2339: Property 'history' does not exist on type '{ maxHistory: number; minUpdateIntervalMs: number; }'.
+contracts/valid.ts(14,42): error TS2339: Property 'messageBytes' does not exist on type '{ maxHistory: number; minUpdateIntervalMs: number; }'.
+
+型別契約檢查失敗： valid 編譯結果不符合預期。
+
+2 !== 0

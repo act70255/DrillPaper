@@ -1,5 +1,19 @@
 # 開發狀態
 
+## 2026-10-30 RC 07 — 第三方 TypeScript 主題作者流程
+
+- Commit message：`feat(sdk): 補齊 TypeScript 主題作者流程`，由commit-msg技能依實際暫存差異產生；本節隨本票唯一提交保存，hash以本分支Git記錄為準。
+
+- Branch／base：從乾淨 HEAD `1636972a570431a0feaa9070978b2503441aa3b9` 建 `feature/rc-07-theme-author-flow`，06 resolved；07 implemented 表示可自動範圍完成，A10仍PARTIAL，人工項依spec附清單，不解除03歷史FAIL／RC gate。
+- Scope／files：新增 `sdk/author-starter` 固定TypeScript5.9.3／lockfile／正負compiler案例／離線dist、MockHost型別宣告；修正SDK宣告與MockHost的ready.limits對齊既有原生history/messageBytes。SDK ZIP明列來源、排除本機產物，補作者原生觀測runner／瀏覽器fixture、TS／宣告禁止與移除再匯入測試，更新README／作者與協定／授權／A10交接。未改產品C++或app包，網路與副檔名邊界不變。
+- TDD／unit：MockHost缺宣告TS7016→補宣告；native limits正確用法TS2339→修正宣告；MockHost ready欄位測試FAIL→對齊原生。SDK18/18、compiler正確用法＋四個預期錯誤、protocol七項＋ThemeManager入口CTest8/8及最終ThemeManager1/1、螢幕列舉1/1 PASS。既有封裝邊界正常，不虛構Red；正負validator含TS／宣告、APIv2、路徑／配額PASS。
+- Commands：`npm ci --ignore-scripts --no-audit --no-fund`、`npm run configure -- <解壓SDK/javascript>`／`check`／`build`（乾淨使用者作者目錄）；包內 `package-theme.ps1`／`validate-theme-package.ps1`；`cmake --build --preset windows-msvc-release --target DrillPaperThemeTests DrillPaperTests --parallel 8`；`ctest ... -R '^(Protocol v1 |DrillPaperThemeTests$)'`，加負面案例後單獨重驗theme；`test-theme-package.ps1`、`test-sdk-package.ps1`、兩次 `package-sdk.ps1 -Version 1.0.0-rc3.author.1`；七個成功 `test-theme-author-flow.ps1` 情境及保留失敗，完整參數見[報告](acceptance/2026-10-30/theme-author-flow/REPORT.md)。PS parser四檔／Node syntax四檔與diff whitespace PASS。完整套件／CI NOT RUN，依指示留09。
+- 作者產物：最終SDK ZIP64,412bytes／SHA`376906271C8FBF0E3EDAFC9E8662E4C32524AA7974685AD7ED05DE6FF623A0C8`，兩次重封相同；最終乾淨作者重新編譯打包DMT7,162bytes／SHA`82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546`與原受測sample相同。只含六個離線靜態檔，沒有作者compiler／原始碼／宣告；SDK ZIP證據獨立，不代替08app交付／09RC。
+- Windows整合PASS（明列範圍）：Windows11 Pro25H2 26200.8737／Runtime156.0.4314.50／Intel GPU，非Temp使用者繁中空白路徑、隔離LOCALAPPDATA、Node直接啟動EXE`25316B…6D26D`。原作者DMT Preview mock、派生探針Preview live與雙目標live、正式匯入／同版本拒絕／兩次作者載入／APIv2與三種HTML管理命令拒絕／設定hash不變／HTTP off零收件與on正向PASS。最終on共六份報告確認連續訂閱更新DOM；雙目標1280×720 DPR1.5及1920×1080 DPR1主內容寬度檢查PASS，不冒充像素完整／桌面圖示互動。七個成功情境正式退出0，當下已核實WebView2子程序退出；未宣稱涵蓋所有短命程序。
+- 原始失敗／limits：保留工具將同版錯誤文字比錯、初版live探針固定1.4秒早於CPU warm-up及一開始npm工作目錄錯誤；修正工具／有界等待後通過，未改collector、不把不可用當0、不推測防毒或解除03FAIL。GUI匯入／確認移除與重匯入、完整人工版面、獨立瀏覽器MockHost、乾淨帳號／無Node的另一機器、其他OS／Runtime／NVIDIA／真實OS事件與完整安全NOT RUN，原因與步驟見[人工清單](acceptance/2026-10-30/theme-author-flow/MANUAL_CHECKLIST.md)。
+- Cleanup／antivirus：原持續桌布只讀比對path／精確建立時間／hash；未重啟Explorer、未關閉／替換。Apex One可讀BM日誌前後fingerprint與收尾紀錄存before／after；未觀察新增攔截，不等於完整防毒觀測。若有攔截須記規則／時間／影響項BLOCKED，不改防毒。此處保留套件安全與瀏覽器網路限制，未宣稱沙箱。
+- Review／commit：code-review兩軸審查工作樹相對本票base，Standards初審兩項入口錯誤處理／安全退出問題已修正，複查未解決0；Spec0。缺USERPROFILE友善exit1、SDK ZIP相關重驗與額外正常整合PASS；受控清理CIM觀測失敗時工具CLEANUP_FAILED而app正式exit0、真實收尾無殘留，不將觀測不足當PASS。結果見[REVIEW](acceptance/2026-10-30/theme-author-flow/REVIEW.md)。日誌尾空白正規化保留原始副本／hash。依本票覆蓋階段提交規則，本票完成後用commit-msg技能產生繁中Conventional Commit，一次commit＋push本分支；本節隨該唯一提交保存，hash以Git記錄為準。不合併main或公開發布。ADR無，架構／決策未改；08／09承接人工與既有gate。
+
 ## 2026-10-30 RC 06 — 硬體精度與多目標效能省電
 
 - Commit message：`test(perf): 新增硬體精度與多目標效能驗證`，由commit-msg技能依實際暫存差異產生；本節隨唯一提交保存，hash以本分支Git記錄為準。

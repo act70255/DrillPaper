@@ -21,6 +21,8 @@ Blocked by: 07
 
 ## Comments
 
+- 2026-10-30 07傳遞：固定TypeScript作者範本、SDK宣告／MockHost limits修正及SDK ZIP／正式包內工具、Preview／雙目標DOM與指定協定／HTTP驗證完成；07 implemented，A10仍PARTIAL。獨立SDK ZIP不是app交付，需納入最新SDK資產後重建本票app包；GUI匯入／確認移除重匯入、完整版面與乾淨帳號／無Node機器等NOT RUN，見 `docs/acceptance/2026-10-30/theme-author-flow/REPORT.md`／`MANUAL_CHECKLIST.md`。原03／04／05／06gate保留，不由作者驗證移除入口繞行或放行RC。
+
 - 2026-10-30 06傳遞：新版c244682／EXE25316B…6D26D完成五組固定狀態效能矩陣（含1805.80秒長測）與三負載各30同期硬體窗口；觀測門檻達標，但3筆資源缺失已排除、Private Bytes仍上升，A05／A13整體仍PARTIAL。真正OS／NVIDIA／高流量等NOT RUN與逐項清單見 `docs/acceptance/2026-10-30/metrics-performance/REPORT.md`／`MANUAL_CHECKLIST.md`。06未改產品程式或重包，不能把本機有限觀測當乾淨環境／無洩漏／RC通過；本票須承接缺口及05／03的產品預設握手前提，不據此移除繞行。
 
 - 2026-10-30 03 傳遞：7A 試用入口暫帶 `--no-smart-sleep`、沿用保存模式；app 本身智慧休眠預設不變。「預設智慧休眠啟動」仍為 **FAIL**，由 05 診斷／修正。本票須核對 05 結果、移除入口繞行，回到產品預設行為重新打包並驗證首次桌布主螢幕與保存 Preview 重啟；不能用關閉智慧休眠的 7A PASS 解除 FAIL。沿用 03 的白名單／腳本，保留 trial.1～4 的獨立版本證據，見 `docs/acceptance/2026-10-29/trial-package/REPORT.md`。

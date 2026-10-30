@@ -35,7 +35,7 @@ RC 01 的兩個 1920×1080 目標（150%／100%）已有獨立 HWND、精確螢�
 | A07 | PASS（有界資料結構） | 有界 history／queue、latest-wins mailbox 及設定世代拒絕舊樣本已有測試；不代表瀏覽器長期記憶體無洩漏。 |
 | A08 | PARTIAL | 受控暫停／恢復、50 次快速競態與使用者真實鎖定／解鎖 5 次通過。真實 display-off／待機、完整全螢幕／多螢幕未完成。 |
 | A09 | PASS（協定與基本操作） | 兩個內建主題、原生功能表熱切換、100／300 次協定切換及損壞主題回復有證據；不推論每次切換的像素畫面或無資源成長。 |
-| A10 | PARTIAL | JS SDK／宣告／MockHost／文件、Node 18/18、SDK ZIP 解壓重測與重封一致通過；TypeScript compiler 與完整第三方作者流程未實測。 |
+| A10 | PARTIAL | RC 07 固定 TypeScript 5.9.3 正負 compiler、乾淨作者／SDK ZIP 建置與正式打包、Preview mock／live及雙目標協定／DOM／HTTP邊界已驗；補MockHost宣告並對齊原生ready.limits。GUI匯入／移除確認、完整人工版面與乾淨使用者等NOT RUN，見 [作者流程](acceptance/2026-10-30/theme-author-flow/REPORT.md)。SDK ZIP不替代app交付／RC。 |
 | A11 | PASS（已測匯入與管理流程） | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證。圖形化匯入／移除及設定持久化已實作；保存／取消／重啟與移除真實 junction 負面通過，使用者已回報圖形化匯入正常與移除測試完成，移除後隔離目錄不存在；各步細節與完整 DPI／鍵盤仍分開記錄。套件驗證不等於瀏覽器沙箱。 |
 | A12 | PARTIAL／發行阻擋 | HTTP／HTTPS 開關、首次提示、CSP／Connection-Allowlist、WS／WSS、STUN／TURN-TCP、單一 loopback preconnect、框架／導覽回復／下載／通知／定位、worker 與載入儲存隔離均有列明證據。完整 DNS／egress、其他 TURN／Runtime／權限設備 API／scheme／舊頁面競態仍未驗，不宣稱完整沙箱；見 management/REMAINING.md。 |
 | A13 | PARTIAL | 含 WebView2 的 343 筆／1804.606 秒觀測與正常清理已有報告；版本、主題、GPU engine、display-off 等對照與長期資源成長判定未完成。 |

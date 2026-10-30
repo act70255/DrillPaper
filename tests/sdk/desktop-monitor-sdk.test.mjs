@@ -199,6 +199,7 @@ test('MockHost supports SDK handshake, snapshot, and history in a browser-like w
   const snapshot = await client.getSnapshot();
   const history = await client.getHistory({ limit: 1 });
   assert.equal(host.state, 'active');
+  assert.deepEqual(host.limits, { history: 120, messageBytes: 65536 });
   assert.equal(snapshot.cpu.usage.quality, 'available');
   assert.equal(history.length, 1);
   assert.equal(typeof history[0].timestamp, 'string');

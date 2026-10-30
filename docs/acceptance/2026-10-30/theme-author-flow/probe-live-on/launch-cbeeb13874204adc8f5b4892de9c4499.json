@@ -1,0 +1,8 @@
+{
+  "captureNetwork": false,
+  "args": [
+    "--import-theme",
+    "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\probe-on.dmt"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+}

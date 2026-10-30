@@ -1,0 +1,24 @@
+{
+  "npm": "11.12.1",
+  "powershell": "7.6.3",
+  "gpu": {
+    "Name": "Intel(R) Graphics",
+    "DriverVersion": "32.0.101.8860"
+  },
+  "source": "1636972a570431a0feaa9070978b2503441aa3b9 + RC07 工作樹；未修改產品 C++",
+  "node": "v24.17.0",
+  "recorded": "2026-10-30T13:46:49.5471891+08:00",
+  "cpu": {
+    "Name": "Intel(R) Core(TM) Ultra 7 155U",
+    "NumberOfCores": 12,
+    "NumberOfLogicalProcessors": 14
+  },
+  "os": {
+    "build": "26200",
+    "caption": "Microsoft Windows 11 專業版",
+    "version": "10.0.26200",
+    "ubr": 8737
+  },
+  "webview": "156.0.4314.50",
+  "isolation": "非 Temp 使用者目錄／獨立 LOCALAPPDATA；Node 直接啟動 app；原持續桌布不變"
+}

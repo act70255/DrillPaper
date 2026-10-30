@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>作者離線儀表板</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <h1>作者離線儀表板</h1>
+    <p id="status">等待宿主握手</p>
+    <dl><dt>CPU</dt><dd id="cpu">unavailable</dd>
+      <dt>GPU</dt><dd id="gpu">unavailable</dd>
+      <dt>記憶體</dt><dd id="memory">unavailable</dd>
+      <dt>磁碟活動</dt><dd id="disk">unavailable</dd>
+      <dt>接收／傳送</dt><dd id="network">unavailable</dd>
+      <dt>更新時間</dt><dd id="timestamp">--</dd></dl>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

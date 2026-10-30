@@ -1,0 +1,34 @@
+✖ MockHost supports SDK handshake, snapshot, and history in a browser-like window (11.032ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.1898
+
+✖ failing tests:
+
+test at tests\sdk\desktop-monitor-sdk.test.mjs:193:1
+✖ MockHost supports SDK handshake, snapshot, and history in a browser-like window (11.032ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    {
+  +   maxHistory: 120,
+  +   minUpdateIntervalMs: 1000
+  -   history: 120,
+  -   messageBytes: 65536
+    }
+
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/sdk/desktop-monitor-sdk.test.mjs:202:10)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { maxHistory: 120, minUpdateIntervalMs: 1000 },
+    expected: { history: 120, messageBytes: 65536 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

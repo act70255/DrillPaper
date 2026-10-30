@@ -1,0 +1,110 @@
+{
+  "result": "PASS",
+  "started": "2026-10-30T13:36:28.1942503+08:00",
+  "phases": [
+    {
+      "phase": "author-loaded",
+      "surfaces": [
+        {
+          "load": 2,
+          "hwnd": 10165334,
+          "caption": "DrillPaper Preview — 作者離線儀表板 — Live metrics",
+          "tick": 1571288250,
+          "parent": 0,
+          "ready": 2
+        }
+      ],
+      "utc": "2026-10-30T13:36:36.1121878+08:00"
+    },
+    {
+      "phase": "switch-minimal",
+      "surfaces": [
+        {
+          "load": 3,
+          "hwnd": 10165334,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "tick": 1571290312,
+          "parent": 0,
+          "ready": 3
+        }
+      ],
+      "utc": "2026-10-30T13:36:38.1759401+08:00"
+    },
+    {
+      "phase": "switch-author",
+      "surfaces": [
+        {
+          "load": 4,
+          "hwnd": 10165334,
+          "caption": "DrillPaper Preview — 作者離線儀表板 — Live metrics",
+          "tick": 1571294390,
+          "parent": 0,
+          "ready": 4
+        }
+      ],
+      "utc": "2026-10-30T13:36:42.2093960+08:00"
+    }
+  ],
+  "application": {
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe",
+    "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D"
+  },
+  "package": {
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\probe-off.dmt",
+    "sha256": "3865B23A14D526FC63625E3B1834B3CE1D355396620783CC6BF1BB69FDBDA504"
+  },
+  "scenario": {
+    "mock": true,
+    "desktop": false,
+    "allowNetwork": false
+  },
+  "process": {
+    "id": 62488,
+    "start": "2026-10-30T05:36:30.1367125Z",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "settings": {
+    "allowNetwork": false,
+    "displayMode": "preview",
+    "monitorTargets": [
+      "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+    ],
+    "schemaVersion": 2,
+    "smartSleep": false,
+    "theme": "author-starter@1.0.0"
+  },
+  "observedChildren": [
+    {
+      "id": 72672,
+      "start": "2026-10-30T05:36:30.4423275Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "id": 64964,
+      "start": "2026-10-30T05:36:30.5003029Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "id": 96848,
+      "start": "2026-10-30T05:36:30.8820692Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "id": 100032,
+      "start": "2026-10-30T05:36:30.9133628Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "id": 81312,
+      "start": "2026-10-30T05:36:30.9855264Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "id": 63064,
+      "start": "2026-10-30T05:36:38.3715403Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    }
+  ],
+  "exitCode": 0,
+  "ended": "2026-10-30T13:36:43.5126843+08:00"
+}

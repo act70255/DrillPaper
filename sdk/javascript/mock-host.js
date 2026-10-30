@@ -72,7 +72,7 @@ export class MockHost {
           hostVersion: 'mock',
           capabilities: ['cpu', 'gpu', 'memory', 'disk', 'network', 'clock'],
           state: this._state,
-          limits: { maxHistory: 120, minUpdateIntervalMs: 1000 },
+          limits: { history: 120, messageBytes: 65536 },
         });
         break;
       case 'metrics.getSnapshot':
