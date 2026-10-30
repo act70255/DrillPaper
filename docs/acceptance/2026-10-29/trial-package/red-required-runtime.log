@@ -1,0 +1,8 @@
+DrillPaper 0.1.0-trial.2 試用版；產品 commit e6aa20e109da8cdd5402fe06ae0d11f3bc539d53；WebView2 156.0.4314.50
+缺少最低 runtime 設定必須明確停止。
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-launcher.ps1:29 char:79
++ ... tlike '*缺少或無效的 minimumVcRuntime*') { throw '缺少最低 runtime 設定必須明確停止。' }
++                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (缺少最低 runtime 設定必須明確停止。:String) [], RuntimeException
+    + FullyQualifiedErrorId : 缺少最低 runtime 設定必須明確停止。
+ 

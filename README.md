@@ -10,6 +10,10 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 
 `scripts/package.ps1` 保留明確的發行阻擋；沒有 app RC ZIP 或安裝器。SDK `1.0.0-rc3` 是本機評估包，不含 app。主題尚未沙箱化，僅匯入你信任的內容；網路開關只對已驗證的瀏覽器通訊邊界提供控制，完整限制見安全文件。
 
+首次 app **試用 ZIP** 使用獨立流程，包含 Release app／兩個主題／SDK 執行資產／WebView2 loader／授權與繁中說明，不解除 RC gate。完整解壓後執行 `Start-DrillPaper.cmd`，以一般使用者開啟管理視窗並沿用保存模式；首次為 Minimal 桌布與主螢幕目標，保存 Preview 後重啟仍為 Preview。需要既有 VC++ v14 x64 與 WebView2 Evergreen，缺失會提示官方取得方式，不自動安裝。免安裝程式檔案仍沿用 `%LOCALAPPDATA%\DrillPaper` 資料，不是完全隨身模式。請先讀包內 README.zh-TW.md；隔離試用與來源 commit、重現命令見 [試用包流程](docs/TRIAL_PACKAGE.md) 及[實測報告](docs/acceptance/2026-10-29/trial-package/REPORT.md)。
+
+試用入口依已確認決策預設帶 `--no-smart-sleep`，暫時關閉智慧休眠；app 本身的預設不變。「預設智慧休眠啟動」仍為 FAIL，根因待 05，08 須回到產品預設重新打包驗證，09 持續追蹤。關閉期間不宣稱具備智慧休眠省電效果；人工畫面與其他未驗收矩陣見報告。
+
 ## 開發環境
 
 - Windows 10/11 x64、Visual Studio 2022 C++ 工作負載、Windows SDK、CMake 3.25+、Git。

@@ -1,0 +1,50 @@
+name: DrillPaper trial package (not RC)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 試用版版本（例如 0.1.0-trial.2）
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  trial-package:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Restore pinned WebView2 SDK
+        shell: pwsh
+        run: |
+          $sdk = Join-Path $env:RUNNER_TEMP 'webview2-sdk'
+          ./scripts/restore-webview2-sdk.ps1 -Destination $sdk
+          "WEBVIEW2_SDK_ROOT=$sdk" | Out-File $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Related settings and monitor checks
+        shell: pwsh
+        run: |
+          cmake --preset windows-msvc-release
+          if ($LASTEXITCODE -ne 0) { throw '相關測試設定失敗。' }
+          cmake --build --preset windows-msvc-release --target DrillPaperTests DrillPaperSettingsTests DrillPaperManagementIntegrationTests --parallel 4
+          if ($LASTEXITCODE -ne 0) { throw '相關測試編譯失敗。' }
+          ctest --preset windows-msvc-release -R '^Management |Settings |Invalid settings|Invalid monitor|Monitor target|Monitor selection|Clone targets|Manual pause' --output-on-failure
+          if ($LASTEXITCODE -ne 0) { throw '相關測試失敗。' }
+      - name: Trial packaging contract checks
+        shell: pwsh
+        run: ./scripts/test-trial-package.ps1
+      - name: Build and package explicit commit
+        shell: pwsh
+        env:
+          TRIAL_VERSION: ${{ inputs.version }}
+        run: ./scripts/build-trial.ps1 -SourceCommit $env:GITHUB_SHA -Version $env:TRIAL_VERSION -OutputDirectory artifacts/trial
+      - uses: actions/upload-artifact@v7
+        with:
+          name: drillpaper-trial-unsigned
+          path: |
+            artifacts/trial/DrillPaper-*-trial.*-win-x64-unsigned.zip
+            artifacts/trial/DrillPaper-*-trial.*-win-x64-unsigned.json
+          if-no-files-found: error

@@ -104,6 +104,7 @@ try {
     $notification = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperShellNotifications')[0]
     Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperManagementWindow')).Count -eq 1 } '缺少唯一管理視窗。'
     $manager = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperManagementWindow')[0]
+    Wait-Condition { @([DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')).Count -gt 0 } '缺少管理程序宿主視窗。'
     $wallpaper = [DrillPaperManagementProbe]::Find($app.Id, 'DrillPaperPreviewWindow')[0]
     Wait-Condition { [DrillPaperManagementProbe]::GetProp($wallpaper, 'DrillPaper.ReadyEpoch').ToInt64() -gt 0 } 'WebView2 尚未完成握手。'
     Wait-Condition { [DrillPaperManagementProbe]::GetProp($notification, 'DrillPaper.TrayRegistered').ToInt64() -eq 1 } 'Shell 未接受系統匣圖示註冊。'

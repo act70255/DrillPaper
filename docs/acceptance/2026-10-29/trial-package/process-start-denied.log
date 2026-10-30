@@ -1,0 +1,9 @@
+DrillPaper 0.1.0-trial.4 試用版；產品 commit e6aa20e109da8cdd5402fe06ae0d11f3bc539d53；WebView2 156.0.4314.50
+PASS：Windows PowerShell 5.1 真實依賴檢查、缺 loader 友善提示與 VC++ 過舊拒絕；未修改／安裝系統 runtime。
+Start-Process : This command cannot be run due to the error: Access is denied.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-management-shell.ps1:100 char:12
++     $app = Start-Process -FilePath $application -ArgumentList '--mana ...
++            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Start-Process], InvalidOperationException
+    + FullyQualifiedErrorId : InvalidOperationException,Microsoft.PowerShell.Commands.StartProcessCommand
+ 

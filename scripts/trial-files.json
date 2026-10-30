@@ -1,0 +1,117 @@
+[
+  {
+    "root": "app",
+    "path": "DrillPaper.exe"
+  },
+  {
+    "root": "app",
+    "path": "WebView2Loader.dll"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/index.html"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/main.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/style.css"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/theme.json"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.d.ts"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/mock-host.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/theme-manifest.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/index.html"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/main.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/style.css"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/theme.json"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.d.ts"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/mock-host.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/theme-manifest.js"
+  },
+  {
+    "root": "source",
+    "path": "LICENSE"
+  },
+  {
+    "root": "tooling",
+    "path": "THIRD_PARTY_NOTICES.md"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/miniz-3.0.2.txt",
+    "destination": "resources/licenses/miniz-3.0.2.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/nlohmann-json-3.11.3.txt",
+    "destination": "resources/licenses/nlohmann-json-3.11.3.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/webview2-1.0.2478.35-license.txt",
+    "destination": "resources/licenses/webview2-1.0.2478.35-license.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/webview2-1.0.2478.35-notice.txt",
+    "destination": "resources/licenses/webview2-1.0.2478.35-notice.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/Start-DrillPaper.ps1",
+    "destination": "Start-DrillPaper.ps1"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/Start-DrillPaper.cmd",
+    "destination": "Start-DrillPaper.cmd"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/README.zh-TW.md",
+    "destination": "README.zh-TW.md"
+  }
+]

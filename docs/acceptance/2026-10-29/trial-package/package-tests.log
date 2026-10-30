@@ -1,0 +1,6 @@
+PASS：缺少必要 EXE 時拒絕封裝並提供繁中錯誤。
+試用包：C:\WorkSpace\-James\DrillPaper\artifacts\trial-package-tests-c406b71471ba45f5a3847f31bf5357d8\out\DrillPaper-0.1.0-trial.test-win-x64-unsigned.zip
+SHA-256：0C1A73B9CC0115F1D0BF17D9A273224D97AB801A6E8EE54DEDEE346D5304D40A
+PASS：白名單恰好相符、私有設定排除、逐檔／ZIP／EXE hash 及 trial 來源識別。
+PASS：覆寫、SDK 缺檔、空檔及 junction 均拒絕，失敗不留下 ZIP。
+測試證據：C:\WorkSpace\-James\DrillPaper\artifacts\trial-package-tests-c406b71471ba45f5a3847f31bf5357d8

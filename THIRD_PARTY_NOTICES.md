@@ -1,5 +1,16 @@
 # Third-party notices
 
+## Microsoft WebView2
+
+- WebView2Loader.dll x64：1.0.2478.35，Microsoft，BSD-3-Clause；應用程式必要的動態 loader，隨試用包再散布。
+- 來源：[固定版本 NuGet](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.2478.35)，原包 SHA-256 `B1DF2D7FE955A3378603735F910B126647E43033213B5CC071B8D6F0168A3B96`，與現有 bootstrap 腳本一致。
+- 原包 LICENSE.txt／NOTICE.txt 保持原文，收於 `third_party/licenses/webview2-1.0.2478.35-{license,notice}.txt`，試用包放在 `resources/licenses/`。原文依法保留，不翻譯授權條款。
+- 完整 WebView2 Evergreen Runtime 為外部前置依賴，不隨包再散布；取得與一般使用者部署方式見 [官方散布文件](https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution)。
+
+## Microsoft Visual C++ runtime 與 Windows
+
+app 使用 MSVC /MD。VC++ v14 x64 runtime 與 Windows 系統 DLL 未複製進試用包；runtime 最低版本由建置工具鏈的 VCRedistVersion 記錄並寫入 manifest。缺失時啟動入口提供 [官方取得方式](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)，不自動安裝或提升權限。NVML 仍只動態讀取既有驅動，不再散布 NVIDIA DLL。
+
 ## Catch2
 
 - Version: 3.8.1 (pinned Git tag `v3.8.1` in CMake FetchContent)

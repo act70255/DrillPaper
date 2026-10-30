@@ -1,0 +1,48 @@
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:12 char:29
++ ... h $PSScriptRoot 'test-trial-launcher.ps1') -PackageDirectory $session
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Unexpected token 'test-trial-launcher.ps1') -PackageDirectory $session
+$application = Join-Path $session 'DrillPaper.exe'
+& (Join-Path $PSScriptRoot 'test-management-shell.ps1') -ApplicationPath $application
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -TypeDefinition @'' in expression or statement.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:17 char:6
++ using System;
++      ~
+Missing using directive
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:17 char:1
++ using System;
++ ~~~~~
+A 'using' statement must appear before any other statements in a script.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:18 char:6
++ using System.Runtime.InteropServices;
++      ~
+Missing using directive
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:18 char:1
++ using System.Runtime.InteropServices;
++ ~~~~~
+A 'using' statement must appear before any other statements in a script.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:20 char:19
++     [StructLayout(LayoutKind.Sequential)] public struct Rect { public ...
++                   ~
+Missing closing ')' in expression.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:20 char:5
++     [StructLayout(LayoutKind.Sequential)] public struct Rect { public ...
++     ~~~~~~~~~~~~~~
+Unexpected attribute 'StructLayout'.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:20 char:29
++     [StructLayout(LayoutKind.Sequential)] public struct Rect { public ...
++                             ~~~~~~~~~~~
+Unexpected token '.Sequential' in expression or statement.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:19 char:49
++ public static class DrillPaperTrialDesktopProbe {
++                                                 ~
+Missing closing '}' in statement block or type definition.
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:8 char:50
++ if ($actual.Count -ne $manifest.files.Count + 1) { throw '閫??皜??man ...
++                                                  ~
+Missing closing '}' in statement block or type definition.
+Not all parse errors were reported.  Correct the reported errors and try again.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : UnexpectedToken
+ 

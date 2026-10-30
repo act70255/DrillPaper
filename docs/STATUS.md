@@ -1,5 +1,28 @@
 # 開發狀態
 
+## 2026-10-30 RC 03 — 接續完成首次試用包
+
+- Branch／base：沿用 `feature/rc-03-trial-package` 既有未提交工作；開始 HEAD `fe292da667a94adfa0bf7c0de87dd14bca08a579` 僅比產品來源多決策文件。產品仍為上輪乾淨建置的 `e6aa20e109da8cdd5402fe06ae0d11f3bc539d53`，不重建產品、不另開分支。ticket 設 implemented，代表已確認的試用範圍完成。
+- Scope：依兩條 2026-10-30 決策，入口 `--management --no-smart-sleep` 沿用保存模式；繁中說明補智慧休眠限制與保存語意，測試補首次主屏桌布／保存 Preview 後同入口重啟及非同步等待。沿用白名單、建置／封裝腳本、授權與獨立 trial CI；未改 src/include／CMake／正式 RC gate。
+- 新產物：`artifacts/DrillPaper-0.1.0-trial.4-win-x64-unsigned.zip`（434303 bytes），ZIP SHA-256 `C3ECF566EAB58D4A015D44D749E60F1E6872F5830F31AEB0F3B303ECC40C3287`；EXE SHA-256 `B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781`。trial.1～3 保留，trial.3 hash 不變；產品來源與未提交工具／模板分開記錄 hash，不冒稱同一來源。
+- PASS／commands：`scripts/test-trial-package.ps1` 的白名單、私有設定排除、逐檔／EXE／ZIP hash、缺檔／空檔／junction／覆寫拒絕；相關 targets 編譯與 CTest **13/13**；`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-trial-app.ps1 -ArchivePath artifacts/DrillPaper-0.1.0-trial.4-win-x64-unsigned.zip` 完整通過。完整產包／build／CTest 命令及原始證據見 [REPORT](acceptance/2026-10-29/trial-package/REPORT.md)。
+- 真實新 ZIP PASS：一般使用者、來源樹外含繁中／空白路徑、全新隔離資料，首次唯一 Minimal 桌布宿主附掛主屏 `(0,0)–(1920,1080)`、ReadyEpoch=1；保存 Preview 後同入口重啟 parent=0／ReadyEpoch=1 且設定 hash 不變；雙主題、管理保存／取消／重啟／退出、多目標與網路 off→on→off、已觀察子程序清理。WebView2 156.0.4314.50、Windows 11 26200.8737、VC++ 14.52.37025.0；原桌布 83428 路徑／建立時間／hash 相同，未關閉替換，未重啟 Explorer。
+- TDD／工具：舊 trial.3 對新需求取得 Red，新入口以 trial.4 Green；中間宿主／附掛等待競態及 PowerShell 5.1 UTF-8 BOM 解析問題修正，另保留一次 Start-Process 存取被拒（原因未定，診斷與同 ZIP 最終重驗可正常執行），不把工具失敗當產品結論。code-review Standards／Spec 平行審查及最終文件複查未解決各 0。變更腳本解析／UTF-8 BOM、REPORT 本機連結通過；暫存後 whitespace 檢查排除保留原文空白的 WebView2 license 與原始 stderr log，其餘通過，完整指令見 REPORT。
+- **FAIL 持續**：預設智慧休眠開啟的原啟動未握手缺陷未修，app 預設不變；已於 05／08／09 Comments 明列。05 診斷最小修正，08 移除繞行並回到產品預設重包重驗，09 持續 gate；本票關閉智慧休眠的 PASS 不解除 FAIL。
+- NOT RUN／原因：人工畫面／真正系統匣點擊、乾淨一般使用者與真正缺 Runtime／備份還原、04～07 完整矩陣留後票；CI 與正式 RC gate 未執行；完整測試依指示留 09。人工操作清單見 REPORT，不宣稱完整沙箱／省電／RC，不合併 main、不公開發行。
+- Commit：`build(trial): 新增可攜式試用包與驗證流程`，由 commit-msg skill 依 staged diff 產生；本票單次提交，隨即 push `origin/feature/rc-03-trial-package`，交付時核對遠端與本機指向相同 commit。
+
+## 2026-10-29 RC 03 — 試用封裝前提不成立，停止未提交
+
+- Branch／base：從 `e6aa20e109da8cdd5402fe06ae0d11f3bc539d53` 建立 `feature/rc-03-trial-package`，起始乾淨；01／02 implemented。本票 ticket 維持 in-progress，**未 commit／push**，遵守使用者前提不成立即停止的指示。
+- Scope／files：新增乾淨 commit archive 的 Release app 建置、JSON 白名單封裝、逐檔／EXE／ZIP hash、依賴啟動入口、授權與繁中使用說明、獨立 trial CI 草稿及相關測試。src/include／CMake／正式 package.ps1 與 windows.yml 沒有改動，RC gate 保留。
+- PASS：缺 EXE Red→Green；封裝清單／排除私有設定／hash／覆寫拒絕／缺 SDK／空檔／junction；相關 targets 編譯與 CTest **13/13**。Standards 審查找到缺最低 runtime 版本未 fail-fast，補失敗案例後修正，複查未解決 0；Spec 0。只跑相關測試，命令與原始證據見 [REPORT](acceptance/2026-10-29/trial-package/REPORT.md)。
+- **FAIL／阻擋**：來源樹外含繁中／空白路徑、一般使用者 token、全新隔離資料，預設入口 `--management --preview` 30 秒後 ReadyEpoch=0，通知／管理／Preview 各 1、parent=0、網路=0。trial.2／trial.3 皆觀察到；停用智慧休眠並重新套用後可握手，但同時有重新載入，根因未定，不視為預設啟動 PASS。已移除自動繞行測試，不擅改產品預設；可能涉及 05，記本票 Comments 待決策。
+- 控制條件下 PASS：管理保存／取消／重啟／正式退出、兩內建主題握手、多目標／模式／網路 off→on→off／全斷線提示與已觀察子程序退出；這些均不解除預設啟動阻擋。WebView2 Runtime 156.0.4314.50、Windows 11 build 26200、VC++ 14.52.37025.0，非乾淨帳號或畫面驗收。
+- 未驗收草稿：`artifacts/DrillPaper-0.1.0-trial.3-win-x64-unsigned.zip`；ZIP SHA-256 `4CA2300347C77BB37B18DA4B329A940B760564E60DD880504A3BA6B8359C6E69`，EXE `B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781`。產品來源為起始 HEAD，工具為本票未提交工作樹，另記 hash；不是已交付的試用包、RC 或公開發行。
+- 隔離／收尾：乾淨來源／build 原位置移為 offline；解壓與 LOCALAPPDATA 使用本輪獨立路徑。原持續桌布 83428 的路徑、建立時間與 hash 前後一致，未關閉／替換，未重啟 Explorer；收尾只剩原桌布。
+- NOT RUN：預設啟動根因及修正後重驗、人工畫面／真正系統匣點擊、乾淨使用者／缺 runtime、04～07 完整矩陣、CI 與正式 RC gate、09 完整測試。已附原因及人工清單；停止後未重跑最終移除繞行的測試包裝腳本。下一步先確認阻擋歸屬，再繼續本票；Commit：無（使用者停止規則）。
+
 ## 2026-10-29 RC 02 — 固定 800×600 設定視窗
 
 - Date／branch／base：2026-10-29，從目前 HEAD `0c97d4fdda3881a3d11bc7f93d7fc12829749f56` 建立 `feature/rc-02-fixed-settings-window`，起始工作樹乾淨。前置 01 implemented；本票需求與 seam 先記於 FIXED_SETTINGS_WINDOW.md，未發現決策與現況衝突。

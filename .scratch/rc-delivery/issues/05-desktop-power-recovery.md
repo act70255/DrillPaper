@@ -21,5 +21,6 @@ Blocked by: 04
 
 ## Comments
 
+- 2026-10-30 03 傳遞：7A 試用入口暫帶 `--no-smart-sleep` 並沿用保存模式，未改產品程式；「預設智慧休眠啟動」仍為 **FAIL**，不因試用入口通過而解除。根因未定，本票承接原失敗回歸；修正後通知 08 移除入口繞行、回到產品預設重新打包／重驗，09 持續追蹤。證據保留於 `docs/acceptance/2026-10-29/trial-package/REPORT.md`。
 - 2026-10-29：舊 a241856 與新版 62f01ab 的特定 Explorer PASS 保留，本票針對新多螢幕與未覆蓋情境；新版本測試 NOT RUN。
 - 2026-10-30 決策（使用者確認）：本票承接 03 發現的啟動缺陷——預設智慧休眠開啟時，`DrillPaper.exe --management --preview` 以全新隔離 LOCALAPPDATA 啟動 30 秒後 ReadyEpoch=0（未握手）；取消智慧休眠並套用後可握手，根因未定。證據見 docs/acceptance/2026-10-29/trial-package/REPORT.md 與 default-startup-failure.log。本票須先留下可重現的失敗回歸，再診斷根因並最小修正，智慧休眠產品預設維持開啟；修正後通知 08 讓試用／交付入口回到預設行為。
