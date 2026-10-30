@@ -1,0 +1,21 @@
+{
+  "head": "054c9017156098c36c33832c7740086e02aede97",
+  "antivirus": {
+    "sha256": "C1550D0520F87091EDB2A2BB76507B1C6B06174718843AD1C1EBD6B664DA7D88",
+    "bytes": 45890,
+    "modified": "2026-10-30T14:51:46.7839053+08:00",
+    "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log"
+  },
+  "persistent": {
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "utcTicks": 639288432499803524,
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "id": 83428
+  },
+  "os": {
+    "Caption": "Microsoft Windows 11 專業版",
+    "Version": "10.0.26200",
+    "BuildNumber": "26200"
+  },
+  "timestamp": "2026-10-30T17:28:11.6984588+08:00"
+}

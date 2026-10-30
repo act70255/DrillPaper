@@ -46,7 +46,8 @@ struct Surface {
 };
 struct UiSnapshot { desktopmonitor::core::MetricsSnapshot snapshot; unsigned long long generation = 0; };
 std::vector<std::unique_ptr<Surface>> gSurfaces;
-std::vector<win::MonitorInfo> gMonitors;
+win::MonitorInventory gMonitorInventory;
+const auto& gMonitors = gMonitorInventory.Monitors();
 std::unique_ptr<runtime::SamplingWorker> gWorker;
 std::unique_ptr<win::PowerNotifications> gPower;
 std::unique_ptr<win::ManagementShell> gManagement;
@@ -70,6 +71,7 @@ bool gChangingSurfaces = false;
 bool gManaged = false;
 bool gMockMetrics = false;
 bool gPrimaryFallback = false;
+bool gUnidentifiedFallback = false;
 ULONG_PTR gDesktopEpoch = 0;
 std::vector<desktopmonitor::themes::ThemeInfo> gInstalledThemes;
 void UpdateSurfaceMenu(Surface& surface);
@@ -265,6 +267,10 @@ void UpdateManagement() {
         gAppliedState != runtime::PowerState::Active ? L"智慧休眠中。" : L"運作中。";
     status += L"主題已連線 " + std::to_wstring(ready) + L"／" + std::to_wstring(gSurfaces.size()) + L" 個目標。";
     if (gPrimaryFallback && gEffective.desktop) status += L"\r\n已選螢幕皆未連接，暫時顯示於主螢幕";
+    if (gUnidentifiedFallback && gEffective.desktop) status += L"\r\n有螢幕無法辨識，暫時套用到所有螢幕";
+    if (!gMonitorInventory.Error().empty()) status += gMonitorInventory.PrimaryFallback()
+        ? L"\r\n螢幕列舉暫時失敗，暫用主螢幕；稍後自動重試，未變更保存目標。"
+        : L"\r\n螢幕列舉暫時失敗，保留上次成功結果；稍後自動重試。";
     if (std::any_of(gSurfaces.begin(), gSurfaces.end(), [](const auto& s) { return s->retry.Pending(); })) status += L"\r\n正在等待桌面就緒並重新連接…";
     if (!gNotice.empty()) status += L"\r\n" + gNotice;
     gManagement->Update(gCurrentTheme, status, gPlayback.Paused(), gEffective.desktop);
@@ -288,6 +294,32 @@ void UpdateMonitorList() {
         if (std::none_of(choices.begin(), choices.end(), [&](const auto& choice) { return choice.id == id; }))
             choices.push_back({id, NativeText(id) + L"（未連接）"});
     gManagement->SetMonitors(std::move(choices));
+}
+
+/** 在局部錯誤邊界更新螢幕快取，確保 reconcile 與 renderer tick 繼續。 */
+void RefreshMonitors() {
+    // 獨立 Preview 的啟動與 tick 不讀取螢幕拓樸。
+    if (!gEffective.desktop && !gManagement) return;
+    const bool changed = gMonitorInventory.Refresh();
+    if (!gMonitorInventory.Error().empty()) LogError("螢幕列舉暫時失敗，保留可用結果：" + gMonitorInventory.Error());
+    bool resolvedDefault = false;
+    if (!gSaved.monitorTargets) {
+        const auto primary = std::find_if(gMonitors.begin(), gMonitors.end(), [](const auto& monitor) {
+            return monitor.target.primary && !monitor.target.id.empty();
+        });
+        if (primary != gMonitors.end()) {
+            gSaved.monitorTargets = std::vector<std::string>{primary->target.id};
+            if (!gEffective.monitorTargets) gEffective.monitorTargets = gSaved.monitorTargets;
+            resolvedDefault = true;
+        }
+    }
+    if (changed || resolvedDefault) {
+        UpdateMonitorList();
+        if (resolvedDefault && gManagement) gManagement->SetPreferences(gSaved);
+        for (auto& surface : gSurfaces) surface->retry.Reset();
+        for (const auto& monitor : gMonitors) if (!monitor.identificationError.empty())
+            LogError(monitor.identificationError + "，區域=" + monitor.target.area + "，DPI=" + std::to_string(monitor.dpi));
+    }
 }
 
 /** 更新主題清單，來源一律經 ThemeManager 驗證。 */
@@ -411,10 +443,11 @@ void ReconcileSurfaces() {
         if (gEffective.desktop) {
             std::vector<runtime::MonitorTarget> connected;
             for (const auto& monitor : gMonitors) connected.push_back(monitor.target);
-            const auto selection = runtime::ResolveMonitorTargets(*gEffective.monitorTargets, connected);
+            const auto selection = runtime::ResolveMonitorTargets(gEffective.monitorTargets.value_or(std::vector<std::string>{}), connected);
             gPrimaryFallback = selection.primaryFallback;
+            gUnidentifiedFallback = selection.unidentifiedFallback;
             for (const auto index : selection.areas) desired.push_back(gMonitors[index]);
-        } else { gPrimaryFallback = false; desired.push_back({{"", "preview", true}, L"Preview", {}, 96}); }
+        } else { gPrimaryFallback = false; gUnidentifiedFallback = false; desired.push_back({{"", "preview", true}, L"Preview", {}, 96}); }
         for (auto it = gSurfaces.begin(); it != gSurfaces.end();) {
             if (std::none_of(desired.begin(), desired.end(), [&](const auto& monitor) { return monitor.target.area == (*it)->area; })) {
                 DestroySurface(**it); it = gSurfaces.erase(it);
@@ -474,10 +507,11 @@ void ReconcileSurfaces() {
  *     persist: 是否保存至版本化設定。
  */
 void ApplyPreferences(const app::AppSettings& settings, bool persist) {
-    if (!settings.monitorTargets || settings.monitorTargets->empty())
+    if ((persist || settings.monitorTargets) && (!settings.monitorTargets || settings.monitorTargets->empty()))
         throw std::runtime_error("桌布模式至少需選擇一個目標螢幕。");
     const auto info = ResolveTheme(settings.theme);
     gEffective = settings; gCurrentThemeKey = settings.theme; gCurrentTheme = NativeText(info.name) + L" · " + NativeText(info.version);
+    RefreshMonitors();
     gPolicyInitialized = false;
     for (auto& surface : gSurfaces) surface->retry.Reset();
     ReconcileSurfaces();
@@ -508,7 +542,7 @@ void HandleCommand(UINT command) {
         else if (command == win::kManageThemeApply || command == win::kManageThemePreview) {
             auto draft = gManagement->Preferences(); draft.desktop = command == win::kManageThemeApply;
             ApplyPreferences(draft, command == win::kManageThemeApply);
-        } else if (command == win::kManageRefresh || command == 10003) { RefreshThemes(); UpdateMonitorList(); }
+        } else if (command == win::kManageRefresh || command == 10003) { RefreshThemes(); RefreshMonitors(); UpdateMonitorList(); }
         else if (command == win::kManageImport) {
             const auto package = gManagement->PickPackage();
             if (!package.empty()) { desktopmonitor::themes::ThemeManager(app::ThemeStoreDirectory()).Install(package); RefreshThemes(); gNotice = L"主題已匯入。"; }
@@ -624,8 +658,7 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM value, 
         }
         if (message == WM_DISPLAYCHANGE || message == WM_DEVICECHANGE || message == kReconcile ||
             (message == gTaskbarCreated && gTaskbarCreated) || (message == WM_TIMER && value == kTick)) {
-            const auto monitors = win::EnumerateMonitors();
-            if (monitors != gMonitors) { gMonitors = monitors; UpdateMonitorList(); for (auto& surface : gSurfaces) surface->retry.Reset(); }
+            RefreshMonitors();
             ReconcileSurfaces();
             if (gEffective.smartSleep && !gSurfaces.empty()) {
                 gPowerState.ObserveObscured(win::PowerNotifications::ForegroundIsFullscreen(gSurfaces.front()->window), GetTickCount64(), 1000); ApplyRuntimePolicy();
@@ -663,12 +696,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
         gManaged = HasFlag(commandLine, L"--management") || (!forcePreview && !HasFlag(commandLine, L"--experimental-desktop"));
         gMockMetrics = HasFlag(commandLine, L"--mock-metrics");
         gStore = std::make_unique<app::SettingsStore>(app::ThemeStoreDirectory().parent_path() / L"settings.json");
-        gSaved = gStore->Load(); gMonitors = win::EnumerateMonitors();
-        if (!gSaved.monitorTargets) {
-            const auto primary = std::find_if(gMonitors.begin(), gMonitors.end(), [](const auto& monitor) { return monitor.target.primary; });
-            if (primary == gMonitors.end()) throw std::runtime_error("無法辨識主螢幕，未遷移或覆蓋設定。");
-            gSaved.monitorTargets = std::vector<std::string>{primary->target.id};
-        }
+        gSaved = gStore->Load();
         gEffective = gSaved;
         if (forcePreview || gMockMetrics) gEffective.desktop = false;
         if (HasFlag(commandLine, L"--experimental-desktop") && !forcePreview && !gMockMetrics) gEffective.desktop = true;
@@ -693,6 +721,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
             if (!gManagement->Initialize(gNotification, HandleCommand)) throw std::runtime_error("無法建立管理介面。");
             RefreshThemes(); UpdateMonitorList(); gManagement->SetPreferences(gSaved);
         } else RefreshThemes();
+        RefreshMonitors();
         if (gMockMetrics) gLatestSnapshot = MakeMockSnapshot();
         ReconcileSurfaces();
         gWorker = std::make_unique<runtime::SamplingWorker>(

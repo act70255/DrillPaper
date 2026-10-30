@@ -277,7 +277,7 @@ void ManagementShell::UpdateThemeExtent() {
 void ManagementShell::UpdateMonitorDetails() {
     const int selected = ListView_GetNextItem(GetDlgItem(window_, 20108), -1, LVNI_SELECTED);
     const auto text = selected >= 0 && static_cast<std::size_t>(selected) < monitors_.size()
-        ? monitors_[selected].label + L"\r\n識別：" + MonitorIdentity(monitors_[selected].id)
+        ? monitors_[selected].label + (monitors_[selected].id.empty() ? L"\r\n無法辨識；不能選取或保存。" : L"\r\n識別：" + MonitorIdentity(monitors_[selected].id))
         : L"選取螢幕可查看完整名稱與識別。";
     SetDlgItemTextW(window_, 20109, text.c_str());
 }
@@ -343,6 +343,12 @@ LRESULT CALLBACK ManagementShell::Procedure(HWND window, UINT message, WPARAM va
         return 0;
     case WM_NOTIFY: {
         const auto notification = reinterpret_cast<NMHDR*>(data);
+        if (notification->idFrom == 20108 && notification->code == LVN_ITEMCHANGING) {
+            const auto change = reinterpret_cast<NMLISTVIEW*>(data);
+            if (change->iItem >= 0 && static_cast<std::size_t>(change->iItem) < self->monitors_.size() &&
+                self->monitors_[change->iItem].id.empty() &&
+                (change->uNewState & LVIS_STATEIMAGEMASK) == INDEXTOSTATEIMAGEMASK(2)) return TRUE;
+        }
         if (notification->idFrom == 20108 && notification->code == LVN_ITEMCHANGED)
             self->UpdateMonitorDetails();
         break;
@@ -376,7 +382,7 @@ void ManagementShell::SetThemes(std::vector<ManagementTheme> themes) {
 void ManagementShell::SetPreferences(const app::AppSettings& settings) {
     preferences_ = settings;
     for (std::size_t index = 0; index < monitors_.size(); ++index)
-        ListView_SetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index), settings.monitorTargets &&
+        ListView_SetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index), !monitors_[index].id.empty() && settings.monitorTargets &&
             std::find(settings.monitorTargets->begin(), settings.monitorTargets->end(), monitors_[index].id) != settings.monitorTargets->end());
     for (std::size_t index = 0; index < themes_.size(); ++index)
         if (themes_[index].key == settings.theme) SendDlgItemMessageW(window_, kThemeList, LB_SETCURSEL, index, 0);
@@ -390,7 +396,7 @@ app::AppSettings ManagementShell::Preferences() const {
     auto result = preferences_;
     result.monitorTargets = std::vector<std::string>{};
     for (std::size_t index = 0; index < monitors_.size(); ++index)
-        if (ListView_GetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index)))
+        if (!monitors_[index].id.empty() && ListView_GetCheckState(GetDlgItem(window_, 20108), static_cast<int>(index)))
             result.monitorTargets->push_back(monitors_[index].id);
     const auto selected = SendDlgItemMessageW(window_, kThemeList, LB_GETCURSEL, 0, 0);
     if (selected >= 0 && static_cast<std::size_t>(selected) < themes_.size()) result.theme = themes_[selected].key;
@@ -414,17 +420,17 @@ void ManagementShell::SetMonitors(std::vector<ManagementMonitor> monitors) {
     ListView_DeleteAllItems(list);
     for (std::size_t index = 0; index < monitors_.size(); ++index) {
         auto label = monitors_[index].label;
-        const auto identity = MonitorIdentity(monitors_[index].id);
+        const auto identity = monitors_[index].id.empty() ? std::wstring{} : MonitorIdentity(monitors_[index].id);
         auto foldedLabel = label;
         auto foldedIdentity = identity;
         CharLowerBuffW(foldedLabel.data(), static_cast<DWORD>(foldedLabel.size()));
         CharLowerBuffW(foldedIdentity.data(), static_cast<DWORD>(foldedIdentity.size()));
-        const auto path = foldedLabel.find(foldedIdentity);
+        const auto path = identity.empty() ? std::wstring::npos : foldedLabel.find(foldedIdentity);
         if (path != std::wstring::npos)
             label.replace(path, identity.size(), L"顯示器 " + std::to_wstring(index + 1) + L"（名稱未提供）");
         LVITEMW item{}; item.mask = LVIF_TEXT; item.iItem = static_cast<int>(index); item.pszText = label.data();
         ListView_InsertItem(list, &item);
-        ListView_SetCheckState(list, static_cast<int>(index), draft.monitorTargets &&
+        ListView_SetCheckState(list, static_cast<int>(index), !monitors_[index].id.empty() && draft.monitorTargets &&
             std::find(draft.monitorTargets->begin(), draft.monitorTargets->end(), monitors_[index].id) != draft.monitorTargets->end());
         if (monitors_[index].id == selectedId)
             ListView_SetItemState(list, static_cast<int>(index), LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);

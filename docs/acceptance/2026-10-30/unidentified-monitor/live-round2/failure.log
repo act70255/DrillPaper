@@ -1,0 +1,5 @@
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-unidentified-monitor.ps1:53
+Line |
+  53 |                                  throw 'WebView2 程序身分不符，未操作該程序。'
+     |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | WebView2 程序身分不符，未操作該程序。

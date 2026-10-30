@@ -1,0 +1,17 @@
+Unidentified monitor temporarily applies every connected area and restores saved targets
+Monitor selection uses only connected selected areas and restores returning targets
+Clone targets share one renderer area and empty selection never falls back
+Settings preserve the chosen theme mode and sleep preference
+Invalid settings and failed atomic replacement preserve existing preferences
+Settings accept installed theme identifiers supported by the manifest
+Monitor target settings migrate legacy preferences and preserve disconnected targets
+Invalid monitor target settings cannot replace a saved selection
+Management client stays 800 by 600 logical pixels on connected monitors
+Management unidentified monitors cannot be checked or returned for saving
+Management refuses maximize and arbitrary resizing
+Management long messages and monitor identities remain readable and scrollable
+Management replaces unnamed device paths without losing monitor metadata
+Management layout and keyboard navigation stay reachable at connected DPI
+Monitor inventory survives initial and later enumeration failure without losing saved topology
+Monitor enumeration preserves desktop geometry when one identity lookup fails
+Connected monitors expose stable target identities and physical desktop rectangles

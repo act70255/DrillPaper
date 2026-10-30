@@ -1,0 +1,46 @@
+[
+  {
+    "path": "CMakeLists.txt",
+    "sha256": "E13AB5683AB8F630B14565EA980328B53522F3A5CF7B3AC14FB477002DF10859"
+  },
+  {
+    "path": "src/app/main.cpp",
+    "sha256": "A61920A0D00B56E139AE3BEB2879A753B2D4BE167A4D8B440062C86B5DFFEDCA"
+  },
+  {
+    "path": "src/platform/windows/monitor_info.cpp",
+    "sha256": "7E5E7E682DE3E70241A5678CC4E910F4FD3643C63D3F527E83BBB1C67422BC64"
+  },
+  {
+    "path": "src/platform/windows/management_shell.cpp",
+    "sha256": "4194BF1DF821930635E4CE16C47C6D8D8D314560A43C6BE8248BF50E35074BEC"
+  },
+  {
+    "path": "include/desktopmonitor/platform/windows/monitor_info.h",
+    "sha256": "D82478B958EC3BFF7295B3EABCED53890850862E13A013318DED892229AC4BF5"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/monitor_targets.h",
+    "sha256": "A9078BB4DAAB07F6336761B2D48D93A2F9759FD489B293CE0EBFB6FD85744A31"
+  },
+  {
+    "path": "tests/unit/monitor_targets_test.cpp",
+    "sha256": "649D3BCF28F48825A3569321D6107E0605C2F557F9C5C800FC4439BDD688A166"
+  },
+  {
+    "path": "tests/integration/monitor_info_test.cpp",
+    "sha256": "5245DCEAE102A72DF97FC22A37DE391144604DB7C676F8ADA25DEBA83D674BA0"
+  },
+  {
+    "path": "tests/integration/management_shell_test.cpp",
+    "sha256": "A7C2027840FC57FD3DC52EBFF24B33F5B4777ACA74F2BBF7A5461577731937DF"
+  },
+  {
+    "path": "tests/integration/monitor_degrade_fixture.cpp",
+    "sha256": "C456065DCFCF779C699393B94EDB3D4295EA4E6CAB18D49FAB28B972150F628D"
+  },
+  {
+    "path": "scripts/test-unidentified-monitor.ps1",
+    "sha256": "B90188AFFB26B7C2CD6C92E3F66B5AFD7113F3FB242F3DC8CB70638CB2CFF490"
+  }
+]

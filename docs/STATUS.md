@@ -1,4 +1,14 @@
 # 開發狀態
+## 2026-10-30 RC 12 — 無法辨識螢幕暫時退化與列舉失敗復原
+
+- Branch／base：從 HEAD `054c9017156098c36c33832c7740086e02aede97` 建立 `feature/rc-12-unidentified-monitor-degrade`，原工作樹乾淨。票 12 設為 implemented，表示程式及可自動驗證部分完成；已讀 handoff／架構／相關 STATUS／票與 spec，前提成立，沒有決策衝突。需求與方案見 [REQUEST](acceptance/2026-10-30/unidentified-monitor/REQUEST.md)。
+- Scope／files：runtime 目標解析以空 ID 明確標記無法辨識，任一項即暫選所有區域、clone 去重，恢復回原政策；platform/windows 注入裝置名稱讀取邊界，保留無法辨識項目的矩形／DPI，MonitorInventory 保留成功快取、首次失敗獨立取得主屏退化；app 詳細記錄錯誤並繼續 reconcile／健康檢查，管理清單拒絕勾選與輸出空 ID，獨立 Preview 不列舉。首次目標只於主屏可辨識後在記憶體解析，沒有自動寫回退化目標。同步 README／多螢幕政策／架構，新增隔離 fixture／runner／報告；票 13～15 未擴張處理，ADR 無。
+- TDD／related PASS：runtime、原生 target／source 失敗、首次／後續列舉快取、管理空 ID 顯示均保留 Red→Green。`cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperTests DrillPaperSettingsTests DrillPaperMonitorIntegrationTests DrillPaperManagementIntegrationTests --parallel 8`，另建 DrillPaperMonitorDegradeFixture；既有 uv CMake 工具的原生 data/bin 路徑，未使用失效 Python launcher。最終 `ctest --preset windows-msvc-release --tests-from-file <絕對路徑/related-tests.txt> --output-on-failure -V` **17/17 PASS**（8.96秒），涵蓋目標／clone／設定／原生管理／列舉；PS7 parser、證據拒覆寫與 diff 空白檢查 PASS。完整套件／SDK／CI／重封裝 NOT RUN，依指示留收尾。
+- Windows 自動整合 PASS：非 Temp 使用者繁中空白副本、獨立 LOCALAPPDATA，Node 直接 spawn，產品測試循序。相同產品入口的測試編譯目標驗未辨識全區域→整體列舉失敗快取及新 MetricsTick→恢復保存單屏；首次列舉失敗→主屏矩形／144 DPI／提示→辨識恢復；獨立 Preview 握手／推送且列舉呼叫 0。三次 exit0，核實 7／6／6 個已觀察 WebView2 退出。正式產品 `test-multi-monitor.ps1` 兩區域、握手／viewport、保存取消／重啟、世代／網路／父 fixture 恢復、模式往返、全斷線及19個已觀察子程序退出 PASS；不是人眼／真實不可辨識顯示器或完整程序捕捉證據，不覆蓋09-D2。
+- Environment／evidence：Windows11 26200／Runtime156.0.4314.50／SDK1.0.2478.35，兩個1920×1080、DPI144／96。產品 EXE SHA `A19BBF0272450099BC08378B07F17F4F8E080E077C0163B7202BEF70D272C708`；fixture SHA `9013D5A3E6C8B8261DB81B6CF69E4820BF00E8B03054B120B3B7DB90422046F0`，分開追溯 base＋工作樹。完整命令／原始工具失敗／source與證據指紋見 [REPORT](acceptance/2026-10-30/unidentified-monitor/REPORT.md)；CIM時間量化及ExecutablePath缺失先使wrapper中止，原輪保留，後者不計入核實退出；未假定產品或防毒根因。曾於建置未完成跑到舊Red位元，等待完成後17項最終重驗通過，沒有降低判準。
+- Safety／NOT RUN：原桌布83428 path／UTC ticks639288432499803524／SHA3C7AB5…15BCE前後一致且收尾唯一app，無RC12 profile WebView2殘留；未重啟Explorer、未關閉／替換原桌布。Apex One可讀BM日誌45890bytes／14:51:46／SHA C1550D…A7D88前後不變，未觀察新增攔截不等於完整觀測；沒有已證實防毒BLOCKED、不改防毒。真正不可辨識硬體、拔插／clone／其他DPI、真實OS列舉失敗、人眼及其他Windows／Runtime **NOT RUN**，原因與步驟見[人工清單](acceptance/2026-10-30/unidentified-monitor/MANUAL_CHECKLIST.md)。其他RC必要gate及09-D2仍保留，不宣稱放行／沙箱。
+- Review／commit：依 implement／code-review 兩代理平行唯讀審查（未與產品實測並行執行測試），Standards初1項＋1建議修正後複查0，Spec0，見[REVIEW](acceptance/2026-10-30/unidentified-monitor/REVIEW.md)。本節與票據同本票唯一提交保存；依 commit-msg 實際暫存差異產生繁中 Conventional Commit 後 commit 一次並 push 功能分支，hash以Git記錄為準。不合併main、不公開發布。
+
 ## 2026-10-30 RC 09 — 完整回歸，拒絕 RC 放行
 
 - Commit message：`fix(delivery): 移除入口繞行並記錄回歸阻擋`，由commit-msg技能依最終暫存差異產生；隨本票唯一提交保存，hash以本分支Git記錄為準。

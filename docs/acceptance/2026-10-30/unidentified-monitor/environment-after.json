@@ -1,0 +1,31 @@
+{
+  "node": "v24.17.0",
+  "remainingTestWebView": [],
+  "antivirus": {
+    "modified": "2026-10-30T14:51:46.7839053+08:00",
+    "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log",
+    "bytes": 45890,
+    "sha256": "C1550D0520F87091EDB2A2BB76507B1C6B06174718843AD1C1EBD6B664DA7D88"
+  },
+  "remainingApps": [
+    {
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "id": 83428,
+      "utcTicks": 639288432499803524
+    }
+  ],
+  "fixtureExe": {
+    "sha256": "9013D5A3E6C8B8261DB81B6CF69E4820BF00E8B03054B120B3B7DB90422046F0"
+  },
+  "productExe": {
+    "sha256": "A19BBF0272450099BC08378B07F17F4F8E080E077C0163B7202BEF70D272C708"
+  },
+  "webView2Version": "156.0.4314.50",
+  "timestamp": "2026-10-30T17:45:11.3959136+08:00",
+  "persistent": {
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "id": 83428,
+    "utcTicks": 639288432499803524
+  }
+}

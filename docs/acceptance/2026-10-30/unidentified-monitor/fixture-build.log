@@ -1,0 +1,50 @@
+CMake is re-running because C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/CMakeFiles/generate.stamp is out-of-date.
+  the file 'C:/WorkSpace/-James/DrillPaper/CMakeLists.txt'
+  is newer than 'C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/CMakeFiles/generate.stamp.depend'
+  result='-1'
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26200.
+-- Using the multi-header code from C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/nlohmann_json-src/include/
+CMake Deprecation Warning at build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Configuring done (24.8s)
+-- Generating done (4.2s)
+-- Build files have been written to: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+  miniz.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+  desktopmonitor_settings.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_themes.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  monitor_degrade_fixture.cpp
+  theme_commands.cpp
+  desktop_host.cpp
+  monitor_info.cpp
+  power_notifications.cpp
+  management_shell.cpp
+  windows_metrics_collector.cpp
+  nvml_gpu_collector.cpp
+  protocol_v1.cpp
+  webview2_host.cpp
+  正在產生程式碼...
+  DrillPaperMonitorDegradeFixture.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorDegradeFixture.exe
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  monitor_info_test.cpp
+  DrillPaperMonitorIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe

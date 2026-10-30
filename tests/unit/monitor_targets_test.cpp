@@ -1,6 +1,19 @@
 #include <catch2/catch_test_macros.hpp>
 #include "desktopmonitor/runtime/monitor_targets.h"
 
+TEST_CASE("Unidentified monitor temporarily applies every connected area and restores saved targets", "[runtime][monitors]") {
+    using namespace desktopmonitor::runtime;
+    const std::vector<std::string> saved{"left"};
+    const std::vector<MonitorTarget> degraded{{"left", "left-area", true}, {"", "right-area", false}, {"clone", "right-area", false}};
+    REQUIRE(ResolveMonitorTargets(saved, degraded).areas == std::vector<std::size_t>{0, 1});
+    REQUIRE(ResolveMonitorTargets(saved, degraded).unidentifiedFallback);
+    REQUIRE_FALSE(ResolveMonitorTargets(saved, degraded).primaryFallback);
+    REQUIRE(ResolveMonitorTargets({}, degraded).areas == std::vector<std::size_t>{0, 1});
+    REQUIRE(saved == std::vector<std::string>{"left"});
+    REQUIRE(ResolveMonitorTargets(saved, {{"left", "left-area", true}, {"right", "right-area", false}}).areas == std::vector<std::size_t>{0});
+    REQUIRE_FALSE(ResolveMonitorTargets(saved, {{"left", "left-area", true}}).unidentifiedFallback);
+}
+
 TEST_CASE("Monitor selection uses only connected selected areas and restores returning targets", "[runtime][monitors]") {
     using namespace desktopmonitor::runtime;
     const std::vector<MonitorTarget> connected{{"left", "area-left", false}, {"main", "area-main", true}};

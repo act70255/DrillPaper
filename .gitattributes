@@ -2,3 +2,4 @@
 docs/acceptance/2026-10-30/delivery/** -text
 docs/acceptance/2026-10-30/delivery-final/** -text
 docs/acceptance/2026-10-30/rc-regression/** -text
+docs/acceptance/2026-10-30/unidentified-monitor/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

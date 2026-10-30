@@ -1,0 +1,3 @@
+PASS：degrade，exit 0，已觀察退出的 WebView2：7
+PASS：initial-failure，exit 0，已觀察退出的 WebView2：6
+PASS：preview，exit 0，已觀察退出的 WebView2：6

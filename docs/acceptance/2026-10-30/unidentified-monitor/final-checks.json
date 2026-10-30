@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "psParser": "PASS",
+  "rawLogsZipSha256": "EF442D5F427936BC6CC14D3554E796A52C9F0B43EE62DEE27EE7CC02B20D8CF6",
+  "timestamp": "2026-10-30T17:49:06.5280352+08:00",
+  "rawLogsVerified": 38,
+  "gitWhitespace": "PASS"
+}

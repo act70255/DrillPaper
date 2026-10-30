@@ -1,6 +1,6 @@
 # 螢幕無法辨識時退化套用而非整個停擺
 
-Status: open
+Status: implemented
 Type: bug
 Blocked by: 無
 
@@ -19,6 +19,13 @@ Blocked by: 無
 - 既有決策（首次預設主螢幕、全斷線暫顯主螢幕、部分斷線、clone、空選擇不可保存）的相關測試維持通過。
 
 ## Comments
+
+- 2026-10-30 完成：runtime 空 ID 觸發全區域暫時退化及 clone 去重，恢復後回保存政策；原生 target／source 查詢錯誤與空路徑／名稱保留矩形及 DPI，管理清單禁止勾選且 Preferences 排除空 ID。平台 MonitorInventory 保留成功快取，首次失敗用原生主屏退化；app 記詳細錯誤仍執行 reconcile／健康檢查，獨立 Preview 不列舉。首次／舊設定待主屏可辨識才於記憶體解析，未自動保存退化目標。
+- 驗證：runtime、原生識別、快取及管理空 ID 各有 Red→Green；最終相關 CTest **17/17 PASS**。隔離測試入口三情境（未辨識→整體失敗快取→恢復、首次列舉失敗→恢復、Preview 故障列舉器 0 呼叫）均 exit0；正式產品多螢幕回歸 PASS。建置與 PS parser／證據拒覆寫 PASS。完整套件依使用者指示 NOT RUN，留收尾；API fixture／HWND 證據不當人工畫面 PASS。
+- 證據／限制：`docs/acceptance/2026-10-30/unidentified-monitor/REPORT.md`、`REVIEW.md`、`MANUAL_CHECKLIST.md` 保存來源／hash、命令、原始工具失敗及結果；Standards 初審路徑寫入問題與情境白名單建議已修正，複查 Standards 0／Spec 0。真正無法辨識硬體、拔插／clone／其他 DPI、真實 OS 列舉故障及人工畫面 NOT RUN，已附清單。票 13～15 的其餘範圍維持各票處理，既有空選擇不能保存仍通過。
+- 安全／交付：所有產品實測循序，非 Temp 使用者目錄、Node 直接啟動；可讀 Apex One 日誌前後 hash／時間不變，沒有觀察本票新增攔截，非完整觀測，無已證實防毒 BLOCKED。原持續桌布 83428 path／UTC ticks／hash 不變，收尾唯一 app、無 RC12 profile WebView2 殘留；未重啟 Explorer、未關閉／替換原桌布。更新 STATUS 後依 commit-msg 技能產生繁中訊息，本票一次 commit 並 push `feature/rc-12-unidentified-monitor-degrade`；不合併 main、不公開發布、不解除 RC gate。
+
+- 2026-10-30 開始：從 HEAD `054c9017156098c36c33832c7740086e02aede97` 建立 `feature/rc-12-unidentified-monitor-degrade`。已讀 handoff／STATUS／架構／spec；原始缺陷前提成立。需求與注入邊界記於 `docs/acceptance/2026-10-30/unidentified-monitor/REQUEST.md`；只跑相關測試，完整套件留收尾。
 
 - 2026-10-30 決策（使用者確認）：螢幕無法辨識時跳過目標判斷，把桌布套用到整個螢幕——即每個連接中的螢幕整個畫面都顯示桌布（各自一份完整主題，非跨屏拼接），而不是整個停擺；屬暫時退化，不寫回設定，恢復可辨識後回到保存的目標。
 - 2026-10-30 決策（使用者確認）：本票與 13～15 交由 Codex CLI 依序實作（12 → 13 → 14 → 15），每票完成即 commit＋push。依 spec 防毒決策測試放非 Temp 使用者目錄、不經 PowerShell 啟動 EXE；不重啟 Explorer、不關閉／替換原持續桌布；不合併 main。

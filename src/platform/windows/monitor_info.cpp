@@ -21,6 +21,30 @@ std::string DeviceId(std::wstring text) {
     return bytes;
 }
 struct DesktopArea { std::wstring device; HMONITOR monitor; MONITORINFOEXW info; };
+/** 以本次桌面矩形建立區域鍵，絕不作為保存的裝置 ID。
+ * Args:
+ *     bounds: 實體桌面矩形。
+ * Returns:
+ *     相同矩形共用的暫時區域鍵。
+ */
+std::string AreaKey(const RECT& bounds) {
+    return std::to_string(bounds.left) + ":" + std::to_string(bounds.top) + ":" +
+        std::to_string(bounds.right) + ":" + std::to_string(bounds.bottom);
+}
+/** 建立含實體尺寸與有效 DPI 的未辨識項目。
+ * Args:
+ *     area: 原生桌面區域。
+ *     error: 識別失敗的詳細原因。
+ * Returns:
+ *     不含可保存 ID 的項目。
+ */
+MonitorInfo Unidentified(const DesktopArea& area, const std::string& error) {
+    UINT dpiX = 0, dpiY = 0;
+    if (FAILED(GetDpiForMonitor(area.monitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY)) || dpiX == 0)
+        throw std::runtime_error("無法取得螢幕 DPI，未套用錯誤縮放。");
+    return {{"", AreaKey(area.info.rcMonitor), (area.info.dwFlags & MONITORINFOF_PRIMARY) != 0},
+        L"無法辨識", area.info.rcMonitor, dpiX, error};
+}
 /** 收集目前桌面 source 對應的原生監視器。
  * Args:
  *     monitor: Windows 列舉的監視器。
@@ -37,7 +61,14 @@ BOOL CALLBACK CollectArea(HMONITOR monitor, HDC, LPRECT, LPARAM data) {
 }
 }
 
-std::vector<MonitorInfo> EnumerateMonitors() {
+MonitorInfo PrimaryMonitorFallback() {
+    const auto monitor = MonitorFromPoint(POINT{0, 0}, MONITOR_DEFAULTTOPRIMARY);
+    MONITORINFOEXW info{}; info.cbSize = sizeof(info);
+    if (!monitor || !GetMonitorInfoW(monitor, &info)) throw std::runtime_error("無法讀取退化用主螢幕桌面區域。");
+    return Unidentified({info.szDevice, monitor, info}, "首次列舉失敗，暫時使用主螢幕；未產生穩定 ID。");
+}
+
+std::vector<MonitorInfo> EnumerateMonitors(MonitorDeviceInfoReader readDeviceInfo) {
     std::vector<DISPLAYCONFIG_PATH_INFO> paths;
     std::vector<DISPLAYCONFIG_MODE_INFO> modes;
     LONG status = ERROR_INSUFFICIENT_BUFFER;
@@ -54,25 +85,49 @@ std::vector<MonitorInfo> EnumerateMonitors() {
     if (!EnumDisplayMonitors(nullptr, nullptr, CollectArea, reinterpret_cast<LPARAM>(&areas)))
         throw std::runtime_error("無法取得螢幕桌面區域。");
     std::vector<MonitorInfo> result;
+    bool unmapped = false;
     for (const auto& path : paths) {
         DISPLAYCONFIG_TARGET_DEVICE_NAME target{};
         target.header = {DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME, sizeof(target), path.targetInfo.adapterId, path.targetInfo.id};
         DISPLAYCONFIG_SOURCE_DEVICE_NAME source{};
         source.header = {DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME, sizeof(source), path.sourceInfo.adapterId, path.sourceInfo.id};
-        if (DisplayConfigGetDeviceInfo(&target.header) != ERROR_SUCCESS ||
-            DisplayConfigGetDeviceInfo(&source.header) != ERROR_SUCCESS || target.monitorDevicePath[0] == L'\0')
-            throw std::runtime_error("螢幕缺少穩定裝置識別，未猜測或變更套用目標。");
-        const auto area = std::find_if(areas.begin(), areas.end(), [&](const auto& entry) { return entry.device == source.viewGdiDeviceName; });
-        if (area == areas.end()) throw std::runtime_error("無法將螢幕裝置對應至桌面區域。");
-        UINT dpiX = 0, dpiY = 0;
-        if (FAILED(GetDpiForMonitor(area->monitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY)) || dpiX == 0)
-            throw std::runtime_error("無法取得螢幕 DPI，未套用錯誤縮放。");
-        const auto group = std::to_string(path.sourceInfo.adapterId.HighPart) + ":" +
-            std::to_string(path.sourceInfo.adapterId.LowPart) + ":" + std::to_string(path.sourceInfo.id);
-        result.push_back({{DeviceId(target.monitorDevicePath), group, (area->info.dwFlags & MONITORINFOF_PRIMARY) != 0},
-            target.monitorFriendlyDeviceName[0] ? target.monitorFriendlyDeviceName : target.monitorDevicePath, area->info.rcMonitor, dpiX});
+        const auto targetStatus = readDeviceInfo(&target.header);
+        const auto sourceStatus = readDeviceInfo(&source.header);
+        auto area = std::find_if(areas.begin(), areas.end(), [&](const auto& entry) {
+            return sourceStatus == ERROR_SUCCESS && source.viewGdiDeviceName[0] && entry.device == source.viewGdiDeviceName;
+        });
+        // 名稱失敗時，只用 source mode 定位矩形，不推斷穩定識別。
+        if (area == areas.end() && path.sourceInfo.modeInfoIdx < modes.size()) {
+            const auto& mode = modes[path.sourceInfo.modeInfoIdx];
+            if (mode.infoType == DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE && mode.id == path.sourceInfo.id &&
+                mode.adapterId.HighPart == path.sourceInfo.adapterId.HighPart && mode.adapterId.LowPart == path.sourceInfo.adapterId.LowPart) {
+                const auto& sourceMode = mode.sourceMode;
+                area = std::find_if(areas.begin(), areas.end(), [&](const auto& entry) {
+                    const auto& rect = entry.info.rcMonitor;
+                    return rect.left == sourceMode.position.x && rect.top == sourceMode.position.y &&
+                        rect.right - rect.left == static_cast<LONG>(sourceMode.width) && rect.bottom - rect.top == static_cast<LONG>(sourceMode.height);
+                });
+            }
+        }
+        if (area == areas.end()) { unmapped = true; continue; }
+        auto monitor = Unidentified(*area, "螢幕識別失敗：target=" + std::to_string(path.targetInfo.id) +
+            "，target Windows 代碼=" + std::to_string(targetStatus) + "，source Windows 代碼=" + std::to_string(sourceStatus) +
+            "，裝置路徑空白=" + std::to_string(target.monitorDevicePath[0] == L'\0') +
+            "，source 名稱空白=" + std::to_string(source.viewGdiDeviceName[0] == L'\0'));
+        if (targetStatus == ERROR_SUCCESS && sourceStatus == ERROR_SUCCESS && target.monitorDevicePath[0] && source.viewGdiDeviceName[0]) {
+            try {
+                monitor.target.id = DeviceId(target.monitorDevicePath);
+                monitor.name = target.monitorFriendlyDeviceName[0] ? target.monitorFriendlyDeviceName : target.monitorDevicePath;
+                monitor.identificationError.clear();
+            } catch (const std::exception& error) { monitor.identificationError += "；" + std::string(error.what()); }
+        }
+        result.push_back(std::move(monitor));
     }
-    if (result.empty()) throw std::runtime_error("目前沒有可辨識的螢幕，請確認顯示設定。");
+    // 未能對應的 active path 也必須觸發退化；保守列出各區域的未辨識項目，clone 仍由 area 去重。
+    for (const auto& area : areas)
+        if (unmapped || std::none_of(result.begin(), result.end(), [&](const auto& m) { return m.target.area == AreaKey(area.info.rcMonitor); }))
+            result.push_back(Unidentified(area, "active path 無法對應桌面區域，未推斷裝置識別。"));
+    if (result.empty()) throw std::runtime_error("目前沒有可用的桌面區域，請確認顯示設定。");
     std::sort(result.begin(), result.end(), [](const auto& a, const auto& b) { return a.target.id < b.target.id; });
     return result;
 }

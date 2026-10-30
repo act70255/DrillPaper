@@ -21,6 +21,8 @@
 
 ## 目前實作邊界
 
+RC 12 的螢幕錯誤邊界位於 platform/windows：可注入 Windows 裝置名稱讀取，無法辨識者保留原生矩形／DPI 並回傳空 ID；MonitorInventory 保留上次成功列舉，首次失敗暫取主螢幕。runtime 只看 ID／area 值，任一空 ID 暫時選全區域並去重；app 負責提示、記錄錯誤與繼續 reconcile，不持久化退化結果。獨立 Preview 不讀取拓樸，管理控制項拒絕勾選空 ID。相關 fixture 不編入產品 EXE，實機及人眼證據仍分開記錄。
+
 多螢幕由 app composition 持有每個有效桌面區域的 Surface，各自管理 HWND、Win32DesktopHost、WebView2Host、附掛重試與載入逾時；Preview 僅一個 Surface。platform/windows 透過 QueryDisplayConfig 提供 monitorDevicePath、source 群組、實體矩形與 DPI；runtime 公開目標解析處理部分／全部斷線及 clone 去重，不接觸 Win32。SettingsStore schema 2 保存 ID 陣列，schema 1 在 composition 首次列舉時遷移至主螢幕，保存沿用原子取代。詳見 MULTI_MONITOR.md。
 
 穩定通知 HWND 統一接收採樣、電源、拓樸與管理命令，最新快照與有效政策廣播至所有目標。每次選題重建 controller 並重設該目標的復原額度；自動 Recover 則累計額度。各載入使用全程序唯一世代及獨立 GUID origin，舊 callback token 失效，排隊的失敗／網路通知須符合接收 HWND 的目前世代；單目標安全 fallback 不改其他目標或保存偏好。

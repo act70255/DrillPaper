@@ -67,6 +67,8 @@ cmd /d /c ".\build\windows-msvc-release\Release\DrillPaper.exe --management --pr
 
 關閉管理視窗只隱藏；透過「結束 DrillPaper」退出。明確 `--preview` 且未加 `--management` 時，仍維持關閉 Preview 即退出的測試方式。新介面的實機圖示點擊、檔案選擇器、移除確認與 Explorer 重啟依 STATUS 另行驗收。
 
+若有螢幕無法辨識，管理介面會提示「有螢幕無法辨識，暫時套用到所有螢幕」；每個連接區域各顯示完整的同一主題，鏡像仍共用一個宿主。無法辨識的清單項目不可勾選，不保存暫時識別；全部恢復辨識後自動回到保存目標。整體列舉暫時失敗時保留上次成功結果，首次失敗暫用主螢幕並提示；獨立 Preview 不依賴螢幕列舉。
+
 ## Theme SDK
 
 SDK JS、TypeScript declarations、MockHost、manifest schema、兩個範例與作者指南位於 `sdk/`。執行 `npm run test:sdk` 驗證 JS API。

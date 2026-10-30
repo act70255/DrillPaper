@@ -1,0 +1,9 @@
+{
+  "captureNetwork": false,
+  "args": [
+    "--management",
+    "--preview",
+    "--no-smart-sleep"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC12 產品 回歸\\DrillPaper.exe"
+}

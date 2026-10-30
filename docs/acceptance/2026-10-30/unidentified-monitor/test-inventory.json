@@ -1,0 +1,1194 @@
+{
+  "backtraceGraph" :
+  {
+    "commands" :
+    [
+      "add_test"
+    ],
+    "files" :
+    [
+      "C:/WorkSpace/-James/DrillPaper/CMakeLists.txt"
+    ],
+    "nodes" :
+    [
+      {
+        "file" : 0
+      },
+      {
+        "command" : 0,
+        "file" : 0,
+        "line" : 152,
+        "parent" : 0
+      },
+      {
+        "file" : 0
+      },
+      {
+        "command" : 0,
+        "file" : 0,
+        "line" : 154,
+        "parent" : 2
+      }
+    ]
+  },
+  "kind" : "ctestInfo",
+  "tests" :
+  [
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "CPU sampling marks the first reading as warm-up"
+      ],
+      "config" : "Release",
+      "name" : "CPU sampling marks the first reading as warm-up",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "CPU sampling derives busy time from GetSystemTimes deltas"
+      ],
+      "config" : "Release",
+      "name" : "CPU sampling derives busy time from GetSystemTimes deltas",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "CPU sampling resets its baseline after counters decrease"
+      ],
+      "config" : "Release",
+      "name" : "CPU sampling resets its baseline after counters decrease",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "A real zero metric differs from an unavailable metric"
+      ],
+      "config" : "Release",
+      "name" : "A real zero metric differs from an unavailable metric",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Snapshot units describe byte counts and byte rates"
+      ],
+      "config" : "Release",
+      "name" : "Snapshot units describe byte counts and byte rates",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Network rate uses monotonic counter deltas and elapsed time"
+      ],
+      "config" : "Release",
+      "name" : "Network rate uses monotonic counter deltas and elapsed time",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "An idle network interface is a valid zero rate"
+      ],
+      "config" : "Release",
+      "name" : "An idle network interface is a valid zero rate",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Network rate rejects resets and zero-length intervals"
+      ],
+      "config" : "Release",
+      "name" : "Network rate rejects resets and zero-length intervals",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Metrics history retains only the newest 120 snapshots"
+      ],
+      "config" : "Release",
+      "name" : "Metrics history retains only the newest 120 snapshots",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Snapshot coalescing keeps one latest pending value"
+      ],
+      "config" : "Release",
+      "name" : "Snapshot coalescing keeps one latest pending value",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Metric change detection uses units\\, quality\\, and a numeric threshold"
+      ],
+      "config" : "Release",
+      "name" : "Metric change detection uses units, quality, and a numeric threshold",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Power state transitions debounce obscured changes and request fresh data on resume"
+      ],
+      "config" : "Release",
+      "name" : "Power state transitions debounce obscured changes and request fresh data on resume",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Sampling scheduler pauses and resumes without catch-up loops"
+      ],
+      "config" : "Release",
+      "name" : "Sampling scheduler pauses and resumes without catch-up loops",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Sampling worker collects outside the caller thread and stops while paused"
+      ],
+      "config" : "Release",
+      "name" : "Sampling worker collects outside the caller thread and stops while paused",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Sampling worker resumes immediately with a fresh baseline"
+      ],
+      "config" : "Release",
+      "name" : "Sampling worker resumes immediately with a fresh baseline",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Sampling worker reports collector failure without terminating the process"
+      ],
+      "config" : "Release",
+      "name" : "Sampling worker reports collector failure without terminating the process",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Sampling worker discards an in-flight snapshot from the previous generation"
+      ],
+      "config" : "Release",
+      "name" : "Sampling worker discards an in-flight snapshot from the previous generation",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Desktop recovery waits for Shell readiness with a bounded retry budget"
+      ],
+      "config" : "Release",
+      "name" : "Desktop recovery waits for Shell readiness with a bounded retry budget",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Manual pause survives power changes and resumes the current policy"
+      ],
+      "config" : "Release",
+      "name" : "Manual pause survives power changes and resumes the current policy",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Unidentified monitor temporarily applies every connected area and restores saved targets"
+      ],
+      "config" : "Release",
+      "name" : "Unidentified monitor temporarily applies every connected area and restores saved targets",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Monitor selection uses only connected selected areas and restores returning targets"
+      ],
+      "config" : "Release",
+      "name" : "Monitor selection uses only connected selected areas and restores returning targets",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Clone targets share one renderer area and empty selection never falls back"
+      ],
+      "config" : "Release",
+      "name" : "Clone targets share one renderer area and empty selection never falls back",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 serializes a complete snapshot with units and UTC timestamp"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 serializes a complete snapshot with units and UTC timestamp",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 echoes request identifiers and serializes unavailable memory as null"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 echoes request identifiers and serializes unavailable memory as null",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 parses bounded history requests and preserves request IDs"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 parses bounded history requests and preserves request IDs",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 rejects invalid envelopes\\, unsupported versions\\, and oversized messages"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 rejects invalid envelopes, unsupported versions, and oversized messages",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 subscription removes unknown and duplicate metric names"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 subscription removes unknown and duplicate metric names",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 serializes control envelopes without changing their payload"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 serializes control envelopes without changing their payload",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperTests.exe",
+        "Protocol v1 history snapshots carry their own timestamps"
+      ],
+      "config" : "Release",
+      "name" : "Protocol v1 history snapshots carry their own timestamps",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperSettingsTests.exe",
+        "Settings preserve the chosen theme mode and sleep preference"
+      ],
+      "config" : "Release",
+      "name" : "Settings preserve the chosen theme mode and sleep preference",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperSettingsTests.exe",
+        "Invalid settings and failed atomic replacement preserve existing preferences"
+      ],
+      "config" : "Release",
+      "name" : "Invalid settings and failed atomic replacement preserve existing preferences",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperSettingsTests.exe",
+        "Settings accept installed theme identifiers supported by the manifest"
+      ],
+      "config" : "Release",
+      "name" : "Settings accept installed theme identifiers supported by the manifest",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperSettingsTests.exe",
+        "Monitor target settings migrate legacy preferences and preserve disconnected targets"
+      ],
+      "config" : "Release",
+      "name" : "Monitor target settings migrate legacy preferences and preserve disconnected targets",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperSettingsTests.exe",
+        "Invalid monitor target settings cannot replace a saved selection"
+      ],
+      "config" : "Release",
+      "name" : "Invalid monitor target settings cannot replace a saved selection",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperWindowsMetricsIntegrationTests.exe",
+        "Windows metrics collector reports typed readings and warms up CPU/network rates"
+      ],
+      "config" : "Release",
+      "name" : "Windows metrics collector reports typed readings and warms up CPU/network rates",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 60.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperWindowsHostIntegrationTests.exe",
+        "Desktop fallback restores a normal top-level preview"
+      ],
+      "config" : "Release",
+      "name" : "Desktop fallback restores a normal top-level preview",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management client stays 800 by 600 logical pixels on connected monitors"
+      ],
+      "config" : "Release",
+      "name" : "Management client stays 800 by 600 logical pixels on connected monitors",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management unidentified monitors cannot be checked or returned for saving"
+      ],
+      "config" : "Release",
+      "name" : "Management unidentified monitors cannot be checked or returned for saving",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management refuses maximize and arbitrary resizing"
+      ],
+      "config" : "Release",
+      "name" : "Management refuses maximize and arbitrary resizing",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management long messages and monitor identities remain readable and scrollable"
+      ],
+      "config" : "Release",
+      "name" : "Management long messages and monitor identities remain readable and scrollable",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management replaces unnamed device paths without losing monitor metadata"
+      ],
+      "config" : "Release",
+      "name" : "Management replaces unnamed device paths without losing monitor metadata",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperManagementIntegrationTests.exe",
+        "Management layout and keyboard navigation stay reachable at connected DPI"
+      ],
+      "config" : "Release",
+      "name" : "Management layout and keyboard navigation stay reachable at connected DPI",
+      "properties" :
+      [
+        {
+          "name" : "RUN_SERIAL",
+          "value" : true
+        },
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 30.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperMonitorIntegrationTests.exe",
+        "Monitor inventory survives initial and later enumeration failure without losing saved topology"
+      ],
+      "config" : "Release",
+      "name" : "Monitor inventory survives initial and later enumeration failure without losing saved topology",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperMonitorIntegrationTests.exe",
+        "Monitor enumeration preserves desktop geometry when one identity lookup fails"
+      ],
+      "config" : "Release",
+      "name" : "Monitor enumeration preserves desktop geometry when one identity lookup fails",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperMonitorIntegrationTests.exe",
+        "Connected monitors expose stable target identities and physical desktop rectangles"
+      ],
+      "config" : "Release",
+      "name" : "Connected monitors expose stable target identities and physical desktop rectangles",
+      "properties" :
+      [
+        {
+          "name" : "SKIP_RETURN_CODE",
+          "value" : 4
+        },
+        {
+          "name" : "TIMEOUT",
+          "value" : 20.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "backtrace" : 1,
+      "command" :
+      [
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaperThemeTests.exe"
+      ],
+      "config" : "Release",
+      "name" : "DrillPaperThemeTests",
+      "properties" :
+      [
+        {
+          "name" : "TIMEOUT",
+          "value" : 60.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    },
+    {
+      "backtrace" : 3,
+      "command" :
+      [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:/WorkSpace/-James/DrillPaper/scripts/test-theme-cli.ps1",
+        "-ApplicationPath",
+        "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaper.exe"
+      ],
+      "config" : "Release",
+      "name" : "DrillPaperThemeCli",
+      "properties" :
+      [
+        {
+          "name" : "TIMEOUT",
+          "value" : 60.0
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release"
+        }
+      ]
+    }
+  ],
+  "version" :
+  {
+    "major" : 1,
+    "minor" : 0
+  }
+}

@@ -5,6 +5,7 @@
 
 namespace desktopmonitor::runtime {
 struct MonitorTarget {
+    // 空 ID 明確表示無法辨識；area 只供本次拓樸定位，不得保存。
     std::string id;
     std::string area;
     bool primary = false;
@@ -12,6 +13,7 @@ struct MonitorTarget {
 struct MonitorSelection {
     std::vector<std::size_t> areas;
     bool primaryFallback = false;
+    bool unidentifiedFallback = false;
 };
 /** 解析目前可顯示的目標；幾何與原生裝置讀取由平台層負責。
  * Args:
@@ -23,8 +25,9 @@ struct MonitorSelection {
 inline MonitorSelection ResolveMonitorTargets(const std::vector<std::string>& selected,
     const std::vector<MonitorTarget>& connected) {
     MonitorSelection result;
+    result.unidentifiedFallback = std::any_of(connected.begin(), connected.end(), [](const auto& target) { return target.id.empty(); });
     for (std::size_t index = 0; index < connected.size(); ++index)
-        if (std::find(selected.begin(), selected.end(), connected[index].id) != selected.end() &&
+        if ((result.unidentifiedFallback || std::find(selected.begin(), selected.end(), connected[index].id) != selected.end()) &&
             std::none_of(result.areas.begin(), result.areas.end(), [&](auto chosen) { return connected[chosen].area == connected[index].area; }))
             result.areas.push_back(index);
     if (result.areas.empty() && !selected.empty()) {

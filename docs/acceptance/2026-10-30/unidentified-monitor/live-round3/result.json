@@ -1,0 +1,35 @@
+[
+  {
+    "scenario": "degrade",
+    "exitCode": 0,
+    "identity": {
+      "id": 97384,
+      "path": "C:\\Users\\James\\DrillPaperTests\\RC12 螢幕退化 round3\\binary\\DrillPaperMonitorDegradeFixture.exe",
+      "utcTicks": 639289500461345403
+    },
+    "observedExitedChildren": 7,
+    "timestamp": "2026-10-30T17:41:10.5876369+08:00"
+  },
+  {
+    "scenario": "initial-failure",
+    "exitCode": 0,
+    "identity": {
+      "id": 78184,
+      "path": "C:\\Users\\James\\DrillPaperTests\\RC12 螢幕退化 round3\\binary\\DrillPaperMonitorDegradeFixture.exe",
+      "utcTicks": 639289500713221757
+    },
+    "observedExitedChildren": 6,
+    "timestamp": "2026-10-30T17:41:36.7501797+08:00"
+  },
+  {
+    "scenario": "preview",
+    "exitCode": 0,
+    "identity": {
+      "id": 103832,
+      "path": "C:\\Users\\James\\DrillPaperTests\\RC12 螢幕退化 round3\\binary\\DrillPaperMonitorDegradeFixture.exe",
+      "utcTicks": 639289500976134596
+    },
+    "observedExitedChildren": 6,
+    "timestamp": "2026-10-30T17:41:53.3584830+08:00"
+  }
+]

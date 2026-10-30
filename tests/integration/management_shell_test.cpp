@@ -150,6 +150,26 @@ TEST_CASE("Management client stays 800 by 600 logical pixels on connected monito
     }
 }
 
+TEST_CASE("Management unidentified monitors cannot be checked or returned for saving", "[integration][management]") {
+    ManagementFixture fixture;
+    desktopmonitor::app::AppSettings saved;
+    saved.monitorTargets = std::vector<std::string>{"known"};
+    fixture.shell.SetMonitors({{"known", L"可辨識"}, {"", L"無法辨識"}});
+    fixture.shell.SetPreferences(saved);
+    const auto list = GetDlgItem(fixture.manager, 20108);
+    ListView_SetCheckState(list, 1, TRUE);
+    REQUIRE_FALSE(ListView_GetCheckState(list, 1));
+    REQUIRE(fixture.shell.Preferences().monitorTargets == saved.monitorTargets);
+    ListView_SetItemState(list, 1, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+    SetFocus(list);
+    Key(fixture.shell, VK_SPACE);
+    Key(fixture.shell, VK_SPACE, WM_KEYUP);
+    REQUIRE_FALSE(ListView_GetCheckState(list, 1));
+    fixture.shell.SetMonitors({{"known", L"可辨識"}, {"recovered", L"恢復辨識"}});
+    ListView_SetCheckState(list, 1, TRUE);
+    REQUIRE(fixture.shell.Preferences().monitorTargets == std::vector<std::string>{"known", "recovered"});
+}
+
 TEST_CASE("Management refuses maximize and arbitrary resizing", "[integration][management]") {
     ManagementFixture fixture;
     SendMessageW(fixture.manager, WM_SYSCOMMAND, SC_MAXIMIZE, 0);

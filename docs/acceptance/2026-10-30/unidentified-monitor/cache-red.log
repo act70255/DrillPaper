@@ -1,0 +1,35 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 42: Monitor inventory survives initial and later enumeration failure without losing saved topology
+1/1 Test #42: Monitor inventory survives initial and later enumeration failure without losing saved topology ...***Failed    0.09 sec
+Filters: "Monitor inventory survives initial and later enumeration failure without losing saved topology"
+Randomness seeded to: 2498373762
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperMonitorIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Monitor inventory survives initial and later enumeration failure without losing
+saved topology
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\monitor_info_test.cpp(6)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\monitor_info_test.cpp(16): FAILED:
+  REQUIRE( inventory.Refresh() )
+due to unexpected exception with message:
+  QueryDisplayConfig 失敗，Windows 代碼：31
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 1 | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.22 sec
+
+The following tests FAILED:
+	 42 - Monitor inventory survives initial and later enumeration failure without losing saved topology (Failed)
+Errors while running CTest
