@@ -42,6 +42,7 @@ Approval: 使用者確認工作順序後，於 2026-10-29 指示「建立ticket�
 - 每階段完成後更新所屬 ticket Comments／Status 與 docs/STATUS.md，使用 commit-msg skill 產生繁中 Conventional Commit，立即 commit＋push；本次建立 tickets 不授權自動合併 main 或公開發布。
 - 決策（使用者確認，2026-10-29）：01～09 交由 Codex CLI 依序實作，每票完成即 commit＋push。需要人工操作或看畫面的實機項目（真正 Explorer 重啟、拔插螢幕、鎖定／睡眠、NVIDIA、乾淨使用者環境、人工畫面確認）先完成可自動執行部分，其餘標 NOT RUN 並附人工操作清單，不中斷流程；不重啟 Explorer、不關閉／替換原持續桌布。
 - 決策（使用者確認，2026-10-30）：03 發現的「預設智慧休眠下啟動未握手」缺陷延到 05 修正；7A 試用入口暫時預設關閉智慧休眠並列為已知限制，08 須回到產品預設行為重驗。
+- 決策（使用者確認，2026-10-30）：本機有 Trend Micro Apex One，會攔截從 %TEMP% 經 PowerShell 啟動的未簽章 EXE。04～09 的實機／套件測試改解壓到非 Temp 的使用者目錄（例如 `%USERPROFILE%\DrillPaperTests\<含空白與繁中的子目錄>`），能直接執行或用 cmd／Start-Process 啟動時不包 PowerShell；每次攔截記錄產品、規則名稱、時間與受影響項目，受攔截影響的項目標 BLOCKED 而非 FAIL。不修改防毒設定。
 - 開發中只跑相關測試；整體完成後在 09 完整回歸。7A 前須通過 01／02 的相關測試及套件基本檢查，不必等到 3～6 全部驗收才首次打包。
 
 ## 目前基準與證據
