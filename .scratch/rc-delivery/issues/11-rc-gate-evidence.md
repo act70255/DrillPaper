@@ -19,4 +19,6 @@ Blocked by: 10 及必要驗證環境
 
 ## Comments
 
+- 2026-11-02 10 交接：09-D2 已記「未重現，疑似環境」並結案（證據 docs/acceptance/2026-11-02/controlled-resume*/）。本票需補真實 OS 證據：(1) 真實螢幕關閉（console display off）時以產品預設（智慧休眠開啟）啟動，螢幕恢復後是否完成 WebView2 握手並更新；(2) 真正鎖定／解鎖、關屏、待機往返後雙目標恢復推送，含手動暫停交錯。皆需同步記錄 console display state 與工作階段鎖定狀態。
+
 - 2026-10-30：09 查得最新 CI 40849189915 為舊 main `b4616ec`，CTest33／SDK18 通過、RC job skipped，artifact 只有兩個 SDK .dmt 範例，不是目前產品來源的 app CI。最終來源 CI／乾淨使用者、真實 OS／硬體及人工證據缺口見 09 報告。下一步在 09 分支推送後依既有 workflow 查驗，不以本機綠燈取代缺證。
