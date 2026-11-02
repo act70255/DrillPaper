@@ -1,0 +1,7 @@
+Resolve-Path: C:\WorkSpace\-James\DrillPaper\docs\acceptance\2026-11-02\rc-gate-evidence\performance\archive-existing-20261102.ps1:6
+Line |
+   6 |      $root = (Resolve-Path -LiteralPath $SourceRoot).Path
+     |               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path './nonexistent-input-for-offline-validation' because it does not exist.
+
+

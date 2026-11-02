@@ -1,0 +1,261 @@
+{
+  "requested": 100,
+  "recorded": 100,
+  "failures": 0,
+  "independentValidationFailures": [],
+  "secondsMean": 7.015743588000001,
+  "secondsP95": 7.6996621,
+  "secondsMax": 8.3071842,
+  "secondsMin": 6.0765397,
+  "resourceSamples": 200,
+  "incompleteResourceSamples": 0,
+  "missingReads": [],
+  "firstComplete": {
+    "index": 1,
+    "phase": "before",
+    "utc": "2026-11-02T08:07:18.8970078Z",
+    "totals": {
+      "threads": 197,
+      "private": 280309760,
+      "handles": 3750
+    },
+    "skipped": [],
+    "processes": [
+      {
+        "identity": "60484/639292035746661730",
+        "working": 35532800,
+        "parent": 59532,
+        "cpu": 4.328125,
+        "id": 60484,
+        "path": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe",
+        "start": "2026-11-02T08:06:14.6661735Z",
+        "role": "app",
+        "private": 14364672,
+        "threads": 12,
+        "handles": 409
+      },
+      {
+        "identity": "47416/639292035748896690",
+        "working": 141111296,
+        "parent": 60484,
+        "cpu": 4.75,
+        "id": 47416,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:14.8896692Z",
+        "role": "browser",
+        "private": 55570432,
+        "threads": 51,
+        "handles": 1362
+      },
+      {
+        "identity": "63940/639292035749773480",
+        "working": 17252352,
+        "parent": 47416,
+        "cpu": 0.09375,
+        "id": 63940,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:14.9773480Z",
+        "role": "crashpad-handler",
+        "private": 7008256,
+        "threads": 12,
+        "handles": 208
+      },
+      {
+        "identity": "47188/639292035753136380",
+        "working": 139055104,
+        "parent": 47416,
+        "cpu": 1.609375,
+        "id": 47188,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.3136384Z",
+        "role": "gpu-process",
+        "private": 112685056,
+        "threads": 36,
+        "handles": 506
+      },
+      {
+        "identity": "6372/639292035753402380",
+        "working": 47259648,
+        "parent": 47416,
+        "cpu": 0.703125,
+        "id": 6372,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.3402387Z",
+        "role": "utility",
+        "private": 16871424,
+        "threads": 26,
+        "handles": 383
+      },
+      {
+        "identity": "1560/639292035754440140",
+        "working": 24317952,
+        "parent": 47416,
+        "cpu": 0.109375,
+        "id": 1560,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.4440142Z",
+        "role": "utility",
+        "private": 11489280,
+        "threads": 10,
+        "handles": 210
+      },
+      {
+        "identity": "10044/639292035771244580",
+        "working": 70049792,
+        "parent": 47416,
+        "cpu": 0.578125,
+        "id": 10044,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:17.1244583Z",
+        "role": "renderer",
+        "private": 31174656,
+        "threads": 25,
+        "handles": 336
+      },
+      {
+        "identity": "63604/639292035772545590",
+        "working": 70221824,
+        "parent": 47416,
+        "cpu": 0.515625,
+        "id": 63604,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:17.2545598Z",
+        "role": "renderer",
+        "private": 31145984,
+        "threads": 25,
+        "handles": 336
+      }
+    ],
+    "complete": true
+  },
+  "lastComplete": {
+    "index": 100,
+    "phase": "after",
+    "utc": "2026-11-02T08:21:55.3013170Z",
+    "totals": {
+      "threads": 171,
+      "private": 322859008,
+      "handles": 3699
+    },
+    "skipped": [],
+    "processes": [
+      {
+        "identity": "60484/639292035746661730",
+        "working": 39002112,
+        "parent": 59532,
+        "cpu": 28.109375,
+        "id": 60484,
+        "path": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe",
+        "start": "2026-11-02T08:06:14.6661735Z",
+        "role": "app",
+        "private": 16125952,
+        "threads": 7,
+        "handles": 427
+      },
+      {
+        "identity": "47416/639292035748896690",
+        "working": 142028800,
+        "parent": 60484,
+        "cpu": 95.6875,
+        "id": 47416,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:14.8896692Z",
+        "role": "browser",
+        "private": 52482048,
+        "threads": 50,
+        "handles": 1360
+      },
+      {
+        "identity": "63940/639292035749773480",
+        "working": 17301504,
+        "parent": 47416,
+        "cpu": 0.234375,
+        "id": 63940,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:14.9773480Z",
+        "role": "crashpad-handler",
+        "private": 6819840,
+        "threads": 9,
+        "handles": 194
+      },
+      {
+        "identity": "47188/639292035753136380",
+        "working": 177811456,
+        "parent": 47416,
+        "cpu": 35.28125,
+        "id": 47188,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.3136384Z",
+        "role": "gpu-process",
+        "private": 150720512,
+        "threads": 36,
+        "handles": 523
+      },
+      {
+        "identity": "6372/639292035753402380",
+        "working": 49049600,
+        "parent": 47416,
+        "cpu": 5.1875,
+        "id": 6372,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.3402387Z",
+        "role": "utility",
+        "private": 17702912,
+        "threads": 26,
+        "handles": 391
+      },
+      {
+        "identity": "1560/639292035754440140",
+        "working": 25497600,
+        "parent": 47416,
+        "cpu": 0.515625,
+        "id": 1560,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:06:15.4440142Z",
+        "role": "utility",
+        "private": 12783616,
+        "threads": 11,
+        "handles": 216
+      },
+      {
+        "identity": "65148/639292045074871320",
+        "working": 71962624,
+        "parent": 47416,
+        "cpu": 0.484375,
+        "id": 65148,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:21:47.4871325Z",
+        "role": "renderer",
+        "private": 34983936,
+        "threads": 16,
+        "handles": 294
+      },
+      {
+        "identity": "4640/639292045077264050",
+        "working": 69185536,
+        "parent": 47416,
+        "cpu": 0.328125,
+        "id": 4640,
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "start": "2026-11-02T08:21:47.7264051Z",
+        "role": "renderer",
+        "private": 31240192,
+        "threads": 16,
+        "handles": 294
+      }
+    ],
+    "complete": true
+  },
+  "privateDeltaMiB": 40.578125,
+  "handlesDelta": -51,
+  "threadsDelta": -26,
+  "processCounts": [
+    8
+  ],
+  "cleanup": {
+    "exitCode": 0,
+    "survivors": [],
+    "shutdown": null
+  },
+  "resourceCriterion": "切換期非穩態，僅列原始前後值；06 長測門檻另套用 7200 秒 soak。"
+}

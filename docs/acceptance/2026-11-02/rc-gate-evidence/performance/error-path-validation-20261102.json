@@ -1,0 +1,9 @@
+{
+  "nodeCommand": "node ./analyze-existing-20261102.mjs（缺參數）",
+  "nodeExit": 1,
+  "nodeOutput": "錯誤：既有證據分析未完成，請確認輸入路徑、檔案與資料格式。詳細日誌：C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\rc11-analysis-error-1793611943648-51384.log\r\n",
+  "archiveCommand": "pwsh -NoProfile -File ./archive-existing-20261102.ps1 -SourceRoot ./nonexistent-input-for-offline-validation -OutputDirectory .",
+  "archiveExit": 1,
+  "archiveOutput": "錯誤：既有證據封存未完成，請確認路徑、權限及檔案完整性。詳細日誌：C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\rc11-archive-error-629ab6366dfe4e6dbf11d385e1b26131.log\r\n",
+  "result": "PASS：預期錯誤退出 1，繁中友善提示，詳細例外另存，沒有啟動產品。"
+}

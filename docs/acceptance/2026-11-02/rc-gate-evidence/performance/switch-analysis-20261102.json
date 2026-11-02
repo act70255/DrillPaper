@@ -1,0 +1,30 @@
+{
+  "recorded": 100,
+  "failures": 0,
+  "independentValidationFailures": [],
+  "secondsMean": 7.015743588000001,
+  "secondsMedian": 7.1727067,
+  "secondsP95": 7.6996621,
+  "secondsMin": 6.0765397,
+  "secondsMax": 8.3071842,
+  "resourceSamples": 200,
+  "incompleteResourceSamples": 0,
+  "skippedReads": [],
+  "first": {
+    "threads": 197,
+    "private": 280309760,
+    "handles": 3750
+  },
+  "last": {
+    "threads": 171,
+    "private": 322859008,
+    "handles": 3699
+  },
+  "firstWorkingMiB": 519.5625,
+  "lastWorkingMiB": 564.421875,
+  "exitCode": 0,
+  "survivors": [],
+  "processCounts": [
+    8
+  ]
+}

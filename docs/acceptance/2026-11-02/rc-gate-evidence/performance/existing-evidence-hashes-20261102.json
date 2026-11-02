@@ -1,0 +1,102 @@
+[
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\after-tooling-run.json",
+    "Hash": "C5625277053877FF3513DE861BBBBE7505F690DF400414324C0AF476005625F3"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\analyze-os.mjs",
+    "Hash": "BEF9FD0D761CEAF45A85930F66A8C8D37A239113E358FD75E0C56D7D9FB89181"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\analyze-switches.mjs",
+    "Hash": "352F85F422F9B8023713BB5B042E66653BA684890A14441F66B644B85F61B679"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\antivirus-observer-process.json",
+    "Hash": "F023240E55AB755F738119F4A8B01463AC79BEDEF31B09523B11357139F90D5B"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\antivirus-observer.stderr.log",
+    "Hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\antivirus-observer.stdout.log",
+    "Hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\antivirus-periodic.jsonl",
+    "Hash": "0D3327573D029CEAEEEB6BD75D442571701240D674066FCD33C4B1FC9CBF636E"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\archive-verification.log",
+    "Hash": "7DEA3CB0F33B02C7F7DD0D185C5331476DF9BCB0B78C630DC840091C5672E738"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\before.json",
+    "Hash": "C1B9B16154547229BB53A7F8EC02A6C502BF0D7CB9472E874DAA8608791F482E"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\between-scenarios.json",
+    "Hash": "D93EFEB91BEA18784FBDC9C36A9BDFC8F40C410DB6E6FA69B667800164975113"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\environment.json",
+    "Hash": "89F92D1DF8D933F3BE24C5034A011623E578A80C6807ED205E18E3119F670AAA"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\observe-antivirus.ps1",
+    "Hash": "19A7226C73A3B214AD2BBD1EFCAB0C6BB198096D0D2C5F3891500EBC1D293CB6"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\observer-process.json",
+    "Hash": "89F03F18B3A3C775DFB3503D031512DC19181D21054CF779D1A20324CF6BFEBA"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\REQUEST.md",
+    "Hash": "8D2CF9E8709A6F612FDF87F6E9E07C9EF643F12FD51F2D88E0283D29B0E1839D"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\run-switches-v2.ps1",
+    "Hash": "508D47B84E9D26917B1F6B62E6B63AD050818BF98CBF9F469CA88BF862F6A4D9"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\run-switches.ps1",
+    "Hash": "E19A03460BBBE372D25F5206F3BA61478BF2188D2D7368536310D31396859BAB"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\session.json",
+    "Hash": "3B6266F0A50D1E8773D0F051E23147FBCFC0CA9442F0A6A3BDEFCE58139A19EF"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\soak-console.log",
+    "Hash": "326D92F34374CB9CA91B399958E07E8AD7936F8C5CB8A390ACE6600B20C6666A"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switch-analysis.log",
+    "Hash": "48B6E8884491D3648CC502CC1154AEF8A73B3CD701AAED7FC1BB06703273FC6B"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switch-template.ps1",
+    "Hash": "47A22C9BC88FA9DCFCCF1090DCEAE7C18EDDA5A4C3806AF5D5DA6A7D27A604A8"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switches-command.json",
+    "Hash": "BD8E723DA979BBE3EC3F13879368D00D46F96DF44B849665802135FEE155EA68"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switches-console.log",
+    "Hash": "FC42EF9D30095E1D13ED8617F57D42404B6EB4C8B9134C877231AFEB1D5E6C1A"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switches-formal-command.json",
+    "Hash": "7F4C154F623D897702F31EEF904D23617D470B5DAA0F18F51C72C481B42C842D"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\switches-formal-console.log",
+    "Hash": "412516D2404AD8E2BB21F939F07C7FF17CFE3BA9BFF5B86034E5EF5A01144CEA"
+  },
+  {
+    "Path": "C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\TOOLING.md",
+    "Hash": "53AC665DA0A61983AC791B16BC082196FC01FE74F96D9D8F6456F7AACA10CB76"
+  }
+]

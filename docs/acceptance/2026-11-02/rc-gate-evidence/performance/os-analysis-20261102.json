@@ -1,0 +1,12 @@
+{
+  "firstResourceUtc": "2026-11-02T08:26:40.7212333Z",
+  "lastResourceUtc": "2026-11-02T09:19:09.8145469Z",
+  "osSamples": 23429,
+  "stateCounts": {
+    "unlocked/on": 23429
+  },
+  "maxOsGapMs": 293,
+  "maxAlignmentLagMs": 215,
+  "staleAlignments": 0,
+  "allResourcesUnlockedOn": true
+}

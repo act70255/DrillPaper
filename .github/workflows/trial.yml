@@ -1,6 +1,11 @@
 name: DrillPaper trial package (not RC)
 
 on:
+  # feature 分支推送即產生試用包；workflow_dispatch 需先存在於預設分支才能手動觸發。
+  push:
+    branches: ['feature/rc-*']
+    # 只改驗收紀錄或票單時不重新產包。
+    paths-ignore: ['docs/**', '.scratch/**']
   workflow_dispatch:
     inputs:
       version:
@@ -10,6 +15,11 @@ on:
 
 permissions:
   contents: read
+
+# 同一分支有新推送時取消尚未完成的舊產包。
+concurrency:
+  group: trial-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   trial-package:
@@ -39,7 +49,7 @@ jobs:
       - name: Build and package explicit commit
         shell: pwsh
         env:
-          TRIAL_VERSION: ${{ inputs.version }}
+          TRIAL_VERSION: ${{ inputs.version || format('0.1.0-trial.ci.{0}', github.run_number) }}
         run: ./scripts/build-trial.ps1 -SourceCommit $env:GITHUB_SHA -Version $env:TRIAL_VERSION -OutputDirectory artifacts/trial
       - name: Verify delivery inventory and hashes
         shell: pwsh

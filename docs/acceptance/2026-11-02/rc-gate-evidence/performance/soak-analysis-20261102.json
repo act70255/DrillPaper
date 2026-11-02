@@ -1,0 +1,330 @@
+{
+  "metadataProvenance": "result.json 不存在；CPU 核數取 environment.json，情境由 launch、雙宿主及原始主題交叉核對；1800 秒為使用者新決策。",
+  "metadata": {
+    "logicalProcessors": 14,
+    "duration": 1800,
+    "scenario": "MinimalMulti"
+  },
+  "launch": {
+    "args": [
+      "--management",
+      "--preview",
+      "--no-smart-sleep"
+    ],
+    "file": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe",
+    "captureNetwork": false
+  },
+  "originalRequestedSeconds": 7200,
+  "firstUtc": "2026-11-02T08:26:40.7212333Z",
+  "lastUtc": "2026-11-02T09:19:09.8145469Z",
+  "cpuMeanPercent": 0.2971949002890289,
+  "cpuP95Percent": 0.5482082403611493,
+  "invalidCpuIntervals": 2,
+  "samples": 535,
+  "spanSeconds": 3149.0732451,
+  "durationMet": true,
+  "sampleIntervalMeanSeconds": 5.897140908426966,
+  "sampleIntervalMaxSeconds": 6.283846600000288,
+  "privateSlopeMiBPerMinute": 0.12674144957738834,
+  "privateWindowDeltaMiB": 6.6328125,
+  "workingMeanMiB": 497.4221163974719,
+  "privateMeanMiB": 284.8026173338015,
+  "handlesWindowDelta": 2,
+  "threadsWindowDelta": -2,
+  "excludedResourceSamples": 1,
+  "resourceSpanSeconds": 3149.0732451,
+  "surfaceRates": [
+    {
+      "hwnd": "1442882",
+      "metricsHz": 0.979018193621628,
+      "healthHz": 0.19878864392057707
+    },
+    {
+      "hwnd": "1642294",
+      "metricsHz": 0.979018193621628,
+      "healthHz": 0.198471090176295
+    }
+  ],
+  "gpuEngineSumMeanPercent": 0.3307464557971533,
+  "gpuValidSamples": 535,
+  "surfaceValidation": {
+    "valid": true,
+    "invalidRows": 0,
+    "expectedCount": 2,
+    "expectedTheme": "Minimal Monitor",
+    "paused": false
+  },
+  "gpuUnknownInstances": 0,
+  "validation": {
+    "validJsonRows": 535,
+    "skippedReads": [
+      {
+        "start": "2026-11-02T08:33:47.8900520Z",
+        "reason": "程序在列舉與讀取間消失或身分無法核實。",
+        "id": 65640,
+        "details": "Cannot find a process with the process identifier 65640."
+      }
+    ],
+    "compositionChanges": 0,
+    "processCounts": [
+      8
+    ],
+    "firstWindowSamples": 51,
+    "lastWindowSamples": 51,
+    "intervalOver10Seconds": 0,
+    "note": "缺失數為檔案中 complete/skipped 與間隔核對；沒有外部序號，無法證明取樣間短命程序均被捕捉。",
+    "independentCpuMeanPercent": 0.2971949002890289
+  },
+  "windows": {
+    "private": {
+      "first": 280.87109375,
+      "last": 287.50390625
+    },
+    "working": {
+      "first": 533.5234375,
+      "last": 436.97265625
+    },
+    "handles": {
+      "first": 3784,
+      "last": 3786
+    },
+    "threads": {
+      "first": 189,
+      "last": 187
+    }
+  },
+  "bins": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 600,
+      "partial": false,
+      "samples": 101,
+      "private": 279.91015625,
+      "working": 531.1484375,
+      "handles": 3781,
+      "threads": 189
+    },
+    {
+      "startSeconds": 600,
+      "endSeconds": 1200,
+      "partial": false,
+      "samples": 101,
+      "private": 281.8359375,
+      "working": 533.578125,
+      "handles": 3774,
+      "threads": 187
+    },
+    {
+      "startSeconds": 1200,
+      "endSeconds": 1800,
+      "partial": false,
+      "samples": 102,
+      "private": 292.216796875,
+      "working": 543.0859375,
+      "handles": 3769.5,
+      "threads": 184
+    },
+    {
+      "startSeconds": 1800,
+      "endSeconds": 2400,
+      "partial": false,
+      "samples": 103,
+      "private": 283.30078125,
+      "working": 451.98828125,
+      "handles": 3764,
+      "threads": 183
+    },
+    {
+      "startSeconds": 2400,
+      "endSeconds": 3000,
+      "partial": false,
+      "samples": 101,
+      "private": 284.9765625,
+      "working": 440.20703125,
+      "handles": 3786,
+      "threads": 187
+    },
+    {
+      "startSeconds": 3000,
+      "endSeconds": 3149.0732451,
+      "partial": true,
+      "samples": 26,
+      "private": 289.60546875,
+      "working": 435.58203125,
+      "handles": 3786,
+      "threads": 187
+    }
+  ],
+  "firstTotals": {
+    "seconds": 1.1615063,
+    "private": 275.0546875,
+    "working": 524.96875,
+    "handles": 3793,
+    "threads": 201
+  },
+  "lastTotals": {
+    "seconds": 3150.2347514,
+    "private": 291.57421875,
+    "working": 436.9609375,
+    "handles": 3786,
+    "threads": 187
+  },
+  "processes": [
+    {
+      "id": 57672,
+      "start": "2026-11-02T08:25:18.8250575Z",
+      "parent": 55248,
+      "role": "app",
+      "path": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe"
+    },
+    {
+      "id": 64660,
+      "start": "2026-11-02T08:25:19.3080933Z",
+      "parent": 57672,
+      "role": "browser",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 67392,
+      "start": "2026-11-02T08:25:19.4708191Z",
+      "parent": 64660,
+      "role": "crashpad-handler",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 51268,
+      "start": "2026-11-02T08:25:20.7689907Z",
+      "parent": 64660,
+      "role": "gpu-process",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 60008,
+      "start": "2026-11-02T08:25:20.7692103Z",
+      "parent": 64660,
+      "role": "utility",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 62524,
+      "start": "2026-11-02T08:25:20.8889458Z",
+      "parent": 64660,
+      "role": "utility",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 64040,
+      "start": "2026-11-02T08:25:22.1297509Z",
+      "parent": 64660,
+      "role": "renderer",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    },
+    {
+      "id": 64832,
+      "start": "2026-11-02T08:25:22.2528804Z",
+      "parent": 64660,
+      "role": "renderer",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe"
+    }
+  ],
+  "criteria": {
+    "duration": true,
+    "privateWindow": true,
+    "privateSlope": true,
+    "handles": true,
+    "threads": true,
+    "cpuMean": true,
+    "cpuP95": true
+  },
+  "performanceResult": "PASS",
+  "formalExit": "NOT RUN",
+  "comparison06": {
+    "single": {
+      "cpuMeanPercent": 0.17795233299500132,
+      "cpuP95Percent": 0.29758265151027863,
+      "invalidCpuIntervals": 2,
+      "samples": 282,
+      "spanSeconds": 1805.8008987,
+      "durationMet": true,
+      "sampleIntervalMeanSeconds": 6.4263377177935945,
+      "sampleIntervalMaxSeconds": 7.016085500000031,
+      "privateSlopeMiBPerMinute": 0.5686583253343753,
+      "privateWindowDeltaMiB": 14.16796875,
+      "workingMeanMiB": 456.6012705738434,
+      "privateMeanMiB": 234.11550544928826,
+      "handlesWindowDelta": -9,
+      "threadsWindowDelta": -4,
+      "excludedResourceSamples": 1,
+      "resourceSpanSeconds": 1805.8008987,
+      "surfaceRates": [
+        {
+          "hwnd": "9641046",
+          "metricsHz": 0.9065229733679276,
+          "healthHz": 0.19437358805873098
+        }
+      ],
+      "gpuEngineSumMeanPercent": 0.1765167505468838,
+      "gpuValidSamples": 282,
+      "surfaceValidation": {
+        "valid": true,
+        "invalidRows": 0,
+        "expectedCount": 1,
+        "expectedTheme": "Minimal Monitor",
+        "paused": false
+      },
+      "gpuUnknownInstances": 0,
+      "collectionResult": "COMPLETED",
+      "shutdown": true,
+      "incompleteSamples": 1,
+      "processCounts": [
+        7
+      ]
+    },
+    "multi": {
+      "cpuMeanPercent": 0.3241479631673347,
+      "cpuP95Percent": 0.5270927352621515,
+      "invalidCpuIntervals": 2,
+      "samples": 92,
+      "spanSeconds": 602.0126538000001,
+      "durationMet": true,
+      "sampleIntervalMeanSeconds": 6.6155236681318685,
+      "sampleIntervalMaxSeconds": 7.79349000000002,
+      "privateSlopeMiBPerMinute": 1.0861092759490778,
+      "privateWindowDeltaMiB": 2.271484375,
+      "workingMeanMiB": 546.242659684066,
+      "privateMeanMiB": 280.4252232142857,
+      "handlesWindowDelta": -19,
+      "threadsWindowDelta": -3,
+      "excludedResourceSamples": 1,
+      "resourceSpanSeconds": 602.0126538000001,
+      "surfaceRates": [
+        {
+          "hwnd": "2689292",
+          "metricsHz": 0.8621081246780928,
+          "healthHz": 0.1926869796968377
+        },
+        {
+          "hwnd": "99029404",
+          "metricsHz": 0.8621081246780928,
+          "healthHz": 0.1926869796968377
+        }
+      ],
+      "gpuEngineSumMeanPercent": 0.3404308141063831,
+      "gpuValidSamples": 92,
+      "surfaceValidation": {
+        "valid": true,
+        "invalidRows": 0,
+        "expectedCount": 2,
+        "expectedTheme": "Minimal Monitor",
+        "paused": false
+      },
+      "gpuUnknownInstances": 0,
+      "collectionResult": "COMPLETED",
+      "shutdown": true,
+      "incompleteSamples": 1,
+      "processCounts": [
+        8
+      ]
+    }
+  }
+}

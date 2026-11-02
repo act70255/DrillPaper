@@ -1,0 +1,104 @@
+{
+  "result": "FAILED",
+  "started": "2026-11-02T16:03:44.1788296+08:00",
+  "scenario": "ThemeSwitchMulti",
+  "cycles": 100,
+  "completed": 0,
+  "failures": 1,
+  "policy": "smartSleep=false；正式手動暫停命令；沒有電源保持或喚醒呼叫。",
+  "application": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe",
+  "sha256": "7444C1D946F9AF31B2C3EE37D8B12DB3F3BBEBE67F9707ACE16B338C20131C52",
+  "logicalProcessors": 14,
+  "process": {
+    "id": 40952,
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe",
+    "start": "2026-11-02T08:03:48.1593997Z"
+  },
+  "settings": {
+    "allowNetwork": false,
+    "displayMode": "desktop",
+    "monitorTargets": [
+      "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}",
+      "\\\\?\\display#delf15e#4&25f3787d&0&uid8263#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+    ],
+    "schemaVersion": 2,
+    "smartSleep": false,
+    "theme": "minimal"
+  },
+  "initial": [
+    {
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "ready": 1,
+      "parent": 263158,
+      "visible": true,
+      "health": 21224187,
+      "dpi": 144,
+      "hwnd": "4262358",
+      "load": 6,
+      "metrics": 21226656
+    },
+    {
+      "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+      "ready": 2,
+      "parent": 263158,
+      "visible": true,
+      "health": 21224187,
+      "dpi": 96,
+      "hwnd": "327802",
+      "load": 7,
+      "metrics": 21226656
+    }
+  ],
+  "reason": "效能觀測的輸入、程序身分或讀取未完成；完整原因見 details。",
+  "details": "Exception: C:\\WorkSpace\\-James\\DrillPaper\\docs\\acceptance\\2026-11-02\\rc-gate-evidence\\performance\\run-switches.ps1:153\r\nLine |\r\n 153 |  …              if(-not $accepted){throw '20 秒內雙宿主未同時完成新握手、JS 回應及恢復推送。'}\r\n     |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | 20 秒內雙宿主未同時完成新握手、JS 回應及恢復推送。\r\n\r\n",
+  "children": [
+    {
+      "id": 47824,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:03:49.5883802Z"
+    },
+    {
+      "id": 6184,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:04:56.3160821Z"
+    },
+    {
+      "id": 49456,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:04:56.0633234Z"
+    },
+    {
+      "id": 6208,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:03:51.4797150Z"
+    },
+    {
+      "id": 61476,
+      "path": null,
+      "start": "2026-11-02T08:03:52.9309463Z"
+    },
+    {
+      "id": 65012,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:03:51.5709269Z"
+    },
+    {
+      "id": 56500,
+      "path": null,
+      "start": "2026-11-02T08:03:53.1037637Z"
+    },
+    {
+      "id": 51736,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:03:51.4804698Z"
+    },
+    {
+      "id": 44844,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+      "start": "2026-11-02T08:03:49.2279085Z"
+    }
+  ],
+  "exitCode": 0,
+  "survivors": [],
+  "ended": "2026-11-02T16:05:19.6949718+08:00"
+}

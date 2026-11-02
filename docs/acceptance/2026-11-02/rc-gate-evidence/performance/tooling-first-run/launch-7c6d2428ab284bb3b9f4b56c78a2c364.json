@@ -1,0 +1,9 @@
+{
+  "captureNetwork": false,
+  "args": [
+    "--management",
+    "--preview",
+    "--no-smart-sleep"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\candidate\\DrillPaper.exe"
+}
