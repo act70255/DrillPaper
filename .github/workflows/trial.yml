@@ -45,11 +45,10 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw '相關測試失敗。' }
       - name: Trial packaging contract checks
         shell: pwsh
+        # 兩支契約測試失敗時會 throw 讓步驟失敗；成功時不設定 $LASTEXITCODE，不能用 -ne 0 判斷。
         run: |
           ./scripts/test-trial-package.ps1
-          if ($LASTEXITCODE -ne 0) { throw '試用包封裝契約失敗。' }
           ./scripts/test-installer-package.ps1
-          if ($LASTEXITCODE -ne 0) { throw '安裝檔打包契約失敗。' }
       - name: Build and package explicit commit
         shell: pwsh
         env:
