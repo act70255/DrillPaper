@@ -67,3 +67,5 @@ if ($again.Code -eq 0 -or $again.Output -notlike '*已存在*') { throw "同版�
 if ((Get-FileHash -LiteralPath $setup).Hash -cne $metadata.sha256) { throw '拒絕覆寫時不得改動既有安裝檔。' }
 Write-Output 'PASS：同版本安裝檔已存在時拒絕覆寫。'
 Write-Output "測試證據：$session"
+# 最後一個案例預期打包腳本以 1 結束；明確回報成功，避免呼叫端沿用該 $LASTEXITCODE。
+exit 0
