@@ -1,6 +1,6 @@
 # 補齊 RC 必要實機、環境與 CI 證據
 
-Status: open
+Status: resolved
 Type: task
 Owner: James（發行維護者）
 Blocked by: 10 及必要驗證環境
@@ -18,6 +18,8 @@ Blocked by: 10 及必要驗證環境
 - 09-D2 修正回歸及所有必要 gate 通過後才重新做 RC 判定；03／08-D1／09-D2 原始 FAIL 永久保留。試用包不是正式 RC。
 
 ## Comments
+
+- 2026-11-02 結案（決策（使用者確認））：本輪可執行範圍與報告已完成，總結見 `docs/acceptance/2026-11-02/rc-gate-evidence/REPORT.md`。G1 CI PASS；G2 互動實機大部分 PASS（S6 與 S10 為 PARTIAL，S4、S5、S12 依決策 NOT RUN）；09-D2 交錯流程 PASS；G4 效能 PASS（資料完整性 PARTIAL）；G3、G6 的部分項目為 NOT RUN 或 BLOCKED，NVIDIA 與獨立作者為 BLOCKED。**RC 判定：使用者以發行維護者身分決定有條件放行**，接受報告中的已知限制清單；不建立 tag／release、不發布，`package.ps1` 的正式 RC blocker 沒有修改。剩餘項目與改善建議轉由票 16 追蹤。另記：2026-11-02 使用者決定經 PR #1（merge commit 62b89b8）把票 01～10、12～15 合併至 main；合併不等於發布。
 
 - 2026-11-02 效能收尾（僅分析既有證據）：trial.8 正式 100 次雙目標切換失敗 0，平均 7.0157 秒／中位數 7.1727 秒／p95 7.6997 秒／最慢 8.3072 秒；200 筆資源完整，Private Bytes 前後 +40.5781 MiB（非穩態切換，不套用長測門檻）。soak 實際 `--management --preview --no-smart-sleep`、兩個 Minimal 宿主／兩個 renderer，最終 535 筆、3149.0732 秒（52 分 29 秒；約 51 分鐘決定收尾後仍有落盤資料，與前條 521 筆中途值不同）。依使用者確認 30 分鐘門檻及 06 容差記效能 PASS：Private Bytes 首末 300 秒中位數 280.8711→287.5039 MiB（+6.6328），OLS +0.126741 MiB/min；handles 3784→3786（+2）、threads 189→187（-2）；CPU 平均 0.297195%、p95 0.548208%（14 核）。資料完整性 PARTIAL：1 筆短命程序漏讀，排除該筆資源及相鄰 2 個 CPU 區間；已核實 8 程序組成變化 0，不代表捕捉全部短命程序。同期 OS 皆 unlocked/on。約 51 分鐘提早收尾、preview／禁智慧休眠及有限觀測限制明列，不宣稱無洩漏；Claude 的 taskkill /T 是收尾操作失誤而非產品崩潰，長測正式退出／正常清理 NOT RUN。NVIDIA BLOCKED、真實節能及其他硬體／Runtime NOT RUN，其他 gate 與 Status 不變。報告、每 10 分鐘中位數、06 對照、原始 ZIP 與逐檔 SHA-256 見 `docs/acceptance/2026-11-02/rc-gate-evidence/performance/REPORT.md`；離線分析測試 12/12 PASS，未啟動產品實測、未修改產品。本次依指定分支單次 commit／push，不合併 main、不建 release／tag。
 

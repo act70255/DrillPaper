@@ -1,3 +1,9 @@
+## 2026-11-02 RC 11 結案 — 有條件放行（使用者決策）
+
+- Branch：`feature/rc-11-gate-evidence`。候選 trial.8（來源 ae1c5e0，ZIP 63A98B5B…D53）。總結：[REPORT](acceptance/2026-11-02/rc-gate-evidence/REPORT.md)；互動實機：[INTERACTIVE](acceptance/2026-11-02/rc-gate-evidence/INTERACTIVE.md)；CI：[CI](acceptance/2026-11-02/rc-gate-evidence/CI.md)；效能：[performance](acceptance/2026-11-02/rc-gate-evidence/performance/REPORT.md)。
+- Results：CI 精確 SHA CTest 53/53 PASS、gate 拒絕時無 RC 產物；trial.yml 修正 null 退出碼誤判（c6951cf）。互動實機：真實鎖定 5/5、實體拔插、Explorer 重啟 1 次、GUI 匯入流程、手動暫停與鎖定交錯皆 PASS；全螢幕全域暫停 PARTIAL（已知限制）；S4、S5、S12 依決策 NOT RUN。效能：100 次切換失敗 0、雙目標長測 52.5 分鐘 PASS。
+- Decision：使用者以發行維護者身分決定 **有條件放行**，接受報告中的已知限制清單；不建立 tag／release、不簽章、不發布；package.ps1 的正式 RC blocker 未修改。剩餘 BLOCKED／NOT RUN 與改善建議由票 16 追蹤。票 01～10、12～15 已由使用者決定經 PR #1 合併至 main（62b89b8）。
+
 ## 2026-11-02 RC 11 — 效能既有證據收尾
 
 - Branch／base／scope：沿用 `feature/rc-11-gate-evidence`，開始 HEAD `23ba5efce199136c5bbfc87efbb2d58b379bcfcb`；只完成 09-G4 既有資料分析、報告與封存。依票最新確認決策，長測門檻改 30 分鐘、約 51 分鐘時提早收尾；原 REQUEST／7200 秒計畫與既有證據原樣保留，新需求見 [REQUEST-analysis](acceptance/2026-11-02/rc-gate-evidence/performance/REQUEST-analysis-20261102.md)。未改產品、未啟動任何產品實測或觀察器，票 11 Status 維持 open，未重判 RC。
