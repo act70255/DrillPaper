@@ -1,0 +1,24 @@
+﻿{
+    "started":  "2026-10-30T10:10:29.2265643+08:00",
+    "file":  "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-baseline\\DrillPaper.exe",
+    "sha256":  "AA41960045CBDDE7B6EDB585A84D7E92E235C215C202137EEA4A9AB023151D8E",
+    "smartSleep":  true,
+    "result":  "FAIL",
+    "samples":  [
+
+                ],
+    "antivirusBefore":  {
+                            "path":  "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+                            "length":  8332,
+                            "hash":  "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+                            "modified":  "2026-10-30T09:22:30.9964599+08:00"
+                        },
+    "reason":  "隔離 EXE 程序身分不符。",
+    "antivirusAfter":  {
+                           "path":  "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+                           "length":  8332,
+                           "hash":  "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+                           "modified":  "2026-10-30T09:22:30.9964599+08:00"
+                       },
+    "ended":  "2026-10-30T10:10:31.3437283+08:00"
+}

@@ -1,0 +1,58 @@
+{
+  "result": "FAIL",
+  "started": "2026-10-30T13:36:57.6096616+08:00",
+  "phases": [],
+  "application": {
+    "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "package": {
+    "sha256": "51E83324E5A2DECA5E0F0B18CE3D0E0D95537AFD6E8139D42A8761E70C3FFFD2",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\probe-on.dmt"
+  },
+  "scenario": {
+    "desktop": false,
+    "mock": false,
+    "allowNetwork": true
+  },
+  "process": {
+    "start": "2026-10-30T05:37:00.8052952Z",
+    "id": 35024,
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "details": "Exception: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-theme-author-flow.ps1:64\r\nLine |\r\n  64 |          throw $Message\r\n     |          ~~~~~~~~~~~~~~\r\n     | 主題未完成作者驗收：author-loaded\r\n\r\n",
+  "observedChildren": [
+    {
+      "start": "2026-10-30T05:37:01.1125032Z",
+      "id": 99868,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "start": "2026-10-30T05:37:01.1737702Z",
+      "id": 99256,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "start": "2026-10-30T05:37:01.5550898Z",
+      "id": 81248,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "start": "2026-10-30T05:37:01.5824404Z",
+      "id": 93480,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "start": "2026-10-30T05:37:01.6538396Z",
+      "id": 97572,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    },
+    {
+      "start": "2026-10-30T05:37:23.3185029Z",
+      "id": 94628,
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe"
+    }
+  ],
+  "exitCode": 0,
+  "ended": "2026-10-30T13:37:39.4635743+08:00"
+}

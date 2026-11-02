@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-11-02T09:50:19.5876446+08:00",
+  "head": "40e007f54cc2f6920b02c604f24332cbb9efbe5c",
+  "branch": "feature/rc-10-controlled-resume-regression",
+  "persistent": {
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "utcTicks": 639288432499803524,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "id": 83428
+  },
+  "antivirus": {
+    "sha256": "E395850C13B01016BAEFBB4CADFE7846032D34768953B97E9037F2FBB3765F81",
+    "bytes": 41998,
+    "modified": "2026-11-01T09:42:36.4875549+08:00",
+    "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log"
+  },
+  "remaining": [],
+  "allApplications": [
+    {
+      "Id": 83428,
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe"
+    }
+  ],
+  "explorer": [
+    {
+      "Id": 93396,
+      "StartTime": "2026-10-29T16:03:53.2075613+08:00",
+      "Path": "C:\\Windows\\Explorer.EXE"
+    }
+  ]
+}

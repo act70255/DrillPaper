@@ -1,0 +1,10 @@
+{
+  "args": [
+    "--management",
+    "--preview",
+    "--no-smart-sleep",
+    "--mock-metrics"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe",
+  "captureNetwork": false
+}

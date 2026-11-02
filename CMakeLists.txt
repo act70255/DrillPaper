@@ -56,6 +56,7 @@ add_executable(DrillPaper WIN32
     src/app/main.cpp
     src/app/theme_commands.cpp
     src/platform/windows/desktop_host.cpp
+    src/platform/windows/monitor_info.cpp
     src/platform/windows/power_notifications.cpp
     src/platform/windows/management_shell.cpp
     src/monitoring/windows_metrics_collector.cpp
@@ -67,7 +68,7 @@ target_include_directories(DrillPaper PRIVATE
     "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/include"
 )
 target_compile_definitions(DrillPaper PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
-target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes desktopmonitor_settings shell32 wtsapi32 comdlg32)
+target_link_libraries(DrillPaper PRIVATE desktopmonitor_core desktopmonitor_themes desktopmonitor_settings shell32 wtsapi32 comdlg32 shcore comctl32)
 if(MSVC)
     target_compile_options(DrillPaper PRIVATE /W4 /permissive- /utf-8)
 endif()
@@ -118,12 +119,15 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(Catch2)
     list(APPEND CMAKE_MODULE_PATH "${catch2_SOURCE_DIR}/extras")
     include(Catch)
+    set_property(DIRECTORY APPEND PROPERTY TEST_INCLUDE_FILES
+        "${PROJECT_SOURCE_DIR}/scripts/ctest-workspace.cmake")
 
     add_executable(DrillPaperTests
         tests/unit/core_contracts_test.cpp
         tests/unit/sampling_worker_test.cpp
         tests/unit/desktop_recovery_retry_test.cpp
         tests/unit/managed_playback_test.cpp
+        tests/unit/monitor_targets_test.cpp
         tests/unit/protocol_v1_test.cpp
         src/web/protocol_v1.cpp
     )
@@ -168,6 +172,16 @@ if(BUILD_TESTING)
         )
     endif()
     catch_discover_tests(DrillPaperWindowsMetricsIntegrationTests PROPERTIES TIMEOUT 60)
+    # 受控負載的實機觀測需明確執行，不加入一般 CTest。
+    add_executable(DrillPaperMetricsAccuracyProbe
+        tests/integration/metrics_accuracy_probe.cpp
+        src/monitoring/windows_metrics_collector.cpp
+        src/monitoring/nvml_gpu_collector.cpp)
+    target_compile_definitions(DrillPaperMetricsAccuracyProbe PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperMetricsAccuracyProbe PRIVATE desktopmonitor_core nlohmann_json::nlohmann_json iphlpapi pdh psapi)
+    if(MSVC)
+        target_compile_options(DrillPaperMetricsAccuracyProbe PRIVATE /W4 /permissive- /utf-8)
+    endif()
     add_executable(DrillPaperWindowsHostIntegrationTests
         tests/integration/desktop_host_test.cpp
         src/platform/windows/desktop_host.cpp)
@@ -177,7 +191,34 @@ if(BUILD_TESTING)
         target_compile_options(DrillPaperWindowsHostIntegrationTests PRIVATE /W4 /permissive- /utf-8)
     endif()
     catch_discover_tests(DrillPaperWindowsHostIntegrationTests TEST_SPEC "~[shell-live]" PROPERTIES TIMEOUT 20)
+    add_executable(DrillPaperManagementIntegrationTests
+        tests/integration/management_shell_test.cpp src/platform/windows/management_shell.cpp)
+    target_compile_definitions(DrillPaperManagementIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperManagementIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2
+        user32 gdi32 shell32 comdlg32 comctl32 gdiplus dwmapi)
+    if(MSVC)
+        target_compile_options(DrillPaperManagementIntegrationTests PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperManagementIntegrationTests PROPERTIES TIMEOUT 30 RUN_SERIAL TRUE)
     add_executable(DrillPaperParentFixture WIN32 tests/integration/parent_window_fixture.cpp)
+    # 故障注入僅存在測試入口；產品 EXE 不含測試開關。
+    get_target_property(_monitor_fixture_sources DrillPaper SOURCES)
+    list(REMOVE_ITEM _monitor_fixture_sources src/app/main.cpp)
+    add_executable(DrillPaperMonitorDegradeFixture WIN32 tests/integration/monitor_degrade_fixture.cpp ${_monitor_fixture_sources})
+    target_include_directories(DrillPaperMonitorDegradeFixture PRIVATE "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/include")
+    target_compile_definitions(DrillPaperMonitorDegradeFixture PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    get_target_property(_monitor_fixture_libraries DrillPaper LINK_LIBRARIES)
+    target_link_libraries(DrillPaperMonitorDegradeFixture PRIVATE ${_monitor_fixture_libraries})
+    if(MSVC)
+        target_compile_options(DrillPaperMonitorDegradeFixture PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    add_executable(DrillPaperMonitorIntegrationTests tests/integration/monitor_info_test.cpp src/platform/windows/monitor_info.cpp)
+    target_compile_definitions(DrillPaperMonitorIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperMonitorIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain user32 shcore)
+    if(MSVC)
+        target_compile_options(DrillPaperMonitorIntegrationTests PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperMonitorIntegrationTests PROPERTIES TIMEOUT 20)
     target_compile_definitions(DrillPaperParentFixture PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
     target_link_libraries(DrillPaperParentFixture PRIVATE desktopmonitor_core user32 shell32)
     if(MSVC)

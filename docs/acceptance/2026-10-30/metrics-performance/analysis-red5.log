@@ -1,0 +1,38 @@
+✔ 程序樹 CPU 依整機容量及同期時間差計算 (2.9541ms)
+✔ PID 重用區間不偽造成有效零 CPU (0.4564ms)
+✔ 長測按完整時間序列算記憶體斜率與首末五分鐘中位數 (2.0603ms)
+✔ 觀察頻率使用屬性變化計數，缺失 GPU 不當作零活動 (0.8184ms)
+✖ 不完整讀值及無效時間軸不能產生可用 CPU 結論 (2.2778ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 192.9582
+
+✖ failing tests:
+
+test at tests\metrics-performance-analysis.test.mjs:48:1
+✖ 不完整讀值及無效時間軸不能產生可用 CPU 結論 (2.2778ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.7142857142857143
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/metrics-performance-analysis.test.mjs:53:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.7142857142857143,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,13 @@
+{
+  "name": "drillpaper-author-starter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "configure": "node configure.mjs",
+    "check": "node check-types.mjs",
+    "build": "tsc -p tsconfig.json && node build.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

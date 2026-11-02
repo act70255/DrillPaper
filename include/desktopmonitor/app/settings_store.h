@@ -1,13 +1,23 @@
 #pragma once
 #include <filesystem>
 #include <string>
+#include <optional>
+#include <vector>
+#include <stdexcept>
 
 namespace desktopmonitor::app {
+// 可安全顯示給使用者的預期設定驗證錯誤；其他例外仍走通用提示。
+class SettingsValidationError final : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
 struct AppSettings {
     std::string theme = "minimal";
     bool desktop = true;
     bool smartSleep = true;
     bool allowNetwork = false;
+    std::optional<std::vector<std::string>> monitorTargets;
     bool operator==(const AppSettings&) const = default;
 };
 

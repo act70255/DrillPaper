@@ -1,0 +1,8 @@
+{
+  "args": [
+    "--experimental-desktop",
+    "--no-smart-sleep"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC13 空選擇 complete binary\\DrillPaper.exe",
+  "captureNetwork": false
+}

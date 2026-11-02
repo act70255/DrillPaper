@@ -1,0 +1,7 @@
+PASS：管理視窗關閉／開啟 5 次，程序繼續且重用同一視窗。
+PASS：暫停時隱藏並停止指標推送，繼續後恢復新指標。
+PASS：3 次受控 TaskbarCreated 通知後 Shell 接受圖示重註冊；不代表真正 Explorer 重啟通過。
+PASS：原生命令完成桌布／預覽切換；畫面與桌面互動另行確認。
+PASS：可信設定控制項套用／保存、主題新握手與取消不改寫偏好。
+PASS：重啟恢復主題／模式／智慧休眠，未自動改寫設定。
+PASS：正式退出及已觀察子程序清理；紀錄：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\management-479ed25408a347eaae91f1799a8ef4c2

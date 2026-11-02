@@ -120,6 +120,10 @@ TEST_CASE("Only the selected installed theme version can be removed", "[themes][
     REQUIRE(std::filesystem::exists(fixture.root / "source/index.html"));
     REQUIRE_THROWS(manager.Remove("../source", "1.0.0"));
     REQUIRE_THROWS(manager.Remove("minimal", "1.0.0"));
+    const auto reinstalled = manager.Install(fixture.root / "theme.dmt");
+    REQUIRE(reinstalled.id == installed.id);
+    REQUIRE(reinstalled.version == installed.version);
+    REQUIRE(manager.List().size() == 1);
 }
 
 TEST_CASE("Removal rejects real junctions and preserves their external targets", "[themes][remove][junction]") {
@@ -161,6 +165,8 @@ TEST_CASE("DMT rejection preserves the installation boundary", "[themes][zip][se
     SECTION("alternate stream") { extras.emplace_back("index.html:extra.js", "bad"); }
     SECTION("case collision") { extras.emplace_back("INDEX.HTML", "bad"); }
     SECTION("forbidden executable") { extras.emplace_back("payload.exe", "bad"); }
+    SECTION("TypeScript source") { extras.emplace_back("main.ts", "export {}"); }
+    SECTION("TypeScript declaration") { extras.emplace_back("desktop-monitor-sdk.d.ts", "export {}"); }
     SECTION("single file quota") { extras.emplace_back("large.js", std::string(10 * 1024 * 1024 + 1, 'x')); }
     SECTION("file count quota") {
         for (int index = 0; index < 255; ++index) extras.emplace_back("file" + std::to_string(index) + ".js", "x");

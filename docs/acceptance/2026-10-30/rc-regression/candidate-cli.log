@@ -1,0 +1,2 @@
+主題 CLI 測試資料目錄：C:\Users\James\DrillPaperTests\回歸 含空白\DrillPaperThemeCli-fff39168149e41b4a706b588b5fdce42（Node 直接啟動；每次期限 15 秒）
+PASS：原生主題 CLI 可匯入含空白路徑、列舉，並拒絕覆蓋同版本、缺少設定與缺少參數。

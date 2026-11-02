@@ -1,0 +1,9 @@
+{
+  "captureNetwork": false,
+  "args": [
+    "--management",
+    "--preview",
+    "--no-smart-sleep"
+  ],
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC13 空選擇 green binary\\DrillPaper.exe"
+}

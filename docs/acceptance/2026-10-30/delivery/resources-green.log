@@ -1,0 +1,6 @@
+DrillPaper 0.1.0-trial.5.probe 試用版；產品 commit 676bb473efeca65614fddb40d98e3c88c302494b；WebView2 156.0.4314.50
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-trial-launcher.ps1:38
+Line |
+  38 |  … tlike '*缺少或無效的 minimumVcRuntime*') { throw '缺少最低 runtime 設定必須明確停止。' }
+     |                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 缺少最低 runtime 設定必須明確停止。

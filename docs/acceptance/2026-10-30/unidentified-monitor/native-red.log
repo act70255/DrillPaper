@@ -1,0 +1,33 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 42: Monitor enumeration preserves desktop geometry when one identity lookup fails
+1/1 Test #42: Monitor enumeration preserves desktop geometry when one identity lookup fails ...***Failed    0.08 sec
+Filters: "Monitor enumeration preserves desktop geometry when one identity lookup fails"
+Randomness seeded to: 1791354285
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperMonitorIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Monitor enumeration preserves desktop geometry when one identity lookup fails
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\monitor_info_test.cpp(6)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\monitor_info_test.cpp(6): FAILED:
+due to unexpected exception with message:
+  螢幕缺少穩定裝置識別，未猜測或變更套用目標。
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 1 | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.18 sec
+
+The following tests FAILED:
+	 42 - Monitor enumeration preserves desktop geometry when one identity lookup fails (Failed)
+Errors while running CTest

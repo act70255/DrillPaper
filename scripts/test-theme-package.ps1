@@ -70,6 +70,12 @@ try {
     $unsupported['payload.exe'] = 'MZ'
     Assert-Validation 'unsupported-extension.dmt' $unsupported $false
 
+    foreach ($sourceName in @('main.ts', 'desktop-monitor-sdk.d.ts')) {
+        $withSource = New-ValidFiles
+        $withSource[$sourceName] = 'export {}'
+        Assert-Validation ($sourceName + '.dmt') $withSource $false
+    }
+
     $wrongApi = New-ValidFiles
     $wrongApi['theme.json'] = $wrongApi['theme.json'].Replace('"apiVersion":"1"', '"apiVersion":"2"')
     Assert-Validation 'wrong-api.dmt' $wrongApi $false

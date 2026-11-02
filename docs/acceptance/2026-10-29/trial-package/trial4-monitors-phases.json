@@ -1,0 +1,285 @@
+﻿[
+    {
+        "phase":  "all-selected-minimal",
+        "surfaces":  [
+                         {
+                             "load":  4,
+                             "ready":  2,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  5,
+                             "ready":  3,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "all-selected-dashboard",
+        "surfaces":  [
+                         {
+                             "load":  6,
+                             "ready":  4,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  7,
+                             "ready":  5,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "one-target-fallback",
+        "surfaces":  [
+                         {
+                             "load":  8,
+                             "ready":  6,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  7,
+                             "ready":  5,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "network-False",
+        "surfaces":  [
+                         {
+                             "load":  9,
+                             "ready":  7,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  10,
+                             "ready":  8,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "network-True",
+        "surfaces":  [
+                         {
+                             "load":  11,
+                             "ready":  9,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  12,
+                             "ready":  10,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "network-False",
+        "surfaces":  [
+                         {
+                             "load":  13,
+                             "ready":  11,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  93259812,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  14,
+                             "ready":  12,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55249738,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "all-selected-restart",
+        "surfaces":  [
+                         {
+                             "load":  1,
+                             "ready":  2,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  55315274,
+                             "top":  0,
+                             "attached":  1
+                         },
+                         {
+                             "load":  2,
+                             "ready":  1,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  1776948,
+                             "top":  0,
+                             "attached":  2
+                         }
+                     ]
+    },
+    {
+        "phase":  "all-targets-parent-crash-recovery",
+        "surfaces":  [
+                         {
+                             "load":  3,
+                             "ready":  4,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  24184496,
+                             "top":  0,
+                             "attached":  3
+                         },
+                         {
+                             "load":  4,
+                             "ready":  3,
+                             "parent":  70916314,
+                             "left":  1920,
+                             "bottom":  1080,
+                             "dpi":  96,
+                             "right":  3840,
+                             "hwnd":  55446346,
+                             "top":  0,
+                             "attached":  4
+                         }
+                     ]
+    },
+    {
+        "phase":  "single-selected",
+        "surfaces":  [
+                         {
+                             "load":  5,
+                             "ready":  5,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  24184496,
+                             "top":  0,
+                             "attached":  3
+                         }
+                     ]
+    },
+    {
+        "phase":  "mode-roundtrip",
+        "surfaces":  [
+                         {
+                             "load":  9,
+                             "ready":  7,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  24315568,
+                             "top":  0,
+                             "attached":  5
+                         }
+                     ]
+    },
+    {
+        "phase":  "all-disconnected-primary-fallback",
+        "surfaces":  [
+                         {
+                             "load":  1,
+                             "ready":  1,
+                             "parent":  70916314,
+                             "left":  0,
+                             "bottom":  1080,
+                             "dpi":  144,
+                             "right":  1920,
+                             "hwnd":  217711744,
+                             "top":  0,
+                             "attached":  1
+                         }
+                     ]
+    }
+]

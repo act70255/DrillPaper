@@ -1,0 +1,10 @@
+DrillPaper 0.1.0-trial.3 試用版；產品 commit e6aa20e109da8cdd5402fe06ae0d11f3bc539d53；WebView2 156.0.4314.50
+PASS：Windows PowerShell 5.1 真實依賴檢查、缺 loader 友善提示與 VC++ 過舊拒絕；未修改／安裝系統 runtime。
+C:\WorkSpace\-James\DrillPaper\scripts\test-management-shell.ps1 : Cannot convert argument "window", with value: "", fo
+r "GetProp" to type "System.IntPtr": "Cannot convert null to type "System.IntPtr"."
+At C:\WorkSpace\-James\DrillPaper\scripts\test-trial-app.ps1:14 char:1
++ & (Join-Path $PSScriptRoot 'test-management-shell.ps1') -ApplicationP ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [test-management-shell.ps1], MethodException
+    + FullyQualifiedErrorId : MethodArgumentConversionInvalidCastArgument,test-management-shell.ps1
+ 

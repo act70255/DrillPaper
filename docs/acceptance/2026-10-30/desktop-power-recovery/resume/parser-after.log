@@ -1,0 +1,3 @@
+PASS：scripts/test-default-startup.ps1 PowerShell 7 語法檢查。
+PASS：scripts/test-multi-monitor.ps1 PowerShell 7 語法檢查。
+PASS：scripts/security-process.ps1 PowerShell 7 語法檢查。

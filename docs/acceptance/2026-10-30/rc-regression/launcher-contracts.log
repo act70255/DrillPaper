@@ -1,0 +1,12 @@
+✔ 公開測試入口以非 Temp 使用者繁中空白目錄建立隔離資料 (987.0423ms)
+✔ CLI 啟動器直接保留參數、隔離設定、UTF-8 輸出與非零退出碼 (213.6757ms)
+✔ 缺少必要設定的 CLI 情境不會繼承外層 LOCALAPPDATA (231.1794ms)
+✔ CLI 超過原有 15 秒期限會失敗並終止本次子程序 (15025.9295ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15710.4661

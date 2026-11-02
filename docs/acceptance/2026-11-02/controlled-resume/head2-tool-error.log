@@ -1,0 +1,7 @@
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-multi-monitor.ps1:143
+Line |
+ 143 |      throw $Failure
+     |      ~~~~~~~~~~~~~~
+     | 目標數量或 WebView2 握手不符。
+
+

@@ -1,0 +1,7 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Problem reading test list file: docs/acceptance/2026-10-30/unidentified-monitor/related-tests.txt while generating list of tests to run.
+Errors while running CTest

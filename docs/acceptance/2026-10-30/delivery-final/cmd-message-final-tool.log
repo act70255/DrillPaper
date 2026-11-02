@@ -1,0 +1,2 @@
+PASS：CMD CheckOnly=False，繁中錯誤可讀，退出碼1。
+PASS：CMD CheckOnly=True，繁中錯誤可讀，退出碼1。

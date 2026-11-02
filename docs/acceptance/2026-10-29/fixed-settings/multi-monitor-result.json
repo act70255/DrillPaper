@@ -1,0 +1,297 @@
+﻿{
+    "observedExitedChildren":  19,
+    "connectedTargets":  2,
+    "realExplorerRestart":  "NOT RUN",
+    "evidence":  [
+                     {
+                         "phase":  "all-selected-minimal",
+                         "surfaces":  [
+                                          {
+                                              "load":  4,
+                                              "ready":  3,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  5,
+                                              "ready":  2,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "all-selected-dashboard",
+                         "surfaces":  [
+                                          {
+                                              "load":  6,
+                                              "ready":  4,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  7,
+                                              "ready":  5,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "one-target-fallback",
+                         "surfaces":  [
+                                          {
+                                              "load":  8,
+                                              "ready":  6,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  7,
+                                              "ready":  5,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "network-False",
+                         "surfaces":  [
+                                          {
+                                              "load":  9,
+                                              "ready":  7,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  10,
+                                              "ready":  8,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "network-True",
+                         "surfaces":  [
+                                          {
+                                              "load":  11,
+                                              "ready":  9,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  12,
+                                              "ready":  10,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "network-False",
+                         "surfaces":  [
+                                          {
+                                              "load":  13,
+                                              "ready":  11,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  258022110,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  14,
+                                              "ready":  12,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  250483842,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "all-selected-restart",
+                         "surfaces":  [
+                                          {
+                                              "load":  1,
+                                              "ready":  2,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  1497500138,
+                                              "top":  0,
+                                              "attached":  1
+                                          },
+                                          {
+                                              "load":  2,
+                                              "ready":  1,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  109386330,
+                                              "top":  0,
+                                              "attached":  2
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "all-targets-parent-crash-recovery",
+                         "surfaces":  [
+                                          {
+                                              "load":  3,
+                                              "ready":  4,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  46926640,
+                                              "top":  0,
+                                              "attached":  3
+                                          },
+                                          {
+                                              "load":  4,
+                                              "ready":  3,
+                                              "parent":  70916314,
+                                              "left":  1920,
+                                              "bottom":  1080,
+                                              "dpi":  96,
+                                              "right":  3840,
+                                              "hwnd":  9962046,
+                                              "top":  0,
+                                              "attached":  4
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "single-selected",
+                         "surfaces":  [
+                                          {
+                                              "load":  5,
+                                              "ready":  5,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  46926640,
+                                              "top":  0,
+                                              "attached":  3
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "mode-roundtrip",
+                         "surfaces":  [
+                                          {
+                                              "load":  9,
+                                              "ready":  7,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  47057712,
+                                              "top":  0,
+                                              "attached":  5
+                                          }
+                                      ]
+                     },
+                     {
+                         "phase":  "all-disconnected-primary-fallback",
+                         "surfaces":  [
+                                          {
+                                              "load":  1,
+                                              "ready":  1,
+                                              "parent":  70916314,
+                                              "left":  0,
+                                              "bottom":  1080,
+                                              "dpi":  144,
+                                              "right":  1920,
+                                              "hwnd":  53808188,
+                                              "top":  0,
+                                              "attached":  1
+                                          }
+                                      ]
+                     }
+                 ],
+    "manualVisual":  "NOT RUN",
+    "distinctAreas":  2,
+    "timestamp":  "2026-10-29T19:12:15.2537182+08:00",
+    "application":  "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaper.exe",
+    "physicalHotplug":  "NOT RUN",
+    "result":  "PASS",
+    "hash":  "68CC8BDFDA3593046777D412298D6E1B7F5B92A77F6B93B161E74396F763CBD0"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "author-starter",
+  "name": "作者離線儀表板",
+  "version": "1.0.0",
+  "apiVersion": "1",
+  "entry": "index.html",
+  "author": "Theme Author",
+  "description": "TypeScript 編譯的獨立離線主題",
+  "capabilities": ["cpu", "gpu", "memory", "disk", "network", "clock"],
+  "permissions": []
+}

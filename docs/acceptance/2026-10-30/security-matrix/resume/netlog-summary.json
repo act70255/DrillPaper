@@ -1,0 +1,948 @@
+{
+  "dnsHost": "drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com",
+  "attribution": "觀測點限 WebView2 NetLog；未歸因背景端點不代表主題或產品遙測。",
+  "summaries": [
+    {
+      "file": "launch-0e1d0917b40c4678ac5af2af63520619.json.netlog.json",
+      "events": 1935,
+      "endpoints": [
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-8784e762-bd08-48ec-8abb-f0d25e24d36a.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-8784e762-bd08-48ec-8abb-f0d25e24d36a.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-8784e762-bd08-48ec-8abb-f0d25e24d36a.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 4
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56371/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:56372/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56373/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-be870622-c866-495d-8ce4-d49b66a2926e.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-be870622-c866-495d-8ce4-d49b66a2926e.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-be870622-c866-495d-8ce4-d49b66a2926e.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-e0946ea8-c36c-4729-9bb0-475b17d65c6a.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-e0946ea8-c36c-4729-9bb0-475b17d65c6a.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-e0946ea8-c36c-4729-9bb0-475b17d65c6a.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 4
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-5c03ad32-4441-4744-a608-f00156cda597.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-False",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-5c03ad32-4441-4744-a608-f00156cda597.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-False",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-5c03ad32-4441-4744-a608-f00156cda597.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "file": "launch-44b8c184e5974159a28d402ace4df55c.json.netlog.json",
+      "events": 1438,
+      "endpoints": [
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-1a78fd62-a8f1-4151-b388-d5d9f3eeaca6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-1a78fd62-a8f1-4151-b388-d5d9f3eeaca6.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-1a78fd62-a8f1-4151-b388-d5d9f3eeaca6.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 4
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56371/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:56372/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 3
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56373/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "launch-a4be42d0163546e787ba77da4447dd13.json.netlog.json",
+      "events": 2765,
+      "endpoints": [
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://config.edge.skype.com/config/v1/Edge/156.0.4314.50",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://config.edge.skype.com/",
+          "category": "browser-unattributed",
+          "count": 3
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://config.edge.skype.com/",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "config.edge.skype.com",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "52.123.224.194:443",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "52.123.224.194:443",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-50fd7af8-8378-488c-822b-565f6f8264fa.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-50fd7af8-8378-488c-822b-565f6f8264fa.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-50fd7af8-8378-488c-822b-565f6f8264fa.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 4
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 4
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-5f47d6e0-09b9-4400-848a-3f720786f0db.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-5f47d6e0-09b9-4400-848a-3f720786f0db.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-5f47d6e0-09b9-4400-848a-3f720786f0db.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-d30fface-27f9-4e8c-a91a-2ab0e73e012e.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-d30fface-27f9-4e8c-a91a-2ab0e73e012e.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-d30fface-27f9-4e8c-a91a-2ab0e73e012e.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-e5eed7ab-8e56-44d6-bd90-6c03dc4d0617.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-e5eed7ab-8e56-44d6-bd90-6c03dc4d0617.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "minimal-baseline-ended",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-e5eed7ab-8e56-44d6-bd90-6c03dc4d0617.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "wpad:80",
+          "category": "browser-unattributed",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-0e90b708-77c4-488e-b4e1-aa9937b057e2.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-0e90b708-77c4-488e-b4e1-aa9937b057e2.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-0e90b708-77c4-488e-b4e1-aa9937b057e2.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56371/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://127.0.0.1:56372/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com/",
+          "category": "theme-dns-hint",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-dd54a755ce2c45cc840b2cf12dad9df5.example.com",
+          "category": "theme-dns-hint",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56371",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56372",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/prefetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "127.0.0.1:56373",
+          "category": "known-probe-or-local-origin",
+          "count": 5
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "http://127.0.0.1:56373/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/fetch",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/.drillpaper.local/resource",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/xhr",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/script",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/image",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/target",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "http://127.0.0.1:56373/redirect-file",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "URL_REQUEST_START_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://example.com/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "example.com",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_JOB_CONNECTOR_CONNECT_START",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "TCP_CONNECT_ATTEMPT",
+          "endpoint": "104.20.23.154:443",
+          "category": "browser-unattributed",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_REQUEST",
+          "endpoint": "https://drillpaper-theme-a4eeab4f-c70f-4135-aa68-e5258e4c8e32.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        },
+        {
+          "phase": "apply-True",
+          "type": "HOST_RESOLVER_MANAGER_JOB",
+          "endpoint": "https://drillpaper-theme-a4eeab4f-c70f-4135-aa68-e5258e4c8e32.invalid/",
+          "category": "known-probe-or-local-origin",
+          "count": 1
+        },
+        {
+          "phase": "apply-True",
+          "type": "DNS_TRANSACTION",
+          "endpoint": "drillpaper-theme-a4eeab4f-c70f-4135-aa68-e5258e4c8e32.invalid",
+          "category": "known-probe-or-local-origin",
+          "count": 2
+        }
+      ]
+    }
+  ]
+}

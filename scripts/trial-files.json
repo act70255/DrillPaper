@@ -1,0 +1,231 @@
+[
+  {
+    "root": "app",
+    "path": "DrillPaper.exe"
+  },
+  {
+    "root": "app",
+    "path": "WebView2Loader.dll"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/index.html"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/main.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/style.css"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/theme.json"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.d.ts"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/mock-host.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/minimal/javascript/theme-manifest.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/index.html"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/main.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/style.css"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/theme.json"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.d.ts"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/mock-host.js"
+  },
+  {
+    "root": "app",
+    "path": "resources/themes/dashboard/javascript/theme-manifest.js"
+  },
+  {
+    "root": "source",
+    "path": "LICENSE"
+  },
+  {
+    "root": "tooling",
+    "path": "THIRD_PARTY_NOTICES.md"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/miniz-3.0.2.txt",
+    "destination": "resources/licenses/miniz-3.0.2.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/nlohmann-json-3.11.3.txt",
+    "destination": "resources/licenses/nlohmann-json-3.11.3.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/webview2-1.0.2478.35-license.txt",
+    "destination": "resources/licenses/webview2-1.0.2478.35-license.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "third_party/licenses/webview2-1.0.2478.35-notice.txt",
+    "destination": "resources/licenses/webview2-1.0.2478.35-notice.txt"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/Start-DrillPaper.ps1",
+    "destination": "Start-DrillPaper.ps1"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/Start-DrillPaper.cmd",
+    "destination": "Start-DrillPaper.cmd"
+  },
+  {
+    "root": "tooling",
+    "path": "scripts/trial/README.zh-TW.md",
+    "destination": "README.zh-TW.md"
+  },
+  {
+    "path": "sdk/javascript/desktop-monitor-sdk.js",
+    "root": "source"
+  },
+  {
+    "path": "sdk/javascript/desktop-monitor-sdk.d.ts",
+    "root": "source"
+  },
+  {
+    "path": "sdk/javascript/mock-host.js",
+    "root": "source"
+  },
+  {
+    "path": "sdk/javascript/mock-host.d.ts",
+    "root": "source"
+  },
+  {
+    "path": "sdk/javascript/theme-manifest.js",
+    "root": "source"
+  },
+  {
+    "path": "sdk/theme.schema.json",
+    "root": "source"
+  },
+  {
+    "path": "sdk/protocol-v1.schema.json",
+    "root": "source"
+  },
+  {
+    "path": "docs/theme-sdk.md",
+    "root": "source"
+  },
+  {
+    "path": "docs/protocol-v1.md",
+    "root": "source"
+  },
+  {
+    "path": "docs/theme-security.md",
+    "root": "source"
+  },
+  {
+    "path": "scripts/package-theme.ps1",
+    "root": "source"
+  },
+  {
+    "path": "scripts/validate-theme-package.ps1",
+    "root": "source"
+  },
+  {
+    "path": "LICENSE_DECISION.md",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/README.md",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/build.mjs",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/check-types.mjs",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/configure.mjs",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/contracts/invalid.ts",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/contracts/valid.ts",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/package-lock.json",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/package.json",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/src/main.ts",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/static/index.html",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/static/style.css",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/static/theme.json",
+    "root": "source"
+  },
+  {
+    "path": "sdk/author-starter/tsconfig.json",
+    "root": "source"
+  },
+  {
+    "destination": "resources/themes/minimal/javascript/mock-host.d.ts",
+    "root": "source",
+    "path": "sdk/javascript/mock-host.d.ts"
+  },
+  {
+    "destination": "resources/themes/dashboard/javascript/mock-host.d.ts",
+    "root": "source",
+    "path": "sdk/javascript/mock-host.d.ts"
+  }
+]

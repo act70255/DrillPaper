@@ -1,0 +1,35 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 20: Unidentified monitor temporarily applies every connected area and restores saved targets
+1/1 Test #20: Unidentified monitor temporarily applies every connected area and restores saved targets ...***Failed    0.07 sec
+Filters: "Unidentified monitor temporarily applies every connected area and restores saved targets"
+Randomness seeded to: 642912813
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Unidentified monitor temporarily applies every connected area and restores
+saved targets
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\unit\monitor_targets_test.cpp(4)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\unit\monitor_targets_test.cpp(8): FAILED:
+  REQUIRE( ResolveMonitorTargets(saved, degraded).areas == std::vector<std::size_t>{0, 1} )
+with expansion:
+  { 0 } == { 0, 1 }
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 1 | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.18 sec
+
+The following tests FAILED:
+	 20 - Unidentified monitor temporarily applies every connected area and restores saved targets (Failed)
+Errors while running CTest

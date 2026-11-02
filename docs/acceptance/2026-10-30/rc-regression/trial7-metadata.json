@@ -1,0 +1,280 @@
+{
+  "kind": "trial",
+  "version": "0.1.0-trial.7",
+  "sourceCommit": "676bb473efeca65614fddb40d98e3c88c302494b",
+  "configuration": "Release",
+  "architecture": "x64",
+  "minimumVcRuntime": "14.44.35112.0",
+  "webView2Sdk": "1.0.2478.35",
+  "webView2Runtime": "Evergreen (external)",
+  "executableSha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+  "tooling": [
+    {
+      "sha256": "05D4DA5DE7E65E01AA7C29E2C27A1DCF4663B346448928656A6137E29E6DA502",
+      "path": "scripts/build-trial.ps1"
+    },
+    {
+      "sha256": "DCDF6B9C303FA78904C1D3F0FAE03A5EA046204A003906FB80541FCE09FFAE60",
+      "path": "scripts/package-trial.ps1"
+    },
+    {
+      "sha256": "B5F3F345115845F430FFB0D8E3E42B42FADDBEC4F0E59CC41944E3C061B551D2",
+      "path": "scripts/trial-files.json"
+    },
+    {
+      "sha256": "083B3DBCE482C3D5B26E0334ADB1DA0B7E2794E8C3C72BB5B5C4A5D6A374577E",
+      "path": "scripts/trial/README.zh-TW.md"
+    },
+    {
+      "sha256": "5468625FD505E4CEA777290C63F6611255F8FE99308DD1281DC9AA6B7682BCC5",
+      "path": "scripts/trial/Start-DrillPaper.cmd"
+    },
+    {
+      "sha256": "E0C8C2451157B01AB2BB0D1C9830995AE31483A6FBCD87344EBF54F5025E77D3",
+      "path": "scripts/trial/Start-DrillPaper.ps1"
+    },
+    {
+      "sha256": "46A44A5DF6CFE496FC4C8C7EE2E179276FE66C0BB75A6C074042BC6A4C6F08FD",
+      "path": "THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "sha256": "0115478D567121238CF6CC1C0C361926CF07A49D9E4C9E66DA97FAC6A01646B3",
+      "path": "third_party/licenses/miniz-3.0.2.txt"
+    },
+    {
+      "sha256": "75AEB27A3350BADD6D36B51469D05C1DD092699CE12BAE41016AA19BFCBA653C",
+      "path": "third_party/licenses/nlohmann-json-3.11.3.txt"
+    },
+    {
+      "sha256": "0AF8F1B807512AAE39C2AC1AA4D0CAE65CABECB6FD554B8439A5162A0D6ECA55",
+      "path": "third_party/licenses/webview2-1.0.2478.35-license.txt"
+    },
+    {
+      "sha256": "106423785C5B7EBA0A8E61D1837F2132E9C828E20AD530F565D981C1DF60DD90",
+      "path": "third_party/licenses/webview2-1.0.2478.35-notice.txt"
+    }
+  ],
+  "files": [
+    {
+      "sha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+      "path": "DrillPaper.exe"
+    },
+    {
+      "sha256": "1CBCA1698175936A93D0C4D4148ED355E1B91415C6A4DB6D762F017DE3B6EB9A",
+      "path": "WebView2Loader.dll"
+    },
+    {
+      "sha256": "3B6A233167A25E3474A6641FC3D15438F9F39A572AE7654AABDE2298BD5AE5C4",
+      "path": "resources/themes/minimal/index.html"
+    },
+    {
+      "sha256": "F229055C4A8849F78CBE4B184B8DE521AF7AC4E9D707034A7A9931E60C106820",
+      "path": "resources/themes/minimal/main.js"
+    },
+    {
+      "sha256": "C80C38E61F590A5E7472D4639724B1F64F9B0AC040DC9441EFF5359982628D78",
+      "path": "resources/themes/minimal/style.css"
+    },
+    {
+      "sha256": "2B18D71FD35472114DA6E8C747DAF8661529D7A61BC6193BFA5846F80E3A9146",
+      "path": "resources/themes/minimal/theme.json"
+    },
+    {
+      "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45",
+      "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.js"
+    },
+    {
+      "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B",
+      "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.d.ts"
+    },
+    {
+      "sha256": "5F71948E1DD4A7BF611748B49EC5F40FD65FC06FFFA5CD946D76307504FC8DC1",
+      "path": "resources/themes/minimal/javascript/mock-host.js"
+    },
+    {
+      "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04",
+      "path": "resources/themes/minimal/javascript/theme-manifest.js"
+    },
+    {
+      "sha256": "4A236826E0D4D027024ADEE95F6A4B7EA5B8B9D727A3BA3593D906D9E8B28ECF",
+      "path": "resources/themes/dashboard/index.html"
+    },
+    {
+      "sha256": "D129656E09E7E7FAE3F996B6D27D9116DC8FA7D8CCE22153E10B718CE13A95F8",
+      "path": "resources/themes/dashboard/main.js"
+    },
+    {
+      "sha256": "2B8A6BA68F06DA28717EBFF880EF93ABAB152B97523BF0B57EA25F83A644F758",
+      "path": "resources/themes/dashboard/style.css"
+    },
+    {
+      "sha256": "EEEA7F471C864F8B8771FE675064042C94FDC911716BC38E36A657DDBF4255ED",
+      "path": "resources/themes/dashboard/theme.json"
+    },
+    {
+      "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45",
+      "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.js"
+    },
+    {
+      "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B",
+      "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.d.ts"
+    },
+    {
+      "sha256": "5F71948E1DD4A7BF611748B49EC5F40FD65FC06FFFA5CD946D76307504FC8DC1",
+      "path": "resources/themes/dashboard/javascript/mock-host.js"
+    },
+    {
+      "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04",
+      "path": "resources/themes/dashboard/javascript/theme-manifest.js"
+    },
+    {
+      "sha256": "630A2EB88BF3132979316B8F54387352DB50E7B6E50332652F87059504D8A119",
+      "path": "LICENSE"
+    },
+    {
+      "sha256": "46A44A5DF6CFE496FC4C8C7EE2E179276FE66C0BB75A6C074042BC6A4C6F08FD",
+      "path": "THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "sha256": "0115478D567121238CF6CC1C0C361926CF07A49D9E4C9E66DA97FAC6A01646B3",
+      "path": "resources/licenses/miniz-3.0.2.txt"
+    },
+    {
+      "sha256": "75AEB27A3350BADD6D36B51469D05C1DD092699CE12BAE41016AA19BFCBA653C",
+      "path": "resources/licenses/nlohmann-json-3.11.3.txt"
+    },
+    {
+      "sha256": "0AF8F1B807512AAE39C2AC1AA4D0CAE65CABECB6FD554B8439A5162A0D6ECA55",
+      "path": "resources/licenses/webview2-1.0.2478.35-license.txt"
+    },
+    {
+      "sha256": "106423785C5B7EBA0A8E61D1837F2132E9C828E20AD530F565D981C1DF60DD90",
+      "path": "resources/licenses/webview2-1.0.2478.35-notice.txt"
+    },
+    {
+      "sha256": "E0C8C2451157B01AB2BB0D1C9830995AE31483A6FBCD87344EBF54F5025E77D3",
+      "path": "Start-DrillPaper.ps1"
+    },
+    {
+      "sha256": "5468625FD505E4CEA777290C63F6611255F8FE99308DD1281DC9AA6B7682BCC5",
+      "path": "Start-DrillPaper.cmd"
+    },
+    {
+      "sha256": "083B3DBCE482C3D5B26E0334ADB1DA0B7E2794E8C3C72BB5B5C4A5D6A374577E",
+      "path": "README.zh-TW.md"
+    },
+    {
+      "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45",
+      "path": "sdk/javascript/desktop-monitor-sdk.js"
+    },
+    {
+      "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B",
+      "path": "sdk/javascript/desktop-monitor-sdk.d.ts"
+    },
+    {
+      "sha256": "5F71948E1DD4A7BF611748B49EC5F40FD65FC06FFFA5CD946D76307504FC8DC1",
+      "path": "sdk/javascript/mock-host.js"
+    },
+    {
+      "sha256": "FEC4B544C5E55B5257139F7050B72B4D7E1D6BC8325FAF799F6567C5816C6012",
+      "path": "sdk/javascript/mock-host.d.ts"
+    },
+    {
+      "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04",
+      "path": "sdk/javascript/theme-manifest.js"
+    },
+    {
+      "sha256": "B695779A60F498F8AD3F27CC9425ECB775D60BAF3B021AC4616962AA02468C1C",
+      "path": "sdk/theme.schema.json"
+    },
+    {
+      "sha256": "AD9E48E03FF57ECD1E6F62B26E9A5D14ADAD1803648A9C8B19135E5EA1AAA0D1",
+      "path": "sdk/protocol-v1.schema.json"
+    },
+    {
+      "sha256": "4EDAB8FABAB1B53A6204E7C9B669AEED66C43A3C5C6312138AAB1A46FB65FE50",
+      "path": "docs/theme-sdk.md"
+    },
+    {
+      "sha256": "E1C625EDC15E5565FC5240750802DE43ABD92F30EDE5728602634159F79ACE62",
+      "path": "docs/protocol-v1.md"
+    },
+    {
+      "sha256": "FE9F3D476DD62FE5324AD7EFB6A943809378BD7FB3DD9077F1A904BDBEB3E5B9",
+      "path": "docs/theme-security.md"
+    },
+    {
+      "sha256": "9CDBE6C8AE8BB8152A6A93841E568027285617603120186295C43274B765D0DD",
+      "path": "scripts/package-theme.ps1"
+    },
+    {
+      "sha256": "6010761DE4EEE6A251B67613BB2D0AE41288D9075F9B16E4FD1B1003F645FC1B",
+      "path": "scripts/validate-theme-package.ps1"
+    },
+    {
+      "sha256": "7F668E1E8C818DA5AC57B2BFF1B7077A9FEFA9B6A24BEE8B713207DE7CA8D196",
+      "path": "LICENSE_DECISION.md"
+    },
+    {
+      "sha256": "6035E5C4BC495686D3C2576E0D602A37966CF8F9354C59FB157EE69DE5CDF92A",
+      "path": "sdk/author-starter/README.md"
+    },
+    {
+      "sha256": "1936999A06B42CCCF4779570D891E9A812E27CC225AF195190E547BB52386A3B",
+      "path": "sdk/author-starter/build.mjs"
+    },
+    {
+      "sha256": "8B676A70D56040FB1580AAA70BA24042F4999BEE4B3301E1C1D93928A87DBDE8",
+      "path": "sdk/author-starter/check-types.mjs"
+    },
+    {
+      "sha256": "ED5F8119EDEE041AA1293462E5278117E525E84FFCCC351FA89A8FB449A488E9",
+      "path": "sdk/author-starter/configure.mjs"
+    },
+    {
+      "sha256": "FB9E82D2229E7A105DB3EF5DFC83167F4DD0ACDF5009647B886AA4A284EC6869",
+      "path": "sdk/author-starter/contracts/invalid.ts"
+    },
+    {
+      "sha256": "1C872E824870C1184D081D68739D399F1D117164F5C762E84C208AD93D05D355",
+      "path": "sdk/author-starter/contracts/valid.ts"
+    },
+    {
+      "sha256": "56E53DD72FBAA912DC539C40D03791103ABBDBC658EC0CB672A350B26E245DC6",
+      "path": "sdk/author-starter/package-lock.json"
+    },
+    {
+      "sha256": "3B333137ADC415FB4AE56BB1D5673B71E1C10024467E2C3D2A8D030A1F849A97",
+      "path": "sdk/author-starter/package.json"
+    },
+    {
+      "sha256": "11E3EDDAFDA2515FBE4C247A52EAC77213F767ABBF79008802323A930CCBE0C9",
+      "path": "sdk/author-starter/src/main.ts"
+    },
+    {
+      "sha256": "BCE54E846B720188FE5140AC26B0F77B2E684941697ED41BFD0363286286BE4B",
+      "path": "sdk/author-starter/static/index.html"
+    },
+    {
+      "sha256": "0F50B1507D7D4BF0B84342C6483B7B59898A8BDB94730F5E4E2B3F1D0DA1C76C",
+      "path": "sdk/author-starter/static/style.css"
+    },
+    {
+      "sha256": "0EABD1838CC49BCCE4797B76F203DEB0B648D762928E6DCDBF349690FD96F206",
+      "path": "sdk/author-starter/static/theme.json"
+    },
+    {
+      "sha256": "A29403F7F3C08C4D6F9E96E8B32770BBE13C742722617DD63398A73577471C45",
+      "path": "sdk/author-starter/tsconfig.json"
+    },
+    {
+      "sha256": "FEC4B544C5E55B5257139F7050B72B4D7E1D6BC8325FAF799F6567C5816C6012",
+      "path": "resources/themes/minimal/javascript/mock-host.d.ts"
+    },
+    {
+      "sha256": "FEC4B544C5E55B5257139F7050B72B4D7E1D6BC8325FAF799F6567C5816C6012",
+      "path": "resources/themes/dashboard/javascript/mock-host.d.ts"
+    }
+  ],
+  "archiveSha256": "87FE10E27EB016D144F8C775BEEA4C81C724BD513BDDE61DE9F866465FDBC29D"
+}

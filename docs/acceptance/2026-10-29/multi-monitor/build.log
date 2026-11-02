@@ -1,0 +1,53 @@
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/miniz-src/CMakeLists.txt
+  miniz.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\miniz-build\Release\miniz.lib
+  desktopmonitor_settings.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_themes.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_themes.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  main.cpp
+  DrillPaper.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  desktopmonitor_settings.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\desktopmonitor_settings.lib
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperSettingsTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  monitor_info.cpp
+  monitor_info_test.cpp
+  正在產生程式碼...
+  DrillPaperMonitorIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/_deps/catch2-src/src/CMakeLists.txt
+  Catch2WithMain.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\_deps\catch2-build\src\Release\Catch2Main.lib
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  DrillPaperWindowsHostIntegrationTests.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsHostIntegrationTests.exe

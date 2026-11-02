@@ -1,0 +1,34 @@
+{
+  "wallpaper": {
+    "pid": 83428,
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "startUtcTicks": 639288432499803524
+  },
+  "time": "2026-10-30T18:27:23.5215066+08:00",
+  "remainingProfileProcesses": [],
+  "antivirus": {
+    "sha256": "C1550D0520F87091EDB2A2BB76507B1C6B06174718843AD1C1EBD6B664DA7D88",
+    "length": 45890,
+    "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log",
+    "lastWriteTime": "2026-10-30T14:51:46.7839053+08:00"
+  },
+  "runtime": [
+    "154.0.4258.62",
+    "155.0.4283.62",
+    "156.0.4314.50",
+    "SetupMetrics"
+  ],
+  "windows": {
+    "Caption": "Microsoft Windows 11 專業版",
+    "Version": "10.0.26200",
+    "BuildNumber": "26200"
+  },
+  "apps": [
+    {
+      "pid": 83428,
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "startUtcTicks": 639288432499803524
+    }
+  ]
+}

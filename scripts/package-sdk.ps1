@@ -28,9 +28,21 @@ $packageRoot = Join-Path $tempRoot "DrillPaper-Theme-SDK-$Version"
 [void][IO.Directory]::CreateDirectory($packageRoot)
 
 try {
-    foreach ($directory in @('sdk', 'tests/sdk')) {
-        Copy-Item -LiteralPath (Join-Path $repoRoot $directory) `
-            -Destination (Join-Path $packageRoot $directory) -Recurse
+    # 明確列出作者來源，避免把本機 node_modules、dist 與 configure 產物放入 SDK ZIP。
+    foreach ($directory in @('sdk/javascript', 'sdk/examples', 'tests/sdk',
+        'sdk/author-starter/contracts', 'sdk/author-starter/static')) {
+        $destination = Join-Path $packageRoot $directory
+        [void][IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($destination))
+        Copy-Item -LiteralPath (Join-Path $repoRoot $directory) -Destination $destination -Recurse
+    }
+    foreach ($file in @('sdk/theme.schema.json', 'sdk/protocol-v1.schema.json',
+        'sdk/author-starter/package.json', 'sdk/author-starter/package-lock.json',
+        'sdk/author-starter/tsconfig.json', 'sdk/author-starter/configure.mjs',
+        'sdk/author-starter/check-types.mjs', 'sdk/author-starter/build.mjs',
+        'sdk/author-starter/README.md', 'sdk/author-starter/src/main.ts')) {
+        $destination = Join-Path $packageRoot $file
+        [void][IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($destination))
+        Copy-Item -LiteralPath (Join-Path $repoRoot $file) -Destination $destination
     }
     $docsDirectory = Join-Path $packageRoot 'docs'
     [void][IO.Directory]::CreateDirectory($docsDirectory)
@@ -49,6 +61,10 @@ First-party SDK files are licensed under Apache-2.0; see `LICENSE` and `LICENSE_
 
 Start with `docs/theme-sdk.md`. Run `npm run test:sdk` to test the SDK. The root `scripts/` directory contains the `.dmt` packager and validator.
 
+## TypeScript 作者流程
+
+將 `sdk/author-starter` 複製到自己的工作目錄，依該目錄 README 安裝固定 TypeScript 5.9.3、準備 SDK 宣告、執行正負型別檢查與建置。只打包 `dist`；作者工具不是 app runtime 依賴。功能、匯入及安全限制見 `docs/theme-sdk.md`。
+
 '@ | Set-Content -LiteralPath (Join-Path $packageRoot 'README.md') -Encoding utf8
     $scriptsDirectory = Join-Path $packageRoot 'scripts'
     [void][IO.Directory]::CreateDirectory($scriptsDirectory)
@@ -66,7 +82,7 @@ Start with `docs/theme-sdk.md`. Run `npm run test:sdk` to test the SDK. The root
     }
 
     @'
-DrillPaper Theme SDK 1.0.0-rc3 local evaluation candidate
+DrillPaper Theme SDK __VERSION__ local evaluation candidate
 
 This bundle contains the static JavaScript SDK, declarations, protocol and manifest schemas,
 MockHost, examples, package validation tools, and two validated .dmt sample archives.
@@ -77,7 +93,7 @@ it is not a public application release.
 
 Verification: run `npm run test:sdk`; the .dmt samples were created with scripts/package-theme.ps1.
 The JavaScript tests were executed against the extracted package before it was delivered.
-'@ | Set-Content -LiteralPath (Join-Path $packageRoot 'THEME_SDK_RELEASE_STATUS.txt') -Encoding utf8
+'@.Replace('__VERSION__', $Version) | Set-Content -LiteralPath (Join-Path $packageRoot 'THEME_SDK_RELEASE_STATUS.txt') -Encoding utf8
 
     $archive = [System.IO.Compression.ZipFile]::Open($outputPath, [System.IO.Compression.ZipArchiveMode]::Create)
     try {

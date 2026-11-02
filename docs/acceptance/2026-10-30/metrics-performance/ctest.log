@@ -1,0 +1,250 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: CPU sampling marks the first reading as warm-up
+
+1: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "CPU sampling marks the first reading as warm-up"
+1: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+1: Test timeout computed to be: 20
+1: Filters: "CPU sampling marks the first reading as warm-up"
+1: Randomness seeded to: 3301811076
+1: ===============================================================================
+1: All tests passed (2 assertions in 1 test case)
+1: 
+ 1/18 Test  #1: CPU sampling marks the first reading as warm-up ...................................   Passed    0.12 sec
+test 2
+      Start  2: CPU sampling derives busy time from GetSystemTimes deltas
+
+2: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "CPU sampling derives busy time from GetSystemTimes deltas"
+2: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+2: Test timeout computed to be: 20
+2: Filters: "CPU sampling derives busy time from GetSystemTimes deltas"
+2: Randomness seeded to: 2603709280
+2: ===============================================================================
+2: All tests passed (2 assertions in 1 test case)
+2: 
+ 2/18 Test  #2: CPU sampling derives busy time from GetSystemTimes deltas .........................   Passed    0.16 sec
+test 3
+      Start  3: CPU sampling resets its baseline after counters decrease
+
+3: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "CPU sampling resets its baseline after counters decrease"
+3: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+3: Test timeout computed to be: 20
+3: Filters: "CPU sampling resets its baseline after counters decrease"
+3: Randomness seeded to: 1670793163
+3: ===============================================================================
+3: All tests passed (4 assertions in 1 test case)
+3: 
+ 3/18 Test  #3: CPU sampling resets its baseline after counters decrease ..........................   Passed    0.18 sec
+test 4
+      Start  4: A real zero metric differs from an unavailable metric
+
+4: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "A real zero metric differs from an unavailable metric"
+4: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+4: Test timeout computed to be: 20
+4: Filters: "A real zero metric differs from an unavailable metric"
+4: Randomness seeded to: 1970733342
+4: ===============================================================================
+4: All tests passed (5 assertions in 1 test case)
+4: 
+ 4/18 Test  #4: A real zero metric differs from an unavailable metric .............................   Passed    0.18 sec
+test 5
+      Start  5: Snapshot units describe byte counts and byte rates
+
+5: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Snapshot units describe byte counts and byte rates"
+5: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+5: Test timeout computed to be: 20
+5: Filters: "Snapshot units describe byte counts and byte rates"
+5: Randomness seeded to: 1819196305
+5: ===============================================================================
+5: All tests passed (4 assertions in 1 test case)
+5: 
+ 5/18 Test  #5: Snapshot units describe byte counts and byte rates ................................   Passed    0.13 sec
+test 6
+      Start  6: Network rate uses monotonic counter deltas and elapsed time
+
+6: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Network rate uses monotonic counter deltas and elapsed time"
+6: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+6: Test timeout computed to be: 20
+6: Filters: "Network rate uses monotonic counter deltas and elapsed time"
+6: Randomness seeded to: 3297995983
+6: ===============================================================================
+6: All tests passed (3 assertions in 1 test case)
+6: 
+ 6/18 Test  #6: Network rate uses monotonic counter deltas and elapsed time .......................   Passed    0.20 sec
+test 7
+      Start  7: An idle network interface is a valid zero rate
+
+7: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "An idle network interface is a valid zero rate"
+7: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+7: Test timeout computed to be: 20
+7: Filters: "An idle network interface is a valid zero rate"
+7: Randomness seeded to: 2645846372
+7: ===============================================================================
+7: All tests passed (2 assertions in 1 test case)
+7: 
+ 7/18 Test  #7: An idle network interface is a valid zero rate ....................................   Passed    0.18 sec
+test 8
+      Start  8: Network rate rejects resets and zero-length intervals
+
+8: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Network rate rejects resets and zero-length intervals"
+8: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+8: Test timeout computed to be: 20
+8: Filters: "Network rate rejects resets and zero-length intervals"
+8: Randomness seeded to: 3821037323
+8: ===============================================================================
+8: All tests passed (4 assertions in 1 test case)
+8: 
+ 8/18 Test  #8: Network rate rejects resets and zero-length intervals .............................   Passed    0.20 sec
+test 9
+      Start  9: Metrics history retains only the newest 120 snapshots
+
+9: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Metrics history retains only the newest 120 snapshots"
+9: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+9: Test timeout computed to be: 20
+9: Filters: "Metrics history retains only the newest 120 snapshots"
+9: Randomness seeded to: 3293629767
+9: ===============================================================================
+9: All tests passed (5 assertions in 1 test case)
+9: 
+ 9/18 Test  #9: Metrics history retains only the newest 120 snapshots .............................   Passed    0.23 sec
+test 10
+      Start 10: Snapshot coalescing keeps one latest pending value
+
+10: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Snapshot coalescing keeps one latest pending value"
+10: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+10: Test timeout computed to be: 20
+10: Filters: "Snapshot coalescing keeps one latest pending value"
+10: Randomness seeded to: 3545888133
+10: ===============================================================================
+10: All tests passed (4 assertions in 1 test case)
+10: 
+10/18 Test #10: Snapshot coalescing keeps one latest pending value ................................   Passed    0.27 sec
+test 11
+      Start 11: Metric change detection uses units, quality, and a numeric threshold
+
+11: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Metric change detection uses units\, quality\, and a numeric threshold"
+11: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+11: Test timeout computed to be: 20
+11: Filters: "Metric change detection uses units\, quality\, and a numeric threshold"
+11: Randomness seeded to: 617595634
+11: ===============================================================================
+11: All tests passed (3 assertions in 1 test case)
+11: 
+11/18 Test #11: Metric change detection uses units, quality, and a numeric threshold ..............   Passed    0.53 sec
+test 13
+      Start 13: Sampling scheduler pauses and resumes without catch-up loops
+
+13: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling scheduler pauses and resumes without catch-up loops"
+13: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+13: Test timeout computed to be: 20
+13: Filters: "Sampling scheduler pauses and resumes without catch-up loops"
+13: Randomness seeded to: 683805935
+13: ===============================================================================
+13: All tests passed (7 assertions in 1 test case)
+13: 
+12/18 Test #13: Sampling scheduler pauses and resumes without catch-up loops ......................   Passed    0.41 sec
+test 14
+      Start 14: Sampling worker collects outside the caller thread and stops while paused
+
+14: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker collects outside the caller thread and stops while paused"
+14: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+14: Test timeout computed to be: 20
+14: Filters: "Sampling worker collects outside the caller thread and stops while paused"
+14: Randomness seeded to: 3584236517
+14: ===============================================================================
+14: All tests passed (5 assertions in 1 test case)
+14: 
+13/18 Test #14: Sampling worker collects outside the caller thread and stops while paused .........   Passed    0.27 sec
+test 15
+      Start 15: Sampling worker resumes immediately with a fresh baseline
+
+15: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker resumes immediately with a fresh baseline"
+15: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+15: Test timeout computed to be: 20
+15: Filters: "Sampling worker resumes immediately with a fresh baseline"
+15: Randomness seeded to: 42853357
+15: ===============================================================================
+15: All tests passed (8 assertions in 1 test case)
+15: 
+14/18 Test #15: Sampling worker resumes immediately with a fresh baseline .........................   Passed    0.35 sec
+test 16
+      Start 16: Sampling worker reports collector failure without terminating the process
+
+16: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker reports collector failure without terminating the process"
+16: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+16: Test timeout computed to be: 20
+16: Filters: "Sampling worker reports collector failure without terminating the process"
+16: Randomness seeded to: 3429187781
+16: ===============================================================================
+16: All tests passed (3 assertions in 1 test case)
+16: 
+15/18 Test #16: Sampling worker reports collector failure without terminating the process .........   Passed    0.20 sec
+test 17
+      Start 17: Sampling worker discards an in-flight snapshot from the previous generation
+
+17: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+17: Test timeout computed to be: 20
+17: Filters: "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Randomness seeded to: 3584151754
+17: ===============================================================================
+17: All tests passed (5 assertions in 1 test case)
+17: 
+16/18 Test #17: Sampling worker discards an in-flight snapshot from the previous generation .......   Passed    0.24 sec
+test 19
+      Start 19: Manual pause survives power changes and resumes the current policy
+
+19: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Manual pause survives power changes and resumes the current policy"
+19: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+19: Test timeout computed to be: 20
+19: Filters: "Manual pause survives power changes and resumes the current policy"
+19: Randomness seeded to: 2163340479
+19: ===============================================================================
+19: All tests passed (8 assertions in 1 test case)
+19: 
+17/18 Test #19: Manual pause survives power changes and resumes the current policy ................   Passed    0.17 sec
+test 34
+      Start 34: Windows metrics collector reports typed readings and warms up CPU/network rates
+
+34: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperWindowsMetricsIntegrationTests.exe "Windows metrics collector reports typed readings and warms up CPU/network rates"
+34: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+34: Test timeout computed to be: 60
+34: Filters: "Windows metrics collector reports typed readings and warms up CPU/network rates"
+34: Randomness seeded to: 3392120333
+34: ===============================================================================
+34: All tests passed (23 assertions in 1 test case)
+34: 
+18/18 Test #34: Windows metrics collector reports typed readings and warms up CPU/network rates ...   Passed   18.20 sec
+
+The following tests passed:
+	CPU sampling marks the first reading as warm-up
+	CPU sampling derives busy time from GetSystemTimes deltas
+	CPU sampling resets its baseline after counters decrease
+	A real zero metric differs from an unavailable metric
+	Snapshot units describe byte counts and byte rates
+	Network rate uses monotonic counter deltas and elapsed time
+	An idle network interface is a valid zero rate
+	Network rate rejects resets and zero-length intervals
+	Metrics history retains only the newest 120 snapshots
+	Snapshot coalescing keeps one latest pending value
+	Metric change detection uses units, quality, and a numeric threshold
+	Sampling scheduler pauses and resumes without catch-up loops
+	Sampling worker collects outside the caller thread and stops while paused
+	Sampling worker resumes immediately with a fresh baseline
+	Sampling worker reports collector failure without terminating the process
+	Sampling worker discards an in-flight snapshot from the previous generation
+	Manual pause survives power changes and resumes the current policy
+	Windows metrics collector reports typed readings and warms up CPU/network rates
+
+100% tests passed, 0 tests failed out of 18
+
+Total Test time (real) =  23.05 sec

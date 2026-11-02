@@ -1,0 +1,213 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 21
+      Start 21: Monitor selection uses only connected selected areas and restores returning targets
+
+21: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Monitor selection uses only connected selected areas and restores returning targets"
+21: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+21: Test timeout computed to be: 20
+21: Filters: "Monitor selection uses only connected selected areas and restores returning targets"
+21: Randomness seeded to: 4047040621
+21: ===============================================================================
+21: All tests passed (7 assertions in 1 test case)
+21:
+ 1/15 Test #21: Monitor selection uses only connected selected areas and restores returning targets ....   Passed    0.02 sec
+test 22
+      Start 22: Clone targets share one renderer area and empty selection never falls back
+
+22: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Clone targets share one renderer area and empty selection never falls back"
+22: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+22: Test timeout computed to be: 20
+22: Filters: "Clone targets share one renderer area and empty selection never falls back"
+22: Randomness seeded to: 4060651169
+22: ===============================================================================
+22: All tests passed (6 assertions in 1 test case)
+22:
+ 2/15 Test #22: Clone targets share one renderer area and empty selection never falls back .............   Passed    0.02 sec
+test 30
+      Start 30: Settings preserve the chosen theme mode and sleep preference
+
+30: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings preserve the chosen theme mode and sleep preference"
+30: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+30: Test timeout computed to be: 20
+30: Filters: "Settings preserve the chosen theme mode and sleep preference"
+30: Randomness seeded to: 149460498
+30: ===============================================================================
+30: All tests passed (3 assertions in 1 test case)
+30:
+ 3/15 Test #30: Settings preserve the chosen theme mode and sleep preference ...........................   Passed    0.05 sec
+test 31
+      Start 31: Invalid settings and failed atomic replacement preserve existing preferences
+
+31: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Invalid settings and failed atomic replacement preserve existing preferences"
+31: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+31: Test timeout computed to be: 20
+31: Filters: "Invalid settings and failed atomic replacement preserve existing preferences"
+31: Randomness seeded to: 3021954514
+31: ===============================================================================
+31: All tests passed (11 assertions in 1 test case)
+31:
+ 4/15 Test #31: Invalid settings and failed atomic replacement preserve existing preferences ...........   Passed    0.16 sec
+test 32
+      Start 32: Settings accept installed theme identifiers supported by the manifest
+
+32: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings accept installed theme identifiers supported by the manifest"
+32: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+32: Test timeout computed to be: 20
+32: Filters: "Settings accept installed theme identifiers supported by the manifest"
+32: Randomness seeded to: 2622498943
+32: ===============================================================================
+32: All tests passed (1 assertion in 1 test case)
+32:
+ 5/15 Test #32: Settings accept installed theme identifiers supported by the manifest ..................   Passed    0.05 sec
+test 33
+      Start 33: Monitor target settings migrate legacy preferences and preserve disconnected targets
+
+33: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Monitor target settings migrate legacy preferences and preserve disconnected targets"
+33: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+33: Test timeout computed to be: 20
+33: Filters: "Monitor target settings migrate legacy preferences and preserve disconnected targets"
+33: Randomness seeded to: 233571347
+33: ===============================================================================
+33: All tests passed (2 assertions in 1 test case)
+33:
+ 6/15 Test #33: Monitor target settings migrate legacy preferences and preserve disconnected targets ...   Passed    0.05 sec
+test 34
+      Start 34: Invalid monitor target settings cannot replace a saved selection
+
+34: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Invalid monitor target settings cannot replace a saved selection"
+34: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+34: Test timeout computed to be: 20
+34: Filters: "Invalid monitor target settings cannot replace a saved selection"
+34: Randomness seeded to: 2357523758
+34: ===============================================================================
+34: All tests passed (14 assertions in 1 test case)
+34:
+ 7/15 Test #34: Invalid monitor target settings cannot replace a saved selection .......................   Passed    0.17 sec
+test 35
+      Start 35: Preview settings save without monitor targets and reject switching to empty desktop
+
+35: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Preview settings save without monitor targets and reject switching to empty desktop"
+35: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+35: Test timeout computed to be: 20
+35: Filters: "Preview settings save without monitor targets and reject switching to empty desktop"
+35: Randomness seeded to: 642961777
+35: ===============================================================================
+35: All tests passed (3 assertions in 1 test case)
+35:
+ 8/15 Test #35: Preview settings save without monitor targets and reject switching to empty desktop ....   Passed    0.05 sec
+test 36
+      Start 36: First Preview settings can save before a monitor identity is resolved
+
+36: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "First Preview settings can save before a monitor identity is resolved"
+36: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+36: Test timeout computed to be: 20
+36: Filters: "First Preview settings can save before a monitor identity is resolved"
+36: Randomness seeded to: 1815795691
+36: ===============================================================================
+36: All tests passed (1 assertion in 1 test case)
+36:
+ 9/15 Test #36: First Preview settings can save before a monitor identity is resolved ..................   Passed    0.06 sec
+test 39
+      Start 39: Management client stays 800 by 600 logical pixels on connected monitors
+
+39: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management client stays 800 by 600 logical pixels on connected monitors"
+39: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+39: Test timeout computed to be: 30
+39: Filters: "Management client stays 800 by 600 logical pixels on connected monitors"
+39: Randomness seeded to: 3987521177
+39: ===============================================================================
+39: All tests passed (10 assertions in 1 test case)
+39:
+10/15 Test #39: Management client stays 800 by 600 logical pixels on connected monitors ................   Passed    0.26 sec
+test 40
+      Start 40: Management unidentified monitors cannot be checked or returned for saving
+
+40: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management unidentified monitors cannot be checked or returned for saving"
+40: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+40: Test timeout computed to be: 30
+40: Filters: "Management unidentified monitors cannot be checked or returned for saving"
+40: Randomness seeded to: 1157407323
+40: ===============================================================================
+40: All tests passed (7 assertions in 1 test case)
+40:
+11/15 Test #40: Management unidentified monitors cannot be checked or returned for saving ..............   Passed    0.27 sec
+test 41
+      Start 41: Management refuses maximize and arbitrary resizing
+
+41: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management refuses maximize and arbitrary resizing"
+41: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+41: Test timeout computed to be: 30
+41: Filters: "Management refuses maximize and arbitrary resizing"
+41: Randomness seeded to: 3031825096
+41: ===============================================================================
+41: All tests passed (7 assertions in 1 test case)
+41:
+12/15 Test #41: Management refuses maximize and arbitrary resizing .....................................   Passed    0.17 sec
+test 42
+      Start 42: Management long messages and monitor identities remain readable and scrollable
+
+42: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management long messages and monitor identities remain readable and scrollable"
+42: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+42: Test timeout computed to be: 30
+42: Filters: "Management long messages and monitor identities remain readable and scrollable"
+42: Randomness seeded to: 424806319
+42: ===============================================================================
+42: All tests passed (9 assertions in 1 test case)
+42:
+13/15 Test #42: Management long messages and monitor identities remain readable and scrollable .........   Passed    0.52 sec
+test 43
+      Start 43: Management replaces unnamed device paths without losing monitor metadata
+
+43: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management replaces unnamed device paths without losing monitor metadata"
+43: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+43: Test timeout computed to be: 30
+43: Filters: "Management replaces unnamed device paths without losing monitor metadata"
+43: Randomness seeded to: 3950500993
+43: ===============================================================================
+43: All tests passed (5 assertions in 1 test case)
+43:
+14/15 Test #43: Management replaces unnamed device paths without losing monitor metadata ...............   Passed    0.17 sec
+test 44
+      Start 44: Management layout and keyboard navigation stay reachable at connected DPI
+
+44: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperManagementIntegrationTests.exe "Management layout and keyboard navigation stay reachable at connected DPI"
+44: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+44: Test timeout computed to be: 30
+44: Filters: "Management layout and keyboard navigation stay reachable at connected DPI"
+44: Randomness seeded to: 1118531123
+44: DPI=144 client=1200x900
+44: DPI=96 client=800x600
+44: ===============================================================================
+44: All tests passed (713 assertions in 1 test case)
+44:
+15/15 Test #44: Management layout and keyboard navigation stay reachable at connected DPI ..............   Passed    0.83 sec
+
+The following tests passed:
+	Monitor selection uses only connected selected areas and restores returning targets
+	Clone targets share one renderer area and empty selection never falls back
+	Settings preserve the chosen theme mode and sleep preference
+	Invalid settings and failed atomic replacement preserve existing preferences
+	Settings accept installed theme identifiers supported by the manifest
+	Monitor target settings migrate legacy preferences and preserve disconnected targets
+	Invalid monitor target settings cannot replace a saved selection
+	Preview settings save without monitor targets and reject switching to empty desktop
+	First Preview settings can save before a monitor identity is resolved
+	Management client stays 800 by 600 logical pixels on connected monitors
+	Management unidentified monitors cannot be checked or returned for saving
+	Management refuses maximize and arbitrary resizing
+	Management long messages and monitor identities remain readable and scrollable
+	Management replaces unnamed device paths without losing monitor metadata
+	Management layout and keyboard navigation stay reachable at connected DPI
+
+100% tests passed, 0 tests failed out of 15
+
+Total Test time (real) =   2.98 sec

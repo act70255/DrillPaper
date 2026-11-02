@@ -1,0 +1,74 @@
+[
+  {
+    "timestamp": "2026-10-30T17:59:42.8607238+08:00",
+    "surfaces": [
+      {
+        "parent": 70916314,
+        "left": 0,
+        "tick": 0,
+        "ready": 2,
+        "dpi": 144,
+        "top": 0,
+        "hwnd": 236065192,
+        "bottom": 1080,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "right": 1920,
+        "load": 4,
+        "attached": 1,
+        "health": 0
+      },
+      {
+        "parent": 70916314,
+        "left": 1920,
+        "tick": 0,
+        "ready": 3,
+        "dpi": 96,
+        "top": 0,
+        "hwnd": 28840314,
+        "bottom": 1080,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "right": 3840,
+        "load": 5,
+        "attached": 2,
+        "health": 0
+      }
+    ],
+    "phase": "all-selected-minimal"
+  },
+  {
+    "timestamp": "2026-10-30T18:00:18.1941865+08:00",
+    "surfaces": [
+      {
+        "parent": 70916314,
+        "left": 0,
+        "tick": 1587110156,
+        "ready": 2,
+        "dpi": 144,
+        "top": 0,
+        "hwnd": 236065192,
+        "bottom": 1080,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "right": 1920,
+        "load": 4,
+        "attached": 1,
+        "health": 1587106796
+      },
+      {
+        "parent": 70916314,
+        "left": 1920,
+        "tick": 1587110156,
+        "ready": 3,
+        "dpi": 96,
+        "top": 0,
+        "hwnd": 28840314,
+        "bottom": 1080,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "right": 3840,
+        "load": 5,
+        "attached": 2,
+        "health": 1587105796
+      }
+    ],
+    "phase": "condition-timeout"
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "reason": "blocked by policy",
+  "action": "刪除本證據目錄中誤複製的本次隔離 appdata 子目錄",
+  "result": "BLOCKED",
+  "source": "自動核准審查在 CreateProcess 前拒絕，未執行刪除",
+  "handling": "保留本機並以精確 gitignore 排除，不改用其他方式刪除"
+}

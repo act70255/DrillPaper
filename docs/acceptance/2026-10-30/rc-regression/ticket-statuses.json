@@ -1,0 +1,47 @@
+[
+  {
+    "status": "Status: implemented",
+    "ticket": "01-multi-monitor.md",
+    "title": "# 多螢幕套用管理"
+  },
+  {
+    "status": "Status: implemented",
+    "ticket": "02-fixed-settings-window.md",
+    "title": "# 固定 800×600 設定視窗"
+  },
+  {
+    "status": "Status: implemented",
+    "ticket": "03-trial-package.md",
+    "title": "# 7A：首次可攜式試用包"
+  },
+  {
+    "status": "Status: resolved",
+    "ticket": "04-security-matrix.md",
+    "title": "# 網路與安全剩餘矩陣"
+  },
+  {
+    "status": "Status: resolved",
+    "ticket": "05-desktop-power-recovery.md",
+    "title": "# 桌面互動與電源復原"
+  },
+  {
+    "status": "Status: resolved",
+    "ticket": "06-metrics-performance.md",
+    "title": "# 硬體讀值與效能省電"
+  },
+  {
+    "status": "Status: implemented",
+    "ticket": "07-theme-author-flow.md",
+    "title": "# 第三方主題作者完整流程"
+  },
+  {
+    "status": "Status: implemented",
+    "ticket": "08-delivery-finalization.md",
+    "title": "# 7B：交付收尾與重新打包"
+  },
+  {
+    "status": "Status: in-progress",
+    "ticket": "09-rc-regression.md",
+    "title": "# RC 整合回歸與放行判定"
+  }
+]

@@ -1,87 +1,66 @@
 # DrillPaper 驗收交接
 
-更新：2026-10-29。這份總表整合目前證據；先前 Windows 10 工具鏈與早期限制保留在 STATUS 歷史，不再作為目前工作樹狀態。
+更新：2026-10-30，RC 09。**拒絕 RC 放行；沒有合併 main、公開發布、release 或 tag。** 01／02／03／07／08 的 implemented 與 04／05／06／09 的 resolved 只表示各票可執行範圍及交接完成，不代表所有組態通過。完整版本、命令、證據與限制見 [RC 09 報告](acceptance/2026-10-30/rc-regression/REPORT.md)、[必要 gate 與 owner／下一步](acceptance/2026-10-30/rc-regression/GATES.md)及[人工清單](acceptance/2026-10-30/rc-regression/MANUAL_CHECKLIST.md)。
 
-目前整合狀態：使用者已授權將完成分支合併 main，main 已從 5697bf7 快轉至 feature/tray-management 的 bec20d4，涵蓋現有功能／修正分支歷史。後續整合文件不改產品，分支保留；下文先前「未合併／不合併 main」描述為當時紀錄，已由此次明確授權取代。多螢幕仍 planned、RC gate 保留，這次整合不是發行。
+## 來源與套件
 
-main 整合提交 0f548ae 的 [CI 40848448010](https://github.com/act70255/DrillPaper/actions/runs/40848448010) 已通過 CTest 33/33／SDK 18/18、SDK 還原與封裝，RC job skipped。metadata／節錄保存於 acceptance/2026-10-29/main-integration/；此後的結果文件提交不變更產品。
-
-剩餘工作依「驗證／必要完整性功能／補充功能」分類，見 [工作清單](REMAINING_WORK.md)。使用者已明確將多螢幕支援列為必要完整性功能，需補齊實作及對應驗收，不能只列待測相容性或後續選配；固定設定視窗不取消此要求。目前沒有多螢幕完成結論。
-
-多螢幕的本版呈現方式已收斂為「勾選套用目標、每個選中螢幕各顯示一份完整的目前主題」，不做跨螢幕拼接／延展或逐螢幕不同主題；需求見 [.scratch/multi-monitor/spec.md](../.scratch/multi-monitor/spec.md)，尚未實作／驗收。
-
-本輪最新：產品 62f01ab，新增獨立可註冊來源隔離 Cookie、Connection-Allowlist 阻止 WebRTC，並回復遭政策拒絕的空白錯誤頁。本機完整 CTest 33/33／SDK 18/18、原生回歸與 [CI 40839289477](https://github.com/act70255/DrillPaper/actions/runs/40839289477) 通過；新版真正 Explorer 的畫面恢復／持續更新／圖示與工作列由使用者確認 PASS。鍵盤／取消／唯一視窗亦有前版人工結果。精確 hash、最終 preconnect／儲存／worker／TURN-TCP 範圍與剩餘 NOT RUN 見 [剩餘續驗](acceptance/2026-10-29/management/REMAINING.md)。原持續桌布 PID 83428 保持固定 a241856 副本，未關閉或替換。
-
-含新增測試的 6672610 亦通過 [CI 40840814142](https://github.com/act70255/DrillPaper/actions/runs/40840814142)，CTest 33/33／SDK 18/18，RC job skipped。其後文件結案不改產品；未合併 main，未發行。
-
-**整體 MVP 尚未驗收通過，app RC 不可發行。** 本機與乾淨 CI 的建置／自動測試已通過，Preview 基本操作與修正版的真正 Explorer 重啟復原也已由使用者確認；完整桌面互動、瀏覽器安全政策、部分省電情境與乾淨安裝仍有實作或驗證缺口。
-
-管理功能較早收尾：三階段均已實作並推送 feature/tray-management，未合併 main。63e86ff 的 CI 40832496506 與人工匯入／移除等歷史證據保留於 [前次續驗報告](acceptance/2026-10-29/management/FOLLOWUP.md)，各 hash 不混用。新版 Explorer 像素與鍵盤已由上列本輪結果補足；完整 DPI 與其他未測矩陣仍保留，不能宣稱完整沙箱或 RC 通過。
+- 本票沿用 `feature/rc-09-regression`，base `d60816aff6e99ad1a3624075a74016909f76fa4d`；產品 C++／SDK 來源與 `676bb473efeca65614fddb40d98e3c88c302494b` 相同。新增測試啟動／隔離與觀測工具，移除新入口繞行；未做推測性產品修正。
+- 08 原候選 `artifacts/DrillPaper-0.1.0-trial.6-win-x64-unsigned.zip` 保留不變，SHA-256 `FC08E190ACF481696F560CB7136478D9CF6E9DADF45E6EEF505CD62EB9EFF8A5`，入口仍關閉智慧休眠。
+- 09 後續試用包 `artifacts/DrillPaper-0.1.0-trial.7-win-x64-unsigned.zip`，472507 bytes，SHA-256 `87FE10E27EB016D144F8C775BEEA4C81C724BD513BDDE61DE9F866465FDBC29D`；EXE 兩包均為 `993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA`，NotSigned。53 檔相同，只改 CMD／README，另更新 manifest。產品／SDK 固定來源與本票工具逐檔 hash 分記，不宣稱位元可重現。
+- 依票 08 已確認的本機多輪條件，以 trial.6 產品預設各三輪驗「不等待新 Preview 就緒即退出」及「保存後待握手／JS 回應」，全部通過後移除新入口 `--no-smart-sleep`。trial.7 真正 CMD 入口再驗三輪、六次退出通過。03／08-D1 歷史 FAIL 保留；本輪未重現不等於根因已修復或真實節能通過。保存為關閉的既有偏好不自動改寫。
+- 本機最終 Release 建置 EXE 為 `25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D`；編譯來源相同，獨立 archive 建置 EXE 的 hash 不同。完整 CTest 使用本機建置；候選整合使用 ZIP 內 EXE，兩者不混稱同一位元組。
 
 ## A01–A16
 
-| ID | 目前結果 | 證據與界線 |
+| ID | 本輪結果 | 證據及界線 |
 | --- | --- | --- |
-| A01 | PASS（開發環境） | Windows 11 x64 Release 建置與啟動；乾淨 windows-2022 CI configure／build 通過。其他桌面 builds 不由此建立支援聲明。 |
-| A02 | PASS（基本 Preview） | 使用者回報 Dashboard mock 數值正確、Minimal 即時更新、縮放及關閉正常；Dashboard 實機更新與 CPU 圖表亦確認。完整版面／DPI 矩陣仍未做。 |
-| A03 | PARTIAL | 真正 Shell WorkerW 附掛、3840×1080 用戶區及樣式有原生證據；本輪新版畫面、圖示與工作列可用已獲人工確認。完整 Alt+Tab／焦點／虛擬桌面／其他組態仍未驗。 |
-| A04 | PASS（本機 Windows 11 本次情境） | 原固定 a241856 的人工 PASS 保留。新版管理 62f01ab 另完成真正 Explorer 重啟：同 app、新 HWND／Shell／握手／指標／圖示註冊，使用者確認畫面恢復、持續更新、圖示與工作列可用；Dashboard mock／no-smart-sleep，僅隔離 h1 增加識別。其他組態與電源交錯未驗，見 management/REMAINING.md。 |
-| A05 | PARTIAL | typed readings、warm-up 與單位測試通過；Intel／無 NVML 的 GPU unavailable 契約已實機確認。硬體精度與 NVIDIA 實讀矩陣未完成。 |
-| A06 | PASS（採樣解耦） | SamplingWorker 在背景執行緒採集、條件等待／停止／重設基準及失敗回報，UI 只接收最新快照；worker 與 app 整合已有驗證。 |
-| A07 | PASS（有界資料結構） | 有界 history／queue、latest-wins mailbox 及設定世代拒絕舊樣本已有測試；不代表瀏覽器長期記憶體無洩漏。 |
-| A08 | PARTIAL | 受控暫停／恢復、50 次快速競態與使用者真實鎖定／解鎖 5 次通過。真實 display-off／待機、完整全螢幕／多螢幕未完成。 |
-| A09 | PASS（協定與基本操作） | 兩個內建主題、原生功能表熱切換、100／300 次協定切換及損壞主題回復有證據；不推論每次切換的像素畫面或無資源成長。 |
-| A10 | PARTIAL | JS SDK／宣告／MockHost／文件、Node 18/18、SDK ZIP 解壓重測與重封一致通過；TypeScript compiler 與完整第三方作者流程未實測。 |
-| A11 | PASS（已測匯入與管理流程） | `.dmt`／目錄 CLI 匯入、路徑／配額／CRC／連結／manifest 驗證、staging／原子安裝與 rollback 已驗證。圖形化匯入／移除及設定持久化已實作；保存／取消／重啟與移除真實 junction 負面通過，使用者已回報圖形化匯入正常與移除測試完成，移除後隔離目錄不存在；各步細節與完整 DPI／鍵盤仍分開記錄。套件驗證不等於瀏覽器沙箱。 |
-| A12 | PARTIAL／發行阻擋 | HTTP／HTTPS 開關、首次提示、CSP／Connection-Allowlist、WS／WSS、STUN／TURN-TCP、單一 loopback preconnect、框架／導覽回復／下載／通知／定位、worker 與載入儲存隔離均有列明證據。完整 DNS／egress、其他 TURN／Runtime／權限設備 API／scheme／舊頁面競態仍未驗，不宣稱完整沙箱；見 management/REMAINING.md。 |
-| A13 | PARTIAL | 含 WebView2 的 343 筆／1804.606 秒觀測與正常清理已有報告；版本、主題、GPU engine、display-off 等對照與長期資源成長判定未完成。 |
-| A14 | PARTIAL | 最新產品程式 62f01ab 的 GitHub Windows runner 40839289477 通過 CTest 33/33、Node 18/18、SDK 還原及封裝 artifact。歷史失敗／重跑紀錄保留；app RC gate 阻擋，乾淨一般使用者安裝／解除安裝未做。 |
-| A15 | PASS（原型文件） | README、使用、SDK／protocol、安全、指標、相容性、授權與已知限制均有說明；安裝器流程尚無已驗收產品可供測試。 |
-| A16 | PASS（交接範圍） | 本表、STATUS 及逐次報告分開保存實測、人工回報、未執行與缺口；不把受控訊息寫成真正 Explorer 重啟。 |
+| A01 | PASS（本機建置／啟動） | Release configure／build、43/43 CTest 與候選包啟動；對應最終來源的乾淨 CI 缺證另列 A14。 |
+| A02 | PARTIAL | 兩主題握手、保存／重啟與既有基本 Preview 人工證據保留；候選完整像素／DPI／獨立 MockHost 人工畫面 NOT RUN。 |
+| A03 | PARTIAL | 候選首次唯一主螢幕完整 1920×1080 原生附掛；圖示／工作列／Alt+Tab／焦點／虛擬桌面及其他組態仍需人工。 |
+| A04 | PARTIAL（候選） | 新多宿主 fixture 回復不能當真正 Explorer；歷史 a241856／62f01ab 的真正重啟人工 PASS 保留於原報告，本輪不重啟 Explorer。 |
+| A05 | PARTIAL | 最終來源 collector 契約與本機 API CTest 通過；06 三負載各 30 同期窗口在原版本達容差，NVIDIA／高流量／介面消失等缺證。 |
+| A06 | PASS（公開契約） | 背景 worker、停止／失敗／重設與 latest-wins 的最終來源測試通過，不外推逐次實機採集頻率。 |
+| A07 | PASS（有界資料結構） | history／queue／mailbox／世代契約通過；不表示 WebView2 長期記憶體無洩漏。 |
+| A08 | FAIL／PARTIAL | 09-D2：雙目標受控鎖定往返後解除手動暫停未恢復推送，原因未定，票 10 承接。產品預設多輪握手／保存／退出通過，03 FAIL 保留；真正 OS 事件與完整節能矩陣 NOT RUN。 |
+| A09 | PASS（已測協定／原生流程） | 兩個內建主題、Dashboard 握手與既有熱切換／可信回復證據；完整人眼與候選 100 次切題長期資源另列缺口。 |
+| A10 | PARTIAL | SDK 18/18、固定 TypeScript 5.9.3 正負 compiler／獨立作者建置與封裝；GUI、獨立作者及完整畫面仍缺證。 |
+| A11 | PASS（公開驗證／CLI 範圍） | 最終 ThemeManager 與候選原六項 CLI 斷言、配額／路徑／manifest／junction；真實 GUI 操作及各 DPI 不由此建立。 |
+| A12 | PARTIAL／必要 gate | Settings8 修正與指定安全證據保留；完整 DNS／TURN／proxy／handler／Runtime／真實舊 COM 競態不足，不宣稱沙箱或全程序零外連。 |
+| A13 | PARTIAL／必要 gate | 06 五組共 664 筆、1805.80 秒長測及有限門檻通過，但有 3 筆資源缺失與記憶體上升；候選更長 soak／100 次切題／真實節能不足，不宣稱無洩漏。 |
+| A14 | PARTIAL／必要 gate | 本機完整測試及試用 ZIP 清單／hash 通過，正式封裝 gate 阻擋；既有 CI 只對應舊 main、RC job skipped，最終來源 CI／app artifact 及真正乾淨機器 NOT RUN。 |
+| A15 | PASS（文件範圍） | 安裝／使用／功能、作者工具、授權、安全、相容性、限制與本輪判定已整理；不是發行公告。 |
+| A16 | PASS（交接範圍） | 逐項版本／命令／證據／未執行原因、owner／下一步及人工清單明列；原失敗不改寫。 |
 
-## 建置與自動測試
+## 重現建置、測試與 gate
 
-目前本機：Windows 11 Pro 25H2 build 26200.8737、MSVC 19.44、Windows SDK 10.0.26100、CMake 3.31.6、WebView2 SDK 1.0.2478.35。詳細環境與 SDK 固定雜湊還原方法見 [ENVIRONMENT.md](ENVIRONMENT.md)。不需要系統管理員權限執行基本功能。
+本機 Windows 11 Pro 25H2 build 26200.8737、MSVC 19.44.35217、Windows SDK 10.0.26100、CMake 3.31.6、WebView2 SDK 1.0.2478.35／Runtime 156.0.4314.50、Intel Graphics、雙 1920×1080（DPI 144／96），有 Apex One／來源樹／開發工具，不是真正乾淨一般使用者環境。PATH 的 CMake Python 啟動器失效，本輪使用既有套件內原生 cmake.exe／ctest.exe，沒有改系統安裝。
 
 ```powershell
-cd 'C:\WorkSpace\-James\DrillPaper'
+$cmakeBin = Join-Path $env:APPDATA 'uv\tools\cmake\Lib\site-packages\cmake\data\bin'
+$env:PATH = $cmakeBin + ';' + $env:PATH
 cmake --preset windows-msvc-release
-cmake --build --preset windows-msvc-release --parallel 8
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test.ps1 -Configuration Release
+cmake --build --preset windows-msvc-release --config Release
+pwsh -NoProfile -File scripts/test.ps1 -Configuration Release
+ctest --preset windows-msvc-release -N
+# 以下會再次建置／執行完整測試，再於必要發行 gate 拒絕產包。
+pwsh -NoProfile -File scripts/package.ps1 -Configuration Release -Version 0.1.0-rc1
 ```
 
-本機 Windows PowerShell 5.1 已修正處理器型別與壓縮組件載入問題；目前完整套件含負面測試判斷的隔離變異回歸。實機 `[shell-live]` 不納入無互動 CTest，需要明確執行。
+本輪完整套件由最後一條公開封裝入口實際呼叫 build.ps1／test.ps1：CTest **43/43**；SDK **18/18**，封裝鏈重複執行共四組 18/18（非 72 個獨立案例）；新啟動／隔離及入口契約 **6/6**。其他既有工具測試另跑 **17/17**。環境拒絕 CIM、取樣器完整／提前退出／未知 PID、主題 9 個正負與封裝情境、隔離變異 oracle、SDK ZIP 重封一致與解壓後兩主題驗證通過。正式 package exit 1 為預期 gate 拒絕，指定目的地未產生 ZIP。完整測試的 TEMP／TMP 及獨立 CTest 指向非 Temp 使用者繁中空白目錄；主題 CLI 由 Node 直接啟動，六項原斷言及 15 秒期限保留。
 
-CI 的 [run 40801528098](https://github.com/act70255/DrillPaper/actions/runs/40801528098) 對 commit `9888aaf` 實測通過；含負面測試判斷修正的 `7902c02` 亦在 [run 40803087109](https://github.com/act70255/DrillPaper/actions/runs/40803087109) 通過，見 [CI 報告](acceptance/2026-10-29/ci/REPORT.md)。各 run 保留自己的受測版本。
+## 受限試用與作者流程
 
-## 啟動與人工實機驗收
+完整解壓核實的試用 ZIP 到非 Temp 使用者目錄，依包內 README 安裝已存在的 VC++ v14 x64／WebView2 Evergreen 依賴或向 IT 取得；不自動下載、提升權限或更改防毒。由 CMD 執行 Start-DrillPaper.cmd，首次只在主螢幕顯示 Minimal；保存 Preview 後相同入口重啟仍為 Preview。資料位於 LOCALAPPDATA/DrillPaper，免安裝 ZIP 不是完全隨身資料模式。更新／回復先正常退出、備份隔離資料與舊 ZIP；主動移除資料須明確選擇，真正乾淨機器流程仍 NOT RUN。詳細見 [試用流程](TRIAL_PACKAGE.md)及[使用手冊](USER_GUIDE.md)。
 
-一般 Preview，可正常用視窗關閉按鈕退出：
+第三方主題僅匯入信任內容。複製包內 sdk/author-starter，依 README 執行 npm ci、configure、check、build，只把 dist 經包內 package-theme.ps1 打成 .dmt；工具固定 TypeScript 5.9.3，Node／compiler 不是產品 runtime 依賴。CLI 匯入 .dmt、管理視窗切換／移除，SDK 與 MockHost 詳見 [theme-sdk](theme-sdk.md)。
 
-```powershell
-& 'C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe' --preview --theme=dashboard
-```
+## 保留的版本化證據與決策
 
-桌布及 Explorer 觀測建議使用完整路徑，避免 PowerShell 位於 System32 時找不到相對路徑：
+- 01 `0c97d4f` 多螢幕、02 `e6aa20e` 固定版面、03 `d64a11b` 試用包；[多目標](acceptance/2026-10-29/multi-monitor/REPORT.md)、[固定設定](acceptance/2026-10-29/fixed-settings/REPORT.md)、[03 歷史 FAIL](acceptance/2026-10-29/trial-package/REPORT.md)。
+- 04 `2a69ed1` SmartScreen／安全、05 `c244682` 無回應主題有界回復、06 `1636972` 效能及硬體觀測、07 `f295106` SDK；[安全](acceptance/2026-10-30/security-matrix/REPORT.md)、[桌面電源](acceptance/2026-10-30/desktop-power-recovery/REPORT.md)、[效能](acceptance/2026-10-30/metrics-performance/REPORT.md)、[作者](acceptance/2026-10-30/theme-author-flow/REPORT.md)。
+- 08 `d60816a` trial.6；[交付報告](acceptance/2026-10-30/delivery-final/REPORT.md)與[08-D1 原失敗](acceptance/2026-10-30/delivery/REPORT.md)。其他 hash 的結果不冒稱在候選重做。
+- [ADR 0001–0005](adr/)記錄宿主回應、獨立來源、Connection-Allowlist、可信導覽回復及關閉 SmartScreen 信譽檢查的取捨。自有產品沒有遙測功能；WebView2 WPAD／Edge ECS 仍可能背景連網，完整沙箱未證實。
+- 第一方 Apache-2.0；nlohmann-json 3.11.3、miniz 3.0.2、WebView2 SDK 1.0.2478.35 與第三方 notices／授權依原清單。完整 Evergreen／系統 CRT／NVML 不隨包散布，NotSigned 不冒稱簽章完成。
+- 效能觀測包含 app＋已核實 WebView2 子程序；硬體使用公開 collector 與同機系統參考，非獨立儀器校準。[相容性](compatibility-matrix.md)、[安全限制](theme-security.md)、[效能方法](performance.md)及人工清單保留未測範圍。
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\WorkSpace\-James\DrillPaper\scripts\test-desktop-host.ps1" -ApplicationPath "C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaper.exe" -RecoveryCycles 1 -ObserveExplorerRestart -ObservationSeconds 900
-```
-
-看到「桌面實機觀測已就緒」後，顯示桌面檢查圖示、工作列、Alt+Tab 與數值更新；再由使用者在工作管理員重新啟動 Windows 檔案總管。腳本不會終止 Explorer，會觀察 Shell PID 改變及新附掛世代，成功後再保留 30 秒供人工觀察，最後正常關閉並保存 `artifacts/acceptance/desktop-*/summary.json`。未執行重啟或未取得結果時不能算通過。此腳本用 `--no-smart-sleep` 隔離其他政策，不能同時當作 Smart Sleep 驗證。
-
-2026-10-29 09:31–09:46 首次觀測未觸發真正重啟；第二次 09:54 啟動後，使用者於 09:57 重啟 Explorer 並回報桌布消失。原生診斷證實原 HWND 已被銷毀，A04 判為 FAIL，見 STATUS 及 `acceptance/2026-10-29/explorer-failure/`。Windows Computer Use 原生管道不存在，無可靠截圖，畫面以使用者回報為準。
-
-## 證據與接續工作
-
-- 最新 A04 結案：[Shell 就緒等待與真正 Explorer 重啟報告](acceptance/2026-10-29/shell-readiness/REPORT.md)。使用者確認畫面恢復、持續更新，原生前後比對亦通過；先前失敗保留為歷史。
-
-- [Shell 附掛／受控重掛](acceptance/2026-10-29/shell/REPORT.md)：`90c34d4`，修正新版子 WorkerW 與 SetParent 殘留錯誤碼誤判。
-- [主題平台](acceptance/2026-10-28/theme-platform/REPORT.md)、[Runtime](acceptance/2026-10-28/runtime/REPORT.md)、[renderer／browser 復原](acceptance/2026-10-28/recovery/REPORT.md)、[長時間觀測](acceptance/2026-10-28/long-observation/REPORT.md)。
-- [負面測試判斷](acceptance/2026-10-29/theme-oracle/REPORT.md)：隔離副本故意移除路徑檢查時，測試現在能正確失敗；正式 validator 未放寬。
-- A04 已於本機 a241856 真正重啟情境通過；接續補 A03 完整桌面互動及其他組態，失敗時以實際程序／畫面證據建立回歸。
-- A12：已補 STUN／TURN-TCP、單一 preconnect、儲存及 worker；繼續補完整 egress／DNS、其他 TURN／Runtime／權限設備 API／scheme 與舊頁面競態，仍不宣稱完整沙箱。
-- 復原：無限迴圈／unresponsive、故障與電源交錯、Explorer 生命週期仍需測試。
-- 完成省電與效能矩陣後，修正並驗證可攜式 app 套件、乾淨使用者安裝／啟動／退出／移除，再評估 RC gate。SDK ZIP 與單獨 EXE 均不當作 app RC。
-
-每階段完成後更新 STATUS、以繁體中文 Conventional Commit 提交並 push 對應分支；本次沒有合併至 main，也沒有公開發布。
+原持續桌布 PID 83428 的固定 a241856 副本以路徑、UtcTicks 639288432499803524 及 hash 核對，沒有關閉／替換；未重啟 Explorer。只清理已確認身分的測試實例。

@@ -1,0 +1,161 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 12
+      Start 12: Power state transitions debounce obscured changes and request fresh data on resume
+
+12: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+12: Test timeout computed to be: 20
+12: Filters: "Power state transitions debounce obscured changes and request fresh data on resume"
+12: Randomness seeded to: 3881939731
+12: ===============================================================================
+12: All tests passed (8 assertions in 1 test case)
+12: 
+ 1/11 Test #12: Power state transitions debounce obscured changes and request fresh data on resume ....   Passed    0.15 sec
+test 13
+      Start 13: Sampling scheduler pauses and resumes without catch-up loops
+
+13: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling scheduler pauses and resumes without catch-up loops"
+13: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+13: Test timeout computed to be: 20
+13: Filters: "Sampling scheduler pauses and resumes without catch-up loops"
+13: Randomness seeded to: 4094686324
+13: ===============================================================================
+13: All tests passed (7 assertions in 1 test case)
+13: 
+ 2/11 Test #13: Sampling scheduler pauses and resumes without catch-up loops ..........................   Passed    0.03 sec
+test 14
+      Start 14: Sampling worker collects outside the caller thread and stops while paused
+
+14: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker collects outside the caller thread and stops while paused"
+14: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+14: Test timeout computed to be: 20
+14: Filters: "Sampling worker collects outside the caller thread and stops while paused"
+14: Randomness seeded to: 1182347321
+14: ===============================================================================
+14: All tests passed (5 assertions in 1 test case)
+14: 
+ 3/11 Test #14: Sampling worker collects outside the caller thread and stops while paused .............   Passed    0.03 sec
+test 15
+      Start 15: Sampling worker resumes immediately with a fresh baseline
+
+15: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker resumes immediately with a fresh baseline"
+15: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+15: Test timeout computed to be: 20
+15: Filters: "Sampling worker resumes immediately with a fresh baseline"
+15: Randomness seeded to: 690525280
+15: ===============================================================================
+15: All tests passed (8 assertions in 1 test case)
+15: 
+ 4/11 Test #15: Sampling worker resumes immediately with a fresh baseline .............................   Passed    0.06 sec
+test 16
+      Start 16: Sampling worker reports collector failure without terminating the process
+
+16: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker reports collector failure without terminating the process"
+16: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+16: Test timeout computed to be: 20
+16: Filters: "Sampling worker reports collector failure without terminating the process"
+16: Randomness seeded to: 2804657709
+16: ===============================================================================
+16: All tests passed (3 assertions in 1 test case)
+16: 
+ 5/11 Test #16: Sampling worker reports collector failure without terminating the process .............   Passed    0.03 sec
+test 17
+      Start 17: Sampling worker discards an in-flight snapshot from the previous generation
+
+17: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+17: Test timeout computed to be: 20
+17: Filters: "Sampling worker discards an in-flight snapshot from the previous generation"
+17: Randomness seeded to: 1573318405
+17: ===============================================================================
+17: All tests passed (5 assertions in 1 test case)
+17: 
+ 6/11 Test #17: Sampling worker discards an in-flight snapshot from the previous generation ...........   Passed    0.02 sec
+test 18
+      Start 18: Desktop recovery waits for Shell readiness with a bounded retry budget
+
+18: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Desktop recovery waits for Shell readiness with a bounded retry budget"
+18: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+18: Test timeout computed to be: 20
+18: Filters: "Desktop recovery waits for Shell readiness with a bounded retry budget"
+18: Randomness seeded to: 1713231633
+18: ===============================================================================
+18: All tests passed (28 assertions in 1 test case)
+18: 
+ 7/11 Test #18: Desktop recovery waits for Shell readiness with a bounded retry budget ................   Passed    0.05 sec
+test 19
+      Start 19: Manual pause survives power changes and resumes the current policy
+
+19: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Manual pause survives power changes and resumes the current policy"
+19: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+19: Test timeout computed to be: 20
+19: Filters: "Manual pause survives power changes and resumes the current policy"
+19: Randomness seeded to: 2196324688
+19: ===============================================================================
+19: All tests passed (8 assertions in 1 test case)
+19: 
+ 8/11 Test #19: Manual pause survives power changes and resumes the current policy ....................   Passed    0.03 sec
+test 20
+      Start 20: Monitor selection uses only connected selected areas and restores returning targets
+
+20: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Monitor selection uses only connected selected areas and restores returning targets"
+20: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+20: Test timeout computed to be: 20
+20: Filters: "Monitor selection uses only connected selected areas and restores returning targets"
+20: Randomness seeded to: 1561143268
+20: ===============================================================================
+20: All tests passed (7 assertions in 1 test case)
+20: 
+ 9/11 Test #20: Monitor selection uses only connected selected areas and restores returning targets ...   Passed    0.03 sec
+test 21
+      Start 21: Clone targets share one renderer area and empty selection never falls back
+
+21: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperTests.exe "Clone targets share one renderer area and empty selection never falls back"
+21: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+21: Test timeout computed to be: 20
+21: Filters: "Clone targets share one renderer area and empty selection never falls back"
+21: Randomness seeded to: 1265065459
+21: ===============================================================================
+21: All tests passed (6 assertions in 1 test case)
+21: 
+10/11 Test #21: Clone targets share one renderer area and empty selection never falls back ............   Passed    0.05 sec
+test 41
+      Start 41: Connected monitors expose stable target identities and physical desktop rectangles
+
+41: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMonitorIntegrationTests.exe "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+41: Test timeout computed to be: 20
+41: Filters: "Connected monitors expose stable target identities and physical desktop rectangles"
+41: Randomness seeded to: 212682987
+41: \\?\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:0 primary=1 rect=0,0,1920,1080 dpi=144
+41: \\?\display#delf15e#4&25f3787d&0&uid8263#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7} area=1:434974622:1 primary=0 rect=1920,0,3840,1080 dpi=96
+41: ===============================================================================
+41: All tests passed (12 assertions in 1 test case)
+41: 
+11/11 Test #41: Connected monitors expose stable target identities and physical desktop rectangles ....   Passed    0.09 sec
+
+The following tests passed:
+	Power state transitions debounce obscured changes and request fresh data on resume
+	Sampling scheduler pauses and resumes without catch-up loops
+	Sampling worker collects outside the caller thread and stops while paused
+	Sampling worker resumes immediately with a fresh baseline
+	Sampling worker reports collector failure without terminating the process
+	Sampling worker discards an in-flight snapshot from the previous generation
+	Desktop recovery waits for Shell readiness with a bounded retry budget
+	Manual pause survives power changes and resumes the current policy
+	Monitor selection uses only connected selected areas and restores returning targets
+	Clone targets share one renderer area and empty selection never falls back
+	Connected monitors expose stable target identities and physical desktop rectangles
+
+100% tests passed, 0 tests failed out of 11
+
+Total Test time (real) =   0.68 sec

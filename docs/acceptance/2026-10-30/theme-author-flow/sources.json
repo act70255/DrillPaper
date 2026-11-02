@@ -1,0 +1,50 @@
+[
+  {
+    "name": "SDK-final/sdk/javascript/desktop-monitor-sdk.d.ts",
+    "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B"
+  },
+  {
+    "name": "SDK-final/sdk/javascript/desktop-monitor-sdk.js",
+    "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45"
+  },
+  {
+    "name": "SDK-final/sdk/javascript/mock-host.d.ts",
+    "sha256": "E356E94AEC5E5D5E74162201EF0E5CE85F22D8881E636A48A31C0D3CB7AE328E"
+  },
+  {
+    "name": "SDK-final/sdk/javascript/mock-host.js",
+    "sha256": "5F71948E1DD4A7BF611748B49EC5F40FD65FC06FFFA5CD946D76307504FC8DC1"
+  },
+  {
+    "name": "SDK-final/sdk/javascript/theme-manifest.js",
+    "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04"
+  },
+  {
+    "name": "最終獨立作者/src/desktop-monitor-sdk.d.ts",
+    "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B"
+  },
+  {
+    "name": "最終獨立作者/src/main.ts",
+    "sha256": "1C63A78D42E6B679F4B79B78689CCC71F60A6E7D4DBF85F4AD9782E31BD06DA4"
+  },
+  {
+    "name": "最終獨立作者/src/mock-host.d.ts",
+    "sha256": "E356E94AEC5E5D5E74162201EF0E5CE85F22D8881E636A48A31C0D3CB7AE328E"
+  },
+  {
+    "name": "最終獨立作者/dist/index.html",
+    "sha256": "ECBFBEA640E488D4749344B7ABCCEA885D5189C24D4D86963F443610947744D8"
+  },
+  {
+    "name": "最終獨立作者/dist/main.js",
+    "sha256": "510BC69B6F40BED0A3A395854B80DA5F2A1AF83F038BDBBCEA20624ECE47F365"
+  },
+  {
+    "name": "最終獨立作者/dist/style.css",
+    "sha256": "E53BF04C9B5B98CF9456A657B78E7381917652E9ABCFB84438934E73BD65BDCC"
+  },
+  {
+    "name": "最終獨立作者/dist/theme.json",
+    "sha256": "4D24A15591927B7E3631F5ABA197976EEBDC16DEEAF7744968F9E93D32B04ADF"
+  }
+]

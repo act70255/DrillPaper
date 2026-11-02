@@ -1,0 +1,28 @@
+{
+  "fixtures": [],
+  "browserArgumentOverridePresent": false,
+  "persistent": {
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "id": 83428,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "start": "2026-10-29T12:00:49.9803524+08:00"
+  },
+  "runtime": "156.0.4314.50",
+  "antivirus": {
+    "product": "Trend Micro Apex One",
+    "path": "C:/Program Files (x86)/Trend Micro/Security Agent/Misc/AEGIS_BM.log",
+    "hash": "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+    "length": 8332,
+    "newObservedInterceptions": [],
+    "scope": "僅可讀行為日誌，不能排除未記錄的事件。",
+    "modified": "2026-10-30T09:22:30.9964599+08:00"
+  },
+  "applications": [
+    {
+      "Id": 83428,
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "StartTime": "2026-10-29T12:00:49.9803524+08:00"
+    }
+  ],
+  "timestamp": "2026-10-30T11:25:49.6311009+08:00"
+}

@@ -43,20 +43,25 @@ public static class DrillPaperDesktopProbe {
     [DllImport("user32.dll", SetLastError=true)] public static extern bool PostMessage(IntPtr window, uint message, UIntPtr command, IntPtr data);
     [DllImport("user32.dll", SetLastError=true)] public static extern IntPtr SendMessageTimeout(IntPtr window, uint message, UIntPtr command, IntPtr data, uint flags, uint timeout, out UIntPtr result);
     [StructLayout(LayoutKind.Sequential)] public struct Rect { public int Left, Top, Right, Bottom; }
-    public struct Geometry { public bool Valid; public Rect Child, Parent; }
+    [StructLayout(LayoutKind.Sequential)] private struct MonitorInfo { public uint size; public Rect monitor, work; public uint flags; }
+    [DllImport("user32.dll")] private static extern IntPtr MonitorFromWindow(IntPtr window, uint flags);
+    [DllImport("user32.dll", CharSet=CharSet.Unicode)] private static extern bool GetMonitorInfo(IntPtr monitor, ref MonitorInfo info);
+    public struct Geometry { public bool Valid; public Rect Child, Parent, Monitor; }
 
     /** 在一致的實體像素座標下取得子視窗與父用戶區尺寸。
      * Args:
      *     window: 受測 app 視窗。
      *     parent: Shell 桌布層。
      * Returns:
-     *     有效旗標與兩組矩形，呼叫前的 DPI context 一律還原。
+     *     有效旗標、父子與目標螢幕矩形，呼叫前的 DPI context 一律還原。
      */
     public static Geometry ReadGeometry(IntPtr window, IntPtr parent) {
         var previous = SetThreadDpiAwarenessContext(new IntPtr(-4));
         var geometry = new Geometry();
         try {
-            geometry.Valid = previous != IntPtr.Zero && GetWindowRect(window, out geometry.Child) && GetClientRect(parent, out geometry.Parent);
+            var monitor = new MonitorInfo(); monitor.size = (uint)Marshal.SizeOf(typeof(MonitorInfo));
+            geometry.Valid = previous != IntPtr.Zero && GetWindowRect(window, out geometry.Child) && GetClientRect(parent, out geometry.Parent) && GetMonitorInfo(MonitorFromWindow(window, 2), ref monitor);
+            geometry.Monitor = monitor.monitor;
             return geometry;
         } finally {
             if (previous != IntPtr.Zero) SetThreadDpiAwarenessContext(previous);
@@ -170,8 +175,8 @@ function Get-Attachment([IntPtr]$Window) {
     $parentRect = $geometry.Parent
     $width = $childRect.Right - $childRect.Left
     $height = $childRect.Bottom - $childRect.Top
-    if ($width -le 0 -or $height -le 0 -or $width -ne $parentRect.Right-$parentRect.Left -or $height -ne $parentRect.Bottom-$parentRect.Top) {
-        throw "桌布未填滿其父視窗的用戶區：child=$width,$height；parent=$($parentRect.Right-$parentRect.Left),$($parentRect.Bottom-$parentRect.Top)。"
+    if ($width -le 0 -or $height -le 0 -or $childRect.Left -ne $geometry.Monitor.Left -or $childRect.Top -ne $geometry.Monitor.Top -or $childRect.Right -ne $geometry.Monitor.Right -or $childRect.Bottom -ne $geometry.Monitor.Bottom) {
+        throw "桌布未精確覆蓋目標螢幕：child=$width,$height；parent=$($parentRect.Right-$parentRect.Left),$($parentRect.Bottom-$parentRect.Top)。"
     }
     return [ordered]@{ AppPid=$owner; Window=$Window.ToInt64(); Parent=$parent.ToInt64(); ShellPid=$shellOwner; Width=$width; Height=$height; Style=$style; ExtendedStyle=$extended; ReadyEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.ReadyEpoch').ToInt64(); DesktopEpoch=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.DesktopEpoch').ToInt64(); MetricsTick=[DrillPaperDesktopProbe]::GetPropW($Window,'DrillPaper.MetricsTick').ToInt64() }
 }

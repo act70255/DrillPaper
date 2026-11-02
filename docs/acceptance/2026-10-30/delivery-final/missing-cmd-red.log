@@ -1,0 +1,6 @@
+DrillPaper 0.1.0-trial.5 試用版；產品 commit 676bb473efeca65614fddb40d98e3c88c302494b；WebView2 156.0.4314.50
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-trial-launcher.ps1:57
+Line |
+  57 |  … e '*試用包缺少 Start-DrillPaper.cmd*') { throw '缺 CMD 應提前拒絕並顯示繁中完整解壓提示。' }
+     |                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 缺 CMD 應提前拒絕並顯示繁中完整解壓提示。

@@ -1,0 +1,30 @@
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 0 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-minimal
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-dashboard
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：one-target-fallback
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-True
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：network-False
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：rapid-switch-stale-notifications
+等待 2 個目標握手（0 表示依目前有效區域）。
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-restart
+等待 2 個目標握手（0 表示依目前有效區域）。
+已記錄：all-targets-parent-crash-recovery
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：single-selected
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：mode-roundtrip
+等待 1 個目標握手（0 表示依目前有效區域）。
+已記錄：all-disconnected-primary-fallback
+PASS：螢幕選擇／保存／取消、各宿主握手／世代隔離、暫停／模式、全斷線暫用與子程序清理；C:\Users\James\DrillPaperTests\RC09 回歸 含空白\dbecea0a8351405c9403781db5ec1771\multi-monitor-basic

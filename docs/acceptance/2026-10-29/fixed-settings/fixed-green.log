@@ -1,0 +1,10 @@
+Internal ctest changing into directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 36: Management client stays 800 by 600 logical pixels on connected monitors
+1/2 Test #36: Management client stays 800 by 600 logical pixels on connected monitors ...   Passed    0.19 sec
+    Start 37: Management refuses maximize and arbitrary resizing
+2/2 Test #37: Management refuses maximize and arbitrary resizing ........................   Passed    0.18 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.42 sec

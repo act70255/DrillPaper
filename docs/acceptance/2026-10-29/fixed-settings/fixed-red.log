@@ -1,0 +1,35 @@
+Internal ctest changing into directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 37: Management refuses maximize and arbitrary resizing
+1/1 Test #37: Management refuses maximize and arbitrary resizing ...***Failed    0.32 sec
+Filters: "Management refuses maximize and arbitrary resizing"
+Randomness seeded to: 1996110973
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperManagementIntegrationTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Management refuses maximize and arbitrary resizing
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(62)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\integration\management_shell_test.cpp(65): FAILED:
+  REQUIRE_FALSE( IsZoomed(fixture.manager) )
+with expansion:
+  !1
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 4 | 3 passed | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.37 sec
+
+The following tests FAILED:
+	 37 - Management refuses maximize and arbitrary resizing (Failed)
+Errors while running CTest

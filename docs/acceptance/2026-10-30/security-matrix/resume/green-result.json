@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "criterion": "SmartScreen POST 嘗試即失敗；HTTP/2 source／stream 關聯 SEND_DATA 另證實實際上傳。僅限這些 NetLog 的觀測時段。",
+  "expectedNetlogs": [
+    "launch-0e1d0917b40c4678ac5af2af63520619.json.netlog.json",
+    "launch-44b8c184e5974159a28d402ace4df55c.json.netlog.json",
+    "launch-a4be42d0163546e787ba77da4447dd13.json.netlog.json"
+  ],
+  "reports": [
+    {
+      "file": "launch-0e1d0917b40c4678ac5af2af63520619.json.netlog.json",
+      "sha256": "02d0e9759c6d063bb2cdaa766fdd404b023eb9490e9247e5fe0dc2b31b6aca43",
+      "events": 1935,
+      "attempts": [],
+      "streams": []
+    },
+    {
+      "file": "launch-44b8c184e5974159a28d402ace4df55c.json.netlog.json",
+      "sha256": "0442166edfe7a0a64591c3e0c4dd7978aaf69f8883a597e0ac76bcc5009bedb0",
+      "events": 1438,
+      "attempts": [],
+      "streams": []
+    },
+    {
+      "file": "launch-a4be42d0163546e787ba77da4447dd13.json.netlog.json",
+      "sha256": "69a69daaa30a6b8808f8cb4c9297a5cc8a0c8bc6dbf02860738d80786ce8e130",
+      "events": 2765,
+      "attempts": [],
+      "streams": []
+    }
+  ]
+}

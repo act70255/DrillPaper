@@ -1,0 +1,65 @@
+﻿{
+    "Result":  "PASS",
+    "StartedUtc":  "2026-10-29T10:48:13.4558558Z",
+    "ApplicationSha256":  "CE7223F45B2EE7BE94E4C1EDD0F71BF107D2290C4ABA9A7E30F69D5320028774",
+    "RecoveryKind":  "CROSS_PROCESS_PARENT_DESTROYED",
+    "ActualExplorerRestart":  false,
+    "Recoveries":  [
+                       {
+                           "AppPid":  82720,
+                           "Window":  49548348,
+                           "Parent":  70916314,
+                           "ShellPid":  93396,
+                           "Width":  1920,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  2,
+                           "DesktopEpoch":  2,
+                           "MetricsTick":  1503591359
+                       },
+                       {
+                           "AppPid":  82720,
+                           "Window":  10230844,
+                           "Parent":  70916314,
+                           "ShellPid":  93396,
+                           "Width":  1920,
+                           "Height":  1080,
+                           "Style":  1409286144,
+                           "ExtendedStyle":  134217856,
+                           "ReadyEpoch":  3,
+                           "DesktopEpoch":  3,
+                           "MetricsTick":  1503594375
+                       }
+                   ],
+    "Shutdown":  "NORMAL_CLOSE",
+    "ChildrenExited":  true,
+    "ParentExit":  "crash",
+    "NotificationInjected":  false,
+    "AppPid":  82720,
+    "Initial":  {
+                    "AppPid":  82720,
+                    "Window":  221976376,
+                    "Parent":  70916314,
+                    "ShellPid":  93396,
+                    "Width":  1920,
+                    "Height":  1080,
+                    "Style":  1409286144,
+                    "ExtendedStyle":  134217856,
+                    "ReadyEpoch":  1,
+                    "DesktopEpoch":  1,
+                    "MetricsTick":  1503588328
+                },
+    "OldWindowValidAfterParentExit":  false,
+    "DestroyedWindow":  49548348,
+    "ObservedChildren":  [
+                             90512,
+                             61288,
+                             4572,
+                             53176,
+                             84220,
+                             89884
+                         ],
+    "ExitCode":  0,
+    "EndedUtc":  "2026-10-29T10:48:23.5941703Z"
+}

@@ -1,0 +1,7 @@
+{
+  "id": 79288,
+  "path": "C:\\Program Files\\nodejs\\node.exe",
+  "stopped": "2026-10-30T13:54:45.4393960+08:00",
+  "start": "2026-10-30T05:35:36.3663834Z",
+  "command": "\"C:\\Program Files\\nodejs\\node.exe\" tests/fixtures/security-server.mjs \"C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\""
+}

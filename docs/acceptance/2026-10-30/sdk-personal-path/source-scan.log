@@ -1,0 +1,4 @@
+掃描：sdk、scripts/trial、根目錄交付文件、tests/sdk、SDK兩個封裝工具、docs。
+排除：docs/acceptance歷史證據、docs/STATUS歷史命令／owner紀錄、node_modules及dist本機產物。
+模式：個人名稱、Windows絕對Users路徑、macOS /Users/、Linux /home/。
+結果：0筆，rg exit 1（無匹配）。

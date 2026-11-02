@@ -1,0 +1,8 @@
+PASS PS parser：scripts/package-sdk.ps1
+PASS PS parser：scripts/test-sdk-package.ps1
+PASS PS parser：scripts/test-theme-package.ps1
+PASS PS parser：scripts/test-theme-author-flow.ps1
+PASS Node syntax：sdk/author-starter/configure.mjs
+PASS Node syntax：sdk/author-starter/check-types.mjs
+PASS Node syntax：sdk/author-starter/build.mjs
+PASS Node syntax：tests/fixtures/theme-author-probe.js

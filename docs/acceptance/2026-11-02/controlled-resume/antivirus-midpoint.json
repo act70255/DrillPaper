@@ -1,0 +1,10 @@
+{
+  "antivirus": {
+    "modified": "2026-11-01T09:42:36.4875549+08:00",
+    "sha256": "E395850C13B01016BAEFBB4CADFE7846032D34768953B97E9037F2FBB3765F81",
+    "bytes": 41998,
+    "path": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log"
+  },
+  "timestamp": "2026-11-02T09:16:13.1091731+08:00",
+  "scope": "trial7 已退出；HEAD 對照執行中"
+}

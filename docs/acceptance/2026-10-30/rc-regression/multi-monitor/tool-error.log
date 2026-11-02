@@ -1,0 +1,7 @@
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-multi-monitor.ps1:131
+Line |
+ 131 |      throw $Failure
+     |      ~~~~~~~~~~~~~~
+     | 宿主沒有繼續推送新的指標。
+
+

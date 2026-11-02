@@ -1,0 +1,2 @@
+桌布整合測試紀錄：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\desktop-20261029-184813-1cdb34
+PASS：實際 app 附掛、2 次父視窗銷毀後重建與指標更新、正常退出與 WebView2 子程序清理。

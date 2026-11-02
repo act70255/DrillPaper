@@ -1,0 +1,47 @@
+[
+  {
+    "sha256": "AA0CBF1BBCC974AAEE7CE29597530048CD7C584FC204C42E05FAC98B41B7F497",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\AGENTS.md",
+    "bytes": 1416
+  },
+  {
+    "sha256": "B095243B026161AED1D037EA777C1799CD9835AC8B6C6EC5AE51488FE7333AE4",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\.scratch\\rc-delivery\\spec.md",
+    "bytes": 6176
+  },
+  {
+    "sha256": "2DD60BFBB3C7829873414CE7DC10C382B4D9472E5D0AA0D86F81836104FE003D",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\.scratch\\rc-delivery\\issues\\10-controlled-resume-regression.md",
+    "bytes": 4897
+  },
+  {
+    "sha256": "56FBC0F7CABF0CA123E7159BF913B5EBFAC9AD54D980E18F451EEBE3099BC376",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-multi-monitor.ps1",
+    "bytes": 53239
+  },
+  {
+    "sha256": "4A509F00439746EFE9FEDD2D5137644AA60734727D2781FC7EFF4BAEA2CD65BB",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\security-process.ps1",
+    "bytes": 3628
+  },
+  {
+    "sha256": "9867F25FD3F4DD6AABE759E1F6F2C3254CF5DDF6C7D70729B810E2E0DD53A240",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\tests\\fixtures\\security-launcher.mjs",
+    "bytes": 977
+  },
+  {
+    "sha256": "87FE10E27EB016D144F8C775BEEA4C81C724BD513BDDE61DE9F866465FDBC29D",
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\DrillPaper-0.1.0-trial.7-win-x64-unsigned.zip",
+    "bytes": 472507
+  },
+  {
+    "sha256": "0FE99FF51047340F794B4A040754477B16893FE1C6594FF7D30DF37A33EAA997",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC10 同步重試 含空白 20261102-093410\\observe-os.ps1",
+    "bytes": 8312
+  },
+  {
+    "sha256": "C89B7F84190CC95A9B68A07F84EDE6D697A57BE1A3C4BB9F293A8F60FFB03C0E",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC10 同步重試 含空白 20261102-093410\\observe-os-v2.ps1",
+    "bytes": 8314
+  }
+]

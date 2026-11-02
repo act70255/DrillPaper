@@ -1,0 +1,28 @@
+{
+  "tlsPreconnect": "PASS (關閉零新增連線、開啟 ClientHello)",
+  "switch": "off-on-off",
+  "managementMessages": "PASS (三種拒絕回覆及 snapshot 正向控制)",
+  "http": "PASS",
+  "result": "PASS",
+  "observedChildren": [
+    1440,
+    89660,
+    96140,
+    69772,
+    101616,
+    74460,
+    91396
+  ],
+  "dnsHost": "drillpaper-2873c5f0a7aa46c0a4cbe1e121e75eef.example.com",
+  "application": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-7\\DrillPaper.exe",
+  "hash": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+  "storage": "PASS (local/session storage、Cookie、IndexedDB、Cache Storage)",
+  "permissions": "PASS (通知、定位、camera/microphone 實際呼叫)",
+  "navigation": "PASS (原頁面繼續或可信 Minimal 回復)",
+  "preconnect": "PASS (開啟時有瀏覽器正向控制，關閉時無新增 TCP 連線)",
+  "prompt": "PASS",
+  "workers": "PASS (Dedicated、Shared、Service)",
+  "webrtc": "PASS (UDP/STUN、TURN-TCP、WSS，原生控制各 1，主題連線 0)",
+  "https": "PASS (example.com no-cors)",
+  "timestamp": "2026-10-30T16:44:51.2660735+08:00"
+}

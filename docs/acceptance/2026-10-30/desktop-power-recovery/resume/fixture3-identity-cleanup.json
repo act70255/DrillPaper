@@ -1,0 +1,12 @@
+{
+  "equal": true,
+  "recordPath": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-fixed\\DrillPaperParentFixture.exe",
+  "cimStart": "2026-10-30T03:11:50.0505890Z",
+  "id": 79976,
+  "exited": true,
+  "sha256": "0BAB8F01DCD71036AD80C520AA16C0774F80D62EA436DA218CA28AB0D501AC56",
+  "actualStart": "2026-10-30T03:11:50.0505890Z",
+  "recordStart": "2026-10-29T19:11:50.0000000Z",
+  "actual": "C:\\Users\\James\\DrillPaperTests\\桌面電源 含空白\\rc05-fixed\\DrillPaperParentFixture.exe",
+  "cleanup": "核對launcher路徑／時間及CIM精確建立時間並持有handle後，僅終止本輪漏接fixture"
+}

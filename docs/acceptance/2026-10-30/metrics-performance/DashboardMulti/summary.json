@@ -1,0 +1,46 @@
+{
+  "cpuMeanPercent": 0.2819807070162642,
+  "cpuP95Percent": 0.4722472448119074,
+  "invalidCpuIntervals": 0,
+  "samples": 97,
+  "spanSeconds": 603.59056,
+  "durationMet": true,
+  "sampleIntervalMeanSeconds": 6.287401666666667,
+  "sampleIntervalMaxSeconds": 6.6372271000000005,
+  "privateSlopeMiBPerMinute": 0.7322358303720469,
+  "privateWindowDeltaMiB": 1.408203125,
+  "workingMeanMiB": 567.4719716494845,
+  "privateMeanMiB": 301.96339400773195,
+  "handlesWindowDelta": -19,
+  "threadsWindowDelta": 0,
+  "excludedResourceSamples": 0,
+  "resourceSpanSeconds": 603.59056,
+  "surfaceRates": [
+    {
+      "hwnd": "4660594",
+      "metricsHz": 0.9360650040650073,
+      "healthHz": 0.19881026635009005
+    },
+    {
+      "hwnd": "168368022",
+      "metricsHz": 0.9360650040650073,
+      "healthHz": 0.19881026635009005
+    }
+  ],
+  "gpuEngineSumMeanPercent": 0.4499422565695874,
+  "gpuValidSamples": 97,
+  "surfaceValidation": {
+    "valid": true,
+    "invalidRows": 0,
+    "expectedCount": 2,
+    "expectedTheme": "Dashboard",
+    "paused": false
+  },
+  "gpuUnknownInstances": 0,
+  "collectionResult": "COMPLETED",
+  "shutdown": true,
+  "incompleteSamples": 0,
+  "processCounts": [
+    8
+  ]
+}

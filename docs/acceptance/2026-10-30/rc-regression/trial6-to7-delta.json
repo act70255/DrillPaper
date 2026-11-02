@@ -1,0 +1,16 @@
+{
+  "unchangedCount": 53,
+  "changed": [
+    {
+      "path": "Start-DrillPaper.cmd",
+      "after": "5468625FD505E4CEA777290C63F6611255F8FE99308DD1281DC9AA6B7682BCC5",
+      "before": "4EF35D4E70AB1E02FF0D520AEBF64AEC290EECFC016FAF2181D225DC0B3FA46C"
+    },
+    {
+      "path": "README.zh-TW.md",
+      "after": "083B3DBCE482C3D5B26E0334ADB1DA0B7E2794E8C3C72BB5B5C4A5D6A374577E",
+      "before": "2018474EC82F4CB6D2FE43E9010F8C2713D38032A15D163AE52E7D80C1C26D41"
+    }
+  ],
+  "note": "package-manifest 的版本及工具 hash 另變；產品 EXE、主題與 SDK 位元組相同。"
+}

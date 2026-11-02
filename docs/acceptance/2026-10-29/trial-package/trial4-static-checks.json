@@ -1,0 +1,37 @@
+[
+  {
+    "file": "scripts/build-trial.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/package-trial.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/test-management-shell.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/test-trial-app.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/test-trial-launcher.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/test-trial-package.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  },
+  {
+    "file": "scripts/trial/Start-DrillPaper.ps1",
+    "parse": "PASS",
+    "utf8Bom": true
+  }
+]

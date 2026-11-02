@@ -25,6 +25,7 @@ inline constexpr UINT kManageImport = 20014;
 inline constexpr UINT kManageRemove = 20015;
 inline constexpr UINT kManageRefresh = 20016;
 struct ManagementTheme { std::string key; std::wstring label; bool builtin = false; };
+struct ManagementMonitor { std::string id; std::wstring label; };
 
 class ManagementShell final {
 public:
@@ -71,6 +72,11 @@ public:
      *     settings: 目前有效設定。
      */
     void SetPreferences(const app::AppSettings& settings);
+    /** 更新螢幕清單並保留尚未套用的選擇。
+     * Args:
+     *     monitors: 目前連接與有效設定中未連接的螢幕。
+     */
+    void SetMonitors(std::vector<ManagementMonitor> monitors);
     /** 讀取使用者草稿，不套用或保存。
      * Returns:
      *     草稿設定。
@@ -107,6 +113,10 @@ private:
     static LRESULT CALLBACK Procedure(HWND window, UINT message, WPARAM value, LPARAM data);
     /** 依目前 DPI 排列可信原生控制項。 */
     void Layout();
+    /** 依目前字型量測主題名稱，讓長名稱可以水平捲動。 */
+    void UpdateThemeExtent();
+    /** 顯示所選螢幕的完整名稱與穩定識別，不修改勾選草稿。 */
+    void UpdateMonitorDetails();
     /** 建立右鍵快捷選單。 */
     void ShowMenu();
     /** 依目前螢幕 DPI 建立可辨識的圖示。
@@ -128,6 +138,7 @@ private:
     bool present_ = false;
     bool version4_ = false;
     std::vector<ManagementTheme> themes_;
+    std::vector<ManagementMonitor> monitors_;
     app::AppSettings preferences_;
 };
 

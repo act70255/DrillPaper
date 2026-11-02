@@ -1,0 +1,30 @@
+✖ 部分程序資源不會造成假性記憶體下降 (4.5476ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 252.2116
+
+✖ failing tests:
+
+test at tests\metrics-performance-analysis.test.mjs:96:1
+✖ 部分程序資源不會造成假性記憶體下降 (4.5476ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  -1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/metrics-performance-analysis.test.mjs:103:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

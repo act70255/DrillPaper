@@ -1,0 +1,14 @@
+
+> check
+> node check-types.mjs
+
+Version 5.9.3
+
+contracts/invalid.ts(4,24): error TS2322: Type 'string' is not assignable to type 'number'.
+contracts/invalid.ts(5,15): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '"app.exit"' is not assignable to parameter of type '"metrics" | "metrics.snapshot" | "metrics.changed"'.
+contracts/invalid.ts(6,40): error TS2322: Type '"MB"' is not assignable to type 'MetricUnit'.
+contracts/invalid.ts(7,25): error TS2345: Argument of type '"sleeping"' is not assignable to parameter of type 'HostState'.
+
+PASS：SDK／MockHost 正確用法編譯成功，四個錯誤用法均由 compiler 拒絕。

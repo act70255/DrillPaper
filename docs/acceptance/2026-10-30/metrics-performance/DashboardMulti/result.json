@@ -1,0 +1,71 @@
+{
+  "result": "COMPLETED",
+  "started": "2026-10-30T12:41:36.5727037+08:00",
+  "scenario": "DashboardMulti",
+  "duration": 600,
+  "warmup": 60,
+  "samples": 97,
+  "application": "C:\\Users\\James\\DrillPaperTests\\硬體效能 含空白\\rc06\\binary\\DrillPaper.exe",
+  "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D",
+  "logicalProcessors": 14,
+  "policy": "smartSleep=false；正式手動暫停命令；沒有電源保持或喚醒呼叫。",
+  "process": {
+    "start": "2026-10-30T04:41:41.7653293Z",
+    "path": "C:\\Users\\James\\DrillPaperTests\\硬體效能 含空白\\rc06\\binary\\DrillPaper.exe",
+    "id": 37372
+  },
+  "settings": {
+    "allowNetwork": false,
+    "displayMode": "desktop",
+    "monitorTargets": [
+      "\\\\?\\display#boe0afc#4&25f3787d&0&uid8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}",
+      "\\\\?\\display#delf15e#4&25f3787d&0&uid8263#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+    ],
+    "schemaVersion": 2,
+    "smartSleep": false,
+    "theme": "minimal"
+  },
+  "expectedTheme": "Dashboard",
+  "gpuOpenStatus": 0,
+  "span": 603.59056,
+  "children": [
+    {
+      "start": "2026-10-30T04:41:44.5017020Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 85032
+    },
+    {
+      "start": "2026-10-30T04:41:44.5013320Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 34808
+    },
+    {
+      "start": "2026-10-30T04:41:45.3393877Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 89516
+    },
+    {
+      "start": "2026-10-30T04:41:45.2109194Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 31244
+    },
+    {
+      "start": "2026-10-30T04:41:42.4667250Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 47756
+    },
+    {
+      "start": "2026-10-30T04:41:43.0151074Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 88268
+    },
+    {
+      "start": "2026-10-30T04:41:44.5167010Z",
+      "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.50\\msedgewebview2.exe",
+      "id": 82276
+    }
+  ],
+  "exitCode": 0,
+  "survivors": [],
+  "ended": "2026-10-30T12:52:56.2926112+08:00"
+}

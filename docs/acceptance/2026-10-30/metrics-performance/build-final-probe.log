@@ -1,0 +1,6 @@
+.NET Framework 的 MSBuild 版本 17.14.23+b0019275e
+
+  1>Checking Build System
+  Building Custom Rule C:/WorkSpace/-James/DrillPaper/CMakeLists.txt
+  metrics_accuracy_probe.cpp
+  DrillPaperMetricsAccuracyProbe.vcxproj -> C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperMetricsAccuracyProbe.exe

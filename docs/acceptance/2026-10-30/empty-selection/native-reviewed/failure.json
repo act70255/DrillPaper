@@ -1,0 +1,406 @@
+{
+  "reason": "管理狀態未顯示指定原因。",
+  "evidence": [
+    {
+      "surfaces": [
+        {
+          "dpi": 144,
+          "health": 0,
+          "attached": 1,
+          "load": 4,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 1920,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 0,
+          "parent": 70916314,
+          "hwnd": 33559916,
+          "ready": 2,
+          "top": 0
+        },
+        {
+          "dpi": 96,
+          "health": 0,
+          "attached": 2,
+          "load": 5,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 3840,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 1920,
+          "parent": 70916314,
+          "hwnd": 202183368,
+          "ready": 3,
+          "top": 0
+        }
+      ],
+      "phase": "all-selected-minimal",
+      "timestamp": "2026-10-30T18:10:40.0515595+08:00"
+    },
+    {
+      "text": "桌布模式至少需選擇一個目標螢幕。",
+      "phase": "dialog-20010",
+      "timestamp": "2026-10-30T18:10:40.3120469+08:00",
+      "hwnd": 250746802
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 144,
+          "health": 0,
+          "attached": 1,
+          "load": 4,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 1920,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 0,
+          "parent": 70916314,
+          "hwnd": 33559916,
+          "ready": 2,
+          "top": 0
+        },
+        {
+          "dpi": 96,
+          "health": 0,
+          "attached": 2,
+          "load": 5,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 3840,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 1920,
+          "parent": 70916314,
+          "hwnd": 202183368,
+          "ready": 3,
+          "top": 0
+        }
+      ],
+      "phase": "dialog-20010",
+      "timestamp": "2026-10-30T18:10:40.3211222+08:00"
+    },
+    {
+      "phase": "notice-20010",
+      "manager": 20255658,
+      "expected": "桌布模式至少需選擇一個目標螢幕。",
+      "dialog": "桌布模式至少需選擇一個目標螢幕。",
+      "timestamp": "2026-10-30T18:10:40.3497782+08:00",
+      "status": "目前主題：Minimal Monitor · 1.0.0\r\n顯示模式：桌布\r\n運作中。主題已連線 2／2 個目標。\r\n桌布模式至少需選擇一個目標螢幕。"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 144,
+          "health": 0,
+          "attached": 1,
+          "load": 4,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 1920,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 0,
+          "parent": 70916314,
+          "hwnd": 33559916,
+          "ready": 2,
+          "top": 0
+        },
+        {
+          "dpi": 96,
+          "health": 0,
+          "attached": 2,
+          "load": 5,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 3840,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 1920,
+          "parent": 70916314,
+          "hwnd": 202183368,
+          "ready": 3,
+          "top": 0
+        }
+      ],
+      "phase": "notice-20010",
+      "timestamp": "2026-10-30T18:10:40.3580053+08:00"
+    },
+    {
+      "text": "桌布模式至少需選擇一個目標螢幕。",
+      "phase": "dialog-20013",
+      "timestamp": "2026-10-30T18:10:40.5533470+08:00",
+      "hwnd": 250812338
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 144,
+          "health": 0,
+          "attached": 1,
+          "load": 4,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 1920,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 0,
+          "parent": 70916314,
+          "hwnd": 33559916,
+          "ready": 2,
+          "top": 0
+        },
+        {
+          "dpi": 96,
+          "health": 0,
+          "attached": 2,
+          "load": 5,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 3840,
+          "bottom": 1080,
+          "tick": 0,
+          "left": 1920,
+          "parent": 70916314,
+          "hwnd": 202183368,
+          "ready": 3,
+          "top": 0
+        }
+      ],
+      "phase": "dialog-20013",
+      "timestamp": "2026-10-30T18:10:40.5615553+08:00"
+    },
+    {
+      "phase": "notice-20013",
+      "manager": 20255658,
+      "expected": "桌布模式至少需選擇一個目標螢幕。",
+      "dialog": "桌布模式至少需選擇一個目標螢幕。",
+      "timestamp": "2026-10-30T18:10:40.6839946+08:00",
+      "status": "目前主題：Minimal Monitor · 1.0.0\r\n顯示模式：桌布\r\n運作中。主題已連線 2／2 個目標。\r\n桌布模式至少需選擇一個目標螢幕。"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 144,
+          "health": 0,
+          "attached": 1,
+          "load": 4,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 1920,
+          "bottom": 1080,
+          "tick": 1587732625,
+          "left": 0,
+          "parent": 70916314,
+          "hwnd": 33559916,
+          "ready": 2,
+          "top": 0
+        },
+        {
+          "dpi": 96,
+          "health": 0,
+          "attached": 2,
+          "load": 5,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 3840,
+          "bottom": 1080,
+          "tick": 1587732625,
+          "left": 1920,
+          "parent": 70916314,
+          "hwnd": 202183368,
+          "ready": 3,
+          "top": 0
+        }
+      ],
+      "phase": "notice-20013",
+      "timestamp": "2026-10-30T18:10:40.6905983+08:00"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 8,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 912,
+          "bottom": 632,
+          "tick": 1587734421,
+          "left": 152,
+          "parent": 0,
+          "hwnd": 202248904,
+          "ready": 5,
+          "top": 152
+        }
+      ],
+      "phase": "empty-preview-saved",
+      "timestamp": "2026-10-30T18:10:42.4656463+08:00"
+    },
+    {
+      "text": "桌布模式至少需選擇一個目標螢幕。",
+      "phase": "dialog-20003",
+      "timestamp": "2026-10-30T18:10:42.7206428+08:00",
+      "hwnd": 10356236
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 8,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 912,
+          "bottom": 632,
+          "tick": 1587734421,
+          "left": 152,
+          "parent": 0,
+          "hwnd": 202248904,
+          "ready": 5,
+          "top": 152
+        }
+      ],
+      "phase": "dialog-20003",
+      "timestamp": "2026-10-30T18:10:42.7291431+08:00"
+    },
+    {
+      "phase": "notice-20003",
+      "manager": 20255658,
+      "expected": "桌布模式至少需選擇一個目標螢幕。",
+      "dialog": "桌布模式至少需選擇一個目標螢幕。",
+      "timestamp": "2026-10-30T18:10:42.8465111+08:00",
+      "status": "目前主題：Minimal Monitor · 1.0.0\r\n顯示模式：預覽\r\n運作中。主題已連線 1／1 個目標。\r\n桌布模式至少需選擇一個目標螢幕。"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 8,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 912,
+          "bottom": 632,
+          "tick": 1587734421,
+          "left": 152,
+          "parent": 0,
+          "hwnd": 202248904,
+          "ready": 5,
+          "top": 152
+        }
+      ],
+      "phase": "notice-20003",
+      "timestamp": "2026-10-30T18:10:42.8554160+08:00"
+    },
+    {
+      "text": "無法完成管理操作，請查看日誌後重試。",
+      "phase": "dialog-20010",
+      "timestamp": "2026-10-30T18:10:43.6233421+08:00",
+      "hwnd": 10421772
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 9,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 912,
+          "bottom": 632,
+          "tick": 0,
+          "left": 152,
+          "parent": 0,
+          "hwnd": 202248904,
+          "ready": 6,
+          "top": 152
+        }
+      ],
+      "phase": "dialog-20010",
+      "timestamp": "2026-10-30T18:10:43.6326153+08:00"
+    },
+    {
+      "phase": "notice-20010",
+      "manager": 20255658,
+      "expected": "無法完成管理操作，請查看日誌後重試。",
+      "dialog": "無法完成管理操作，請查看日誌後重試。",
+      "timestamp": "2026-10-30T18:10:43.7589599+08:00",
+      "status": "目前主題：Minimal Monitor · 1.0.0\r\n顯示模式：預覽\r\n運作中。主題已連線 1／1 個目標。\r\n無法完成管理操作，請查看日誌後重試。"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 9,
+          "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+          "right": 912,
+          "bottom": 632,
+          "tick": 0,
+          "left": 152,
+          "parent": 0,
+          "hwnd": 202248904,
+          "ready": 6,
+          "top": 152
+        }
+      ],
+      "phase": "notice-20010",
+      "timestamp": "2026-10-30T18:10:43.7691828+08:00"
+    },
+    {
+      "text": "桌布模式至少需選擇一個目標螢幕。",
+      "phase": "empty-preview-cli-desktop",
+      "timestamp": "2026-10-30T18:10:46.6063105+08:00"
+    },
+    {
+      "surfaces": [],
+      "phase": "empty-preview-cli-desktop",
+      "timestamp": "2026-10-30T18:10:46.6130655+08:00"
+    },
+    {
+      "text": "桌布模式至少需選擇一個目標螢幕。",
+      "phase": "dialog-20003",
+      "timestamp": "2026-10-30T18:10:50.8050337+08:00",
+      "hwnd": 10753536
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 0,
+          "attached": 0,
+          "load": 1,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 988,
+          "bottom": 708,
+          "tick": 1587742546,
+          "left": 228,
+          "parent": 0,
+          "hwnd": 21700244,
+          "ready": 1,
+          "top": 228
+        }
+      ],
+      "phase": "dialog-20003",
+      "timestamp": "2026-10-30T18:10:50.8130258+08:00"
+    },
+    {
+      "surfaces": [
+        {
+          "dpi": 0,
+          "health": 1587776421,
+          "attached": 0,
+          "load": 1,
+          "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+          "right": 988,
+          "bottom": 708,
+          "tick": 1587777843,
+          "left": 228,
+          "parent": 0,
+          "hwnd": 21700244,
+          "ready": 1,
+          "top": 228
+        }
+      ],
+      "phase": "condition-timeout",
+      "timestamp": "2026-10-30T18:11:26.0105453+08:00"
+    }
+  ],
+  "timestamp": "2026-10-30T18:11:26.0378060+08:00",
+  "result": "FAIL"
+}

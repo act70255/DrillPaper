@@ -1,0 +1,42 @@
+✖ 拒絕既有證據目錄時原結果保持不變 (4823.1956ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5060.8542
+
+✖ failing tests:
+
+test at tests\metrics-performance-analysis.test.mjs:78:1
+✖ 拒絕既有證據目錄時原結果保持不變 (4823.1956ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{\r\n' +
+  +   '  "result": "FAILED",\r\n' +
+  +   '  "started": "2026-10-30T11:53:49.5000851+08:00",\r\n' +
+  +   '  "scenario": "MinimalSingle",\r\n' +
+  +   '  "duration": 1,\r\n' +
+  +   '  "warmup": 60,\r\n' +
+  +   '  "samples": 0,\r\n' +
+  +   '  "reason": "效能觀測的輸入、程序身分或讀取未完成；完整原因見 details。",\r\n' +
+  +   `  "details": "Exception: C:\\\\WorkSpace\\\\-James\\\\DrillPaper\\\\scripts\\\\test-metrics-performance.ps1:20\\r\\nLine |\\r\\n  20 |      if (Test-Path -LiteralPath $session) { throw '證據目錄已存在，拒絕覆寫。' }\\r\\n     |                                             ~~~~~~~~~~~~~~~~~~~~~\\r\\n     | 證據目錄已存在，拒絕覆寫。\\r\\n\\r\\n",\r\n` +
+  +   '  "ended": "2026-10-30T11:53:52.2252903+08:00"\r\n' +
+  +   '}\r\n'
+  - '{"original":"不可覆寫"}\n'
+  
+      at TestContext.<anonymous> (file:///C:/WorkSpace/-James/DrillPaper/tests/metrics-performance-analysis.test.mjs:89:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `{\r\n  "result": "FAILED",\r\n  "started": "2026-10-30T11:53:49.5000851+08:00",\r\n  "scenario": "MinimalSingle",\r\n  "duration": 1,\r\n  "warmup": 60,\r\n  "samples": 0,\r\n  "reason": "效能觀測的輸入、程序身分或讀取未完成；完整原因見 details。",\r\n  "details": "Exception: C:\\\\WorkSpace\\\\-James\\\\DrillPaper\\\\scripts\\\\test-metrics-performance.ps1:20\\r\\nLine |\\r\\n  20 |      if (Test-Path -LiteralPath $session) { throw '證據目錄已存在，拒絕覆寫。' }\\r\\n     |                                             ~~~~~~~~~~~~~~~~~~~~~\\r\\n     | 證據目錄已存在，拒絕覆寫。\\r\\n\\r\\n",\r\n  "ended": "2026-10-30T11:53:52.2252903+08:00"\r\n}\r\n`,
+    expected: '{"original":"不可覆寫"}\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

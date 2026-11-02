@@ -293,7 +293,7 @@ void WebView2Host::NotifyNetworkBlocked() {
     if (networkPolicy_.Evaluate(runtime::ThemeRequestKind::ExternalHttps) ==
         runtime::ThemeNetworkAction::BlockAndPromptSettings) {
         SetPropW(parentWindow_, L"DrillPaper.NetworkPrompt", reinterpret_cast<HANDLE>(1));
-        PostMessageW(parentWindow_, kNetworkBlockedMessage, 0, 0);
+        PostMessageW(parentWindow_, kNetworkBlockedMessage, 0, static_cast<LPARAM>(loadEpoch_));
     }
 }
 
@@ -358,7 +358,9 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
     themeName_ = themeName;
     themeDirectory_ = themeDirectory;
     themeEntry_ = entry;
-    ++loadEpoch_;
+    static unsigned long long nextLoad = 0;
+    loadEpoch_ = ++nextLoad;
+    SetPropW(parentWindow_, L"DrillPaper.LoadEpoch", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(loadEpoch_)));
     hostName_ = NewThemeHost();
     if (hostName_.empty()) return E_FAIL;
     hostOrigin_ = L"https://" + hostName_ + L"/";
@@ -399,6 +401,10 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 return S_OK;
                             }
                             controller_ = controller;
+                            if (FAILED(SetRasterizationScale(rasterizationScale_))) {
+                                ReportFailure(E_NOINTERFACE);
+                                return S_OK;
+                            }
                             HRESULT result = controller_->get_CoreWebView2(&webview_);
                             if (FAILED(result) || webview_ == nullptr) {
                                 ReportFailure(FAILED(result) ? result : E_FAIL);
@@ -419,6 +425,10 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
                                 if (SUCCEEDED(result)) result = settings->put_AreDevToolsEnabled(FALSE);
                                 if (SUCCEEDED(result)) result = settings->put_AreDefaultContextMenusEnabled(FALSE);
                                 if (SUCCEEDED(result)) result = settings->put_AreDefaultScriptDialogsEnabled(FALSE);
+                                // 每個 controller 均停用信譽檢查，避免 SmartScreen 背景上傳；見 ADR 0005。
+                                ComPtr<ICoreWebView2Settings8> settings8;
+                                if (SUCCEEDED(result)) result = settings.As(&settings8);
+                                if (SUCCEEDED(result)) result = settings8->put_IsReputationCheckingRequired(FALSE);
                             }
                             if (FAILED(result)) {
                                 ReportFailure(result);
@@ -558,44 +568,14 @@ HRESULT WebView2Host::Initialize(HWND parentWindow, const std::wstring& themeDir
 }
 
 HRESULT WebView2Host::LoadTheme(const std::wstring& themeDirectory, const std::wstring& themeName,
-                              const std::wstring& entry) {
-    if (webview_ == nullptr || controller_ == nullptr) return E_PENDING;
-    if (themeDirectory.empty() || themeName.empty() || entry.empty()) return E_INVALIDARG;
-    const auto nextHost = NewThemeHost();
-    if (nextHost.empty()) return E_FAIL;
-    const auto oldHost = hostName_;
-    const auto oldOrigin = hostOrigin_;
-    const auto oldName = themeName_;
-    const auto oldDirectory = themeDirectory_;
-    webview_->Stop();
-    hostName_ = nextHost;
-    hostOrigin_ = L"https://" + nextHost + L"/";
-    themeName_ = themeName;
-    themeDirectory_ = themeDirectory;
-    handshakeComplete_ = false;
-    subscribed_ = false;
-    lastBroadcastTick_ = 0;
-    updateIntervalMilliseconds_ = 1000;
-    const HRESULT result = webview_->Navigate((hostOrigin_ + entry).c_str());
-    if (FAILED(result)) {
-        hostName_ = oldHost;
-        hostOrigin_ = oldOrigin;
-        themeName_ = oldName;
-        themeDirectory_ = oldDirectory;
-        return result;
-    }
-    themeDirectory_ = themeDirectory;
-    themeEntry_ = entry;
-    ++loadEpoch_;
+                              const std::wstring& entry, HWND parentWindow) {
+    const HWND parent = parentWindow ? parentWindow : parentWindow_;
+    if (parent == nullptr || !IsWindow(parent) || themeDirectory.empty() || themeName.empty() || entry.empty())
+        return E_INVALIDARG;
+    Shutdown();
     recoveryAttempts_ = 0;
-    SetWindowTextW(parentWindow_, (L"DrillPaper Preview — " + themeName_ + L" — 載入中").c_str());
-    if (state_ != runtime::PowerState::Active) {
-        suspended_ = false;
-        SetRuntimeState(state_);
-    }
-    return S_OK;
+    return Initialize(parent, themeDirectory, themeName, entry);
 }
-
 HRESULT WebView2Host::Recover() {
     if (parentWindow_ == nullptr || !IsWindow(parentWindow_) || recoveryAttempts_ >= 3)
         return HRESULT_FROM_WIN32(ERROR_RETRY);
@@ -621,6 +601,8 @@ HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
     const auto previous = state_;
     const auto epoch = ++runtimeEpoch_;
     state_ = state;
+    // 不把真正睡眠／受控暫停的經過時間誤判為 JS 無回應。
+    healthTick_ = GetTickCount64();
     const bool active = state == runtime::PowerState::Active;
     if (controller_ == nullptr || webview_ == nullptr) return S_OK;
     ComPtr<ICoreWebView2_3> webview3;
@@ -648,7 +630,7 @@ HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
                     if (state_ != runtime::PowerState::Active && epoch != runtimeEpoch_) {
                         // 過期的暫停可能已被 Resume 取消；返回 UI 迴圈後重套最新狀態。
                         suspended_ = false;
-                        PostMessageW(parentWindow_, kRuntimeStateRefreshMessage, 0, 0);
+                        PostMessageW(parentWindow_, kRuntimeStateRefreshMessage, 0, static_cast<LPARAM>(loadEpoch_));
                         return S_OK;
                     }
                     if (state_ == runtime::PowerState::Active && webview_ != nullptr) {
@@ -673,6 +655,39 @@ HRESULT WebView2Host::SetRuntimeState(runtime::PowerState state) {
     return result;
 }
 
+void WebView2Host::CheckResponsiveness() {
+    const auto now = GetTickCount64();
+    if (!IsReady() || state_ != runtime::PowerState::Active) {
+        healthTick_ = now;
+        return;
+    }
+    if (!webview_ || healthFailed_) return;
+    if (healthPending_) {
+        if (now - healthTick_ >= 15000) {
+            healthFailed_ = true;
+            PostMessageW(parentWindow_, kRendererFailedMessage, static_cast<WPARAM>(loadEpoch_),
+                COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_UNRESPONSIVE);
+        }
+        return;
+    }
+    if (healthTick_ != 0 && now - healthTick_ < 5000) return;
+    healthPending_ = true;
+    healthTick_ = now;
+    const HRESULT result = webview_->ExecuteScript(L"0", Callback<ICoreWebView2ExecuteScriptCompletedHandler>(
+        [this, lifetime = lifetime_](HRESULT error, LPCWSTR) -> HRESULT {
+            if (!*lifetime) return S_OK;
+            healthPending_ = false;
+            healthTick_ = GetTickCount64();
+            if (FAILED(error)) ReportFailure(error);
+            else SetPropW(parentWindow_, L"DrillPaper.HealthTick", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(healthTick_)));
+            return S_OK;
+        }).Get());
+    if (FAILED(result)) {
+        healthPending_ = false;
+        ReportFailure(result);
+    }
+}
+
 void WebView2Host::UpdateCaption() {
     if (!IsReady() || parentWindow_ == nullptr) return;
     std::wstring suffix;
@@ -693,6 +708,20 @@ void WebView2Host::Resize() {
     if (GetClientRect(parentWindow_, &bounds)) {
         controller_->put_Bounds(bounds);
     }
+}
+
+HRESULT WebView2Host::SetRasterizationScale(double scale) {
+    if (scale < 0) return E_INVALIDARG;
+    rasterizationScale_ = scale;
+    if (!controller_) return S_OK;
+    ComPtr<ICoreWebView2Controller3> controller3;
+    HRESULT result = controller_.As(&controller3);
+    if (FAILED(result)) return result;
+    result = controller3->put_ShouldDetectMonitorScaleChanges(scale == 0 ? TRUE : FALSE);
+    if (SUCCEEDED(result)) result = controller3->put_BoundsMode(COREWEBVIEW2_BOUNDS_MODE_USE_RAW_PIXELS);
+    if (SUCCEEDED(result) && scale > 0) result = controller3->put_RasterizationScale(scale);
+    if (SUCCEEDED(result)) Resize();
+    return result;
 }
 
 void WebView2Host::SetSnapshot(const core::MetricsSnapshot& snapshot) {
@@ -790,7 +819,9 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
         }
         subscribed_ = true;
         // 原生診斷屬性只在真正訂閱後前進，供整合測試辨認新的握手。
-        SetPropW(parentWindow_, L"DrillPaper.ReadyEpoch", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(++readySequence_)));
+        static unsigned long long nextReady = 0;
+        readySequence_ = ++nextReady;
+        SetPropW(parentWindow_, L"DrillPaper.ReadyEpoch", reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(readySequence_)));
         updateIntervalMilliseconds_ = parsed.message.intervalMilliseconds;
         lastBroadcastTick_ = 0;
         PostJson(SerializeMetricsSnapshotMessage(currentSnapshot_, "metrics.changed", nullptr));
@@ -841,14 +872,16 @@ HRESULT WebView2Host::PostJson(const std::string& json) {
 
 void WebView2Host::ReportFailure(HRESULT error) {
     if (parentWindow_ != nullptr && IsWindow(parentWindow_)) {
-        PostMessageW(parentWindow_, kWebViewFailureMessage, static_cast<WPARAM>(error), 0);
+        PostMessageW(parentWindow_, kWebViewFailureMessage, static_cast<WPARAM>(error), static_cast<LPARAM>(loadEpoch_));
     }
 }
 
 void WebView2Host::Shutdown() {
     *lifetime_ = false;
+    if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.LoadEpoch");
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.ReadyEpoch");
     if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.MetricsTick");
+    if (parentWindow_ != nullptr) RemovePropW(parentWindow_, L"DrillPaper.HealthTick");
     if (webview_ != nullptr) {
         if (webMessageReceivedToken_.value != 0) webview_->remove_WebMessageReceived(webMessageReceivedToken_);
         if (navigationStartingToken_.value != 0) webview_->remove_NavigationStarting(navigationStartingToken_);
@@ -882,6 +915,9 @@ void WebView2Host::Shutdown() {
     suspended_ = false;
     suspendPending_ = false;
     resumeSnapshotPending_ = true;
+    healthTick_ = 0;
+    healthPending_ = false;
+    healthFailed_ = false;
 }
 
 } // namespace desktopmonitor::web

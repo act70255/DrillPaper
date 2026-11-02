@@ -1,0 +1,57 @@
+[
+  {
+    "name": "SDK-final.zip",
+    "bytes": 64412,
+    "sha256": "376906271C8FBF0E3EDAFC9E8662E4C32524AA7974685AD7ED05DE6FF623A0C8"
+  },
+  {
+    "name": "SDK-final-repeat.zip",
+    "bytes": 64412,
+    "sha256": "376906271C8FBF0E3EDAFC9E8662E4C32524AA7974685AD7ED05DE6FF623A0C8"
+  },
+  {
+    "name": "author.dmt",
+    "bytes": 7162,
+    "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546"
+  },
+  {
+    "name": "author-final.dmt",
+    "bytes": 7162,
+    "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546"
+  },
+  {
+    "name": "probe-off.dmt",
+    "bytes": 9359,
+    "sha256": "3865B23A14D526FC63625E3B1834B3CE1D355396620783CC6BF1BB69FDBDA504"
+  },
+  {
+    "name": "probe-on.dmt",
+    "bytes": 9357,
+    "sha256": "51E83324E5A2DECA5E0F0B18CE3D0E0D95537AFD6E8139D42A8761E70C3FFFD2"
+  },
+  {
+    "name": "probe-on2.dmt",
+    "bytes": 9386,
+    "sha256": "51EB9658F293979ECFD4B844CA0884D72697BF0797A1DF497FCABEFF11F8FE78"
+  },
+  {
+    "name": "probe-on3.dmt",
+    "bytes": 9520,
+    "sha256": "F244B08C5D64CBCB55047EE1138DB5B87003FEDD828CE365A081A916887D1252"
+  },
+  {
+    "name": "probe-on4.dmt",
+    "bytes": 9606,
+    "sha256": "22D9144586C5FFA2B4848D7223D23ED65AC43C86B67C22E3AFE9C1133704A4F7"
+  },
+  {
+    "name": "probe-off3.dmt",
+    "bytes": 9522,
+    "sha256": "8A0EB2F341003EB9101F084F7F9A2C9E567108B71B0BCC571BE9CFE3A4359907"
+  },
+  {
+    "name": "binary/DrillPaper.exe",
+    "bytes": 680448,
+    "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D"
+  }
+]

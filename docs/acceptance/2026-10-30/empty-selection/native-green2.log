@@ -1,0 +1,5 @@
+等待 1 個目標握手（0 表示依目前有效區域）。
+等待 0 個目標握手（0 表示依目前有效區域）。
+已記錄：all-selected-minimal
+已記錄：condition-timeout
+錯誤：無法完成多目標整合觀測，請確認程式路徑、全新證據目錄與執行環境。診斷日誌：C:\WorkSpace\-James\DrillPaper\scripts\..\artifacts\acceptance\rc05-tool-errors\8336dc04b292456a8b2d63d570b3ebd1.log

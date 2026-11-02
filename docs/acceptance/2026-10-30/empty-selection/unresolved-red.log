@@ -1,0 +1,33 @@
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+    Start 36: First Preview settings can save before a monitor identity is resolved
+1/1 Test #36: First Preview settings can save before a monitor identity is resolved ...***Failed    0.04 sec
+Filters: "First Preview settings can save before a monitor identity is resolved"
+Randomness seeded to: 2988874786
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DrillPaperSettingsTests.exe is a Catch2 v3.8.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+First Preview settings can save before a monitor identity is resolved
+-------------------------------------------------------------------------------
+C:\WorkSpace\-James\DrillPaper\tests\unit\settings_store_test.cpp(138)
+...............................................................................
+
+C:\WorkSpace\-James\DrillPaper\tests\unit\settings_store_test.cpp(138): FAILED:
+due to unexpected exception with message:
+  尚未解析首次或舊版設定的主螢幕目標，未保存設定。
+
+===============================================================================
+test cases: 1 | 1 failed
+assertions: 1 | 1 failed
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.14 sec
+
+The following tests FAILED:
+	 36 - First Preview settings can save before a monitor identity is resolved (Failed)
+Errors while running CTest

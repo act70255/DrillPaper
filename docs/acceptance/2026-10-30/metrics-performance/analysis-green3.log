@@ -1,0 +1,11 @@
+✔ 程序樹 CPU 依整機容量及同期時間差計算 (2.8643ms)
+✔ PID 重用區間不偽造成有效零 CPU (0.5684ms)
+✔ 長測按完整時間序列算記憶體斜率與首末五分鐘中位數 (0.5699ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 277.5251

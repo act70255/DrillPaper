@@ -1,0 +1,136 @@
+{
+  "kind": "trial",
+  "version": "0.1.0-trial.3",
+  "sourceCommit": "e6aa20e109da8cdd5402fe06ae0d11f3bc539d53",
+  "configuration": "Release",
+  "architecture": "x64",
+  "minimumVcRuntime": "14.44.35112.0",
+  "webView2Sdk": "1.0.2478.35",
+  "webView2Runtime": "Evergreen (external)",
+  "executableSha256": "B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781",
+  "tooling": [
+    {
+      "sha256": "05D4DA5DE7E65E01AA7C29E2C27A1DCF4663B346448928656A6137E29E6DA502",
+      "path": "scripts/build-trial.ps1"
+    },
+    {
+      "sha256": "C27E9E6112A890C244583A683EBF2E66659EECFBD64C7E74665763AF19AA416F",
+      "path": "scripts/package-trial.ps1"
+    },
+    {
+      "sha256": "7B80BB1333891F7152FACFD000D0B9B292457C8DBAF1DA5C28BB48CF44D9A667",
+      "path": "scripts/trial-files.json"
+    }
+  ],
+  "files": [
+    {
+      "sha256": "B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781",
+      "path": "DrillPaper.exe"
+    },
+    {
+      "sha256": "1CBCA1698175936A93D0C4D4148ED355E1B91415C6A4DB6D762F017DE3B6EB9A",
+      "path": "WebView2Loader.dll"
+    },
+    {
+      "sha256": "3B6A233167A25E3474A6641FC3D15438F9F39A572AE7654AABDE2298BD5AE5C4",
+      "path": "resources/themes/minimal/index.html"
+    },
+    {
+      "sha256": "F229055C4A8849F78CBE4B184B8DE521AF7AC4E9D707034A7A9931E60C106820",
+      "path": "resources/themes/minimal/main.js"
+    },
+    {
+      "sha256": "C80C38E61F590A5E7472D4639724B1F64F9B0AC040DC9441EFF5359982628D78",
+      "path": "resources/themes/minimal/style.css"
+    },
+    {
+      "sha256": "2B18D71FD35472114DA6E8C747DAF8661529D7A61BC6193BFA5846F80E3A9146",
+      "path": "resources/themes/minimal/theme.json"
+    },
+    {
+      "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45",
+      "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.js"
+    },
+    {
+      "sha256": "7967D6C0160D3713F10DFD8B10CE36EA0CA0FE3F92768ECB832E1853B9986238",
+      "path": "resources/themes/minimal/javascript/desktop-monitor-sdk.d.ts"
+    },
+    {
+      "sha256": "F80E5CB98F1370DEC2AD05826A5FBBD56AAA71550B794A3EFB9F8699F30FA6A0",
+      "path": "resources/themes/minimal/javascript/mock-host.js"
+    },
+    {
+      "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04",
+      "path": "resources/themes/minimal/javascript/theme-manifest.js"
+    },
+    {
+      "sha256": "4A236826E0D4D027024ADEE95F6A4B7EA5B8B9D727A3BA3593D906D9E8B28ECF",
+      "path": "resources/themes/dashboard/index.html"
+    },
+    {
+      "sha256": "D129656E09E7E7FAE3F996B6D27D9116DC8FA7D8CCE22153E10B718CE13A95F8",
+      "path": "resources/themes/dashboard/main.js"
+    },
+    {
+      "sha256": "2B8A6BA68F06DA28717EBFF880EF93ABAB152B97523BF0B57EA25F83A644F758",
+      "path": "resources/themes/dashboard/style.css"
+    },
+    {
+      "sha256": "EEEA7F471C864F8B8771FE675064042C94FDC911716BC38E36A657DDBF4255ED",
+      "path": "resources/themes/dashboard/theme.json"
+    },
+    {
+      "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45",
+      "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.js"
+    },
+    {
+      "sha256": "7967D6C0160D3713F10DFD8B10CE36EA0CA0FE3F92768ECB832E1853B9986238",
+      "path": "resources/themes/dashboard/javascript/desktop-monitor-sdk.d.ts"
+    },
+    {
+      "sha256": "F80E5CB98F1370DEC2AD05826A5FBBD56AAA71550B794A3EFB9F8699F30FA6A0",
+      "path": "resources/themes/dashboard/javascript/mock-host.js"
+    },
+    {
+      "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04",
+      "path": "resources/themes/dashboard/javascript/theme-manifest.js"
+    },
+    {
+      "sha256": "630A2EB88BF3132979316B8F54387352DB50E7B6E50332652F87059504D8A119",
+      "path": "LICENSE"
+    },
+    {
+      "sha256": "0A70A3F90C85DBA58F8627063CD0AD8441C507B2BF85A64496C7C57D7A133839",
+      "path": "THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "sha256": "0115478D567121238CF6CC1C0C361926CF07A49D9E4C9E66DA97FAC6A01646B3",
+      "path": "resources/licenses/miniz-3.0.2.txt"
+    },
+    {
+      "sha256": "75AEB27A3350BADD6D36B51469D05C1DD092699CE12BAE41016AA19BFCBA653C",
+      "path": "resources/licenses/nlohmann-json-3.11.3.txt"
+    },
+    {
+      "sha256": "0AF8F1B807512AAE39C2AC1AA4D0CAE65CABECB6FD554B8439A5162A0D6ECA55",
+      "path": "resources/licenses/webview2-1.0.2478.35-license.txt"
+    },
+    {
+      "sha256": "106423785C5B7EBA0A8E61D1837F2132E9C828E20AD530F565D981C1DF60DD90",
+      "path": "resources/licenses/webview2-1.0.2478.35-notice.txt"
+    },
+    {
+      "sha256": "442BCA6BF3EA57D532D7834FCB48BE786C5EFCFAB2678766BEA5733614EA979E",
+      "path": "Start-DrillPaper.ps1"
+    },
+    {
+      "sha256": "9023DC9E83FCDB91291D59C3212A5E1B638723A2F716766BF540FAF0C3D4AD2B",
+      "path": "Start-DrillPaper.cmd"
+    },
+    {
+      "sha256": "D33871B4396C84BBBAA1F556098BAF530B49E81FFA5611F10DDF00708C5B655F",
+      "path": "README.zh-TW.md"
+    }
+  ],
+  "archiveSha256": "4CA2300347C77BB37B18DA4B329A940B760564E60DD880504A3BA6B8359C6E69"
+}

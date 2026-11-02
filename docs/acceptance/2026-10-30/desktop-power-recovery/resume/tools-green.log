@@ -1,0 +1,10 @@
+✔ test-default-startup.ps1 缺少必要 EXE 時顯示繁中友善訊息 (3257.5305ms)
+✔ test-multi-monitor.ps1 缺少必要 EXE 時顯示繁中友善訊息 (2553.9202ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6198.3389

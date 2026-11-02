@@ -1,0 +1,622 @@
+[
+  {
+    "path": "CMakeLists.txt",
+    "sha256": "1E5312631A5135C2B92DF106B1B3FA7763AB3FC36987FA3F15E54470DCA9F69F"
+  },
+  {
+    "path": "CMakePresets.json",
+    "sha256": "DA531F97A80CFD99C7929A581412D560528E6B3B93B03860682EC09C9B56018A"
+  },
+  {
+    "path": "include/desktopmonitor/app/settings_store.h",
+    "sha256": "24B62C73840024473DA8FBE999C1C39E34B9E35B908FAAC1887C7DEF46379F2D"
+  },
+  {
+    "path": "include/desktopmonitor/app/theme_commands.h",
+    "sha256": "42B671B14310A0146F2F57E53793D3ED836A2B7299A2A9A457BC0961D98D1407"
+  },
+  {
+    "path": "include/desktopmonitor/core/metrics_snapshot.h",
+    "sha256": "42FA31DB7C6E26E1A7A91B87803168378747F5B830692F584F632B55470BB9A0"
+  },
+  {
+    "path": "include/desktopmonitor/monitoring/cpu_usage.h",
+    "sha256": "AF2C2536E792746F5140E9B7E7121DECE95522DF067F3AC0EB982D9C60C318C3"
+  },
+  {
+    "path": "include/desktopmonitor/monitoring/network_rate.h",
+    "sha256": "14859C986CB54AADC2F9CFBB437A2C37ECA0FEDC25683B780DD86BCACDA6366C"
+  },
+  {
+    "path": "include/desktopmonitor/monitoring/nvml_gpu_collector.h",
+    "sha256": "97DA218FF2C3CFDF876DDDD116461E2FEC485D27710D85EF527DCD275851F159"
+  },
+  {
+    "path": "include/desktopmonitor/monitoring/windows_metrics_collector.h",
+    "sha256": "D4F5A402D3B818D4469760521F035038DACC1AD6C0F242EA75FB807B90479C17"
+  },
+  {
+    "path": "include/desktopmonitor/platform/windows/desktop_host.h",
+    "sha256": "F41B481C7895A0BCBCAEA7245EA0CB100DE85A29C4A244A2C7E7415D654357B8"
+  },
+  {
+    "path": "include/desktopmonitor/platform/windows/management_shell.h",
+    "sha256": "B91FA2094F5B5343C8BC528170F2B7CBD810A9D593B99739BFCDCC73B5ED2BCC"
+  },
+  {
+    "path": "include/desktopmonitor/platform/windows/monitor_info.h",
+    "sha256": "65F24D568A59921DC823A350EF90802EC6EA368CE0D7891B77B9F21E20CC4983"
+  },
+  {
+    "path": "include/desktopmonitor/platform/windows/power_notifications.h",
+    "sha256": "E8728DE7B9BB021405698688F6DD38BC29CC24A0C38D30F27DB0B9D8C64224AD"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/change_detector.h",
+    "sha256": "07EB30357CE1A13DAC1E23C299E0888900E7AA38C23145E18A9D2E830315EC08"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/desktop_recovery_retry.h",
+    "sha256": "12631429502600687A546E6DF048B09913E7A9E95850C3375A6594FFE640019D"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/latest_value_coalescer.h",
+    "sha256": "D3A1593E92FA148D8CDBC8D224B09DB3E8A89CE92AE12B531E41256E10F9675E"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/managed_playback.h",
+    "sha256": "E8211D6C8EEFB477898E650B0377F3DCB1044540D976608ED41F24EEE7CCB067"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/metrics_history.h",
+    "sha256": "6FBCBC3E1E8BF8CF079BBA1243E71411A6923AC67CD2591CE86649ADAA920F57"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/monitor_targets.h",
+    "sha256": "EF48A885A388693A9958BBF6A9F4D96B8484859F5F06F22D3E5336C1E6C1BEDA"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/power_state_machine.h",
+    "sha256": "7190FB359491D0A2577FF00633B987A68992B51C4111403EF01D92807597DB4D"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/ring_buffer.h",
+    "sha256": "164403F35C4D2062FBC1344C9A9BFC304E0DC2F8D65AE3080B712FC8365AE3E9"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/sampling_scheduler.h",
+    "sha256": "1A21893BC2922F7F515B385AA3F35AD843DF38DDDFC6E9AAB036F74E2ECD02B3"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/sampling_worker.h",
+    "sha256": "5A0816E1729817A840E5D806A45D3A6A8348C8083BE47405AF97699741E7BE2A"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/theme_network_policy.h",
+    "sha256": "BF9C8D5AB060FECBD6F2B6E914A1B486C126CBE7E31A7EA6723404E8FC6CD380"
+  },
+  {
+    "path": "include/desktopmonitor/runtime/windows_snapshot_mailbox.h",
+    "sha256": "FD22E6AD31840C4BA503C1C0CCD146612170F449B8ED724B48BB43AB93C831D0"
+  },
+  {
+    "path": "include/desktopmonitor/themes/theme_manager.h",
+    "sha256": "DBCE384002D64702183045F012171F71C26FB273616E1AD408A3417F2E5A67C1"
+  },
+  {
+    "path": "include/desktopmonitor/web/protocol_v1.h",
+    "sha256": "26F5A6ABDB7BA98511C2A0D71677BC80FD0928CA25A0DC8DD54E5A37E45F241C"
+  },
+  {
+    "path": "include/desktopmonitor/web/webview2_host.h",
+    "sha256": "AE730E65C307EF6008E89B750F0194FDC860937E610A27526E9367201E412566"
+  },
+  {
+    "path": "scripts/analyze-metrics-performance.mjs",
+    "sha256": "7F83C63DCDED8CD609189B45B649F3DD6A6D6E1F88FDD2FE21B752A0414F2F55"
+  },
+  {
+    "path": "scripts/build-trial.ps1",
+    "sha256": "05D4DA5DE7E65E01AA7C29E2C27A1DCF4663B346448928656A6137E29E6DA502"
+  },
+  {
+    "path": "scripts/build.ps1",
+    "sha256": "5E4DFFC24D2060BFAFD13563FC74C28C389F52C23821F014D453B9D85EDEB8E3"
+  },
+  {
+    "path": "scripts/check-environment.ps1",
+    "sha256": "A98DAC8F31059C6A310FA33088D2AA198DF7BA06654F3A48E1D351C92ACA2BD4"
+  },
+  {
+    "path": "scripts/check-security-netlog.mjs",
+    "sha256": "402D1E88F0A6D4EFFA841D838C3EF1D2D53AC1AB61750DE7CE36E93BB4A4133A"
+  },
+  {
+    "path": "scripts/ctest-workspace.cmake",
+    "sha256": "8EFF3ADFCED9DCBC0B5B50543FBE4D4FA289757C2E8676F7E6EBEC5C8E97ACEA"
+  },
+  {
+    "path": "scripts/inspect-shell.ps1",
+    "sha256": "68E9328DDF176E192AC27BA26C1159E4B866C1E41E64B658746BABBC15E1F8A9"
+  },
+  {
+    "path": "scripts/measure-process-tree.ps1",
+    "sha256": "E88E7FD12350A35D53084D84C9CC3975BA7D092BF6344077A75362941CC951FC"
+  },
+  {
+    "path": "scripts/package-sdk.ps1",
+    "sha256": "282FADE4FC25482634D9B2B5E1EB0CE501B355DE0D63D6164CA498B13607CE40"
+  },
+  {
+    "path": "scripts/package-theme.ps1",
+    "sha256": "9CDBE6C8AE8BB8152A6A93841E568027285617603120186295C43274B765D0DD"
+  },
+  {
+    "path": "scripts/package-trial.ps1",
+    "sha256": "DCDF6B9C303FA78904C1D3F0FAE03A5EA046204A003906FB80541FCE09FFAE60"
+  },
+  {
+    "path": "scripts/package.ps1",
+    "sha256": "3F67C5A780E206E687AB8E24A130C87D4DD19F8293562CECFB237EBCEB176A6F"
+  },
+  {
+    "path": "scripts/performance-native.cs",
+    "sha256": "17DA49AD9C1F5DC50107F5A5E4EF824B059016BF91C33C38E27095322D66CD13"
+  },
+  {
+    "path": "scripts/plot-metrics-performance.py",
+    "sha256": "5534DDD5B19279F6A1D5CE54AFDCB5417EE93D0DDF5512AD3A4EB3DC3C22DFBD"
+  },
+  {
+    "path": "scripts/restore-webview2-sdk.ps1",
+    "sha256": "D810C4528B870525F2A683930269029082A4354DF0F7245236A80E49580EBEB9"
+  },
+  {
+    "path": "scripts/run-performance-observation.ps1",
+    "sha256": "A142BD802F4FD7B4465840A9D0052E3FCB643C6E403660E0AA96478B37EC7E95"
+  },
+  {
+    "path": "scripts/security-process.ps1",
+    "sha256": "4A509F00439746EFE9FEDD2D5137644AA60734727D2781FC7EFF4BAEA2CD65BB"
+  },
+  {
+    "path": "scripts/summarize-security-netlog.mjs",
+    "sha256": "7B4D40DEF5E9D84F750EB5E4D91888F77332536468694AFF994418BD8DB78A93"
+  },
+  {
+    "path": "scripts/test-core-bootstrap.ps1",
+    "sha256": "8C30962BA2C59539F3BA890FEE99D5969837C05F543685E79834B604F31E6299"
+  },
+  {
+    "path": "scripts/test-default-startup.ps1",
+    "sha256": "C1503D7215BF34AE92973C8A03A4230E43F694C0765696EA39B722F861F3A41B"
+  },
+  {
+    "path": "scripts/test-delivery.ps1",
+    "sha256": "0759AF034D63F7F30EE7B39B7D7997F90EA8BC7A278E83F67FC5FDA64D83C7A3"
+  },
+  {
+    "path": "scripts/test-desktop-host.ps1",
+    "sha256": "745C1ABB1AE2F521180D8EC5FE0AAE6FEE82BAB9F215577C92AD63CEB69EBBB0"
+  },
+  {
+    "path": "scripts/test-environment-check.ps1",
+    "sha256": "9149C34820F9C3EF25F48088B742F824F8780D85E690EB6510A727E5307F621E"
+  },
+  {
+    "path": "scripts/test-management-shell.ps1",
+    "sha256": "84CDAECF1AA82F6C2C896318BF24E5D8EC6D9062E8463690BA62BC08FAF300BE"
+  },
+  {
+    "path": "scripts/test-metrics-performance.ps1",
+    "sha256": "E1D0D20420EFAF3BCDBB293217AF483692709DB94B3A8ED54D2B44B07CA09E1B"
+  },
+  {
+    "path": "scripts/test-multi-monitor.ps1",
+    "sha256": "886B6707ACE071E2D976027D3F4032AE9C6FC2DD40B27B43103361EDDF83ECDE"
+  },
+  {
+    "path": "scripts/test-performance-sampler.ps1",
+    "sha256": "BC721C29891CF270CC72B101167A8AD56BFDDD732E5D92355DCDADFDAF59BFB5"
+  },
+  {
+    "path": "scripts/test-renderer-recovery.ps1",
+    "sha256": "792641E9BF1F54B2BC9D4C789C7F0DB69EDDD589EC0C159611B1C354D2997E2A"
+  },
+  {
+    "path": "scripts/test-runtime-lifecycle.ps1",
+    "sha256": "200BD53C7DC8632FF594E1697D471C551E55EA835288ECDCA68B4E7319CC3C09"
+  },
+  {
+    "path": "scripts/test-sdk-package.ps1",
+    "sha256": "69E4465CE4C777D6C1875AB74F76FD600D911C4145C16C0B0514D74F036F017F"
+  },
+  {
+    "path": "scripts/test-theme-author-flow.ps1",
+    "sha256": "60A6AEB7F26EA6EC6212A1E7D28BEF4ED673BBEEE711D52F3E7F533F3A7ADB0C"
+  },
+  {
+    "path": "scripts/test-theme-cli.ps1",
+    "sha256": "942FE3F0F953740E70432C02293DA26B7D55069E41FCBB3CEA8D0C87FB7BD8B8"
+  },
+  {
+    "path": "scripts/test-theme-negative-oracle.ps1",
+    "sha256": "227759619F3432E73710840A01CCAA109E86A8391D6F896E9A94DA169F10714C"
+  },
+  {
+    "path": "scripts/test-theme-package.ps1",
+    "sha256": "B58DDE20C5165E5516518613118B6813FEEA85CDA31AB34ECADFC2CAEEA4725B"
+  },
+  {
+    "path": "scripts/test-theme-switch.ps1",
+    "sha256": "43FF625ED5718938313D9BD0D209351270C475746C9F05B62570D2B57E779B94"
+  },
+  {
+    "path": "scripts/test-trial-app.ps1",
+    "sha256": "F9A95916B5C6F23C0FA33A36EEF794D317CA480CE9AB63E7D3CFF064D47C9680"
+  },
+  {
+    "path": "scripts/test-trial-cmd.ps1",
+    "sha256": "EA8F09D5F6D31BFC856263760D1B00659074338571F0848605DBD12520C7F54C"
+  },
+  {
+    "path": "scripts/test-trial-launcher.ps1",
+    "sha256": "424E27F36DC7BC5E68C35F0EEAA822F9C50E4552640A74EF175C9A3DEA5D9C66"
+  },
+  {
+    "path": "scripts/test-trial-package.ps1",
+    "sha256": "BF093C46F7991E866148EAB7D6D2F66E78DF441C015F59B3FA43B217345DC575"
+  },
+  {
+    "path": "scripts/test-webview2-bootstrap.ps1",
+    "sha256": "7B0DDEA95606653F29E84719A01525C0136E713A34B9A6892471CB47584337A1"
+  },
+  {
+    "path": "scripts/test-webview2-security.ps1",
+    "sha256": "29A6394A2B961A0C37457BF05695486CE05A22B4221F77EF14ECB27C1E8B9DBE"
+  },
+  {
+    "path": "scripts/test-webview2-smoke.ps1",
+    "sha256": "BB774845046C1114ED320F4A086AEBFBFBD1A18754C975EAECB52D94EDE8B935"
+  },
+  {
+    "path": "scripts/test-workspace.ps1",
+    "sha256": "956B05F58D866EE66CAAA614DF8AA8302929062D937A129C40D4DD290CDAF30C"
+  },
+  {
+    "path": "scripts/test.ps1",
+    "sha256": "F8297B35D5C6FBEAA0A735CAE8EECFB079228385CFA7673213F55A52419D576A"
+  },
+  {
+    "path": "scripts/trial-files.json",
+    "sha256": "B5F3F345115845F430FFB0D8E3E42B42FADDBEC4F0E59CC41944E3C061B551D2"
+  },
+  {
+    "path": "scripts/trial/README.zh-TW.md",
+    "sha256": "083B3DBCE482C3D5B26E0334ADB1DA0B7E2794E8C3C72BB5B5C4A5D6A374577E"
+  },
+  {
+    "path": "scripts/trial/Start-DrillPaper.cmd",
+    "sha256": "5468625FD505E4CEA777290C63F6611255F8FE99308DD1281DC9AA6B7682BCC5"
+  },
+  {
+    "path": "scripts/trial/Start-DrillPaper.ps1",
+    "sha256": "E0C8C2451157B01AB2BB0D1C9830995AE31483A6FBCD87344EBF54F5025E77D3"
+  },
+  {
+    "path": "scripts/validate-theme-package.ps1",
+    "sha256": "6010761DE4EEE6A251B67613BB2D0AE41288D9075F9B16E4FD1B1003F645FC1B"
+  },
+  {
+    "path": "scripts/verify-trial-archive.ps1",
+    "sha256": "D8B3DD66195C7CDE37F38668A7BB9ABFC26D04D0B82EA4346CF5194704E46595"
+  },
+  {
+    "path": "sdk/author-starter/build.mjs",
+    "sha256": "D6ED91D66BCCAB00133FA7E6828CA3E4141679D03F392F7E7BE34318BF499AF7"
+  },
+  {
+    "path": "sdk/author-starter/check-types.mjs",
+    "sha256": "640FE18AC269583802B1152A456607CEEDE135748395EEEC5ED83F1FEAFEC6EF"
+  },
+  {
+    "path": "sdk/author-starter/configure.mjs",
+    "sha256": "AA805A64F6AC0097A1AD203D1B149A95853666FB1146FB50A4C70CDE7396B93E"
+  },
+  {
+    "path": "sdk/author-starter/contracts/invalid.ts",
+    "sha256": "CB4E6AE16644049652BB12F2C29A292670745E4D4DFDAC65257C7107DD3348BF"
+  },
+  {
+    "path": "sdk/author-starter/contracts/valid.ts",
+    "sha256": "17911AB17356098C5B36CBF3A3BA1FC4326E34E1E03FA362D04BF8FBE8F8DE68"
+  },
+  {
+    "path": "sdk/author-starter/package-lock.json",
+    "sha256": "DA053B05F0B72232254D30AC5351A41EED0CFBD658E1E6451DE6C8B759642B9D"
+  },
+  {
+    "path": "sdk/author-starter/package.json",
+    "sha256": "862BCC59118B8C0F112F3EA450E0CF9D29BFBF1DFA64B07B90BBAF92668E2B76"
+  },
+  {
+    "path": "sdk/author-starter/README.md",
+    "sha256": "5659D0EA7D8D4A2AE66DD00DF6491697B9B6729A4E23027E2690E179CF7FB596"
+  },
+  {
+    "path": "sdk/author-starter/src/main.ts",
+    "sha256": "1C63A78D42E6B679F4B79B78689CCC71F60A6E7D4DBF85F4AD9782E31BD06DA4"
+  },
+  {
+    "path": "sdk/author-starter/static/index.html",
+    "sha256": "ECBFBEA640E488D4749344B7ABCCEA885D5189C24D4D86963F443610947744D8"
+  },
+  {
+    "path": "sdk/author-starter/static/style.css",
+    "sha256": "E53BF04C9B5B98CF9456A657B78E7381917652E9ABCFB84438934E73BD65BDCC"
+  },
+  {
+    "path": "sdk/author-starter/static/theme.json",
+    "sha256": "4D24A15591927B7E3631F5ABA197976EEBDC16DEEAF7744968F9E93D32B04ADF"
+  },
+  {
+    "path": "sdk/author-starter/tsconfig.json",
+    "sha256": "550D21231C056DAB5561552E22F86502D26AD8A7FF34A76C2932B94FAE7495E1"
+  },
+  {
+    "path": "sdk/examples/dashboard/index.html",
+    "sha256": "4A236826E0D4D027024ADEE95F6A4B7EA5B8B9D727A3BA3593D906D9E8B28ECF"
+  },
+  {
+    "path": "sdk/examples/dashboard/main.js",
+    "sha256": "D129656E09E7E7FAE3F996B6D27D9116DC8FA7D8CCE22153E10B718CE13A95F8"
+  },
+  {
+    "path": "sdk/examples/dashboard/style.css",
+    "sha256": "2B8A6BA68F06DA28717EBFF880EF93ABAB152B97523BF0B57EA25F83A644F758"
+  },
+  {
+    "path": "sdk/examples/dashboard/theme.json",
+    "sha256": "EEEA7F471C864F8B8771FE675064042C94FDC911716BC38E36A657DDBF4255ED"
+  },
+  {
+    "path": "sdk/examples/minimal/index.html",
+    "sha256": "3B6A233167A25E3474A6641FC3D15438F9F39A572AE7654AABDE2298BD5AE5C4"
+  },
+  {
+    "path": "sdk/examples/minimal/main.js",
+    "sha256": "F229055C4A8849F78CBE4B184B8DE521AF7AC4E9D707034A7A9931E60C106820"
+  },
+  {
+    "path": "sdk/examples/minimal/style.css",
+    "sha256": "C80C38E61F590A5E7472D4639724B1F64F9B0AC040DC9441EFF5359982628D78"
+  },
+  {
+    "path": "sdk/examples/minimal/theme.json",
+    "sha256": "2B18D71FD35472114DA6E8C747DAF8661529D7A61BC6193BFA5846F80E3A9146"
+  },
+  {
+    "path": "sdk/javascript/desktop-monitor-sdk.d.ts",
+    "sha256": "A0777215460A307716F4387426852360877B554A8CD22A0A9F7DBFB82389AF5B"
+  },
+  {
+    "path": "sdk/javascript/desktop-monitor-sdk.js",
+    "sha256": "05280F07170DA938CE96025AC6C028EC6DEAE5B9FCA162F4EDC31E4352570D45"
+  },
+  {
+    "path": "sdk/javascript/mock-host.d.ts",
+    "sha256": "E356E94AEC5E5D5E74162201EF0E5CE85F22D8881E636A48A31C0D3CB7AE328E"
+  },
+  {
+    "path": "sdk/javascript/mock-host.js",
+    "sha256": "5F71948E1DD4A7BF611748B49EC5F40FD65FC06FFFA5CD946D76307504FC8DC1"
+  },
+  {
+    "path": "sdk/javascript/theme-manifest.js",
+    "sha256": "B5D59E18A203DA6D6046451739E615AAC19B2440BEFF8585F8C64F02713DDF04"
+  },
+  {
+    "path": "sdk/protocol-v1.schema.json",
+    "sha256": "AD9E48E03FF57ECD1E6F62B26E9A5D14ADAD1803648A9C8B19135E5EA1AAA0D1"
+  },
+  {
+    "path": "sdk/theme.schema.json",
+    "sha256": "B695779A60F498F8AD3F27CC9425ECB775D60BAF3B021AC4616962AA02468C1C"
+  },
+  {
+    "path": "src/app/main.cpp",
+    "sha256": "29FADD4D5D814CD429620C395D71F08DC24A542D31A2B41BDD788A59E28451F2"
+  },
+  {
+    "path": "src/app/settings_store.cpp",
+    "sha256": "5E66ACC682622AE86B682F6DB6EA2C506ED4FCC4C6CCE14AA0E7E5A8DDD972E2"
+  },
+  {
+    "path": "src/app/theme_commands.cpp",
+    "sha256": "5E37D9E64F738AA56A67A29237DFB08A165A1BE274C4521FA8CD97C3EDB29729"
+  },
+  {
+    "path": "src/monitoring/nvml_gpu_collector.cpp",
+    "sha256": "76933DFD72567810C09EDA67D6858769373901AFCA950E38BE4A3D9AE9202019"
+  },
+  {
+    "path": "src/monitoring/windows_metrics_collector.cpp",
+    "sha256": "1CEA2546BCC1A41680648631AA043956C1327CAA8736DC390B519D1B86D3DD09"
+  },
+  {
+    "path": "src/platform/windows/desktop_host.cpp",
+    "sha256": "23A9F626CBF209AA3F692A4C7209B38C1A3E6AB69BA9836C446A7F50DF57C3C8"
+  },
+  {
+    "path": "src/platform/windows/management_shell.cpp",
+    "sha256": "4FA91419C0957D968BBEB23768920FFF1008BC945FE35A13CDD710720806A35C"
+  },
+  {
+    "path": "src/platform/windows/monitor_info.cpp",
+    "sha256": "E930694BB7143BE4F3A4483DA22B4302AE62897179C1887929C388134C89B094"
+  },
+  {
+    "path": "src/platform/windows/power_notifications.cpp",
+    "sha256": "552277194CE52FEA109E4A0640EE30C4194A4DF90465DBFF7471C2A55CEE22FC"
+  },
+  {
+    "path": "src/themes/theme_manager.cpp",
+    "sha256": "F991C041051071C538C97BF7F4ECEF4578DC0B4879DC7716C3A4667DBEB3DBE3"
+  },
+  {
+    "path": "src/web/protocol_v1.cpp",
+    "sha256": "F3A2AD165728E53F227989F009E71F713A40768D7590FBC7B950CE9D1F239643"
+  },
+  {
+    "path": "src/web/webview2_host.cpp",
+    "sha256": "CA2ACE29E99E5083BF2A86B247BA3567F3E6FCA9746470D78BD549497EC37BA3"
+  },
+  {
+    "path": "tests/bootstrap/cpu_usage_test.cpp",
+    "sha256": "B7D1C6715722476E4C594668C2AC7025AF0AAE8F1EEE5DA5838F5F7E9B96EB60"
+  },
+  {
+    "path": "tests/bootstrap/metrics_history_test.cpp",
+    "sha256": "9DE0FABDC867AEB7A5CB4B55A98C7987BC1A300C4D570278EF110DC832989C1E"
+  },
+  {
+    "path": "tests/bootstrap/metrics_value_test.cpp",
+    "sha256": "A7E8D14C832180E62F1C4BFD030F549EE1F0A6BA97371F0F8C3727C19DA7EC9E"
+  },
+  {
+    "path": "tests/bootstrap/network_rate_test.cpp",
+    "sha256": "4081A1BD583DD2CBA2BDB949CB2A46F9DC74D1B2928AC2C25D4A14DBB9544C3D"
+  },
+  {
+    "path": "tests/bootstrap/power_state_machine_test.cpp",
+    "sha256": "34F298A0E1CA1FD9A0AB4797D4E153DB8842BB1192C275B6494E5BE469C57EE2"
+  },
+  {
+    "path": "tests/bootstrap/ring_buffer_test.cpp",
+    "sha256": "491E2DE7378B5F008AE843612E2C63CDF4C38DA93DB52EC160C67AB66D86B34A"
+  },
+  {
+    "path": "tests/bootstrap/runtime_core_test.cpp",
+    "sha256": "2F5AFF135B1014544A220327B0589889AFFB9FC23F7AE315A56B7922C0A09080"
+  },
+  {
+    "path": "tests/bootstrap/sampling_scheduler_test.cpp",
+    "sha256": "5E11F119B8CE7B292FDFB235965BC6982C7D8D84F82F87C15A2DF69B2BCF706D"
+  },
+  {
+    "path": "tests/bootstrap/theme_network_policy_test.cpp",
+    "sha256": "9B06CF4B269AC5A60E36DA2EC22898325D26D006DD7DB148C829B77EE1360A25"
+  },
+  {
+    "path": "tests/desktop-power-tools.test.mjs",
+    "sha256": "6C051FCD3ECDB50FA03D9FE243EEE8C1D7CD7CE438506A79325C5F2C3A0AD498"
+  },
+  {
+    "path": "tests/fixtures/security-launcher.mjs",
+    "sha256": "9867F25FD3F4DD6AABE759E1F6F2C3254CF5DDF6C7D70729B810E2E0DD53A240"
+  },
+  {
+    "path": "tests/fixtures/security-navigation.js",
+    "sha256": "D4A25D7741FACFF0EE947DDF3F38AFDCA127F510413A8A98D1F98B4035C0B42D"
+  },
+  {
+    "path": "tests/fixtures/security-probe.js",
+    "sha256": "BBB00C92A939F41EB7A2234AE8A0B7F72D745F9BF5D813F6235C298CB01AB132"
+  },
+  {
+    "path": "tests/fixtures/security-server.mjs",
+    "sha256": "1C1485B9D2176D0EF0BA2D402C399F85BC792D70A2636EF75A962964164CA0EB"
+  },
+  {
+    "path": "tests/fixtures/theme-author-probe.js",
+    "sha256": "24B66216181DBC0084E52977DA6DD7D3172B328A7F9561E64BA699A664490372"
+  },
+  {
+    "path": "tests/fixtures/theme-cli-launcher.mjs",
+    "sha256": "ED79E31D3745BA81643720C1CA92D52140D91C523FEE0CBC0CECE05BEB48FFBB"
+  },
+  {
+    "path": "tests/integration/desktop_host_test.cpp",
+    "sha256": "99F7E9A373B4A8598F39885336146551C1F5870DE930A72ADA55ED36CCE40FA8"
+  },
+  {
+    "path": "tests/integration/management_shell_test.cpp",
+    "sha256": "E9492E64AE3F425DD59A90DEC31F893F9DB0A42260CD633ABB1C15D83F96DBCC"
+  },
+  {
+    "path": "tests/integration/metrics_accuracy_probe.cpp",
+    "sha256": "92168FECFE0383A1BD4CFA0F6F33DA7206B00EBD7F76BE425315607EB2634DBE"
+  },
+  {
+    "path": "tests/integration/monitor_info_test.cpp",
+    "sha256": "97558F6ACB482A3C28D2207A4955DC12379AB95F10C24CF5D87FDCA39B1FD1A2"
+  },
+  {
+    "path": "tests/integration/parent_window_fixture.cpp",
+    "sha256": "D9BA2F1CCB5F80B4C13030A5755906F0B41DEF0B62831106693D719134B5ABEC"
+  },
+  {
+    "path": "tests/integration/windows_metrics_collector_test.cpp",
+    "sha256": "38CFA21F7360156D5679F14A04530596F6B65582CFEE7A437EC2CB967A55C721"
+  },
+  {
+    "path": "tests/manual/desktop-host.md",
+    "sha256": "56AB78F5B339D18A11DD31AF96F138F1B17263EADE4FDA3726193C9C5E85CED9"
+  },
+  {
+    "path": "tests/metrics-performance-analysis.test.mjs",
+    "sha256": "5742C6A2D34BFC755B1C5ADA8E28C8D912AFBAB941592FEB2B5BB01AA59414C1"
+  },
+  {
+    "path": "tests/sdk/desktop-monitor-sdk.test.mjs",
+    "sha256": "AA1CC9AFDE4049D0CA499008F8A56E28F27FC94CAFFDA5EA943295BCC03BDFD2"
+  },
+  {
+    "path": "tests/sdk/theme-manifest.test.mjs",
+    "sha256": "76318AE6563CA73F38D582B13D4C06086A450CC4D8574CE3B2E7FC428849C252"
+  },
+  {
+    "path": "tests/security-netlog.test.mjs",
+    "sha256": "41B78181CBCA5F0233F2F5AA6610C55274F9A6B0A4735E2A1B226804FF54BA07"
+  },
+  {
+    "path": "tests/test-workspace.test.mjs",
+    "sha256": "2DF333B5A75791DE278DFE4E474206183833560AFF1C8FC52335290F24980790"
+  },
+  {
+    "path": "tests/theme-cli-launcher.test.mjs",
+    "sha256": "F5F5C2BD738AEB30A2B2AD980E8E5B5D1D19170D3C702D4800513CB4B6BA6957"
+  },
+  {
+    "path": "tests/unit/core_contracts_test.cpp",
+    "sha256": "39BECF8CBC4444284622D33A68E47AE0D4E726D38FBD9FB660F61AA868F3762F"
+  },
+  {
+    "path": "tests/unit/desktop_recovery_retry_test.cpp",
+    "sha256": "9593F420A571721BE6D6AA7BFCE9BD84619888CE075A5D2DCBA8A21F1405E63A"
+  },
+  {
+    "path": "tests/unit/managed_playback_test.cpp",
+    "sha256": "7058637B984F4F6A53FE9AF43A049084425E128E2C58ED045DED8992E82F26D4"
+  },
+  {
+    "path": "tests/unit/monitor_targets_test.cpp",
+    "sha256": "D5AD053C806B7E1E4E09DF554074391C00D9476DA1E87549A7841DE144312CF2"
+  },
+  {
+    "path": "tests/unit/protocol_v1_test.cpp",
+    "sha256": "63567438804728E7B3F060A07E7E6535D6281C7FD068456A244F8D10317FEE13"
+  },
+  {
+    "path": "tests/unit/sampling_worker_test.cpp",
+    "sha256": "692E58756E847530E50714628EA12A7AB061834FCD9C54DDC587D7B0F12FAC19"
+  },
+  {
+    "path": "tests/unit/settings_store_test.cpp",
+    "sha256": "4790D335025612BD7C2DD3ABE12BAACDD03BE3FE68B1EC1557F69FB1A04B159F"
+  },
+  {
+    "path": "tests/unit/theme_manager_test.cpp",
+    "sha256": "CC2168C59D3F8EEEE931876B2C39D602252EF9C95B07E4F87023CCA54FE21BC1"
+  }
+]

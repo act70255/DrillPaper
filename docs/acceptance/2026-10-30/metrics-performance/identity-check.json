@@ -1,0 +1,7 @@
+{
+  "comparison": "原始 ISO 字串，避免 ConvertFrom-Json 自動日期型別與字串混比。",
+  "originalUnchanged": true,
+  "powershell": "7.6.3",
+  "remainingAppCount": 1,
+  "antivirusLogUnchanged": true
+}

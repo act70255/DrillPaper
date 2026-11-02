@@ -1,0 +1,20 @@
+{
+  "result": "FAIL",
+  "started": "2026-10-30T13:35:53.8818089+08:00",
+  "phases": [],
+  "application": {
+    "sha256": "25316B5067076749295B62DB557748B6DC2D88C4069CFBBE4C48E93269F6D26D",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\binary\\DrillPaper.exe"
+  },
+  "package": {
+    "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546",
+    "path": "C:\\Users\\James\\DrillPaperTests\\RC07 作者流程\\author.dmt"
+  },
+  "scenario": {
+    "mock": true,
+    "allowNetwork": false,
+    "desktop": false
+  },
+  "details": "Exception: C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-theme-author-flow.ps1:45\r\nLine |\r\n  45 |  … nt -Raw -LiteralPath $log).Contains('已存在')) { throw '同版本拒絕未留下預期診斷。' }\r\n     |                                                  ~~~~~~~~~~~~~~~~~~~~~\r\n     | 同版本拒絕未留下預期診斷。\r\n\r\n",
+  "ended": "2026-10-30T13:35:58.6398278+08:00"
+}

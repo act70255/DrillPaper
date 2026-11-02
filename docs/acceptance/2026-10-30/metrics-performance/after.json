@@ -1,0 +1,26 @@
+{
+  "time": "2026-10-30T13:07:55.9283631+08:00",
+  "antivirus": {
+    "product": "Trend Micro Apex One",
+    "version": "14.0.0.21008",
+    "hash": "0B6BE9A504AAC9279EB2E3852B84CF8371DCFC5031142CB76635FE0FD1C59A2E",
+    "log": {
+      "FullName": "C:\\Program Files (x86)\\Trend Micro\\Security Agent\\Misc\\AEGIS_BM.log",
+      "Length": 8332,
+      "LastWriteTime": "2026-10-30T09:22:30.9964599+08:00"
+    }
+  },
+  "original": {
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "id": 83428,
+    "sha256": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE",
+    "start": "2026-10-29T04:00:49.9803524Z"
+  },
+  "remainingApps": [
+    {
+      "ProcessId": 83428,
+      "ExecutablePath": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+      "CreationDate": "2026-10-29T12:00:49.980352+08:00"
+    }
+  ]
+}

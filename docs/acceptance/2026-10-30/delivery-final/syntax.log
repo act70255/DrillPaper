@@ -1,0 +1,7 @@
+PASS：scripts/package-trial.ps1
+PASS：scripts/test-trial-package.ps1
+PASS：scripts/test-trial-launcher.ps1
+PASS：scripts/test-delivery.ps1
+PASS：scripts/test-theme-author-flow.ps1
+PASS：scripts/verify-trial-archive.ps1
+PASS：scripts/trial/Start-DrillPaper.ps1

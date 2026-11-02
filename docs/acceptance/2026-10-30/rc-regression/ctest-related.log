@@ -1,0 +1,77 @@
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/DartConfiguration.tcl
+UpdateCTestConfiguration  from :C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Parse Config file:C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/DartConfiguration.tcl
+Test project C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 29
+    Start 29: Settings preserve the chosen theme mode and sleep preference
+
+29: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings preserve the chosen theme mode and sleep preference"
+29: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+29: Test timeout computed to be: 20
+29: Filters: "Settings preserve the chosen theme mode and sleep preference"
+29: Randomness seeded to: 1253932053
+29: ===============================================================================
+29: All tests passed (3 assertions in 1 test case)
+29: 
+1/5 Test #29: Settings preserve the chosen theme mode and sleep preference ...................   Passed    0.14 sec
+test 30
+    Start 30: Invalid settings and failed atomic replacement preserve existing preferences
+
+30: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Invalid settings and failed atomic replacement preserve existing preferences"
+30: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+30: Test timeout computed to be: 20
+30: Filters: "Invalid settings and failed atomic replacement preserve existing preferences"
+30: Randomness seeded to: 3654234106
+30: ===============================================================================
+30: All tests passed (11 assertions in 1 test case)
+30: 
+2/5 Test #30: Invalid settings and failed atomic replacement preserve existing preferences ...   Passed    0.33 sec
+test 31
+    Start 31: Settings accept installed theme identifiers supported by the manifest
+
+31: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperSettingsTests.exe "Settings accept installed theme identifiers supported by the manifest"
+31: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+31: Test timeout computed to be: 20
+31: Filters: "Settings accept installed theme identifiers supported by the manifest"
+31: Randomness seeded to: 3736878499
+31: ===============================================================================
+31: All tests passed (1 assertion in 1 test case)
+31: 
+3/5 Test #31: Settings accept installed theme identifiers supported by the manifest ..........   Passed    0.13 sec
+test 42
+    Start 42: DrillPaperThemeTests
+
+42: Test command: C:\WorkSpace\-James\DrillPaper\build\windows-msvc-release\Release\DrillPaperThemeTests.exe
+42: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+42: Test timeout computed to be: 60
+42: Randomness seeded to: 2429729811
+42: ===============================================================================
+42: All tests passed (98 assertions in 10 test cases)
+42: 
+4/5 Test #42: DrillPaperThemeTests ...........................................................   Passed    3.96 sec
+test 43
+    Start 43: DrillPaperThemeCli
+
+43: Test command: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "-NoProfile" "-ExecutionPolicy" "Bypass" "-File" "C:/WorkSpace/-James/DrillPaper/scripts/test-theme-cli.ps1" "-ApplicationPath" "C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release/Release/DrillPaper.exe"
+43: Working Directory: C:/WorkSpace/-James/DrillPaper/build/windows-msvc-release
+43: Test timeout computed to be: 60
+43: 主題 CLI 測試資料目錄：C:\Users\James\DrillPaperTests\回歸 含空白\DrillPaperThemeCli-7f0f005ebda449ad839389f6c11f0bce（Node 直接啟動；每次期限 15 秒）
+43: PASS：原生主題 CLI 可匯入含空白路徑、列舉，並拒絕覆蓋同版本、缺少設定與缺少參數。
+5/5 Test #43: DrillPaperThemeCli .............................................................   Passed    3.95 sec
+
+The following tests passed:
+	Settings preserve the chosen theme mode and sleep preference
+	Invalid settings and failed atomic replacement preserve existing preferences
+	Settings accept installed theme identifiers supported by the manifest
+	DrillPaperThemeTests
+	DrillPaperThemeCli
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   8.71 sec

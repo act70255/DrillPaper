@@ -1,0 +1,5 @@
+
+> build
+> tsc -p tsconfig.json && node build.mjs
+
+已產生 dist 靜態主題；請用 SDK 正式工具封裝，SDK JS 由封裝器加入。

@@ -1,0 +1,6 @@
+{
+  "scope": "審查修正與SDK封裝文件凍結後，Release configure/build及完整test.ps1",
+  "output": "C:\\Users\\James\\DrillPaperTests\\回歸 含空白\\rc-final-gate-a1b3a639b3df49e3b26bf72eb0411323",
+  "started": "2026-10-30T16:39:34.5730849+08:00",
+  "command": "pwsh -NoProfile -File scripts/package.ps1 -Configuration Release -Version 0.1.0-rc1 -OutputDirectory <非Temp使用者目錄>"
+}

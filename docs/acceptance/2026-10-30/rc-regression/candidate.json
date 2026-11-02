@@ -1,0 +1,13 @@
+{
+  "application": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-6\\DrillPaper.exe",
+  "deliveryCommit": "d60816aff6e99ad1a3624075a74016909f76fa4d",
+  "executableSha256": "993FD429AB8DCCC29A296651A9CA2E5DFAFE143C536871AEA69149BE0C2897DA",
+  "sourceCommit": "676bb473efeca65614fddb40d98e3c88c302494b",
+  "archiveSha256": "FC08E190ACF481696F560CB7136478D9CF6E9DADF45E6EEF505CD62EB9EFF8A5",
+  "session": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771",
+  "package": "C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-6",
+  "signature": {
+    "Status": 2,
+    "StatusMessage": "The file C:\\Users\\James\\DrillPaperTests\\RC09 回歸 含空白\\dbecea0a8351405c9403781db5ec1771\\trial-6\\DrillPaper.exe is not digitally signed. You cannot run this script on the current system. For more information about running scripts and setting execution policy, see about_Execution_Policies at https://go.microsoft.com/fwlink/?LinkID=135170"
+  }
+}

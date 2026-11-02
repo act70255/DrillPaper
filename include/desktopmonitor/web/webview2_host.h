@@ -40,18 +40,26 @@ public:
      */
     void SetNetworkEnabled(bool enabled) { networkPolicy_.SetExternalRequestsEnabled(enabled); }
     void Resize();
+    /** 明確指定宿主目標 DPI，避免跨程序子視窗漏收 DPI 訊息。
+     * Args:
+     *     scale: 目標 DPI 除以 96；零表示 Preview 自動偵測。
+     * Returns:
+     *     controller 設定結果，尚未建立時保留供初始化套用。
+     */
+    HRESULT SetRasterizationScale(double scale);
     void SetSnapshot(const core::MetricsSnapshot& snapshot);
     void Shutdown();
-    /** 在既有 controller 載入另一個已驗證的主題。
+    /** 重建 controller 以載入另一個已驗證主題並撤銷舊文件。
      * Args:
      *     themeDirectory: 主題資產目錄。
      *     themeName: 顯示名稱。
      *     entry: 已驗證的相對 HTML 入口。
+     *     parentWindow: 新主題選擇的宿主，空值沿用目前宿主。
      * Returns:
-     *     導覽啟動結果；初始 controller 尚未建立時為 E_PENDING。
+     *     非同步初始化啟動結果。
      */
     HRESULT LoadTheme(const std::wstring& themeDirectory, const std::wstring& themeName,
-                      const std::wstring& entry = L"index.html");
+                      const std::wstring& entry = L"index.html", HWND parentWindow = nullptr);
     /** 回報目前主題是否完成握手與訂閱。
      * Returns:
      *     通訊流程已就緒時為 true。
@@ -81,6 +89,10 @@ public:
      *     遞增的載入世代。
      */
     unsigned long long LoadEpoch() const { return loadEpoch_; }
+    /** 由 UI 計時器檢查 JS 回應，逾時沿用有界 renderer 復原。
+     * 暫停期間不累計逾時，同一 controller 最多保留一個非同步探針。
+     */
+    void CheckResponsiveness();
 
 private:
     /** 記錄本工作階段首次封鎖的 HTTP／HTTPS 請求並通知可信原生介面。 */
@@ -131,7 +143,11 @@ private:
     unsigned long long runtimeEpoch_ = 0;
     unsigned long long readySequence_ = 0;
     unsigned long long loadEpoch_ = 0;
+    double rasterizationScale_ = 0;
     unsigned recoveryAttempts_ = 0;
+    unsigned __int64 healthTick_ = 0;
+    bool healthPending_ = false;
+    bool healthFailed_ = false;
     std::shared_ptr<bool> lifetime_ = std::make_shared<bool>(true);
     runtime::ThemeNetworkPolicy networkPolicy_;
 };

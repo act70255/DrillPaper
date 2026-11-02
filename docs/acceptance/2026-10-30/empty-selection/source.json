@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-10-30T18:15:11.0396214+08:00",
+  "sources": [
+    {
+      "path": "src/app/main.cpp",
+      "sha256": "6D00E56D85BEB0229FD0676970EDEEED827B9007F3B4DAABE149AE340D427918"
+    },
+    {
+      "path": "src/app/settings_store.cpp",
+      "sha256": "8A358F8B722910F5D6EE64248859403C87D682C41588140094B909FD5B1FEBD3"
+    },
+    {
+      "path": "include/desktopmonitor/app/settings_store.h",
+      "sha256": "5A5DD239FAD2480E09E4CCAED6827EBBA33649BCA01A3BC30FAD95ACC6BC0E14"
+    },
+    {
+      "path": "src/platform/windows/management_shell.cpp",
+      "sha256": "1F1B44C45280A2565403671EDD13C2D523653EAA03B07DED772B7716E7CE3381"
+    },
+    {
+      "path": "tests/unit/settings_store_test.cpp",
+      "sha256": "72E88808B9984621193E649389571A0333F66AD788646B177E009CDEA4E7E856"
+    },
+    {
+      "path": "tests/integration/management_shell_test.cpp",
+      "sha256": "80A9A86770D60C3FFEF1E76E3B18A685A81BC7DCF4317AD19281629F74AC3650"
+    },
+    {
+      "path": "scripts/test-multi-monitor.ps1",
+      "sha256": "56FBC0F7CABF0CA123E7159BF913B5EBFAC9AD54D980E18F451EEBE3099BC376"
+    }
+  ],
+  "base": "c8b9b0a9329704c719aad67bfb2533833725830f",
+  "branch": "feature/rc-13-empty-selection-notice",
+  "application": {
+    "path": "build/windows-msvc-release/Release/DrillPaper.exe",
+    "sha256": "D586024E37062325B39527A1E5B711E359AFC83343AFCCEA2A159928E5059721"
+  }
+}

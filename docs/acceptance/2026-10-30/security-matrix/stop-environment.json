@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-10-30T09:44:09.6736859+08:00",
+  "rawNetlogs": [
+    {
+      "sha256": "3F50579E4AF75F66B339AF9E1490E40677D57B977642904B7EFC23EA92FFFA9E",
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\security-856756a114904dcd92b3f083f43ba64e\\launch-1cc2e9fe672f4082a88372124c6e0b9a.json.netlog.json"
+    },
+    {
+      "sha256": "1F31CB2A39BFCC7DEF3C08BE7EA915CE0CF757C14FEB53E972AF8180BE67D464",
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\security-856756a114904dcd92b3f083f43ba64e\\launch-a1df14f71650490587345a5f202bff3d.json.netlog.json"
+    },
+    {
+      "sha256": "03BD4D32B4024E66F752C86319B09E9F9E3AA5578BB41408AC83405BB3B5D499",
+      "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\security-856756a114904dcd92b3f083f43ba64e\\launch-a449d095940348d88adfbdfc81ba7175.json.netlog.json"
+    }
+  ],
+  "antivirus": {
+    "behaviorLogLastWrite": "2026-10-30T09:22:30.9964599+08:00",
+    "currentTestInterceptions": [],
+    "monitorVersion": "14.0.0.21008",
+    "note": "本輪啟動成功且可讀行為監控日誌未新增；不代表所有防毒記錄皆可觀察。",
+    "product": "Trend Micro Apex One"
+  },
+  "runningApps": [
+    {
+      "Id": 83428,
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe"
+    }
+  ],
+  "persistent": {
+    "start": "2026-10-29T12:00:49.9803524+08:00",
+    "id": 83428,
+    "path": "C:\\WorkSpace\\-James\\DrillPaper\\artifacts\\acceptance\\persistent-readiness-20261029-120049\\binary\\DrillPaper.exe",
+    "hash": "3C7AB52489325D2F8473DF1E9FC7C0DE38AA3AB95FF6A691A36B27AC99315BCE"
+  }
+}

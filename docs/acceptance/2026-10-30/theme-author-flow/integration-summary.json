@@ -1,0 +1,643 @@
+{
+  "summary": [
+    {
+      "name": "sample-mock",
+      "result": "FAIL",
+      "start": "2026-10-30T13:35:53.8818089+08:00",
+      "end": "2026-10-30T13:35:58.6398278+08:00",
+      "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546",
+      "phaseCounts": []
+    },
+    {
+      "name": "sample-mock2",
+      "result": "PASS",
+      "start": "2026-10-30T13:36:06.2111737+08:00",
+      "end": "2026-10-30T13:36:17.4088143+08:00",
+      "sha256": "82BF38D3743A3F6ADCBFCC31D754B5E776D3A3B815DFB7F49A47F83C7CEE8546",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 1
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 1
+        },
+        {
+          "phase": "switch-author",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "probe-mock-off",
+      "result": "PASS",
+      "start": "2026-10-30T13:36:28.1942503+08:00",
+      "end": "2026-10-30T13:36:43.5126843+08:00",
+      "sha256": "3865B23A14D526FC63625E3B1834B3CE1D355396620783CC6BF1BB69FDBDA504",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 1
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 1
+        },
+        {
+          "phase": "switch-author",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "probe-live-on",
+      "result": "FAIL",
+      "start": "2026-10-30T13:36:57.6096616+08:00",
+      "end": "2026-10-30T13:37:39.4635743+08:00",
+      "sha256": "51E83324E5A2DECA5E0F0B18CE3D0E0D95537AFD6E8139D42A8761E70C3FFFD2",
+      "exitCode": 0,
+      "phaseCounts": []
+    },
+    {
+      "name": "probe-live-on2",
+      "result": "FAIL",
+      "start": "2026-10-30T13:38:07.9730671+08:00",
+      "end": "2026-10-30T13:38:51.0490673+08:00",
+      "sha256": "51EB9658F293979ECFD4B844CA0884D72697BF0797A1DF497FCABEFF11F8FE78",
+      "exitCode": 0,
+      "phaseCounts": []
+    },
+    {
+      "name": "probe-live-on3",
+      "result": "PASS",
+      "start": "2026-10-30T13:38:46.0261150+08:00",
+      "end": "2026-10-30T13:39:03.8990727+08:00",
+      "sha256": "F244B08C5D64CBCB55047EE1138DB5B87003FEDD828CE365A081A916887D1252",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 1
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 1
+        },
+        {
+          "phase": "switch-author",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "probe-multi-on",
+      "result": "PASS",
+      "start": "2026-10-30T13:39:13.6544651+08:00",
+      "end": "2026-10-30T13:39:33.9111658+08:00",
+      "sha256": "F244B08C5D64CBCB55047EE1138DB5B87003FEDD828CE365A081A916887D1252",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 2
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 2
+        },
+        {
+          "phase": "switch-author",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "probe-multi-off",
+      "result": "PASS",
+      "start": "2026-10-30T13:41:51.0413850+08:00",
+      "end": "2026-10-30T13:42:10.2828792+08:00",
+      "sha256": "8A0EB2F341003EB9101F084F7F9A2C9E567108B71B0BCC571BE9CFE3A4359907",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 2
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 2
+        },
+        {
+          "phase": "switch-author",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "probe-multi-on4",
+      "result": "PASS",
+      "start": "2026-10-30T13:42:30.8929729+08:00",
+      "end": "2026-10-30T13:42:54.2919704+08:00",
+      "sha256": "22D9144586C5FFA2B4848D7223D23ED65AC43C86B67C22E3AFE9C1133704A4F7",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 2
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 2
+        },
+        {
+          "phase": "switch-author",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "probe-preview-on4",
+      "result": "PASS",
+      "start": "2026-10-30T13:45:22.9400207+08:00",
+      "end": "2026-10-30T13:45:42.2058597+08:00",
+      "sha256": "22D9144586C5FFA2B4848D7223D23ED65AC43C86B67C22E3AFE9C1133704A4F7",
+      "exitCode": 0,
+      "phaseCounts": [
+        {
+          "phase": "author-loaded",
+          "count": 1
+        },
+        {
+          "phase": "switch-minimal",
+          "count": 1
+        },
+        {
+          "phase": "switch-author",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "network": [
+    {
+      "name": "sample-mock",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "sample-mock2",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "probe-mock-off",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "probe-live-on",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "probe-live-on2",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "probe-live-on3",
+      "reports": [
+        {
+          "origin": "https://drillpaper-theme-39878791-095a-4907-b188-9af70879b5cb.invalid",
+          "width": 492,
+          "height": 263,
+          "dpr": 1.5,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:38:51.966Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:38:54.233Z",
+          "cpu": "69.8 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26473562112 / 33777467392 bytes",
+          "network": "9668.0 bytes_per_second / 20836.0 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-64bdabac-98c6-4cf0-b35a-d4a2a531fadc.invalid",
+          "width": 492,
+          "height": 263,
+          "dpr": 1.5,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:38:59.928Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:39:00.432Z",
+          "cpu": "51.3 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26507800576 / 33777467392 bytes",
+          "network": "53719.0 bytes_per_second / 2535.0 bytes_per_second"
+        }
+      ],
+      "count": 2
+    },
+    {
+      "name": "probe-multi-on",
+      "reports": [
+        {
+          "origin": "https://drillpaper-theme-1131ad2d-f381-4903-ae27-5458d815d313.invalid",
+          "width": 1280,
+          "height": 720,
+          "dpr": 1.5,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:39:19.844Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:39:20.971Z",
+          "cpu": "48.0 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26559053824 / 33777467392 bytes",
+          "network": "7623.0 bytes_per_second / 2033.5 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-cfac946c-3d6d-4d76-84bc-88d4004c9d27.invalid",
+          "width": 1920,
+          "height": 1080,
+          "dpr": 1,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:39:19.843Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:39:20.971Z",
+          "cpu": "48.0 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26559053824 / 33777467392 bytes",
+          "network": "7623.0 bytes_per_second / 2033.5 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-4ba257b0-3d1b-4139-900e-2fa313dcb275.invalid",
+          "width": 1920,
+          "height": 1080,
+          "dpr": 1,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:39:28.870Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:39:29.270Z",
+          "cpu": "74.9 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26567041024 / 33777467392 bytes",
+          "network": "5379.9 bytes_per_second / 4021.7 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-70f44dc4-96d9-4324-8011-e93080427381.invalid",
+          "width": 1280,
+          "height": 720,
+          "dpr": 1.5,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:39:28.895Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:39:29.270Z",
+          "cpu": "74.9 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26567041024 / 33777467392 bytes",
+          "network": "5379.9 bytes_per_second / 4021.7 bytes_per_second"
+        }
+      ],
+      "count": 4
+    },
+    {
+      "name": "probe-multi-off",
+      "reports": [],
+      "count": 0
+    },
+    {
+      "name": "probe-multi-on4",
+      "reports": [
+        {
+          "origin": "https://drillpaper-theme-d0c05824-c077-420c-9ce6-8ca674ac6680.invalid",
+          "width": 1280,
+          "height": 720,
+          "dpr": 1.5,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:42:35.606Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:42:38.222Z",
+          "cpu": "44.6 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26836615168 / 33777467392 bytes",
+          "network": "9406.5 bytes_per_second / 2253.9 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-0743c73b-87f7-4ec5-8785-8f4a66f55ecc.invalid",
+          "width": 1920,
+          "height": 1080,
+          "dpr": 1,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:42:35.613Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:42:38.222Z",
+          "cpu": "44.6 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26836615168 / 33777467392 bytes",
+          "network": "9406.5 bytes_per_second / 2253.9 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-51841283-c3be-4972-9000-51744b457cd8.invalid",
+          "width": 1280,
+          "height": 720,
+          "dpr": 1.5,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:42:46.118Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:42:47.748Z",
+          "cpu": "25.0 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26964369408 / 33777467392 bytes",
+          "network": "1990.1 bytes_per_second / 459.1 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-307b9b24-9807-43bb-9eaf-cc967cde389d.invalid",
+          "width": 1920,
+          "height": 1080,
+          "dpr": 1,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:42:46.553Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:42:48.756Z",
+          "cpu": "31.1 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "27012767744 / 33777467392 bytes",
+          "network": "3935.0 bytes_per_second / 874.0 bytes_per_second"
+        }
+      ],
+      "count": 4
+    },
+    {
+      "name": "probe-preview-on4",
+      "reports": [
+        {
+          "origin": "https://drillpaper-theme-1c4e7ac7-5b87-4ee8-9768-2fbc1214d167.invalid",
+          "width": 492,
+          "height": 263,
+          "dpr": 1.5,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:45:27.672Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:45:30.545Z",
+          "cpu": "36.7 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "26790617088 / 33777467392 bytes",
+          "network": "5679.0 bytes_per_second / 4454.0 bytes_per_second"
+        },
+        {
+          "origin": "https://drillpaper-theme-dfffd3a9-51a4-4fd2-8e3e-e2cc6af95e5d.invalid",
+          "width": 492,
+          "height": 263,
+          "dpr": 1.5,
+          "pushUpdatedDom": true,
+          "ready": {
+            "apiVersion": "1",
+            "payload": {
+              "capabilities": [
+                "cpu",
+                "gpu",
+                "memory",
+                "disk",
+                "network",
+                "clock"
+              ],
+              "hostVersion": "0.1.0-dev",
+              "limits": {
+                "history": 120,
+                "messageBytes": 65536
+              },
+              "state": "active"
+            },
+            "requestId": null,
+            "timestamp": "2026-10-30T05:45:36.277Z",
+            "type": "host.ready"
+          },
+          "timestamp": "2026-10-30T05:45:37.829Z",
+          "cpu": "42.3 percent",
+          "gpu": "unavailable (unavailable)",
+          "memory": "27012452352 / 33777467392 bytes",
+          "network": "8416.0 bytes_per_second / 1709.0 bytes_per_second"
+        }
+      ],
+      "count": 2
+    }
+  ],
+  "offRequests": 0
+}

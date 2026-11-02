@@ -1,0 +1,18 @@
+﻿{
+    "appId":  79400,
+    "realExplorerRestart":  "NOT RUN",
+    "visibleTrayClick":  "NOT RUN",
+    "manager":  10751790,
+    "timestamp":  "2026-10-30T09:24:23.2831217+08:00",
+    "observedChildren":  [
+                             100964,
+                             50540,
+                             62360,
+                             60152,
+                             56600,
+                             63748
+                         ],
+    "application":  "C:\\Users\\James\\AppData\\Local\\Temp\\DrillPaper 試用 路徑 460148fddfb44d8a8902b6677a1de51f\\DrillPaper.exe",
+    "result":  "PASS",
+    "hash":  "B0FF9A734713AF939C6444092B6D008DEDEF9480A17932D1B4B9D92C0FE71781"
+}
