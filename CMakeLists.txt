@@ -9,6 +9,9 @@ if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(FATAL_ERROR "DrillPaper currently supports Windows x64 builds only.")
 endif()
 
+# 全專案（含 FetchContent 相依與測試）統一靜態連結 CRT，讓 app 不需要 VC++ 可轉散發套件；見票 17。
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 set(DRILLPAPER_WEBVIEW2_SDK_VERSION "1.0.2478.35" CACHE STRING "Pinned WebView2 SDK version")
 if(DEFINED ENV{WEBVIEW2_SDK_ROOT})
     set(_drillpaper_webview2_default "$ENV{WEBVIEW2_SDK_ROOT}")
@@ -79,7 +82,6 @@ target_link_libraries(DrillPaper PRIVATE
 
 set_target_properties(DrillPaper PROPERTIES
     CXX_EXTENSIONS OFF
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
 )
 
 add_custom_command(TARGET DrillPaper POST_BUILD
@@ -154,6 +156,8 @@ if(BUILD_TESTING)
     add_test(NAME DrillPaperThemeCli COMMAND powershell.exe -NoProfile -ExecutionPolicy Bypass
         -File "${PROJECT_SOURCE_DIR}/scripts/test-theme-cli.ps1" -ApplicationPath "$<TARGET_FILE:DrillPaper>")
     set_tests_properties(DrillPaperThemeCli PROPERTIES TIMEOUT 60)
+    # 靜態連結 CRT 後，執行檔不得再依賴 VC++ 可轉散發套件或 UCRT DLL。
+    add_test(NAME DrillPaperStaticCrt COMMAND node "${PROJECT_SOURCE_DIR}/scripts/check-pe-imports.mjs" "$<TARGET_FILE:DrillPaper>")
 
     add_executable(DrillPaperWindowsMetricsIntegrationTests
         tests/integration/windows_metrics_collector_test.cpp

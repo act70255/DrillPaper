@@ -7,7 +7,7 @@ New-Item -ItemType Directory -Path $session | Out-Null
 $failed = $false
 try {
     & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
-        -MinimumVcRuntime '14.44.35112.0' -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
+        -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
 } catch {
     if ($_.Exception.Message -notlike '*缺少必要檔案：DrillPaper.exe*') { throw }
     $failed = $true
@@ -22,7 +22,7 @@ foreach ($entry in @($entries | Where-Object root -eq 'app')) {
 }
 Set-Content (Join-Path $session 'settings.json') '{"private":"不得封裝"}'
 & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
-    -MinimumVcRuntime '14.44.35112.0' -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
+    -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
 $zip = Get-ChildItem (Join-Path $session 'out') -Filter '*.zip'
 if (@($zip).Count -ne 1) { throw '有效輸入應產出唯一試用 ZIP。' }
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -52,7 +52,7 @@ if ($sidecar.archiveSha256 -cne (Get-FileHash $zip.FullName).Hash -or
 Write-Output 'PASS：白名單恰好相符、私有設定排除、逐檔／ZIP／EXE hash 及 trial 來源識別。'
 try {
     & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
-        -MinimumVcRuntime '14.44.35112.0' -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
+        -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')
     throw '不應覆寫既有套件。'
 } catch { if ($_.Exception.Message -notlike '*目的檔已存在*') { throw } }
 foreach ($case in @('missing','empty','junction')) {
@@ -66,7 +66,7 @@ foreach ($case in @('missing','empty','junction')) {
     }
     try {
         & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
-            -MinimumVcRuntime '14.44.35112.0' -SourceCommit ('a' * 40) -Version "0.1.0-trial.$case" -OutputDirectory (Join-Path $session $case)
+            -SourceCommit ('a' * 40) -Version "0.1.0-trial.$case" -OutputDirectory (Join-Path $session $case)
         throw "未拒絕 $case 案例。"
     } catch {
         $expectedError = switch ($case) { missing { '缺少必要檔案' }; empty { '必要檔案為空' }; junction { '路徑含連結' } }

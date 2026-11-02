@@ -11,7 +11,7 @@
 - `build-trial.ps1` 從明確 commit 用 git archive 匯出乾淨來源，在獨立目錄建置 MSVC x64 Release。只建 app，不隱含執行完整測試。建置結果與來源 commit 留存。
 - `package-trial.ps1` 公開封裝入口按 JSON 白名單逐檔驗證、複製，拒絕缺檔、空檔、逃逸／連結及覆寫；不遞迴帶入設定、匯入內容、日誌、證據、憑證或暫存。輸出含逐檔 SHA-256 的 manifest，外部 sidecar 記錄 ZIP／EXE SHA-256。
 - 保持 app 實際讀取的 `resources/themes/{minimal,dashboard}/index.html` 及各自 `javascript` 目錄。封裝 Apache-2.0、JSON／miniz MIT 與 WebView2 NuGet 授權／NOTICE。
-- VC++ v14 x64 動態 runtime 與 WebView2 Evergreen 為外部前置依賴，不自動安裝、不提升權限。試用啟動入口先檢查，再開啟管理視窗與保存模式，本次智慧休眠關閉；未按保存不改寫偏好，按保存則包含目前關閉的智慧休眠草稿。直接 EXE 仍有原有啟動行為與產品預設。完整使用與限制隨包提供。
+- 2026-11-02 票 17 起 app 靜態連結 CRT（`CMAKE_MSVC_RUNTIME_LIBRARY` 為 MultiThreaded），不再需要 VC++ 可轉散發套件；`build-trial.ps1` 以 `check-pe-imports.mjs` 確認 EXE 沒有 VC++／UCRT 動態依賴，CTest `DrillPaperStaticCrt` 也做相同檢查。WebView2 Evergreen 仍為外部前置依賴，不自動安裝、不提升權限。試用啟動入口先檢查，再開啟管理視窗與保存模式，本次智慧休眠關閉；未按保存不改寫偏好，按保存則包含目前關閉的智慧休眠草稿。直接 EXE 仍有原有啟動行為與產品預設。完整使用與限制隨包提供。
 - ZIP 與 metadata 明確標 trial／unsigned；包內產品 `--version` 保持既有 `0.1.0-dev`，以 manifest 的 commit／EXE hash 識別。本次封裝工具本身與模板另以 SHA-256 記錄，避免把未提交工具宣稱為產品來源 commit。
 
 ## 已確認測試 seam 與驗證

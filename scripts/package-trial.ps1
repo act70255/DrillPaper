@@ -4,8 +4,7 @@ param(
     [Parameter(Mandatory)][string]$SourceDirectory,
     [Parameter(Mandatory)][ValidatePattern('^[0-9a-f]{40}$')][string]$SourceCommit,
     [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+-trial\.[0-9A-Za-z.]+$')][string]$Version,
-    [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts'),
-    [Parameter(Mandatory)][ValidatePattern('^14\.\d+\.\d+\.\d+$')][string]$MinimumVcRuntime
+    [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts')
 )
 $ErrorActionPreference = 'Stop'
 $stage = $null
@@ -55,7 +54,7 @@ try {
         @{path=$file; sha256=(Get-FileHash -LiteralPath (Join-Path $roots.tooling $file) -Algorithm SHA256).Hash}
     })
     $metadata = [ordered]@{ kind='trial'; version=$Version; sourceCommit=$SourceCommit; configuration='Release'; architecture='x64';
-        minimumVcRuntime=$MinimumVcRuntime; webView2Sdk='1.0.2478.35'; webView2Runtime='Evergreen (external)';
+        crt='static'; webView2Sdk='1.0.2478.35'; webView2Runtime='Evergreen (external)';
         executableSha256=($records | Where-Object path -eq 'DrillPaper.exe').sha256; tooling=$tooling; files=$records }
     $metadata | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stage 'package-manifest.json') -Encoding UTF8
     Add-Type -AssemblyName System.IO.Compression.FileSystem
