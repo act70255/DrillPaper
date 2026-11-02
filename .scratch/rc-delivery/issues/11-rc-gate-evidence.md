@@ -19,6 +19,8 @@ Blocked by: 10 及必要驗證環境
 
 ## Comments
 
+- 2026-11-02 決策（使用者確認）：「未鎖定狀態下人為強制關屏／開屏至少 5 次」屬人為繞行情境，使用者的實際使用情境不會遇到；記為 NOT RUN 並註記，本輪不列為完成驗收的條件。鎖定期間的真實關屏恢復已在 S3 取得 2 次證據（見 `docs/acceptance/2026-11-02/rc-gate-evidence/INTERACTIVE.md`）。
+
 - 2026-11-02 決策（使用者確認）：GitHub 只允許對預設分支已有的 workflow 使用 `workflow_dispatch`，而 `trial.yml` 尚未在 main，故在本分支為 `trial.yml` 加上 `push: branches: ['feature/rc-*']`，未指定版本時用 `0.1.0-trial.ci.<run_number>`；手動觸發保留。不合併 main。互動實機測試一次只指示使用者一項動作，等使用者回報後才進行下一項。
 
 - 2026-11-02 決策（使用者確認）：本票分三段進行，分支 `feature/rc-11-gate-evidence`（base `f735510`，含 12～15 與 10）。(1) 自動：Claude 對本分支觸發既有 `windows.yml`（含 `build_release_candidate=true`，驗證 gate 拒絕時無 RC artifact）與 `trial.yml`，核對精確 SHA／測試數／app artifact；可自動化的效能與安全項交給 Codex。(2) 互動實機：需要人手或真實 OS 事件的項目由使用者在本機一步一步操作；每步前 Claude 先啟動只讀觀測（console display state、工作階段鎖定、各宿主 MetricsTick／HealthTick 等），使用者回報後由 Claude 驗證記錄、判定 PASS／FAIL／BLOCKED 並更新報告與票，每步完成即 commit＋push。(3) 需額外資源：Explorer 真正重啟須使用者當次另行授權；乾淨機器／VM、NVIDIA、獨立作者若無資源則標 BLOCKED／NOT RUN 並註明原因。不合併 main、不建立 release／tag、不修改防毒、不關閉／替換原持續桌布。
