@@ -34,4 +34,11 @@ Blocked by: 無（下方「待決策」須在派工前確認）
 
 ## Comments
 
+- 2026-11-02 決策（使用者確認）：
+  1. VC++：改為靜態連結 CRT（`/MT`），移除對 VC++ 執行環境的依賴，ZIP 與安裝檔同時受益；須重跑完整測試，並更新啟動入口與說明中的 VC++ 檢查。
+  2. 解除安裝時詢問是否刪除使用者資料，預設保留；靜默解除安裝一律保留。
+  3. 只支援使用者層級安裝（`%LOCALAPPDATA%\Programs\DrillPaper`），不需要管理員權限。
+  4. 版本沿用 trial 版號，檔名例如 `DrillPaper-0.1.0-trial.9-Setup-unsigned.exe`。
+  5. 實作者：Claude 自己實作（不交給 Codex）。
+
 - 2026-11-02：使用者要求開票（詢問打包形式後決定採用 Inno Setup 單一安裝檔）。尚未決策、尚未派工。參考：目前 ZIP 約 470 KB；CRT 為 `/MD`（`CMakeLists.txt:82`）；app 沒有單一實例 mutex。
