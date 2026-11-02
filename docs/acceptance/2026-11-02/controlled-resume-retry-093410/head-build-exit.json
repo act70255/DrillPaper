@@ -1,0 +1,6 @@
+{
+  "command": "cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperParentFixture --parallel 8",
+  "timestamp": "2026-11-02T09:43:56.2617330+08:00",
+  "exitCode": 0,
+  "sourceCommit": "40e007f54cc2f6920b02c604f24332cbb9efbe5c"
+}

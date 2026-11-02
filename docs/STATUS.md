@@ -1,4 +1,13 @@
 # 開發狀態
+## 2026-11-02 RC 10 續作 — 同步OS下兩版本未重現，停止未提交
+
+- Branch／scope：沿用 `feature/rc-10-controlled-resume-regression`，開始／停止HEAD均 `40e007f54cc2f6920b02c604f24332cbb9efbe5c`；先讀票最新確認決策及handoff／架構／相關STATUS，方案記[REQUEST](acceptance/2026-11-02/controlled-resume-retry-093410/REQUEST.md)。新證據目錄，原09與上一輪不覆寫；沒有src／include／scripts／tests變更、無ADR或政策變更。
+- Commands／結果：循序跑原 `pwsh -NoProfile -File scripts/test-multi-monitor.ps1 -ApplicationPath <隔離EXE> -EvidenceDirectory <新目錄> -ParentFixturePath <Release fixture> -DesktopPowerRecovery`：trial.7（09:37～09:43、EXE993FD4…97DA）與HEAD Release（09:44～09:50、EXE8E8953…214A）皆完整PASS／exit0。中間 `cmake --build --preset windows-msvc-release --target DrillPaper DrillPaperParentFixture --parallel 8` PASS；完整路徑／來源／hash／log見[REPORT](acceptance/2026-11-02/controlled-resume-retry-093410/REPORT.md)。原35秒等待／17秒暫停／180秒無限迴圈及退出斷言不變。
+- Windows相關範圍：兩輪均通過智慧休眠前置與原09-D2手動暫停／受控WTS7／8／解除後新MetricsTick與HealthTick；renderer／browser故障交錯、8輪有界退化、JS無限迴圈約91.09／92.04秒退Minimal、父fixture故障／模式／離線暫用及退出通過，各19個當下已觀察WebView2子程序退出。這是本輪on情境PASS，不能改寫歷史FAIL或宣稱根因已修。
+- 只讀OS證據：09:36:47～09:50:20獨立console初始／後續通知及WTS查詢共5263筆，console全部on、session1全部active／unlocked，實際最大取樣起始間距578ms。每輪前留樣，phases與最近OS樣本逐項對照；本輪無failure.json，失敗當下擷取未觸發。手動暫停的DisplayOff為既有有效政策，解除後兩輪恢復；未得非手動暫停錯判／真實display-off下啟動未握手失敗，後者NOT RUN，不能由on情境排除。未強制喚醒、不改電源設定、不自行決定優先權。
+- Stop／gate／commit：未取得可重現失敗，不滿足診斷／TDD修正前提，依使用者停止規則不commit／push；票10仍in-progress，09-D2原因未定、A08及RC gate保留。根因診斷／最小化、新TDD／產品修正、相關單元／SDK／型別檢查、新包／獨立預設交付矩陣、code-review／commit-msg均 **NOT RUN**（未取得失敗且停止）；全套／CI **NOT RUN**（留收尾）。不合併main、不公開發布。
+- Safety／handoff：非Temp使用者繁中空白副本與隔離資料、Node直接啟動，產品實測循序。Windows11 26200／雙1920×1080 DPI144／96；實際browser Runtime156.0.4314.58，09為.50，未變更／歸因。可讀Apex One BM前中後41998bytes／11-01 09:42:36／SHA E39585…5F81不變，未觀察新增攔截非完整觀測。原桌布83428路徑／UTC ticks／SHA相同，收尾唯一app、隔離程序無殘留，未重啟Explorer或關閉／替換。原始ZIP217089bytes／SHA67E111…6C72、OS明細及未執行原因見REPORT；真正OS／畫面／原Runtime獨立環境 **NOT RUN**，附[人工清單](acceptance/2026-11-02/controlled-resume-retry-093410/MANUAL_CHECKLIST.md)。
+
 ## 2026-11-02 RC 10 — 原回歸前置條件未成立，停止未提交
 
 - Branch／base：從乾淨指定HEAD `a3c183f5abe9d10f5184ad95aca8bb63bab0ed6f` 建立 `feature/rc-10-controlled-resume-regression`，停止時HEAD不變、票10 in-progress。已讀handoff／架構／spec／票及相關STATUS，需求先記[REQUEST](acceptance/2026-11-02/controlled-resume/REQUEST.md)。

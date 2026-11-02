@@ -1,0 +1,2647 @@
+[
+  {
+    "timestamp": "2026-11-02T09:37:24.0897200+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 4,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 3,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 5,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 2,
+        "top": 0
+      }
+    ],
+    "phase": "all-selected-minimal"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:26.1843539+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — 恢復中",
+        "load": 6,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 4,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — 恢復中",
+        "load": 7,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 5,
+        "top": 0
+      }
+    ],
+    "phase": "all-selected-dashboard"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:27.2125885+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 8,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 6,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — 恢復中",
+        "load": 7,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 5,
+        "top": 0
+      }
+    ],
+    "phase": "one-target-fallback"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:29.8718690+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 9,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 7,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 10,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 8,
+        "top": 0
+      }
+    ],
+    "phase": "network-False"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:31.8678705+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 11,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 9,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 12,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 10,
+        "top": 0
+      }
+    ],
+    "phase": "network-True"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:33.7985661+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 13,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 11,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 14,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 12,
+        "top": 0
+      }
+    ],
+    "phase": "network-False"
+  },
+  {
+    "timestamp": "2026-11-02T09:37:52.8309147+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816162968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 53,
+        "right": 1920,
+        "hwnd": 125437526,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 13,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816162968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 54,
+        "right": 3840,
+        "hwnd": 423890304,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 14,
+        "top": 0
+      }
+    ],
+    "phase": "rapid-switch-stale-notifications"
+  },
+  {
+    "timestamp": "2026-11-02T09:38:01.8790170+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 1,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 1,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 2,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 2,
+        "top": 0
+      }
+    ],
+    "phase": "all-selected-restart"
+  },
+  {
+    "timestamp": "2026-11-02T09:38:24.2528210+08:00",
+    "surfaces": [
+      {
+        "health": 1816194421,
+        "parent": 70916314,
+        "tick": 1816193671,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 3,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 3,
+        "top": 0
+      },
+      {
+        "health": 1816194421,
+        "parent": 70916314,
+        "tick": 1816193671,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 4,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 4,
+        "top": 0
+      }
+    ],
+    "phase": "smart-sleep-enabled"
+  },
+  {
+    "timestamp": "2026-11-02T09:38:41.4580076+08:00",
+    "surfaces": [
+      {
+        "health": 1816194421,
+        "parent": 70916314,
+        "tick": 1816193671,
+        "caption": "DrillPaper Preview — Minimal Monitor — display-off — 已暫停",
+        "load": 3,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 3,
+        "top": 0
+      },
+      {
+        "health": 1816194421,
+        "parent": 70916314,
+        "tick": 1816193671,
+        "caption": "DrillPaper Preview — Minimal Monitor — display-off — 已暫停",
+        "load": 4,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 4,
+        "top": 0
+      }
+    ],
+    "phase": "manual-pause-survives-controlled-lock"
+  },
+  {
+    "timestamp": "2026-11-02T09:38:53.9657338+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — locked — 已暫停",
+        "load": 5,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 6,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — locked — 已暫停",
+        "load": 6,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 5,
+        "top": 0
+      }
+    ],
+    "phase": "renderer-before-fault-controlled-lock"
+  },
+  {
+    "timestamp": "2026-11-02T09:38:57.9675483+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 102676,
+        "start": "2026-11-02T09:38:52.3549834+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 105348,
+        "start": "2026-11-02T09:38:52.5708252+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:39:09.2604782+08:00",
+    "surfaces": [
+      {
+        "health": 1816239421,
+        "parent": 70916314,
+        "tick": 1816239281,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 7,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 7,
+        "top": 0
+      },
+      {
+        "health": 1816239421,
+        "parent": 70916314,
+        "tick": 1816239281,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 8,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 8,
+        "top": 0
+      }
+    ],
+    "phase": "renderer-recovered-after-controlled-unlock"
+  },
+  {
+    "timestamp": "2026-11-02T09:39:10.3938168+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816240593,
+        "caption": "DrillPaper Preview — Dashboard — locked — 已暫停",
+        "load": 9,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 9,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816240593,
+        "caption": "DrillPaper Preview — Dashboard — locked — 已暫停",
+        "load": 10,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 10,
+        "top": 0
+      }
+    ],
+    "phase": "browser-before-fault-controlled-lock"
+  },
+  {
+    "timestamp": "2026-11-02T09:39:11.9221798+08:00",
+    "phase": "injected-browser",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 99712,
+        "start": "2026-11-02T09:37:59.0027789+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:39:26.2680337+08:00",
+    "surfaces": [
+      {
+        "health": 1816256421,
+        "parent": 70916314,
+        "tick": 1816255859,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 11,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 11,
+        "top": 0
+      },
+      {
+        "health": 1816256421,
+        "parent": 70916314,
+        "tick": 1816255859,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 12,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 12,
+        "top": 0
+      }
+    ],
+    "phase": "browser-recovered-after-controlled-unlock"
+  },
+  {
+    "timestamp": "2026-11-02T09:39:30.0324203+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 63660,
+        "start": "2026-11-02T09:39:26.4920481+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 64368,
+        "start": "2026-11-02T09:39:26.7260147+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:39:41.2099948+08:00",
+    "surfaces": [
+      {
+        "health": 1816271421,
+        "parent": 70916314,
+        "tick": 1816270968,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 15,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 15,
+        "top": 0
+      },
+      {
+        "health": 1816271421,
+        "parent": 70916314,
+        "tick": 1816270968,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 16,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 16,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-1"
+  },
+  {
+    "timestamp": "2026-11-02T09:39:43.4997099+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 104340,
+        "start": "2026-11-02T09:39:29.9980002+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 84612,
+        "start": "2026-11-02T09:39:30.3942927+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:39:55.3129478+08:00",
+    "surfaces": [
+      {
+        "health": 1816285437,
+        "parent": 70916314,
+        "tick": 1816285328,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 17,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 17,
+        "top": 0
+      },
+      {
+        "health": 1816285437,
+        "parent": 70916314,
+        "tick": 1816285328,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 18,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 18,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-2"
+  },
+  {
+    "timestamp": "2026-11-02T09:39:57.8234549+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 70032,
+        "start": "2026-11-02T09:39:43.8519176+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 104920,
+        "start": "2026-11-02T09:39:44.1729765+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:40:09.3047831+08:00",
+    "surfaces": [
+      {
+        "health": 1816299421,
+        "parent": 70916314,
+        "tick": 1816298687,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 19,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 19,
+        "top": 0
+      },
+      {
+        "health": 1816299421,
+        "parent": 70916314,
+        "tick": 1816298687,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 20,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 20,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-3"
+  },
+  {
+    "timestamp": "2026-11-02T09:40:11.5793767+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 100456,
+        "start": "2026-11-02T09:39:57.8038037+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 97480,
+        "start": "2026-11-02T09:39:58.1143518+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:40:24.2691903+08:00",
+    "surfaces": [
+      {
+        "health": 1816314421,
+        "parent": 70916314,
+        "tick": 1816313968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 21,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 21,
+        "top": 0
+      },
+      {
+        "health": 1816314421,
+        "parent": 70916314,
+        "tick": 1816313968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 22,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 22,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-4"
+  },
+  {
+    "timestamp": "2026-11-02T09:40:26.5302159+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 71496,
+        "start": "2026-11-02T09:40:11.7392322+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 69504,
+        "start": "2026-11-02T09:40:11.9487931+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:40:37.3781574+08:00",
+    "surfaces": [
+      {
+        "health": 1816327453,
+        "parent": 70916314,
+        "tick": 1816327171,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 23,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 23,
+        "top": 0
+      },
+      {
+        "health": 1816327453,
+        "parent": 70916314,
+        "tick": 1816327171,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 24,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 24,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-5"
+  },
+  {
+    "timestamp": "2026-11-02T09:40:39.5285360+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 97984,
+        "start": "2026-11-02T09:40:26.6466061+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 103768,
+        "start": "2026-11-02T09:40:26.8101287+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:40:46.2638996+08:00",
+    "surfaces": [
+      {
+        "health": 1816335453,
+        "parent": 70916314,
+        "tick": 1816336312,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 25,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 25,
+        "top": 0
+      },
+      {
+        "health": 1816336453,
+        "parent": 70916314,
+        "tick": 1816336312,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 26,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 26,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-6"
+  },
+  {
+    "timestamp": "2026-11-02T09:40:48.4699143+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 86396,
+        "start": "2026-11-02T09:40:39.6785094+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 32260,
+        "start": "2026-11-02T09:40:39.8398482+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:41:00.3021934+08:00",
+    "surfaces": [
+      {
+        "health": 1816350468,
+        "parent": 70916314,
+        "tick": 1816350500,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 27,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 28,
+        "top": 0
+      },
+      {
+        "health": 1816350468,
+        "parent": 70916314,
+        "tick": 1816350500,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 28,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 27,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-7"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:02.5249313+08:00",
+    "phase": "injected-renderer",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 84612,
+        "start": "2026-11-02T09:40:48.5975627+08:00"
+      },
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 61496,
+        "start": "2026-11-02T09:40:48.7472161+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:41:02.7254108+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper — 此目標渲染已停止，請從管理介面重新套用",
+        "load": 0,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 0,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper — 此目標渲染已停止，請從管理介面重新套用",
+        "load": 0,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 0,
+        "top": 0
+      }
+    ],
+    "phase": "bounded-renderer-8"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:05.3593434+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 30,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 29,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-initial-handshake"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:08.3260430+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816358203,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816358203,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-entered"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:08.3498760+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816358203,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816358203,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:10.3875749+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816360218,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816360218,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:12.4409583+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816362250,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816362250,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:14.4796540+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816364265,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816364265,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:16.5784430+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816366312,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816366312,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:18.6755600+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816368343,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816368343,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:20.7306366+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816370375,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816370375,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:22.7810080+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816372406,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816372406,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:24.8298591+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816374421,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 29,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 32,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816374421,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 30,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 31,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:26.8788150+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816376453,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 33,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816376468,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 34,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:28.9277208+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816378500,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816378500,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:30.9655400+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816380515,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816380515,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:33.0066100+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816382546,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816382546,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:35.0549813+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816384578,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816384578,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:37.1063402+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816386609,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816386609,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:39.1907787+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816388703,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816388703,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:41.2561581+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816390750,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816390750,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:43.3022659+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816392812,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816392812,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:45.3659342+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816394875,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 31,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 35,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816394875,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 32,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 36,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:47.4244782+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 37,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 38,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:49.4824798+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816398937,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 37,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816398937,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 38,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:51.5336729+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816400984,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816400984,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:53.5771486+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816403015,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816403015,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:55.6146511+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816405031,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816405031,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:57.6658751+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816407078,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816407078,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:41:59.7947592+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816409187,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816409187,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:01.8976874+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816411250,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816411250,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:04.0227349+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816413296,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816413296,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:06.0693176+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816415328,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 33,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 39,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816415328,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 34,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 40,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:08.1175028+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 41,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — 恢復中",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 42,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:10.1702192+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816419390,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 41,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816419390,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 42,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:12.2199942+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816421437,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816421437,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:14.2681063+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816423484,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816423484,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:16.3516722+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816426578,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816426578,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:18.4518360+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816428625,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816428625,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:20.5662253+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816430656,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816430656,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:22.6421306+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816432703,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816432703,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:24.6839331+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816434718,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816434718,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:26.7274487+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816436750,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 35,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 43,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816436750,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 36,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 44,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:28.7803926+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 37,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 0,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — 多宿主驗證 — Live metrics",
+        "load": 38,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 0,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:30.8520059+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816440812,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 37,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 45,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816440812,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 38,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 46,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-observation"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:39.4095579+08:00",
+    "surfaces": [
+      {
+        "health": 1816449546,
+        "parent": 70916314,
+        "tick": 1816448968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 37,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 45,
+        "top": 0
+      },
+      {
+        "health": 1816449546,
+        "parent": 70916314,
+        "tick": 1816448968,
+        "caption": "DrillPaper Preview — Minimal Monitor — Live metrics",
+        "load": 38,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 2,
+        "ready": 46,
+        "top": 0
+      }
+    ],
+    "phase": "infinite-loop-bounded-minimal"
+  },
+  {
+    "seconds": 91.0881417,
+    "phase": "infinite-loop-duration"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:43.6332207+08:00",
+    "phase": "injected-browser",
+    "victims": [
+      {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\156.0.4314.58\\msedgewebview2.exe",
+        "id": 95468,
+        "start": "2026-11-02T09:41:02.8615824+08:00"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-11-02T09:42:46.3567935+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 41,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 3,
+        "ready": 50,
+        "top": 0
+      },
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 42,
+        "right": 3840,
+        "hwnd": 125503062,
+        "dpi": 96,
+        "bottom": 1080,
+        "left": 1920,
+        "attached": 4,
+        "ready": 49,
+        "top": 0
+      }
+    ],
+    "phase": "all-targets-parent-crash-recovery"
+  },
+  {
+    "timestamp": "2026-11-02T09:42:58.4333968+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 1816468562,
+        "caption": "DrillPaper Preview — Dashboard — Live metrics",
+        "load": 44,
+        "right": 1920,
+        "hwnd": 15925756,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 3,
+        "ready": 52,
+        "top": 0
+      }
+    ],
+    "phase": "single-selected"
+  },
+  {
+    "timestamp": "2026-11-02T09:43:00.4409672+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Dashboard — 恢復中",
+        "load": 48,
+        "right": 1920,
+        "hwnd": 16056828,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 5,
+        "ready": 54,
+        "top": 0
+      }
+    ],
+    "phase": "mode-roundtrip"
+  },
+  {
+    "timestamp": "2026-11-02T09:43:06.0764884+08:00",
+    "surfaces": [
+      {
+        "health": 0,
+        "parent": 70916314,
+        "tick": 0,
+        "caption": "DrillPaper Preview — Minimal Monitor — 恢復中",
+        "load": 1,
+        "right": 1920,
+        "hwnd": 7209560,
+        "dpi": 144,
+        "bottom": 1080,
+        "left": 0,
+        "attached": 1,
+        "ready": 1,
+        "top": 0
+      }
+    ],
+    "phase": "all-disconnected-primary-fallback"
+  }
+]
