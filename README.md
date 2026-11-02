@@ -10,7 +10,7 @@ DrillPaper 是 Windows x64 C++20/Win32 與 WebView2 的本機系統指標主題�
 
 `scripts/package.ps1` 保留明確的發行阻擋；沒有 app RC ZIP 或安裝器。SDK `1.0.0-rc3` 是本機評估包，不含 app。主題尚未沙箱化，僅匯入你信任的內容；網路開關只對已驗證的瀏覽器通訊邊界提供控制，完整限制見安全文件。
 
-首次 app **試用 ZIP** 使用獨立流程，包含 Release app／兩個主題／SDK 執行資產／WebView2 loader／授權與繁中說明，不解除 RC gate。完整解壓後執行 `Start-DrillPaper.cmd`，以一般使用者開啟管理視窗並沿用保存模式；首次為 Minimal 桌布與主螢幕目標，保存 Preview 後重啟仍為 Preview。需要既有 WebView2 Evergreen Runtime，缺失會提示官方取得方式，不自動安裝；app 已靜態連結 C/C++ 執行環境，不需要 VC++ 可轉散發套件。免安裝程式檔案仍沿用 `%LOCALAPPDATA%\DrillPaper` 資料，不是完全隨身模式。請先讀包內 README.zh-TW.md；隔離試用與來源 commit、重現命令見 [試用包流程](docs/TRIAL_PACKAGE.md) 及[實測報告](docs/acceptance/2026-10-29/trial-package/REPORT.md)。
+首次 app **試用 ZIP** 使用獨立流程，包含 Release app／兩個主題／SDK 執行資產／WebView2 loader／授權與繁中說明，不解除 RC gate。完整解壓後執行 `Start-DrillPaper.cmd`，以一般使用者開啟管理視窗並沿用保存模式；首次為 Minimal 桌布與主螢幕目標，保存 Preview 後重啟仍為 Preview。需要既有 WebView2 Evergreen Runtime，缺失會提示官方取得方式，不自動安裝；app 已靜態連結 C/C++ 執行環境，不需要 VC++ 可轉散發套件。免安裝程式檔案仍沿用 `%LOCALAPPDATA%\DrillPaper` 資料，不是完全隨身模式。請先讀包內 README.zh-TW.md；隔離試用與來源 commit、重現命令見 [試用包流程](docs/TRIAL_PACKAGE.md) 及[實測報告](docs/acceptance/2026-10-29/trial-package/REPORT.md)。另提供內容相同的使用者層級**安裝檔** `DrillPaper-<版本>-Setup-unsigned.exe`（Inno Setup，不需管理員權限，可從「設定 → 應用程式」解除安裝），安裝、移除與打包方式見 [安裝檔](docs/INSTALLER.md)。
 
 RC 09 **拒絕放行**，見[最終回歸／必要 gate](docs/acceptance/2026-10-30/rc-regression/REPORT.md)。原 trial.6 與歷史 FAIL 保留；依票 08 已確認的本機多輪條件驗證產品預設後，trial.7 移除入口 `--no-smart-sleep`，新資料沿用預設開啟，既有保存偏好不自動改寫。產品／SDK 位元組未改，CMD 入口三輪通過；這不表示 03／08-D1 根因已修復、真正節能或乾淨使用者／CI／完整安全驗收已通過。另有 **09-D2 FAIL**：雙目標受控鎖定往返後解除手動暫停未恢復推送，原因待票 10 診斷；trial.7 仍僅供受限試用。
 

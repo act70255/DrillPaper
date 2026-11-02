@@ -6,6 +6,8 @@
 
 2026-10-30 已確認本票只調整打包入口，不改產品程式。入口帶 `--management --no-smart-sleep`，沿用使用者保存模式；全新資料首次為 Minimal 桌布、主螢幕目標，保存 Preview 後再次從相同入口啟動仍為 Preview。預設智慧休眠啟動仍為 **FAIL**，根因與修正交給 05；08 須移除繞行、回到產品預設重新打包驗證，09 持續列為 gate。關閉智慧休眠的本票啟動 PASS 不等於產品預設啟動 PASS。
 
+2026-11-02 票 17：新增由同一份已驗證試用 ZIP 產生的 Inno Setup 使用者層級安裝檔，流程與限制見 [安裝檔](INSTALLER.md)。
+
 ## 實作範圍
 
 - `build-trial.ps1` 從明確 commit 用 git archive 匯出乾淨來源，在獨立目錄建置 MSVC x64 Release。只建 app，不隱含執行完整測試。建置結果與來源 commit 留存。

@@ -33,7 +33,7 @@
 
 ## 移除與保留
 
-先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；沒有安裝器，不宣稱安裝器／解除安裝通過。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
+先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；此說明適用免安裝 ZIP；若改用安裝檔 `DrillPaper-<版本>-Setup-unsigned.exe`，請從「設定 → 應用程式」解除安裝，解除安裝時會詢問是否刪除使用者資料（預設保留），詳見 repository 的 docs/INSTALLER.md。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
 
 ## 已知限制與 RC 回歸
 
