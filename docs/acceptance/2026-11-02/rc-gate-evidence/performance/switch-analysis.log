@@ -1,0 +1,25 @@
+{
+  "requested": 100,
+  "recorded": 100,
+  "failures": 0,
+  "independentValidationFailures": [],
+  "secondsMean": 7.015743588000001,
+  "secondsP95": 7.6996621,
+  "secondsMax": 8.3071842,
+  "secondsMin": 6.0765397,
+  "resourceSamples": 200,
+  "incompleteResourceSamples": 0,
+  "missingReads": [],
+  "privateDeltaMiB": 40.578125,
+  "handlesDelta": -51,
+  "threadsDelta": -26,
+  "processCounts": [
+    8
+  ],
+  "cleanup": {
+    "exitCode": 0,
+    "survivors": [],
+    "shutdown": null
+  },
+  "resourceCriterion": "切換期非穩態，僅列原始前後值；06 長測門檻另套用 7200 秒 soak。"
+}

@@ -1,0 +1,5 @@
+AssertionError [ERR_ASSERTION]: 必須指定原始資料根目錄與新的分析輸出目錄。
+    at file:///C:/WorkSpace/-James/DrillPaper/docs/acceptance/2026-11-02/rc-gate-evidence/performance/analyze-existing-20261102.mjs:43:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:633:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)

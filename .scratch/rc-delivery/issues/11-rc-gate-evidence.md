@@ -19,6 +19,10 @@ Blocked by: 10 及必要驗證環境
 
 ## Comments
 
+- 2026-11-02 效能收尾（僅分析既有證據）：trial.8 正式 100 次雙目標切換失敗 0，平均 7.0157 秒／中位數 7.1727 秒／p95 7.6997 秒／最慢 8.3072 秒；200 筆資源完整，Private Bytes 前後 +40.5781 MiB（非穩態切換，不套用長測門檻）。soak 實際 `--management --preview --no-smart-sleep`、兩個 Minimal 宿主／兩個 renderer，最終 535 筆、3149.0732 秒（52 分 29 秒；約 51 分鐘決定收尾後仍有落盤資料，與前條 521 筆中途值不同）。依使用者確認 30 分鐘門檻及 06 容差記效能 PASS：Private Bytes 首末 300 秒中位數 280.8711→287.5039 MiB（+6.6328），OLS +0.126741 MiB/min；handles 3784→3786（+2）、threads 189→187（-2）；CPU 平均 0.297195%、p95 0.548208%（14 核）。資料完整性 PARTIAL：1 筆短命程序漏讀，排除該筆資源及相鄰 2 個 CPU 區間；已核實 8 程序組成變化 0，不代表捕捉全部短命程序。同期 OS 皆 unlocked/on。約 51 分鐘提早收尾、preview／禁智慧休眠及有限觀測限制明列，不宣稱無洩漏；Claude 的 taskkill /T 是收尾操作失誤而非產品崩潰，長測正式退出／正常清理 NOT RUN。NVIDIA BLOCKED、真實節能及其他硬體／Runtime NOT RUN，其他 gate 與 Status 不變。報告、每 10 分鐘中位數、06 對照、原始 ZIP 與逐檔 SHA-256 見 `docs/acceptance/2026-11-02/rc-gate-evidence/performance/REPORT.md`；離線分析測試 12/12 PASS，未啟動產品實測、未修改產品。本次依指定分支單次 commit／push，不合併 main、不建 release／tag。
+
+- 2026-11-02 決策（使用者確認）：使用者看過中途數據後，同意若資源變化不大，就把長測門檻降為 30 分鐘並提早收尾。Claude 在約 51 分鐘時計算的中途數據（521 筆、程序組成 0 變化）如下，皆符合 06 判準：Private Bytes 末 5 分鐘減首 5 分鐘中位數 +5.32 MiB（≤32）、OLS 斜率 0.119 MiB/min（≤1）、handles 3784→3786、threads 189→186（≤10）、CPU 平均 0.296%、p95 0.549%（14 邏輯核）。100 次切換 failures=0。收尾時 Claude 用 `taskkill /T` 停止 Codex，連帶強制終止了長測腳本、Node 啟動器與測試程式 PID 57672，沒有先送正式結束命令（kManageExit）。這是收尾操作失誤，不是產品崩潰；收尾後 DrillPaper 與該設定檔的 WebView2 子程序都是 0，Apex One `AEGIS_BM.log` 未變。長測是 `--management --preview --no-smart-sleep` 模式（Codex 為隔離前景覆蓋所設），報告須明寫。長測的正式退出不計入本次證據，標 NOT RUN。
+
 - 2026-11-02 決策（使用者確認）：產品尚未發布，不處理跨版「更新／回復（升級、降版）」情境，記為不適用本輪（NOT RUN）。本輪只再執行效能項：在本機對 trial.8 候選版做 100 次主題切換與約 2 小時 soak，追蹤記憶體趨勢（09-G4），交由 Codex。移除／資料保留與主動清除、安全剩餘矩陣（09-G3）本輪不執行，記為 NOT RUN（使用者決策）。
 
 - 2026-11-02 決策（使用者確認）：目前沒有乾淨一般使用者機器或 VM，09-G6 的乾淨環境、缺 WebView2 Runtime／VC++ CRT 驗證標 BLOCKED（缺乾淨環境），附人工清單待有機器再補；不在現用機移除依賴。NVIDIA 實讀（本機只有 Intel 內顯）與獨立主題作者（沒有第二位作者）也標 BLOCKED，留待有硬體或人力時再補。

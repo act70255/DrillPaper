@@ -1,0 +1,146 @@
+{
+  "archive": "raw-evidence-20261102-final.zip",
+  "archiveBytes": 1009439,
+  "archiveSha256": "71B2E521875EB925CEA3E7B1E297BAFCA49B350892F853624B77BBAC96FB5D9D",
+  "entries": 22,
+  "exclusions": [
+    "appdata／WebView2 profile：不封存使用者資料",
+    "candidate：已驗證的產品二進位，非本次原始量測資料",
+    "scratch：暫存與編譯產物，非量測證據"
+  ],
+  "files": [
+    {
+      "entry": "observer-ready.json",
+      "bytes": 386,
+      "sha256": "BCABA16B83852FF4EF4045D5E55BCD01A02D6AD2D9E7ECCA0B5F8455538332A9",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\observer-ready.json"
+    },
+    {
+      "entry": "observer.stderr.log",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\observer.stderr.log"
+    },
+    {
+      "entry": "observer.stdout.log",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\observer.stdout.log"
+    },
+    {
+      "entry": "os-state.jsonl",
+      "bytes": 30164168,
+      "sha256": "22F5FA3C3080E7F8807322C4C6AF70716855A47C5C2B8440D5B02184294F770B",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\os-state.jsonl"
+    },
+    {
+      "entry": "soak/launch-7ac20600a9774ce984d90e7fc01c11b2.json",
+      "bytes": 219,
+      "sha256": "B065C0B4A428AE9EDEA92EEEE9EBD3C47B6CD918E4E25C2DEAA3F1B29CAA250A",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\soak\\launch-7ac20600a9774ce984d90e7fc01c11b2.json"
+    },
+    {
+      "entry": "soak/launch-7ac20600a9774ce984d90e7fc01c11b2.json.identity.json",
+      "bytes": 244,
+      "sha256": "10EC0E6CC46033F432C9A28005DCF5947EEF9C07431ED0C5334C09838FE5A43B",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\soak\\launch-7ac20600a9774ce984d90e7fc01c11b2.json.identity.json"
+    },
+    {
+      "entry": "soak/launch-7ac20600a9774ce984d90e7fc01c11b2.json.started.json",
+      "bytes": 164,
+      "sha256": "CF2D432607327380B2E0C137997884A18FF7B594A4A0F5B331F4E90D308182D8",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\soak\\launch-7ac20600a9774ce984d90e7fc01c11b2.json.started.json"
+    },
+    {
+      "entry": "soak/samples.jsonl",
+      "bytes": 2131012,
+      "sha256": "57B648F3EC06C5FAE3CE46CFB3DAC01CB8BBE352AEF74BDF67FA050738029538",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\soak\\samples.jsonl"
+    },
+    {
+      "entry": "switches-formal/launch-75a95ff944694390a9d974b4792cf315.json",
+      "bytes": 219,
+      "sha256": "AB881A21941F3E545DEB80D294F7A0E204510E4E0BB26F1DE72BE6B9B38606C6",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\launch-75a95ff944694390a9d974b4792cf315.json"
+    },
+    {
+      "entry": "switches-formal/launch-75a95ff944694390a9d974b4792cf315.json.exit.json",
+      "bytes": 96,
+      "sha256": "37FED7C4D427276C50919256429639AA07BBD6E1E2C306D7C160788ED491FA6F",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\launch-75a95ff944694390a9d974b4792cf315.json.exit.json"
+    },
+    {
+      "entry": "switches-formal/launch-75a95ff944694390a9d974b4792cf315.json.identity.json",
+      "bytes": 244,
+      "sha256": "A73EC3602B858777B99D5CCA9C3C93D80B5655C2A4226710C3F8DBA048F9FD62",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\launch-75a95ff944694390a9d974b4792cf315.json.identity.json"
+    },
+    {
+      "entry": "switches-formal/launch-75a95ff944694390a9d974b4792cf315.json.started.json",
+      "bytes": 164,
+      "sha256": "87A591B31E4063B258408BB2C66F8E6B28BC6DFCD2BFFD33EFD3A9620028CA91",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\launch-75a95ff944694390a9d974b4792cf315.json.started.json"
+    },
+    {
+      "entry": "switches-formal/result.json",
+      "bytes": 24266,
+      "sha256": "226D4E73CADA4CD44294EE248437CA590F9312EBB461A7CB7C04B32518F28A5A",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\result.json"
+    },
+    {
+      "entry": "switches-formal/switch-resources.csv",
+      "bytes": 12951,
+      "sha256": "138C9FD15371E6D264954164D8120928C73B5D2EF6921BFB023106F81D2A7AED",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\switch-resources.csv"
+    },
+    {
+      "entry": "switches-formal/switch-summary.json",
+      "bytes": 8030,
+      "sha256": "E28F81F9843AE7D60F39940659A965A791D81CCF9990DECF83C1F3CF808E1A0A",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\switch-summary.json"
+    },
+    {
+      "entry": "switches-formal/switches.jsonl",
+      "bytes": 580282,
+      "sha256": "43D52ABE908E23FBF9A171CB030C9792C3E0D813D9D55DBA21515277337E9DE6",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches-formal\\switches.jsonl"
+    },
+    {
+      "entry": "switches/launch-7c6d2428ab284bb3b9f4b56c78a2c364.json",
+      "bytes": 219,
+      "sha256": "E7C3525B9C8C473C889B8591CF1AB90F3D5710D7DEFC1E66AF10FE8E6C8DD8B3",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\launch-7c6d2428ab284bb3b9f4b56c78a2c364.json"
+    },
+    {
+      "entry": "switches/launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.exit.json",
+      "bytes": 96,
+      "sha256": "3FB0ED32DCDC6E338CB880DE168DC8B01379F0514C0807913E447890DA6BF6D2",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.exit.json"
+    },
+    {
+      "entry": "switches/launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.identity.json",
+      "bytes": 244,
+      "sha256": "64073C3F3A5DC37C61646BA0C824E447B05F32A601B81C616D2EEE4CD4594AB0",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.identity.json"
+    },
+    {
+      "entry": "switches/launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.started.json",
+      "bytes": 164,
+      "sha256": "3833574D9C83D6DA905B3EE816BB59B31362D323D0041BB5A9CBCEA3EDD9A468",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\launch-7c6d2428ab284bb3b9f4b56c78a2c364.json.started.json"
+    },
+    {
+      "entry": "switches/result.json",
+      "bytes": 3872,
+      "sha256": "00B69EEA859DD340318857C6780E80228182DA1B7F9B8C6BF373536AF95206B5",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\result.json"
+    },
+    {
+      "entry": "switches/switches.jsonl",
+      "bytes": 6211,
+      "sha256": "662008B610E1A9CAF92FAD62192C4F99559841A1FA7689CCA52471CE63B7BFA5",
+      "source": "C:\\Users\\James\\DrillPaperTests\\RC11 效能 20261102-160037\\switches\\switches.jsonl"
+    }
+  ],
+  "verified": "全部來源與 ZIP entry 逐檔長度／SHA-256 一致；既有工作樹證據雜湊不變。"
+}

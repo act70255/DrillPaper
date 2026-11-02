@@ -1,0 +1,50 @@
+{
+  "tools": [
+    {
+      "Algorithm": "SHA256",
+      "Hash": "E1D0D20420EFAF3BCDBB293217AF483692709DB94B3A8ED54D2B44B07CA09E1B",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-metrics-performance.ps1"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "43FF625ED5718938313D9BD0D209351270C475746C9F05B62570D2B57E779B94",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\test-theme-switch.ps1"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "4A509F00439746EFE9FEDD2D5137644AA60734727D2781FC7EFF4BAEA2CD65BB",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\security-process.ps1"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "17DA49AD9C1F5DC50107F5A5E4EF824B059016BF91C33C38E27095322D66CD13",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\performance-native.cs"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "7F83C63DCDED8CD609189B45B649F3DD6A6D6E1F88FDD2FE21B752A0414F2F55",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\scripts\\analyze-metrics-performance.mjs"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "9867F25FD3F4DD6AABE759E1F6F2C3254CF5DDF6C7D70729B810E2E0DD53A240",
+      "Path": "C:\\WorkSpace\\-James\\DrillPaper\\tests\\fixtures\\security-launcher.mjs"
+    }
+  ],
+  "gpu": {
+    "Name": "Intel(R) Graphics",
+    "DriverVersion": "32.0.101.8860"
+  },
+  "node": "v24.17.0",
+  "os": {
+    "Caption": "Microsoft Windows 11 專業版",
+    "Version": "10.0.26200",
+    "BuildNumber": "26200",
+    "LastBootUpTime": "2026-11-02T10:11:07.5+08:00"
+  },
+  "cpu": {
+    "Name": "Intel(R) Core(TM) Ultra 7 155U",
+    "NumberOfLogicalProcessors": 14
+  },
+  "powershell": "7.6.3"
+}

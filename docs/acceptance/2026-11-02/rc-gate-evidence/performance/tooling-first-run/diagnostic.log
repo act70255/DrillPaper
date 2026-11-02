@@ -1,0 +1,7 @@
+Exception: C:\WorkSpace\-James\DrillPaper\docs\acceptance\2026-11-02\rc-gate-evidence\performance\run-switches.ps1:153
+Line |
+ 153 |  …              if(-not $accepted){throw '20 秒內雙宿主未同時完成新握手、JS 回應及恢復推送。'}
+     |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 20 秒內雙宿主未同時完成新握手、JS 回應及恢復推送。
+
+
