@@ -62,6 +62,7 @@ add_executable(DrillPaper WIN32
     src/platform/windows/monitor_info.cpp
     src/platform/windows/power_notifications.cpp
     src/platform/windows/management_shell.cpp
+    src/platform/windows/running_instances.cpp
     src/monitoring/windows_metrics_collector.cpp
     src/monitoring/nvml_gpu_collector.cpp
     src/web/protocol_v1.cpp
@@ -158,6 +159,9 @@ if(BUILD_TESTING)
     set_tests_properties(DrillPaperThemeCli PROPERTIES TIMEOUT 60)
     # 靜態連結 CRT 後，執行檔不得再依賴 VC++ 可轉散發套件或 UCRT DLL。
     add_test(NAME DrillPaperStaticCrt COMMAND node "${PROJECT_SOURCE_DIR}/scripts/check-pe-imports.mjs" "$<TARGET_FILE:DrillPaper>")
+    # 安裝程式在覆蓋安裝與解除安裝前呼叫；沒有同路徑實例時必須立即成功結束，不得啟動 UI。
+    add_test(NAME DrillPaperExitRunningCli COMMAND "$<TARGET_FILE:DrillPaper>" --exit-running)
+    set_tests_properties(DrillPaperExitRunningCli PROPERTIES TIMEOUT 20)
 
     add_executable(DrillPaperWindowsMetricsIntegrationTests
         tests/integration/windows_metrics_collector_test.cpp
@@ -216,6 +220,18 @@ if(BUILD_TESTING)
     if(MSVC)
         target_compile_options(DrillPaperMonitorDegradeFixture PRIVATE /W4 /permissive- /utf-8)
     endif()
+    add_executable(DrillPaperExitInstanceFixture WIN32 tests/integration/exit_instance_fixture.cpp)
+    target_compile_definitions(DrillPaperExitInstanceFixture PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    add_executable(DrillPaperRunningInstancesIntegrationTests
+        tests/integration/running_instances_test.cpp src/platform/windows/running_instances.cpp)
+    target_compile_definitions(DrillPaperRunningInstancesIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperRunningInstancesIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain user32)
+    add_dependencies(DrillPaperRunningInstancesIntegrationTests DrillPaperExitInstanceFixture)
+    if(MSVC)
+        target_compile_options(DrillPaperRunningInstancesIntegrationTests PRIVATE /W4 /permissive- /utf-8)
+        target_compile_options(DrillPaperExitInstanceFixture PRIVATE /W4 /permissive- /utf-8)
+    endif()
+    catch_discover_tests(DrillPaperRunningInstancesIntegrationTests PROPERTIES TIMEOUT 30 RUN_SERIAL TRUE)
     add_executable(DrillPaperMonitorIntegrationTests tests/integration/monitor_info_test.cpp src/platform/windows/monitor_info.cpp)
     target_compile_definitions(DrillPaperMonitorIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
     target_link_libraries(DrillPaperMonitorIntegrationTests PRIVATE desktopmonitor_core Catch2::Catch2WithMain user32 shcore)

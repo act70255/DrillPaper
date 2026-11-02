@@ -13,6 +13,7 @@
 #include "desktopmonitor/platform/windows/management_shell.h"
 #include "desktopmonitor/platform/windows/monitor_info.h"
 #include "desktopmonitor/platform/windows/power_notifications.h"
+#include "desktopmonitor/platform/windows/running_instances.h"
 #include "desktopmonitor/runtime/managed_playback.h"
 #include "desktopmonitor/runtime/windows_snapshot_mailbox.h"
 #include "desktopmonitor/runtime/sampling_worker.h"
@@ -140,6 +141,19 @@ void RunVersion() {
     if (!WriteCommandOutput(text)) {
         OutputDebugStringW(text.c_str());
     }
+}
+
+/** 要求同一 EXE 路徑的其他執行中實例正式結束；供安裝程式覆蓋安裝或解除安裝前呼叫。
+ * Returns:
+ *     0 表示沒有實例或全部已結束；2 表示 15 秒內仍有實例未結束；1 表示無法取得自身路徑。
+ */
+int RunExitRunning() {
+    std::wstring self(32768, L'\0');
+    const DWORD length = GetModuleFileNameW(nullptr, self.data(), static_cast<DWORD>(self.size()));
+    if (length == 0 || length >= self.size()) return 1;
+    self.resize(length);
+    const auto result = win::RequestExitOfInstances(self, GetCurrentProcessId(), std::chrono::seconds(15));
+    return result.remaining == 0 ? 0 : 2;
 }
 
 /** 顯示原生架構及實際 WebView2 Runtime 版本。 */
@@ -693,6 +707,7 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM value, 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
     if (const auto result = app::RunThemeCommand()) return *result;
     if (HasFlag(commandLine, L"--version")) { RunVersion(); return 0; }
+    if (HasFlag(commandLine, L"--exit-running")) return RunExitRunning();
     if (HasFlag(commandLine, L"--diagnostics")) { RunDiagnostics(); return 0; }
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
     bool comInitialized = false;
