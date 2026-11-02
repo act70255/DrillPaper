@@ -19,6 +19,8 @@ Blocked by: 10 及必要驗證環境
 
 ## Comments
 
+- 2026-11-02 決策（使用者確認）：待機／喚醒情境使用者平常用不到，記為 NOT RUN 並註記，本輪不列為完成驗收的條件。
+
 - 2026-11-02 決策（使用者確認）：「未鎖定狀態下人為強制關屏／開屏至少 5 次」屬人為繞行情境，使用者的實際使用情境不會遇到；記為 NOT RUN 並註記，本輪不列為完成驗收的條件。鎖定期間的真實關屏恢復已在 S3 取得 2 次證據（見 `docs/acceptance/2026-11-02/rc-gate-evidence/INTERACTIVE.md`）。
 
 - 2026-11-02 決策（使用者確認）：GitHub 只允許對預設分支已有的 workflow 使用 `workflow_dispatch`，而 `trial.yml` 尚未在 main，故在本分支為 `trial.yml` 加上 `push: branches: ['feature/rc-*']`，未指定版本時用 `0.1.0-trial.ci.<run_number>`；手動觸發保留。不合併 main。互動實機測試一次只指示使用者一項動作，等使用者回報後才進行下一項。
