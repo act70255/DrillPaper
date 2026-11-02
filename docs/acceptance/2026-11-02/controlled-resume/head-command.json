@@ -1,0 +1,11 @@
+{
+  "ApplicationPath": "C:\\Users\\James\\DrillPaperTests\\RC10 受控恢復 含空白 20261102-091243\\head-release-binary\\DrillPaper.exe",
+  "ParentFixturePath": "C:\\WorkSpace\\-James\\DrillPaper\\build\\windows-msvc-release\\Release\\DrillPaperParentFixture.exe",
+  "EvidenceDirectory": "C:\\Users\\James\\DrillPaperTests\\RC10 受控恢復 含空白 20261102-091243\\head-original",
+  "command": "pwsh -NoProfile -File scripts/test-multi-monitor.ps1",
+  "sourceCommit": "a3c183f5abe9d10f5184ad95aca8bb63bab0ed6f",
+  "exeSha256": "8E8953FA98842F37965C4FC0C8F3C3FD93E22FD7E1A161B8D9AED3180CE6214A",
+  "timestamp": "2026-11-02T09:14:59.5500873+08:00",
+  "DesktopPowerRecovery": true,
+  "fixtureSha256": "0BAB8F01DCD71036AD80C520AA16C0774F80D62EA436DA218CA28AB0D501AC56"
+}

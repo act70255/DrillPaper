@@ -1,0 +1,57 @@
+[
+  {
+    "sha256": "56FBC0F7CABF0CA123E7159BF913B5EBFAC9AD54D980E18F451EEBE3099BC376",
+    "bytes": 53239,
+    "path": "scripts/test-multi-monitor.ps1"
+  },
+  {
+    "sha256": "4A509F00439746EFE9FEDD2D5137644AA60734727D2781FC7EFF4BAEA2CD65BB",
+    "bytes": 3628,
+    "path": "scripts/security-process.ps1"
+  },
+  {
+    "sha256": "9867F25FD3F4DD6AABE759E1F6F2C3254CF5DDF6C7D70729B810E2E0DD53A240",
+    "bytes": 977,
+    "path": "tests/fixtures/security-launcher.mjs"
+  },
+  {
+    "sha256": "DA531F97A80CFD99C7929A581412D560528E6B3B93B03860682EC09C9B56018A",
+    "bytes": 1531,
+    "path": "CMakePresets.json"
+  },
+  {
+    "sha256": "AA0CBF1BBCC974AAEE7CE29597530048CD7C584FC204C42E05FAC98B41B7F497",
+    "bytes": 1416,
+    "path": "AGENTS.md"
+  },
+  {
+    "sha256": "B095243B026161AED1D037EA777C1799CD9835AC8B6C6EC5AE51488FE7333AE4",
+    "bytes": 6176,
+    "path": ".scratch/rc-delivery/spec.md"
+  },
+  {
+    "sha256": "4BCC43956892E471202E91BA9D53481706CCA90204D1CA3C88481E842D92FEDF",
+    "bytes": 4242,
+    "path": ".scratch/rc-delivery/issues/10-controlled-resume-regression.md"
+  },
+  {
+    "sha256": "8E8953FA98842F37965C4FC0C8F3C3FD93E22FD7E1A161B8D9AED3180CE6214A",
+    "bytes": 694272,
+    "path": "build/windows-msvc-release/Release/DrillPaper.exe"
+  },
+  {
+    "sha256": "1CBCA1698175936A93D0C4D4148ED355E1B91415C6A4DB6D762F017DE3B6EB9A",
+    "bytes": 165336,
+    "path": "build/windows-msvc-release/Release/WebView2Loader.dll"
+  },
+  {
+    "sha256": "0BAB8F01DCD71036AD80C520AA16C0774F80D62EA436DA218CA28AB0D501AC56",
+    "bytes": 27648,
+    "path": "build/windows-msvc-release/Release/DrillPaperParentFixture.exe"
+  },
+  {
+    "sha256": "87FE10E27EB016D144F8C775BEEA4C81C724BD513BDDE61DE9F866465FDBC29D",
+    "bytes": 472507,
+    "path": "artifacts/DrillPaper-0.1.0-trial.7-win-x64-unsigned.zip"
+  }
+]

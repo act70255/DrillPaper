@@ -1,4 +1,12 @@
 # 開發狀態
+## 2026-11-02 RC 10 — 原回歸前置條件未成立，停止未提交
+
+- Branch／base：從乾淨指定HEAD `a3c183f5abe9d10f5184ad95aca8bb63bab0ed6f` 建立 `feature/rc-10-controlled-resume-regression`，停止時HEAD不變、票10 in-progress。已讀handoff／架構／spec／票及相關STATUS，需求先記[REQUEST](acceptance/2026-11-02/controlled-resume/REQUEST.md)。
+- Scope／結果：先核實09 trial.7 ZIP87FE10…C29D／EXE993FD4…97DA，循序跑原 `test-multi-monitor.ps1 -DesktopPowerRecovery`；再成功建置HEAD Release（僅DrillPaper／ParentFixture）並以新隔離副本跑同命令，EXE8E8953…214A。trial.7在智慧休眠啟用後首次新指標斷言FAIL（09:14:34、雙Tick／Health0、display-off／已暫停）；HEAD在該段更早的握手等待FAIL（09:16:25、雙Ready／Tick／Health0、display-off／低頻模式）。皆未到擴充段手動暫停／WTS往返，沒有原09-D2等價失敗回歸，不能據此診斷原缺陷。HEAD初輪副本漏DLL／退出3221225781另保留準備失敗，補齊後用新目錄重跑。
+- 停止點／commit：依使用者「前提不成立時停止、不commit」，沒有改src／include、測試／政策或期限，只更新票／本節／證據。原09-D2與必要A08 gate保留、拒絕RC；根因診斷／最小化／TDD／產品修正、相關單元／靜態檢查、後段renderer／browser故障／8輪退化／JS無限迴圈／fixture、新版重包與預設交付矩陣、code-review／commit-msg／commit／push全部 **NOT RUN**（前置失敗停止）；完整套件／CI **NOT RUN**（留收尾）。不合併main、不公開發布，ADR無。
+- Evidence／環境：Windows11 26200、雙1920×1080／DPI144與96；已安裝Runtime156.0.4314.58，09為.50，未歸因此差異。非Temp使用者目錄、隔離LOCALAPPDATA／TEMP／TMP、Node直接啟動、產品測試循序。完整命令／來源hash／原始結果／退出與續作選項見[REPORT](acceptance/2026-11-02/controlled-resume/REPORT.md)，人工項 **NOT RUN**，有[人工清單](acceptance/2026-11-02/controlled-resume/MANUAL_CHECKLIST.md)。本輪無同步真正OS電源／工作階段證據，不把display-off標題當真正關屏、不推定產品或環境根因。
+- Safety／next：Apex One可讀BM前中後41998bytes／11-01 09:42:36／SHA E39585…5F81不變，未觀察新增攔截非完整觀測，無已證實防毒BLOCKED。原桌布83428 path／UTC ticks／hash前後相同、收尾唯一app、本次隔離profile WebView2無殘留；未重啟Explorer、不關閉／替換。續作需確認先補目前Runtime下只讀同步電源／工作階段與有效政策觀測，或用具原Runtime的獨立環境重現；不改本機Runtime或自行決定暫停／恢復優先權。
+
 ## 2026-10-30 RC 15 — SDK 與交付文件通用路徑
 
 - Branch／base：從乾淨 HEAD `746d66af9dbdb2e010f3dbc2eb3f8ba8a65fa482` 建立 `feature/rc-15-sdk-personal-path`，票14已implemented，票15前提成立、無決策衝突。已核對AGENTS／handoff／架構／spec與相關STATUS，實作前方案及結果見[REPORT](acceptance/2026-10-30/sdk-personal-path/REPORT.md)。

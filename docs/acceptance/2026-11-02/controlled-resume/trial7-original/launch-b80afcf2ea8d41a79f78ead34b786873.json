@@ -1,0 +1,8 @@
+{
+  "args": [
+    "--management",
+    "--no-smart-sleep"
+  ],
+  "captureNetwork": false,
+  "file": "C:\\Users\\James\\DrillPaperTests\\RC10 受控恢復 含空白 20261102-091243\\trial7-binary\\DrillPaper.exe"
+}

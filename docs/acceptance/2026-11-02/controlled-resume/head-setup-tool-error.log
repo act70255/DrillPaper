@@ -1,0 +1,7 @@
+Exception: C:\WorkSpace\-James\DrillPaper\scripts\test-multi-monitor.ps1:591
+Line |
+ 591 |  … itForExit(15000) -or $import.ExitCode -ne 0) { throw '多宿主探針主題匯入失敗。' }
+     |                                                   ~~~~~~~~~~~~~~~~~~~~
+     | 多宿主探針主題匯入失敗。
+
+
