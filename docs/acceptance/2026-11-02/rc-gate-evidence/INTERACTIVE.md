@@ -28,3 +28,4 @@
 | --- | --- | --- | --- | --- |
 | S0 啟動 | 13:59:43 | 由 Claude 以 cmd 啟動 | PID 62112，路徑為隔離副本。首次預設為主螢幕單一宿主，ReadyEpoch=1；約 20 秒內 MetricsTick 與 HealthTick 前進，標題由「恢復中」轉為「Live metrics」。console display=1、未鎖定 | PASS |
 | S1-1 管理視窗固定尺寸 | 14:02 | 回報：管理視窗出現；拖拉邊框無法改變大小，最大化沒有反應，文字正常 | 以逐螢幕 DPI 感知方式量測，用戶區 1200×900 px，DPI 144，換算為 800×600 DIP。無 WS_THICKFRAME，無 WS_MAXIMIZEBOX，視窗 DPI awareness=2（per-monitor）。以 DPI-unaware 程序量測時得到 800×600 px，屬量測端座標虛擬化，不作為產品結果 | PASS |
+| S1-2 雙目標選擇與保存 | 14:20 | 回報：清單顯示「顯示器 1（未提供名稱）1920×1080 150%」與「DELL E242HS 1920×1080 100%」；勾選兩者並套用、保存後提示「設定已儲存；各目標仍須等待主題載入完成。」；兩個螢幕各自顯示完整 UI，沒有裁切 | 14:21:21 有兩個宿主 HWND 265396（DPI 144）與 462336（DPI 96），標題皆為「Live metrics」，6 秒內兩者 MetricsTick 與 HealthTick 皆前進。隔離 `settings.json` 為 schema 2，`monitorTargets` 為兩個 `monitorDevicePath`（boe0afc／delf15e），`displayMode=desktop`、`smartSleep=true`。LoadEpoch／ReadyEpoch 是全域遞增序號，不比較兩者大小 | PASS |
