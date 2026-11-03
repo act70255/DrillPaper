@@ -41,3 +41,11 @@
 
 - 完整測試套件（含管理視窗、WebView2、多螢幕原生測試）。
 - 互動驗證：精靈安裝畫面、從開始功能表啟動、執行中覆蓋安裝（正式結束後替換）、解除安裝時的資料詢問（「否」保留、「是」刪除）。
+
+## 互動驗證（2026-11-03，使用者解鎖後）
+
+開始前執行完整測試套件：Release 建置、CTest **58/58**（新增 DrillPaperStaticCrt、DrillPaperExitRunningCli 與 3 個實例關閉整合測試），SDK／工具測試都沒有失敗。真實的 `%LOCALAPPDATA%\DrillPaper` 原本只有 10-28 建立的 WebView2 profile（388 個檔案）。已完整備份到測試目錄並比對一致，驗證結束後還原。「刪除資料」案例改在隔離資料上執行。
+
+| 步驟 | 使用者回報 | Claude 核對 | 結果 |
+| --- | --- | --- | --- |
+| I1 精靈安裝（cmd 啟動，`TEMP` 導向非 Temp） | 繁中顯示正常；預設位置為 `AppData\Local\Programs\DrillPaper`；沒有 UAC；沒有 SmartScreen 或防毒警告。完成時取消「立即啟動」 | 11:15:53「Installation process succeeded」。白名單 55 檔 hash 全部相符。HKCU 解除安裝項目為「DrillPaper（試用版）」0.1.0-trial.9，InstallLocation 為預設位置；HKLM 沒有項目。開始功能表捷徑已建立。沒有啟動程式。註：使用者第一次回報時精靈仍停在前幾頁，請使用者完成後才核對 | PASS |
