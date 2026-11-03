@@ -14,7 +14,7 @@ DrillPaper 提供兩種試用交付形式，內容完全相同，都來自同一
 - **需求**：Windows 10／11 x64，以及 Microsoft Edge WebView2 Runtime（Evergreen，Windows 11 大多已內建）。不需要 VC++ 可轉散發套件，app 已靜態連結 C/C++ 執行環境。
 - **安裝**：執行 `DrillPaper-<版本>-Setup-unsigned.exe`，依精靈完成。只安裝給目前使用者，裝到 `%LOCALAPPDATA%\Programs\DrillPaper\`，**不需要管理員權限**。完成後可從開始功能表的「DrillPaper」開啟管理視窗。缺少 WebView2 時，安裝程式會顯示官方下載網址，並讓你決定是否繼續。
 - **覆蓋安裝（更新到新試用版）**：直接執行新的安裝檔。安裝程式會先要求執行中的 DrillPaper 正式結束（和系統匣的「結束 DrillPaper」相同），結束後才替換檔案；無法結束時會停止並提示你手動結束。
-- **解除安裝**：在「設定 → 應用程式 → 已安裝的應用程式」找到「DrillPaper（試用版）」並解除安裝。程式會先正式結束 DrillPaper，再移除程式檔與捷徑，最後詢問是否一併刪除使用者資料 `%LOCALAPPDATA%\DrillPaper`（設定、匯入的主題、日誌）。**預設為保留**；靜默解除安裝（`/VERYSILENT`）一律保留。
+- **解除安裝**：在「設定 → 應用程式 → 已安裝的應用程式」找到「DrillPaper（試用版）」並解除安裝。程式會先正式結束 DrillPaper，再移除程式檔與捷徑，最後詢問「要保留 DrillPaper 的使用者資料嗎？」，按鈕直接寫明動作：〔保留資料（建議）〕〔刪除資料〕，對象是 `%LOCALAPPDATA%\DrillPaper`（設定、匯入的主題、日誌）。**預設為保留**；靜默解除安裝（`/VERYSILENT`）一律保留。
 - **未簽章提醒**：安裝檔與程式都沒有程式碼簽章，Windows SmartScreen 或企業防毒（例如 Trend Micro Apex One）可能警告或攔截。請確認檔案來自可信來源，並核對 metadata 中的 SHA-256；企業環境請向 IT 申請例外，不要自行停用防毒。
 
 ## 給維護者：產生安裝檔
