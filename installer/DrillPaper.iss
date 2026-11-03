@@ -141,10 +141,11 @@ begin
     Log('靜默解除安裝，保留使用者資料：' + DataDir);
     exit;
   end;
-  if MsgBox('是否同時刪除 DrillPaper 的使用者資料？' + #13#10#13#10 +
-      '包含設定、匯入的主題與日誌：' + #13#10 + DataDir + #13#10#13#10 +
-      '選擇「否」會保留資料，之後重新安裝可繼續使用。',
-      mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES then
+  { 按鈕直接標示動作，避免與前一題「確定要移除？」的「是」混淆；第一個（預設）按鈕為保留。 }
+  if TaskDialogMsgBox('要保留 DrillPaper 的使用者資料嗎？',
+      '程式已移除。使用者資料包含設定、匯入的主題與日誌：' + #13#10 + DataDir + #13#10#13#10 +
+      '保留資料後重新安裝可繼續使用；刪除後無法復原。',
+      mbConfirmation, MB_YESNO, ['保留資料（建議）', '刪除資料'], 0) = IDNO then
   begin
     if DelTree(DataDir, True, True, True) then
       Log('已刪除使用者資料：' + DataDir)
