@@ -71,3 +71,31 @@
 - **FAIL → 已修正**：I4 使用 trial.9 時，真實使用者資料在解除安裝時被刪除。重現證實程式只會在第二題選「是」時刪除；根本原因是兩題「是／否」語意相反，容易誤按。依使用者決策改為標示動作的按鈕，預設保留（trial.10），並以 I5、I6 重驗通過。真實資料已從備份完整還原。
 - **整個驗證期間**：Apex One `AEGIS_BM.log` 維持 41998 bytes，沒有新增攔截；安裝檔與 EXE 未簽章，本機沒有出現 SmartScreen 警告。
 - **NOT RUN／BLOCKED**：乾淨機器（無開發工具、缺 WebView2）上的安裝，沿用票 16 的 BLOCKED。
+
+## 整體 code review 修正後重驗（trial.11）
+
+依使用者決策，整體 code review（Standards／Spec 兩軸）的發現全部修正：
+
+- **`6a07aed` 匯入表檢查**：原本從含空白或非 ASCII 字元的路徑執行時，會因主程式判斷失效而靜默以 0 結束（已實測重現：對 /MD 的 EXE 也回傳 0）。改用 `pathToFileURL` 後先 Red 再 Green。另外補讀 delay-load 匯入、禁止清單補 concrt／vcomp，CTest 與 `build-trial.ps1` 也一併檢查 `WebView2Loader.dll`。
+- **`dc37f9c` `--exit-running`**：
+  - 改用程序快照找出同路徑實例。沒有管理視窗的實例計入 `unreachable`、命令送不出去的計入 `remaining`，兩種情況都不再誤報成功。每個程序只開一次 handle 並持有到等待結束。
+  - 管理視窗類別名稱改為共用常數，結束碼與逾時改為具名常數。
+  - 整合測試改在建置目錄下工作並在結束時清除，不再使用 %TEMP%。新增「無管理視窗」與「目前 EXE 路徑」兩個案例，先 Red 再 Green。
+- **`e2aeef1` 安裝檔與打包腳本**：
+  - `.iss`：Exec 失敗時正確記錄；修正 TaskDialogMsgBox 註解；`DisableDirPage=yes` 固定安裝位置。
+  - `build-installer.ps1`：ISCC 候選清單去除冗餘、環境變數空值處理、metadata 寫入失敗時移除安裝檔；版號只解析數字部分。
+  - 契約測試新增「ZIP 混入白名單外檔案」案例；這是既有保護，沒有虛構 Red。
+- **文件**：ADR 0006（靜態 CRT）、ADR 0007（以 `--exit-running` 取代 Restart Manager／AppMutex）、票 17 決策與完成紀錄、STATUS、README 矛盾修正。
+
+候選版：來源 `e2aeef13cd64ce92ce27547918e1eb7b73683a58`，`DrillPaper-0.1.0-trial.11-win-x64-unsigned.zip`（SHA-256 `1CF069B8E60D4BF7BE5BE5FB614A27C052CE379E91E770D3F89429899FE6686B`），`DrillPaper-0.1.0-trial.11-Setup-unsigned.exe`（SHA-256 `8A2A92780BFD728EA0B0D8E6BBE972956FF8C4A1AF7F34F6FEAB1D65369A7A4B`）。EXE 943,616 bytes，`build-trial.ps1` 封裝前的 EXE／DLL 靜態 CRT 檢查 PASS。
+
+自動重驗（隔離 `LOCALAPPDATA`，以 cmd 啟動）：
+
+| 項目 | 結果 |
+| --- | --- |
+| 靜默安裝到含空白與繁中的測試目錄 | exit 0，PASS |
+| 管理模式實例（PID 46712）執行中，靜默覆蓋安裝 | `--exit-running` 結束碼 0，實例正式結束；「Installation process succeeded」「Need to restart Windows? No」。PASS |
+| `--preview` 實例（PID 41900，沒有管理視窗）執行中，靜默覆蓋安裝 | `--exit-running` 結束碼 2，「PrepareToInstall failed」並顯示繁中提示，安裝程式結束碼 7；實例仍在執行，沒有被強制終止。修正前會誤報 0。PASS |
+| 以 WM_CLOSE 關閉預覽視窗 | 實例正常結束 |
+| 靜默解除安裝 | `--exit-running` 結束碼 0、「Uninstallation process succeeded」、記錄「靜默解除安裝，保留使用者資料」；隔離資料保留；HKCU 項目、捷徑、程序都沒有殘留。PASS |
+| GUI 精靈 | trial.11 沒有重看（NOT RUN）。對 trial.10 的 GUI 差異只有隱藏目錄頁與提示文字，資料詢問邏輯沒有變（I5／I6 已驗） |

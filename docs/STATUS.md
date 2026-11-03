@@ -1,3 +1,24 @@
+## 2026-11-03 票 17 — Inno Setup 使用者層級安裝檔（implemented）
+
+- Branch：`feature/rc-17-inno-setup-installer`（base main 45471d1）。
+- Scope：
+  - app 改為靜態 CRT，不再需要 VC++（[ADR 0006](adr/0006-static-crt.md)）。
+  - 新增 `--exit-running`，正式結束同路徑實例（[ADR 0007](adr/0007-installer-graceful-exit.md)）。
+  - Inno Setup 使用者層級安裝檔 `DrillPaper-<版本>-Setup-unsigned.exe`，內容與試用 ZIP 同一份白名單。
+  - CI artifact `drillpaper-installer-unsigned`。
+  - 文件：[安裝檔](INSTALLER.md)。
+- Commands：
+  - `./scripts/build.ps1 -Configuration Release`、`./scripts/test.ps1 -Configuration Release`。
+  - `./scripts/test-installer-package.ps1`。
+  - `./scripts/build-trial.ps1 -SourceCommit <sha> -Version 0.1.0-trial.11`。
+  - `./scripts/build-installer.ps1 -ArchivePath artifacts/DrillPaper-0.1.0-trial.11-win-x64-unsigned.zip -SourceCommit <sha>`。
+- Results：完整測試通過（CTest 數量見 REPORT）；安裝檔打包契約 5/5；CI trial run 41429684943 產出安裝檔；trial.9／10／11 實機與靜默安裝、覆蓋安裝、解除安裝驗證通過。trial.9 解除安裝誤刪真實資料一次，已還原並改為標示動作的按鈕。證據見 [REPORT](acceptance/2026-11-02/installer/REPORT.md)。
+- NOT RUN／BLOCKED：
+  - 乾淨機器與缺 WebView2 的安裝（票 16 BLOCKED）。
+  - trial.11 GUI 精靈沒有重看。
+  - 程式碼簽章不在範圍。
+- 不合併 main、不建立 release／tag，產物仍標示 trial／unsigned。
+
 ## 2026-11-02 RC 11 結案 — 有條件放行（使用者決策）
 
 - Branch：`feature/rc-11-gate-evidence`。候選 trial.8（來源 ae1c5e0，ZIP 63A98B5B…D53）。總結：[REPORT](acceptance/2026-11-02/rc-gate-evidence/REPORT.md)；互動實機：[INTERACTIVE](acceptance/2026-11-02/rc-gate-evidence/INTERACTIVE.md)；CI：[CI](acceptance/2026-11-02/rc-gate-evidence/CI.md)；效能：[performance](acceptance/2026-11-02/rc-gate-evidence/performance/REPORT.md)。

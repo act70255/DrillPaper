@@ -1,6 +1,6 @@
 # Inno Setup 安裝檔
 
-Status: open
+Status: implemented
 Type: task
 Owner: James（發行維護者）
 Blocked by: 無（下方「待決策」須在派工前確認）
@@ -33,6 +33,32 @@ Blocked by: 無（下方「待決策」須在派工前確認）
 4. **版本命名**：沿用 `0.1.0-trial.N` 標示試用，或另定安裝檔的版本規則。
 
 ## Comments
+
+- 2026-11-03 完成（Claude 實作）：分支 `feature/rc-17-inno-setup-installer`。主要變更：
+  - 靜態 CRT（ADR 0006）＋ `scripts/check-pe-imports.mjs`（含 delay-load、隨包 DLL）。
+  - `--exit-running`（ADR 0007，同路徑實例正式結束；沒有管理視窗或命令失敗時回報 2，不強制終止）。
+  - `installer/DrillPaper.iss` 與 `scripts/build-installer.ps1`。
+  - CI 產出 `drillpaper-installer-unsigned`。
+  - `docs/INSTALLER.md`。
+
+  驗證：
+  - 完整測試通過。
+  - 安裝檔打包契約 5/5。
+  - trial.9 精靈安裝、開始功能表啟動、執行中覆蓋安裝都通過。
+  - trial.10 解除安裝保留與刪除兩條路徑都通過。
+  - trial.11 自動重驗：管理實例覆蓋安裝、`--preview` 實例使安裝停止、靜默解除安裝都通過。
+
+  事件：trial.9 解除安裝時真實使用者資料被刪（最可能是兩題「是／否」語意相反而誤按），已從備份完整還原，並依下方決策修正。
+
+  整體 code review 的違規、bug 與判斷題都已依使用者決策修正。
+
+  NOT RUN／BLOCKED：
+  - 乾淨機器（沿用票 16 的 BLOCKED）。
+  - trial.11 的 GUI 精靈沒有重看。trial.11 對 trial.10 的 GUI 相關變更，只有 `DisableDirPage=yes` 與提示文字；資料詢問的邏輯沒有變。
+
+  證據：`docs/acceptance/2026-11-02/installer/REPORT.md`。
+- 2026-11-03 決策（使用者確認）：解除安裝的資料詢問改為按鈕直接寫明動作：「要保留 DrillPaper 的使用者資料嗎？」〔保留資料（建議）〕〔刪除資料〕，預設保留，避免與 Inno 內建「確定要移除？」的「是」混淆。
+- 2026-11-03 決策（使用者確認）：整體 code review 的發現全部修正，包含判斷題。
 
 - 2026-11-02 決策（使用者確認）：
   1. VC++：改為靜態連結 CRT（`/MT`），移除對 VC++ 執行環境的依賴，ZIP 與安裝檔同時受益；須重跑完整測試，並更新啟動入口與說明中的 VC++ 檢查。
