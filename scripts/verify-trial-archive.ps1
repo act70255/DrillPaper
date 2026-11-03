@@ -13,7 +13,9 @@ try {
     $archive=[IO.Compression.ZipFile]::OpenRead($path)
     $reader=[IO.StreamReader]::new($archive.GetEntry('package-manifest.json').Open())
     try { $manifest=$reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
-    if ($manifest.sourceCommit -cne $SourceCommit -or $manifest.kind -cne 'trial' -or $manifest.configuration -cne 'Release' -or $manifest.architecture -cne 'x64') { throw '來源／試用標示／Release／x64 不符。' }
+    # kind 必須與版號一致：-trial.N 為 trial，正式版號 X.Y.Z 為 release（票 18）。
+    $expectedKind = if ([string]$manifest.version -match '^\d+\.\d+\.\d+-trial\.[0-9A-Za-z.]+$') { 'trial' } elseif ([string]$manifest.version -match '^\d+\.\d+\.\d+$') { 'release' } else { $null }
+    if ($manifest.sourceCommit -cne $SourceCommit -or -not $expectedKind -or $manifest.kind -cne $expectedKind -or $manifest.configuration -cne 'Release' -or $manifest.architecture -cne 'x64') { throw '來源／版號與版本類型／Release／x64 不符。' }
     $entries=Get-Content -Raw -Encoding UTF8 (Join-Path $PSScriptRoot 'trial-files.json') | ConvertFrom-Json
     $expected=@($entries | ForEach-Object { if ($_.destination) { $_.destination } else { $_.path } })
     if (@(Compare-Object ($expected+'package-manifest.json') @($archive.Entries.FullName)).Count -ne 0 -or
@@ -27,7 +29,7 @@ try {
     }
     if ($manifest.executableSha256 -cne ($manifest.files | Where-Object path -eq 'DrillPaper.exe').sha256 -or
         $manifest.executableSha256 -cne $sidecar.executableSha256 -or $manifest.version -cne $sidecar.version -or $sidecar.sourceCommit -cne $SourceCommit) { throw 'EXE／版本／來源 sidecar 不一致。' }
-    Write-Output "PASS：Release x64 試用包來源、白名單 $($expected.Count) 檔與逐檔／EXE／ZIP hash 相符。"
+    Write-Output "PASS：Release x64 套件（$($manifest.kind) $($manifest.version)）來源、白名單 $($expected.Count) 檔與逐檔／EXE／ZIP hash 相符。"
     # 明確回報成功；未執行原生命令時 $LASTEXITCODE 為 null，呼叫端以 -ne 0 判斷會誤判失敗。
     exit 0
 } catch {

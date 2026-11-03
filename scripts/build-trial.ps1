@@ -1,7 +1,7 @@
 ﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory)][ValidatePattern('^[0-9a-f]{40}$')][string]$SourceCommit,
-    [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+-trial\.[0-9A-Za-z.]+$')][string]$Version,
+    [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+(-trial\.[0-9A-Za-z.]+)?$')][string]$Version,
     [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts')
 )
 $ErrorActionPreference = 'Stop'

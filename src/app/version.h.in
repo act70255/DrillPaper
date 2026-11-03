@@ -1,0 +1,12 @@
+#pragma once
+
+// 由 CMake 依 project(VERSION) 產生；產品版本的唯一來源，發布流程會比對 tag 與此值。
+
+namespace desktopmonitor {
+
+/** 產品版本（UTF-8），用於協定握手等文字輸出。 */
+inline constexpr char kProductVersion[] = "@PROJECT_VERSION@";
+/** 產品版本（UTF-16），用於 Win32 介面與 CLI 輸出。 */
+inline constexpr wchar_t kProductVersionWide[] = L"@PROJECT_VERSION@";
+
+}  // namespace desktopmonitor

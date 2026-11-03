@@ -2,9 +2,9 @@
 param([switch]$CheckOnly)
 $ErrorActionPreference = 'Stop'
 try {
-    if (-not [Environment]::Is64BitProcess) { throw '請使用 Windows x64 的 64 位元 PowerShell 啟動試用包。' }
+    if (-not [Environment]::Is64BitProcess) { throw '請使用 Windows x64 的 64 位元 PowerShell 啟動 DrillPaper。' }
     foreach ($file in @('DrillPaper.exe','WebView2Loader.dll','package-manifest.json','Start-DrillPaper.cmd')) {
-        if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot $file) -PathType Leaf)) { throw "試用包缺少 $file，請重新完整解壓 ZIP。" }
+        if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot $file) -PathType Leaf)) { throw "套件缺少 $file，請重新完整解壓 ZIP。" }
     }
     foreach ($theme in @('minimal','dashboard')) {
         foreach ($asset in @('index.html','main.js','style.css','theme.json','javascript/desktop-monitor-sdk.js')) {
@@ -41,11 +41,12 @@ public static class DrillPaperTrialRuntime {
         }
         $runtime = [Runtime.InteropServices.Marshal]::PtrToStringUni($pointer)
     } finally { if ($pointer -ne [IntPtr]::Zero) { [Runtime.InteropServices.Marshal]::FreeCoTaskMem($pointer) } }
-    Write-Output "DrillPaper $($manifest.version) 試用版；產品 commit $($manifest.sourceCommit)；WebView2 $runtime"
+    $edition = if ($manifest.kind -eq 'trial') { ' 試用版' } else { '' }
+    Write-Output "DrillPaper $($manifest.version)$edition；產品 commit $($manifest.sourceCommit)；WebView2 $runtime"
     if (-not $CheckOnly) {
         Start-Process -FilePath $env:ComSpec -ArgumentList ('/d /c ""' + (Join-Path $PSScriptRoot 'Start-DrillPaper.cmd') + '""') -WorkingDirectory $PSScriptRoot -WindowStyle Hidden | Out-Null
     }
 } catch {
-    [Console]::Error.WriteLine("無法啟動 DrillPaper 試用版：$($_.Exception.Message)")
+    [Console]::Error.WriteLine("無法啟動 DrillPaper：$($_.Exception.Message)")
     exit 1
 }

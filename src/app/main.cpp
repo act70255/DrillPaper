@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "desktopmonitor/app/theme_commands.h"
+#include "desktopmonitor/version.h"
 #include "desktopmonitor/monitoring/windows_metrics_collector.h"
 #include "desktopmonitor/platform/windows/desktop_host.h"
 #include "desktopmonitor/platform/windows/management_shell.h"
@@ -26,7 +27,7 @@ namespace runtime = desktopmonitor::runtime;
 namespace app = desktopmonitor::app;
 constexpr wchar_t kWindowClass[] = L"DrillPaperPreviewWindow";
 constexpr wchar_t kNotificationClass[] = L"DrillPaperShellNotifications";
-constexpr wchar_t kApplicationVersion[] = L"0.1.0-dev";
+constexpr const wchar_t* kApplicationVersion = desktopmonitor::kProductVersionWide;
 constexpr UINT kSnapshotReady = WM_APP + 0x34;
 constexpr UINT kSamplingFailed = WM_APP + 0x35;
 constexpr UINT kReconcile = WM_APP + 0x39;
@@ -120,6 +121,18 @@ desktopmonitor::core::MetricsSnapshot MakeMockSnapshot() {
  *     寫入成功時為 true。
  */
 bool WriteCommandOutput(const std::wstring& text) {
+    // 輸出被導向管線或檔案時（例如 CTest、CI、安裝程式），以 UTF-8 寫入；主控台則沿用 WriteConsoleW。
+    const HANDLE redirected = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (redirected != nullptr && redirected != INVALID_HANDLE_VALUE) {
+        const DWORD type = GetFileType(redirected);
+        if (type == FILE_TYPE_PIPE || type == FILE_TYPE_DISK) {
+            const int bytes = WideCharToMultiByte(CP_UTF8, 0, text.c_str(), static_cast<int>(text.size()), nullptr, 0, nullptr, nullptr);
+            std::string utf8(static_cast<std::size_t>(bytes), '\0');
+            WideCharToMultiByte(CP_UTF8, 0, text.c_str(), static_cast<int>(text.size()), utf8.data(), bytes, nullptr, nullptr);
+            DWORD written = 0;
+            return WriteFile(redirected, utf8.data(), static_cast<DWORD>(utf8.size()), &written, nullptr) && written == utf8.size();
+        }
+    }
     bool attachedHere = false;
     if (GetConsoleWindow() == nullptr) {
         attachedHere = AttachConsole(ATTACH_PARENT_PROCESS) != FALSE;

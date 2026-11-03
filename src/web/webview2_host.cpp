@@ -13,6 +13,7 @@
 #include <shlwapi.h>
 
 #include "desktopmonitor/web/protocol_v1.h"
+#include "desktopmonitor/version.h"
 
 namespace desktopmonitor::web {
 namespace {
@@ -836,7 +837,8 @@ void WebView2Host::OnMessage(ICoreWebView2WebMessageReceivedEventArgs* args) {
 
 void WebView2Host::SendReady() {
     const std::string payload =
-        std::string(R"({"hostVersion":"0.1.0-dev","capabilities":["cpu","gpu","memory","disk","network","clock"],"state":")") +
+        std::string(R"({"hostVersion":")") + desktopmonitor::kProductVersion +
+        R"(","capabilities":["cpu","gpu","memory","disk","network","clock"],"state":")" +
         StateName(state_) + R"(","limits":{"history":120,"messageBytes":65536}})";
     if (SUCCEEDED(PostJson(SerializeProtocolMessage(
             "host.ready", CurrentUnixTimeMilliseconds(), nullptr, payload)))) {

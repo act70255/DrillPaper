@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $package = (Resolve-Path -LiteralPath $PackageDirectory).Path
 $shell = Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
 & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $package 'Start-DrillPaper.ps1') -CheckOnly
-if ($LASTEXITCODE -ne 0) { throw '完整試用包依賴檢查失敗。' }
+if ($LASTEXITCODE -ne 0) { throw '完整套件依賴檢查失敗。' }
 $missingTheme = Join-Path $PSScriptRoot ('../artifacts/trial-resource-test-' + [Guid]::NewGuid().ToString('N'))
 Copy-Item -LiteralPath $package -Destination $missingTheme -Recurse
 Remove-Item -LiteralPath (Join-Path $missingTheme 'resources/themes/minimal/index.html')
@@ -26,7 +26,7 @@ try {
     $ErrorActionPreference = 'Continue'
     $result = & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $session 'Start-DrillPaper.ps1') -CheckOnly 2>&1
 } finally { $ErrorActionPreference = $previousError }
-if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*試用包缺少 WebView2Loader.dll*') { throw '缺 loader 應顯示繁中重新解壓提示。' }
+if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*套件缺少 WebView2Loader.dll*') { throw '缺 loader 應顯示繁中重新解壓提示。' }
 Copy-Item -LiteralPath (Join-Path $package 'WebView2Loader.dll') -Destination $session
 $manifestPath = Join-Path $session 'package-manifest.json'
 $manifest = Get-Content -Raw -Encoding UTF8 $manifestPath | ConvertFrom-Json
@@ -46,5 +46,5 @@ try {
     $ErrorActionPreference = 'Continue'
     $result = & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $session 'Start-DrillPaper.ps1') -CheckOnly 2>&1
 } finally { $ErrorActionPreference = $previousError }
-if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*試用包缺少 Start-DrillPaper.cmd*') { throw '缺 CMD 應提前拒絕並顯示繁中完整解壓提示。' }
+if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*套件缺少 Start-DrillPaper.cmd*') { throw '缺 CMD 應提前拒絕並顯示繁中完整解壓提示。' }
 Write-Output 'PASS：Windows PowerShell 5.1 真實依賴檢查、缺主題入口／CMD／loader 友善提示；靜態 CRT 不再要求 VC++ runtime；未修改／安裝系統 runtime。'

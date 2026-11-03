@@ -42,18 +42,20 @@ try {
     $manifest = Get-Content -Raw -Encoding UTF8 (Join-Path $staging 'package-manifest.json') | ConvertFrom-Json
     $version = [string]$manifest.version
     # 完整 trial 版號格式已由 package-trial.ps1 與 verify-trial-archive.ps1 把關，這裡只取數字部分給檔案版本資訊。
-    if ($version -notmatch '^(\d+)\.(\d+)\.(\d+)-') { throw "試用包版本格式無效：$version" }
+    if ($version -notmatch '^(\d+)\.(\d+)\.(\d+)(-|$)') { throw "套件版本格式無效：$version" }
     $numeric = "$($Matches[1]).$($Matches[2]).$($Matches[3]).0"
 
-    $baseName = "DrillPaper-$version-Setup-unsigned"
+    # 版本類型沿用試用包 manifest（已由驗證腳本確認與版號一致）：試用版帶 unsigned 標示，正式版不加（票 18）。
+    $edition = [string]$manifest.kind
+    $baseName = if ($edition -eq 'trial') { "DrillPaper-$version-Setup-unsigned" } else { "DrillPaper-$version-Setup" }
     $setup = Join-Path $output "$baseName.exe"
     $sidecar = Join-Path $output "$baseName.json"
     if ((Test-Path -LiteralPath $setup) -or (Test-Path -LiteralPath $sidecar)) {
-        throw "安裝檔已存在，不覆寫既有版本：$setup。請改用新的試用版號重新打包。"
+        throw "安裝檔已存在，不覆寫既有版本：$setup。請改用新的版號重新打包。"
     }
 
     $script = Join-Path $PSScriptRoot '../installer/DrillPaper.iss'
-    $log = & $compiler /Qp "/DAppVersion=$version" "/DNumericVersion=$numeric" "/DSourceDir=$staging" `
+    $log = & $compiler /Qp "/DAppVersion=$version" "/DNumericVersion=$numeric" "/DEdition=$edition" "/DSourceDir=$staging" `
         "/DOutputDir=$output" "/DOutputBaseFilename=$baseName" $script 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $setup)) {
         if (Test-Path -LiteralPath $setup) { Remove-Item -LiteralPath $setup -Force }
@@ -62,7 +64,7 @@ try {
 
     try {
         [ordered]@{
-            kind = 'installer'; tool = 'Inno Setup 6'; version = $version; sourceCommit = $SourceCommit; signed = $false
+            kind = 'installer'; edition = $edition; tool = 'Inno Setup 6'; version = $version; sourceCommit = $SourceCommit; signed = $false
             scope = 'per-user (%LOCALAPPDATA%\Programs\DrillPaper)'; file = "$baseName.exe"
             sha256 = (Get-FileHash -LiteralPath $setup -Algorithm SHA256).Hash
             archive = [IO.Path]::GetFileName($archive); archiveSha256 = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash
