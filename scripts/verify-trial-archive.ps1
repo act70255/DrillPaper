@@ -29,7 +29,7 @@ try {
     }
     if ($manifest.executableSha256 -cne ($manifest.files | Where-Object path -eq 'DrillPaper.exe').sha256 -or
         $manifest.executableSha256 -cne $sidecar.executableSha256 -or $manifest.version -cne $sidecar.version -or $sidecar.sourceCommit -cne $SourceCommit) { throw 'EXE／版本／來源 sidecar 不一致。' }
-    Write-Output "PASS：Release x64 試用包來源、白名單 $($expected.Count) 檔與逐檔／EXE／ZIP hash 相符。"
+    Write-Output "PASS：Release x64 套件（$($manifest.kind) $($manifest.version)）來源、白名單 $($expected.Count) 檔與逐檔／EXE／ZIP hash 相符。"
     # 明確回報成功；未執行原生命令時 $LASTEXITCODE 為 null，呼叫端以 -ne 0 判斷會誤判失敗。
     exit 0
 } catch {
