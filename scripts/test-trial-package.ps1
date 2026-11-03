@@ -50,6 +50,27 @@ $sidecar = Get-Content -Raw ($zip.FullName -replace '\.zip$','.json') | ConvertF
 if ($sidecar.archiveSha256 -cne (Get-FileHash $zip.FullName).Hash -or
     $sidecar.executableSha256 -cne (Get-FileHash (Join-Path $session 'DrillPaper.exe')).Hash) { throw '套件／EXE sidecar hash 錯誤。' }
 Write-Output 'PASS：白名單恰好相符、私有設定排除、逐檔／ZIP／EXE hash 及 trial 來源識別。'
+# 正式版號（不含 -trial）：檔名不帶 trial／unsigned，manifest kind=release，驗證腳本仍可驗。
+$release = Join-Path $session 'release'
+& (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
+    -SourceCommit ('a' * 40) -Version '0.1.0' -OutputDirectory $release | Out-Null
+$releaseZip = Join-Path $release 'DrillPaper-0.1.0-win-x64.zip'
+if (-not (Test-Path -LiteralPath $releaseZip) -or -not (Test-Path -LiteralPath (Join-Path $release 'DrillPaper-0.1.0-win-x64.json')) -or
+    @(Get-ChildItem -LiteralPath $release -Filter '*unsigned*').Count -ne 0) { throw '正式版號應產生不帶 trial／unsigned 的 ZIP 與 sidecar。' }
+$releaseArchive = [IO.Compression.ZipFile]::OpenRead($releaseZip)
+try {
+    $reader = [IO.StreamReader]::new($releaseArchive.GetEntry('package-manifest.json').Open())
+    try { $releaseManifest = $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
+} finally { $releaseArchive.Dispose() }
+if ($releaseManifest.kind -cne 'release' -or $releaseManifest.version -cne '0.1.0') { throw '正式版 manifest 必須為 kind=release、version=0.1.0。' }
+& pwsh -NoProfile -File (Join-Path $PSScriptRoot 'verify-trial-archive.ps1') -ArchivePath $releaseZip -SourceCommit ('a' * 40) | Out-Null
+if ($LASTEXITCODE -ne 0) { throw '正式版 ZIP 應通過白名單與 hash 驗證。' }
+try {
+    & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
+        -SourceCommit ('a' * 40) -Version '0.1.0-beta' -OutputDirectory (Join-Path $session 'beta')
+    throw '不支援的版號格式應拒絕。'
+} catch { if ($_.Exception.Message -notlike '*Version*') { throw } }
+Write-Output 'PASS：正式版號產生不帶 trial／unsigned 的 ZIP（kind=release）並通過驗證；不支援的版號拒絕。'
 try {
     & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $session -SourceDirectory $repo `
         -SourceCommit ('a' * 40) -Version '0.1.0-trial.test' -OutputDirectory (Join-Path $session 'out')

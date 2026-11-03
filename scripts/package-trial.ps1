@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory)][string]$ApplicationDirectory,
     [Parameter(Mandatory)][string]$SourceDirectory,
     [Parameter(Mandatory)][ValidatePattern('^[0-9a-f]{40}$')][string]$SourceCommit,
-    [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+-trial\.[0-9A-Za-z.]+$')][string]$Version,
+    [Parameter(Mandatory)][ValidatePattern('^\d+\.\d+\.\d+(-trial\.[0-9A-Za-z.]+)?$')][string]$Version,
     [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts')
 )
 $ErrorActionPreference = 'Stop'
@@ -37,7 +37,9 @@ try {
     }
     $output = [IO.Path]::GetFullPath($OutputDirectory)
     New-Item -ItemType Directory -Path $output -Force | Out-Null
-    $name = "DrillPaper-$Version-win-x64-unsigned"
+    # 試用版號（-trial.N）沿用帶 unsigned 的命名；正式版號依使用者決策不加標示（票 18）。
+    $kind = if ($Version -match '-trial\.') { 'trial' } else { 'release' }
+    $name = if ($kind -eq 'trial') { "DrillPaper-$Version-win-x64-unsigned" } else { "DrillPaper-$Version-win-x64" }
     $zip = Join-Path $output "$name.zip"
     $sidecar = Join-Path $output "$name.json"
     if ((Test-Path -LiteralPath $zip) -or (Test-Path -LiteralPath $sidecar)) { throw '試用包目的檔已存在，拒絕覆寫。' }
@@ -53,7 +55,7 @@ try {
     $tooling = @(foreach ($file in ($toolingFiles | Sort-Object -Unique)) {
         @{path=$file; sha256=(Get-FileHash -LiteralPath (Join-Path $roots.tooling $file) -Algorithm SHA256).Hash}
     })
-    $metadata = [ordered]@{ kind='trial'; version=$Version; sourceCommit=$SourceCommit; configuration='Release'; architecture='x64';
+    $metadata = [ordered]@{ kind=$kind; version=$Version; sourceCommit=$SourceCommit; configuration='Release'; architecture='x64';
         crt='static'; webView2Sdk='1.0.2478.35'; webView2Runtime='Evergreen (external)';
         executableSha256=($records | Where-Object path -eq 'DrillPaper.exe').sha256; tooling=$tooling; files=$records }
     $metadata | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stage 'package-manifest.json') -Encoding UTF8

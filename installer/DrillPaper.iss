@@ -1,8 +1,9 @@
 ﻿; DrillPaper 使用者層級安裝檔（Inno Setup 6）。
 ; 由 scripts/build-installer.ps1 呼叫 ISCC 並以 /D 傳入下列定義；不要直接手動編譯。
-;   AppVersion        試用版號，例如 0.1.0-trial.9
+;   AppVersion        版號，例如 0.1.0 或 0.1.0-trial.9
 ;   NumericVersion    檔案版本資訊用的數字版號，例如 0.1.0.0
-;   SourceDir         已通過 verify-trial-archive.ps1 驗證並解壓的試用包目錄（白名單內容）
+;   Edition           release（正式版號）或 trial（試用版號），決定顯示名稱
+;   SourceDir         已通過 verify-trial-archive.ps1 驗證並解壓的套件目錄（白名單內容）
 ;   OutputDir         安裝檔輸出目錄
 ;   OutputBaseFilename 安裝檔檔名（不含 .exe）
 ; 決策見 .scratch/rc-delivery/issues/17-inno-setup-installer.md：只做使用者層級、不需管理員權限、
@@ -23,16 +24,28 @@
 #ifndef OutputBaseFilename
   #error 缺少 OutputBaseFilename 定義。
 #endif
+#ifndef Edition
+  #error 缺少 Edition 定義（release 或 trial）。
+#endif
+#if Edition == "trial"
+  #define DisplayName "DrillPaper（試用版）"
+  #define VersionLabel "（試用版，未簽章）"
+#elif Edition == "release"
+  #define DisplayName "DrillPaper"
+  #define VersionLabel ""
+#else
+  #error Edition 只能是 release 或 trial。
+#endif
 
 [Setup]
 AppId={{DC8FDCBC-C926-406F-9B9C-DBA6294EAD9C}
 AppName=DrillPaper
 AppVersion={#AppVersion}
-AppVerName=DrillPaper {#AppVersion}（試用版，未簽章）
+AppVerName=DrillPaper {#AppVersion}{#VersionLabel}
 AppPublisher=DrillPaper
 VersionInfoVersion={#NumericVersion}
 VersionInfoProductVersion={#NumericVersion}
-VersionInfoDescription=DrillPaper 安裝程式（試用版，未簽章）
+VersionInfoDescription=DrillPaper 安裝程式
 DefaultDirName={localappdata}\Programs\DrillPaper
 DisableProgramGroupPage=yes
 ; 依決策固定安裝在使用者層級位置，不讓使用者改到需要管理員權限的目錄。
@@ -47,7 +60,7 @@ Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 UninstallDisplayIcon={app}\DrillPaper.exe
-UninstallDisplayName=DrillPaper（試用版）
+UninstallDisplayName={#DisplayName}
 ; 由 [Code] 透過 DrillPaper.exe --exit-running 正式結束同路徑實例，不使用 Restart Manager 強制關閉。
 CloseApplications=no
 RestartApplications=no

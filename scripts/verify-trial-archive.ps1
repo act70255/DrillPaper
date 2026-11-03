@@ -13,7 +13,9 @@ try {
     $archive=[IO.Compression.ZipFile]::OpenRead($path)
     $reader=[IO.StreamReader]::new($archive.GetEntry('package-manifest.json').Open())
     try { $manifest=$reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
-    if ($manifest.sourceCommit -cne $SourceCommit -or $manifest.kind -cne 'trial' -or $manifest.configuration -cne 'Release' -or $manifest.architecture -cne 'x64') { throw '來源／試用標示／Release／x64 不符。' }
+    # kind 必須與版號一致：-trial.N 為 trial，正式版號 X.Y.Z 為 release（票 18）。
+    $expectedKind = if ([string]$manifest.version -match '^\d+\.\d+\.\d+-trial\.[0-9A-Za-z.]+$') { 'trial' } elseif ([string]$manifest.version -match '^\d+\.\d+\.\d+$') { 'release' } else { $null }
+    if ($manifest.sourceCommit -cne $SourceCommit -or -not $expectedKind -or $manifest.kind -cne $expectedKind -or $manifest.configuration -cne 'Release' -or $manifest.architecture -cne 'x64') { throw '來源／版號與版本類型／Release／x64 不符。' }
     $entries=Get-Content -Raw -Encoding UTF8 (Join-Path $PSScriptRoot 'trial-files.json') | ConvertFrom-Json
     $expected=@($entries | ForEach-Object { if ($_.destination) { $_.destination } else { $_.path } })
     if (@(Compare-Object ($expected+'package-manifest.json') @($archive.Entries.FullName)).Count -ne 0 -or

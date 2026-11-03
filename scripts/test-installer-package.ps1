@@ -80,6 +80,21 @@ $again = Invoke-Builder (@{ ArchivePath = $zip; SourceCommit = $commit; OutputDi
 if ($again.Code -eq 0 -or $again.Output -notlike '*已存在*') { throw "同版本安裝檔已存在時應拒絕覆寫：$($again.Output)" }
 if ((Get-FileHash -LiteralPath $setup).Hash -cne $metadata.sha256) { throw '拒絕覆寫時不得改動既有安裝檔。' }
 Write-Output 'PASS：同版本安裝檔已存在時拒絕覆寫。'
+
+# 正式版號 ZIP 產生不帶 trial／unsigned 的安裝檔，metadata 標示 edition=release、signed=false。
+& (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory $app -SourceDirectory $repo `
+    -SourceCommit $commit -Version '0.1.0' -OutputDirectory (Join-Path $session 'zip-release') | Out-Null
+$releaseZip = Join-Path $session 'zip-release/DrillPaper-0.1.0-win-x64.zip'
+$releaseOut = Join-Path $session 'out-release'
+$releaseBuilt = Invoke-Builder (@{ ArchivePath = $releaseZip; SourceCommit = $commit; OutputDirectory = $releaseOut } + $compilerArguments)
+if ($releaseBuilt.Code -ne 0) { throw "正式版 ZIP 應產生安裝檔：$($releaseBuilt.Output)" }
+$releaseSetup = Join-Path $releaseOut 'DrillPaper-0.1.0-Setup.exe'
+$releaseMetadataPath = Join-Path $releaseOut 'DrillPaper-0.1.0-Setup.json'
+if (-not (Test-Path -LiteralPath $releaseSetup) -or -not (Test-Path -LiteralPath $releaseMetadataPath)) { throw '正式版安裝檔與 metadata 應不帶 trial／unsigned 命名。' }
+$releaseMetadata = Get-Content -Raw -Encoding UTF8 $releaseMetadataPath | ConvertFrom-Json
+if ($releaseMetadata.edition -cne 'release' -or $releaseMetadata.signed -ne $false -or $releaseMetadata.version -cne '0.1.0' -or
+    $releaseMetadata.sha256 -cne (Get-FileHash -LiteralPath $releaseSetup).Hash) { throw '正式版 metadata 必須記錄 edition=release、未簽章與 SHA-256。' }
+Write-Output 'PASS：正式版號產生 DrillPaper-0.1.0-Setup.exe，metadata 標示 release 且未簽章。'
 Write-Output "測試證據：$session"
 # 最後一個案例預期打包腳本以 1 結束；明確回報成功，避免呼叫端沿用該 $LASTEXITCODE。
 exit 0
