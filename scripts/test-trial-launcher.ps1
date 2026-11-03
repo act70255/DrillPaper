@@ -30,23 +30,15 @@ if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*試用包缺少 WebView2Loader.
 Copy-Item -LiteralPath (Join-Path $package 'WebView2Loader.dll') -Destination $session
 $manifestPath = Join-Path $session 'package-manifest.json'
 $manifest = Get-Content -Raw -Encoding UTF8 $manifestPath | ConvertFrom-Json
+# 靜態連結 CRT 後不再需要 VC++ runtime；manifest 即使帶有過高的舊欄位也不得阻擋啟動檢查。
 $manifest.PSObject.Properties.Remove('minimumVcRuntime')
-$manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $manifestPath -Encoding UTF8
-try {
-    $ErrorActionPreference = 'Continue'
-    $result = & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $session 'Start-DrillPaper.ps1') -CheckOnly 2>&1
-} finally { $ErrorActionPreference = $previousError }
-if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*缺少或無效的 minimumVcRuntime*') { throw '缺少最低 runtime 設定必須明確停止。' }
-# 將最低版本提高以測試過舊 runtime 的拒絕分支，不變更系統 runtime。
 $manifest | Add-Member -NotePropertyName minimumVcRuntime -NotePropertyValue '14.999.0.0'
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $manifestPath -Encoding UTF8
 try {
     $ErrorActionPreference = 'Continue'
     $result = & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $session 'Start-DrillPaper.ps1') -CheckOnly 2>&1
 } finally { $ErrorActionPreference = $previousError }
-if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*缺少或過舊*https://aka.ms/vc14/vc_redist.x64.exe*') {
-    throw '過舊 VC++ 應停止並顯示官方取得網址。'
-}
+if ($LASTEXITCODE -ne 0 -or "$result" -like '*Visual C++*') { throw "入口不應再檢查 VC++ runtime：$result" }
 # 入口現在委派 CMD；同樣必須在啟動之前檢查此必要檔案。
 Copy-Item -LiteralPath (Join-Path $package 'package-manifest.json') -Destination $session -Force
 Remove-Item -LiteralPath (Join-Path $session 'Start-DrillPaper.cmd')
@@ -55,4 +47,4 @@ try {
     $result = & $shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $session 'Start-DrillPaper.ps1') -CheckOnly 2>&1
 } finally { $ErrorActionPreference = $previousError }
 if ($LASTEXITCODE -eq 0 -or "$result" -notlike '*試用包缺少 Start-DrillPaper.cmd*') { throw '缺 CMD 應提前拒絕並顯示繁中完整解壓提示。' }
-Write-Output 'PASS：Windows PowerShell 5.1 真實依賴檢查、缺主題入口／CMD／loader／最低版本設定友善提示與 VC++ 過舊拒絕；未修改／安裝系統 runtime。'
+Write-Output 'PASS：Windows PowerShell 5.1 真實依賴檢查、缺主題入口／CMD／loader 友善提示；靜態 CRT 不再要求 VC++ runtime；未修改／安裝系統 runtime。'

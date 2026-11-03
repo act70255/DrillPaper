@@ -8,12 +8,12 @@
 
 - 目標平台：Windows 10／11 x64。這次只在 Windows 11 Pro 25H2 build 26200／Intel Graphics／雙 1920×1080（DPI 144、96）本機測試；Windows 10、其他 Shell、混合配置尚待驗收，不保證所有版本相容。
 - WebView2Loader.dll 1.0.2478.35 隨包提供，授權及 NOTICE 在 resources/licenses；WebView2 Evergreen Runtime 為外部必要依賴。本次 Runtime 156.0.4314.50，其他版本待測。由 https://developer.microsoft.com/microsoft-edge/webview2/ 取得；安裝部署方式見 https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution 。
-- Microsoft Visual C++ v14 x64 Runtime 最低版本由 manifest 的 minimumVcRuntime 指定，需不早於建置工具鏈；本包未複製系統 CRT。由 https://aka.ms/vc14/vc_redist.x64.exe 取得；若安裝需管理員，交由 IT 準備後再以一般使用者執行 app。
+- 不需要 Microsoft Visual C++ 可轉散發套件：DrillPaper.exe 已靜態連結 C/C++ 執行環境。
 - NVML 僅選配，使用既有 NVIDIA 驅動 DLL，不隨包再散布；無支援時 GPU 顯示 unavailable，不能當成 0。
 
 **未簽章 EXE 可能被企業防毒攔截或警告。** 本包沒有 Authenticode 簽章。先核對可信來源提供的 ZIP／EXE SHA-256；向 IT 申請針對核實來源與 hash 的例外，不自行停用防毒、不忽略警告。記錄防毒產品／完整版本、每次攔截時間（含時區）、規則、目標 hash、啟動方式及受影響步驟；受攔截項目列 BLOCKED。03 曾有 Apex One 攔截；08-D1 時段另見 WinVerifyTrust 失敗，可能影響時序但未證實因果。缺少完整日誌只能記觀測不足，不能宣稱沒有攔截。避免從 Temp 或經 PowerShell 包裝直接啟動 EXE。
 
-缺檔／空主題資產會提前拒絕並提示完整重新解壓；不要只複製單一 EXE。直接 EXE 會略過入口檢查，缺 CRT 可能出現 Windows loader 訊息。真實無依賴機器測試尚未執行。
+缺檔／空主題資產會提前拒絕並提示完整重新解壓；不要只複製單一 EXE。直接執行 EXE 會略過入口檢查。真實無依賴機器測試尚未執行。
 
 ## 使用與功能
 
@@ -33,7 +33,7 @@
 
 ## 移除與保留
 
-先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；沒有安裝器，不宣稱安裝器／解除安裝通過。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
+先正式退出 app 並確認其 WebView2 子程序結束，再刪除該版解壓目錄即可移除程式檔；此說明適用免安裝 ZIP；若改用安裝檔 `DrillPaper-<版本>-Setup-unsigned.exe`，請從「設定 → 應用程式」解除安裝，解除安裝時會詢問是否刪除使用者資料（預設保留），詳見 repository 的 docs/INSTALLER.md。刪除 ZIP／程式目錄不會自動清除使用者設定、主題、日誌與 profile。只有使用者確認不再需要、已備份，且沒有其他 DrillPaper 使用該資料時，才主動刪除指定的 `%LOCALAPPDATA%\DrillPaper`（隔離測試則是自行指定根目錄下的 DrillPaper）。不可刪除其他帳號、原持續桌布或不相關資料。
 
 ## 已知限制與 RC 回歸
 

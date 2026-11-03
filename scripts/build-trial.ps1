@@ -25,16 +25,13 @@ try {
     $compilerFile = Get-ChildItem (Join-Path $build 'CMakeFiles') -Filter CMakeCXXCompiler.cmake -Recurse | Select-Object -First 1
     $compiler = [regex]::Match((Get-Content -Raw $compilerFile.FullName),'set\(CMAKE_CXX_COMPILER_VERSION "([^"]+)"\)').Groups[1].Value
     if ($compiler -notmatch '^19\.(\d+)\.') { throw '無法識別 MSVC 版本，停止封裝。' }
-    $compilerPath = [regex]::Match((Get-Content -Raw $compilerFile.FullName),'set\(CMAKE_CXX_COMPILER "([^"]+)"\)').Groups[1].Value
-    $vcRoot = [regex]::Match($compilerPath,'^(.*/VC)/Tools/MSVC/').Groups[1].Value
-    if (-not $vcRoot) { throw '無法定位此 MSVC 的 VC++ runtime 版本資料。' }
-    $redistFile = Join-Path $vcRoot 'Auxiliary/Build/Microsoft.VCRedistVersion.default.txt'
-    if (-not (Test-Path -LiteralPath $redistFile)) { throw '缺少工具鏈的 VC++ runtime 版本資料。' }
-    $minimum = (Get-Content -Raw $redistFile).Trim() + '.0'
-    @{sourceCommit=$SourceCommit; compiler=$compiler; minimumVcRuntime=$minimum; command='MSVC x64 Release; BUILD_TESTING=OFF';
+    # 靜態連結 CRT：建置結果不得依賴 VC++／UCRT DLL，否則停止封裝（票 17）。
+    & node (Join-Path $PSScriptRoot 'check-pe-imports.mjs') (Join-Path $build 'Release/DrillPaper.exe') (Join-Path $build 'Release/WebView2Loader.dll')
+    if ($LASTEXITCODE -ne 0) { throw 'Release app 仍依賴 VC++ 執行環境，停止封裝。' }
+    @{sourceCommit=$SourceCommit; compiler=$compiler; crt='static'; command='MSVC x64 Release; BUILD_TESTING=OFF';
         executableSha256=(Get-FileHash (Join-Path $build 'Release/DrillPaper.exe')).Hash} |
         ConvertTo-Json | Set-Content (Join-Path $work 'build-provenance.json') -Encoding UTF8
     & (Join-Path $PSScriptRoot 'package-trial.ps1') -ApplicationDirectory (Join-Path $build 'Release') -SourceDirectory $source `
-        -SourceCommit $SourceCommit -Version $Version -OutputDirectory $output -MinimumVcRuntime $minimum
+        -SourceCommit $SourceCommit -Version $Version -OutputDirectory $output
     Write-Output "乾淨來源與建置證據：$work"
 } catch { throw "試用建置失敗：$($_.Exception.Message)" }

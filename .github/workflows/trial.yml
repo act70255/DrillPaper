@@ -45,7 +45,10 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw '相關測試失敗。' }
       - name: Trial packaging contract checks
         shell: pwsh
-        run: ./scripts/test-trial-package.ps1
+        # 兩支契約測試失敗時會 throw 讓步驟失敗；成功時不設定 $LASTEXITCODE，不能用 -ne 0 判斷。
+        run: |
+          ./scripts/test-trial-package.ps1
+          ./scripts/test-installer-package.ps1
       - name: Build and package explicit commit
         shell: pwsh
         env:
@@ -57,10 +60,24 @@ jobs:
           $archive = Get-ChildItem artifacts/trial -Filter '*.zip'
           ./scripts/verify-trial-archive.ps1 -ArchivePath $archive.FullName -SourceCommit $env:GITHUB_SHA
           if ($LASTEXITCODE -ne 0) { throw '交付清單驗證失敗。' }
+      - name: Build per-user installer from verified archive
+        shell: pwsh
+        run: |
+          # windows-2022 映像內建 Inno Setup 6；build-installer.ps1 會先重新驗證 ZIP。
+          $archive = Get-ChildItem artifacts/trial -Filter '*.zip'
+          ./scripts/build-installer.ps1 -ArchivePath $archive.FullName -SourceCommit $env:GITHUB_SHA -OutputDirectory artifacts/trial
+          if ($LASTEXITCODE -ne 0) { throw '安裝檔打包失敗。' }
       - uses: actions/upload-artifact@v7
         with:
           name: drillpaper-trial-unsigned
           path: |
             artifacts/trial/DrillPaper-*-trial.*-win-x64-unsigned.zip
             artifacts/trial/DrillPaper-*-trial.*-win-x64-unsigned.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        with:
+          name: drillpaper-installer-unsigned
+          path: |
+            artifacts/trial/DrillPaper-*-Setup-unsigned.exe
+            artifacts/trial/DrillPaper-*-Setup-unsigned.json
           if-no-files-found: error

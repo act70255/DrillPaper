@@ -15,18 +15,8 @@ try {
             }
         }
     }
+    # app 已靜態連結 CRT，不需要 VC++ 可轉散發套件；只剩 WebView2 Evergreen Runtime 為外部依賴。
     $manifest = Get-Content -Raw -Encoding UTF8 (Join-Path $PSScriptRoot 'package-manifest.json') | ConvertFrom-Json
-    [version]$minimum = $null
-    if ([string]$manifest.minimumVcRuntime -notmatch '^14\.\d+\.\d+\.\d+$' -or
-        -not [version]::TryParse([string]$manifest.minimumVcRuntime,[ref]$minimum)) {
-        throw '套件 manifest 缺少或無效的 minimumVcRuntime，請重新完整解壓官方提供的試用 ZIP。'
-    }
-    foreach ($dll in @('msvcp140.dll','vcruntime140.dll','vcruntime140_1.dll')) {
-        $path = Join-Path ([Environment]::SystemDirectory) $dll
-        if (-not (Test-Path -LiteralPath $path) -or [version](Get-Item -LiteralPath $path).VersionInfo.FileVersion -lt $minimum) {
-            throw "缺少或過舊的 Microsoft Visual C++ v14 x64 Runtime（需要 $minimum 或更新版）。請由 https://aka.ms/vc14/vc_redist.x64.exe 取得；本程式不會安裝或提升權限。"
-        }
-    }
     $loader = (Join-Path $PSScriptRoot 'WebView2Loader.dll').Replace('"','""')
     Add-Type -TypeDefinition @"
 using System;

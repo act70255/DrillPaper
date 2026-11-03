@@ -21,7 +21,7 @@ try {
     }
     node --test tests/sdk/*.test.mjs
     if ($LASTEXITCODE -ne 0) { throw "SDK tests failed with exit code $LASTEXITCODE." }
-    node --test tests/theme-cli-launcher.test.mjs tests/test-workspace.test.mjs
+    node --test tests/theme-cli-launcher.test.mjs tests/test-workspace.test.mjs tests/check-pe-imports.test.mjs
     if ($LASTEXITCODE -ne 0) { throw '測試啟動與隔離目錄契約未通過。' }
 
     & (Join-Path $PSScriptRoot 'test-environment-check.ps1')

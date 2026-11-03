@@ -8,7 +8,7 @@
 
 namespace desktopmonitor::platform::windows {
 namespace {
-constexpr wchar_t kClass[] = L"DrillPaperManagementWindow";
+constexpr const wchar_t* kClass = kManagementWindowClass;
 constexpr UINT kStatus = 20100;
 constexpr UINT kThemeList = 20101;
 constexpr UINT kModeList = 20102;

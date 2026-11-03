@@ -13,6 +13,7 @@
 #include "desktopmonitor/platform/windows/management_shell.h"
 #include "desktopmonitor/platform/windows/monitor_info.h"
 #include "desktopmonitor/platform/windows/power_notifications.h"
+#include "desktopmonitor/platform/windows/running_instances.h"
 #include "desktopmonitor/runtime/managed_playback.h"
 #include "desktopmonitor/runtime/windows_snapshot_mailbox.h"
 #include "desktopmonitor/runtime/sampling_worker.h"
@@ -140,6 +141,25 @@ void RunVersion() {
     if (!WriteCommandOutput(text)) {
         OutputDebugStringW(text.c_str());
     }
+}
+
+/** `--exit-running` 的結束碼；安裝程式只把 kExitRunningDone 視為可繼續。 */
+constexpr int kExitRunningDone = 0;
+constexpr int kExitRunningNoSelfPath = 1;
+constexpr int kExitRunningStillRunning = 2;
+/** 等待同路徑實例正式結束的上限。 */
+constexpr std::chrono::seconds kExitRunningTimeout{15};
+
+/** 要求同一 EXE 路徑的其他執行中實例正式結束；供安裝程式覆蓋安裝或解除安裝前呼叫。
+ * Returns:
+ *     kExitRunningDone 表示沒有實例或全部已結束；kExitRunningStillRunning 表示仍有實例逾時未結束、
+ *     命令送不出去，或沒有管理視窗而無法正式結束；kExitRunningNoSelfPath 表示無法取得自身路徑。
+ */
+int RunExitRunning() {
+    const auto self = win::CurrentExecutablePath();
+    if (self.empty()) return kExitRunningNoSelfPath;
+    const auto result = win::RequestExitOfInstances(self, GetCurrentProcessId(), kExitRunningTimeout);
+    return result.AllExited() ? kExitRunningDone : kExitRunningStillRunning;
 }
 
 /** 顯示原生架構及實際 WebView2 Runtime 版本。 */
@@ -693,6 +713,7 @@ LRESULT CALLBACK NotificationProcedure(HWND window, UINT message, WPARAM value, 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR commandLine, int) {
     if (const auto result = app::RunThemeCommand()) return *result;
     if (HasFlag(commandLine, L"--version")) { RunVersion(); return 0; }
+    if (HasFlag(commandLine, L"--exit-running")) return RunExitRunning();
     if (HasFlag(commandLine, L"--diagnostics")) { RunDiagnostics(); return 0; }
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
     bool comInitialized = false;

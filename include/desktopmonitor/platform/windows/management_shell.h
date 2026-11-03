@@ -10,6 +10,8 @@
 
 namespace desktopmonitor::platform::windows {
 
+/** 管理視窗類別名稱；安裝程式以 `--exit-running` 尋找同路徑實例時也依此辨識。 */
+inline constexpr wchar_t kManagementWindowClass[] = L"DrillPaperManagementWindow";
 inline constexpr UINT kTrayCallbackMessage = WM_APP + 0x40;
 inline constexpr UINT kManageOpen = 20001;
 inline constexpr UINT kManagePause = 20002;
