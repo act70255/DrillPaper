@@ -12,7 +12,7 @@
   - `./scripts/test-installer-package.ps1`。
   - `./scripts/build-trial.ps1 -SourceCommit <sha> -Version 0.1.0-trial.11`。
   - `./scripts/build-installer.ps1 -ArchivePath artifacts/DrillPaper-0.1.0-trial.11-win-x64-unsigned.zip -SourceCommit <sha>`。
-- Results：完整測試通過（CTest 數量見 REPORT）；安裝檔打包契約 5/5；CI trial run 41429684943 產出安裝檔；trial.9／10／11 實機與靜默安裝、覆蓋安裝、解除安裝驗證通過。trial.9 解除安裝誤刪真實資料一次，已還原並改為標示動作的按鈕。證據見 [REPORT](acceptance/2026-11-02/installer/REPORT.md)。
+- Results：完整測試 CTest 60/60、node／SDK 測試 fail 0；安裝檔打包契約 5/5；CI trial run 41429684943 產出安裝檔；trial.9／10／11 實機與靜默安裝、覆蓋安裝、解除安裝驗證通過。trial.9 解除安裝誤刪真實資料一次，已還原並改為標示動作的按鈕。證據見 [REPORT](acceptance/2026-11-02/installer/REPORT.md)。
 - NOT RUN／BLOCKED：
   - 乾淨機器與缺 WebView2 的安裝（票 16 BLOCKED）。
   - trial.11 GUI 精靈沒有重看。

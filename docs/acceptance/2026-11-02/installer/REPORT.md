@@ -99,3 +99,5 @@
 | 以 WM_CLOSE 關閉預覽視窗 | 實例正常結束 |
 | 靜默解除安裝 | `--exit-running` 結束碼 0、「Uninstallation process succeeded」、記錄「靜默解除安裝，保留使用者資料」；隔離資料保留；HKCU 項目、捷徑、程序都沒有殘留。PASS |
 | GUI 精靈 | trial.11 沒有重看（NOT RUN）。對 trial.10 的 GUI 差異只有隱藏目錄頁與提示文字，資料詢問邏輯沒有變（I5／I6 已驗） |
+
+最終完整測試（`e2aeef1` 之後的工作樹，與 `8248b20` 程式相同）：Release 建置，CTest **60/60**；node 與 SDK 測試 5 組 fail 0，包含新增的 `check-pe-imports.test.mjs`。CI trial run（`e2aeef1`）success。
