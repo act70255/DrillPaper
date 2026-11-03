@@ -51,3 +51,7 @@
 | I1 精靈安裝（cmd 啟動，`TEMP` 導向非 Temp） | 繁中顯示正常；預設位置為 `AppData\Local\Programs\DrillPaper`；沒有 UAC；沒有 SmartScreen 或防毒警告。完成時取消「立即啟動」 | 11:15:53「Installation process succeeded」。白名單 55 檔 hash 全部相符。HKCU 解除安裝項目為「DrillPaper（試用版）」0.1.0-trial.9，InstallLocation 為預設位置；HKLM 沒有項目。開始功能表捷徑已建立。沒有啟動程式。註：使用者第一次回報時精靈仍停在前幾頁，請使用者完成後才核對 | PASS |
 | I2 從開始功能表啟動 | 管理視窗出現；主螢幕出現 Minimal 桌布（首次預設）；系統匣有圖示；沒有錯誤，也沒有防毒警告 | PID 50056 於 11:17:34 由 `C:\Users\James\AppData\Local\Programs\DrillPaper\DrillPaper.exe --management` 啟動（捷徑參數正確）。Apex One `AEGIS_BM.log` 仍為 41998 bytes／2026-11-01T09:42:36，沒有新增攔截 | PASS |
 | I3 執行中覆蓋安裝 | 安裝時 DrillPaper 自動結束（桌布消失、圖示不見）；沒有「檔案使用中」等錯誤；安裝完成 | 安裝日誌 11:25:24.847「DrillPaper --exit-running 結束碼：0」，表示正式結束了 PID 50056；11:25:30「Installation process succeeded」「Need to restart Windows? No」。之後沒有 DrillPaper 程序，也沒有該 profile 的 WebView2 子程序。覆蓋後 55 檔 hash 全部相符。註：第一次產生的啟動批次檔是 LF 換行，cmd 無法執行，改為 CRLF 後重新啟動 | PASS |
+| I4 執行中從「設定」解除安裝並選「否」保留資料 | DrillPaper 自動結束；資料詢問顯示 `AppData\Local\DrillPaper`、預設按鈕為「否」；沒有錯誤 | 程式目錄、HKCU 項目、捷徑都已移除，沒有殘留程序。**但真實的 `%LOCALAPPDATA%\DrillPaper` 被刪除**。從「設定」啟動的解除安裝沒有日誌，無法確認當時第二題的實際選擇。已立即從備份還原，388 檔與測試前一致 | **FAIL（資料被刪；原因見重現）** |
+| I4 重現（隔離資料、GUI、開日誌） | 第 1 次：在第一題「您確定要完全移除…」按「否」，因此沒有進行解除安裝；第 2 次：第一題按「是」、第二題按「否」 | 第 2 次日誌：13:17:47 第一題 User chose Yes，13:17:49「Uninstallation process succeeded」；13:17:51 第二題「是否同時刪除…」User chose No，接著記錄「使用者選擇保留資料」，隔離資料保留。程式中只有第二題選「是」才會刪除資料 | 重現：「否」正確保留 |
+
+**判讀**：程式邏輯正確，I4 資料遺失最可能是第二題誤按「是」。根本問題是設計：Inno 內建的第一題「確定要移除？」選「是」代表繼續，緊接著的第二題選「是」卻代表刪除，兩題語意相反，容易誤按。改善方向：第二題改用明確標示動作的按鈕（「保留資料（建議）」／「刪除資料」），預設為保留。
