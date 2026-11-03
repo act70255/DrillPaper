@@ -1,6 +1,6 @@
 # 發布 0.1.0（GitHub Pre-release）
 
-Status: in-progress
+Status: resolved
 Type: task
 Owner: James（發行維護者）
 Blocked by: 無
