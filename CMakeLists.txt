@@ -28,7 +28,9 @@ if(NOT EXISTS "${DRILLPAPER_WEBVIEW2_SDK_ROOT}/build/native/x64/WebView2Loader.d
 endif()
 
 add_library(desktopmonitor_core INTERFACE)
-target_include_directories(desktopmonitor_core INTERFACE include)
+# 產品版本唯一來源：由 project(VERSION) 產生 desktopmonitor/version.h。
+configure_file(src/app/version.h.in "${PROJECT_BINARY_DIR}/generated/desktopmonitor/version.h" @ONLY)
+target_include_directories(desktopmonitor_core INTERFACE include "${PROJECT_BINARY_DIR}/generated")
 target_compile_features(desktopmonitor_core INTERFACE cxx_std_20)
 
 include(FetchContent)
@@ -160,6 +162,10 @@ if(BUILD_TESTING)
     # 靜態連結 CRT 後，執行檔不得再依賴 VC++ 可轉散發套件或 UCRT DLL。
     add_test(NAME DrillPaperStaticCrt COMMAND node "${PROJECT_SOURCE_DIR}/scripts/check-pe-imports.mjs"
         "$<TARGET_FILE:DrillPaper>" "$<TARGET_FILE_DIR:DrillPaper>/WebView2Loader.dll")
+    # 發布流程以 --version 確認產品版本與 CMake 專案版本一致；輸出導向管線時也必須可讀。
+    add_test(NAME DrillPaperVersionCli COMMAND "$<TARGET_FILE:DrillPaper>" --version)
+    set_tests_properties(DrillPaperVersionCli PROPERTIES TIMEOUT 20
+        PASS_REGULAR_EXPRESSION "^DrillPaper ${PROJECT_VERSION}\r?\n$")
     # 安裝程式在覆蓋安裝與解除安裝前呼叫；沒有同路徑實例時必須立即成功結束，不得啟動 UI。
     add_test(NAME DrillPaperExitRunningCli COMMAND "$<TARGET_FILE:DrillPaper>" --exit-running)
     set_tests_properties(DrillPaperExitRunningCli PROPERTIES TIMEOUT 20)
