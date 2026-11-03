@@ -13,11 +13,18 @@ try {
     $archive = (Resolve-Path -LiteralPath $ArchivePath -ErrorAction SilentlyContinue).Path
     if (-not $archive) { throw "找不到試用包：$ArchivePath" }
 
-    $candidates = @($IsccPath, $env:ISCC_PATH,
-        (Join-Path $env:LOCALAPPDATA 'Programs\Inno Setup 6\ISCC.exe'),
-        (Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'),
-        (Join-Path $env:ProgramFiles 'Inno Setup 6\ISCC.exe')) | Where-Object { $_ }
-    if ($IsccPath) { $candidates = @($IsccPath) }
+    # 明確指定 -IsccPath 時只用它；否則依序找環境變數與常見安裝位置（略過未設定的環境變數）。
+    $candidates = [Collections.Generic.List[string]]::new()
+    if ($IsccPath) {
+        $candidates.Add($IsccPath)
+    } else {
+        if ($env:ISCC_PATH) { $candidates.Add($env:ISCC_PATH) }
+        foreach ($base in @($env:LOCALAPPDATA, ${env:ProgramFiles(x86)}, $env:ProgramFiles)) {
+            if (-not $base) { continue }
+            $relative = if ($base -eq $env:LOCALAPPDATA) { 'Programs\Inno Setup 6\ISCC.exe' } else { 'Inno Setup 6\ISCC.exe' }
+            $candidates.Add((Join-Path $base $relative))
+        }
+    }
     $compiler = $candidates | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
     if (-not $compiler) {
         throw '找不到 Inno Setup 編譯器（ISCC.exe）。請安裝 Inno Setup 6（例如 winget install JRSoftware.InnoSetup --scope user），或以 -IsccPath 指定位置。'
@@ -34,7 +41,8 @@ try {
     Expand-Archive -LiteralPath $archive -DestinationPath $staging
     $manifest = Get-Content -Raw -Encoding UTF8 (Join-Path $staging 'package-manifest.json') | ConvertFrom-Json
     $version = [string]$manifest.version
-    if ($version -notmatch '^(\d+)\.(\d+)\.(\d+)-trial\.[0-9A-Za-z.]+$') { throw "試用包版本格式無效：$version" }
+    # 完整 trial 版號格式已由 package-trial.ps1 與 verify-trial-archive.ps1 把關，這裡只取數字部分給檔案版本資訊。
+    if ($version -notmatch '^(\d+)\.(\d+)\.(\d+)-') { throw "試用包版本格式無效：$version" }
     $numeric = "$($Matches[1]).$($Matches[2]).$($Matches[3]).0"
 
     $baseName = "DrillPaper-$version-Setup-unsigned"
@@ -52,13 +60,19 @@ try {
         throw "Inno Setup 編譯失敗（結束碼 $LASTEXITCODE）：$($log.Trim())"
     }
 
-    [ordered]@{
-        kind = 'installer'; tool = 'Inno Setup 6'; version = $version; sourceCommit = $SourceCommit; signed = $false
-        scope = 'per-user (%LOCALAPPDATA%\Programs\DrillPaper)'; file = "$baseName.exe"
-        sha256 = (Get-FileHash -LiteralPath $setup -Algorithm SHA256).Hash
-        archive = [IO.Path]::GetFileName($archive); archiveSha256 = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash
-        executableSha256 = $manifest.executableSha256
-    } | ConvertTo-Json | Set-Content -LiteralPath $sidecar -Encoding UTF8
+    try {
+        [ordered]@{
+            kind = 'installer'; tool = 'Inno Setup 6'; version = $version; sourceCommit = $SourceCommit; signed = $false
+            scope = 'per-user (%LOCALAPPDATA%\Programs\DrillPaper)'; file = "$baseName.exe"
+            sha256 = (Get-FileHash -LiteralPath $setup -Algorithm SHA256).Hash
+            archive = [IO.Path]::GetFileName($archive); archiveSha256 = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash
+            executableSha256 = $manifest.executableSha256
+        } | ConvertTo-Json | Set-Content -LiteralPath $sidecar -Encoding UTF8
+    } catch {
+        # 沒有 metadata 的安裝檔無法驗證來源，且會擋住重跑；一併移除。
+        Remove-Item -LiteralPath $setup, $sidecar -Force -ErrorAction SilentlyContinue
+        throw "無法寫入安裝檔 metadata，已移除未完成的安裝檔：$($_.Exception.Message)"
+    }
     Write-Output "安裝檔：$setup"
     Write-Output "SHA-256：$((Get-FileHash -LiteralPath $setup -Algorithm SHA256).Hash)"
     exit 0

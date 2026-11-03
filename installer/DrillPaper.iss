@@ -35,7 +35,8 @@ VersionInfoProductVersion={#NumericVersion}
 VersionInfoDescription=DrillPaper 安裝程式（試用版，未簽章）
 DefaultDirName={localappdata}\Programs\DrillPaper
 DisableProgramGroupPage=yes
-DisableDirPage=auto
+; 依決策固定安裝在使用者層級位置，不讓使用者改到需要管理員權限的目錄。
+DisableDirPage=yes
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
@@ -81,7 +82,8 @@ begin
       Result := Version;
 end;
 
-{ 要求同一路徑的執行中 DrillPaper 正式結束；回傳是否已沒有執行中的實例。 }
+{ 要求同一路徑的執行中 DrillPaper 正式結束；回傳是否已沒有執行中的實例。
+  結束碼 0＝全部已結束；2＝仍有實例逾時、命令送不出去或沒有管理視窗（例如以預覽模式開啟）。 }
 function ExitRunningInstances(const Executable: String): Boolean;
 var
   Code: Integer;
@@ -89,11 +91,15 @@ begin
   Result := True;
   if not FileExists(Executable) then
     exit;
+  Code := -1;
   if not Exec(Executable, '--exit-running', ExtractFileDir(Executable), SW_HIDE, ewWaitUntilTerminated, Code) then
-    Result := False
-  else
-    Result := (Code = 0);
+  begin
+    Log(Format('無法執行 DrillPaper --exit-running，Windows 錯誤碼：%d', [Code]));
+    Result := False;
+    exit;
+  end;
   Log(Format('DrillPaper --exit-running 結束碼：%d', [Code]));
+  Result := (Code = 0);
 end;
 
 { 安裝前檢查 WebView2；缺少時說明取得方式並由使用者決定是否繼續。 }
@@ -113,7 +119,7 @@ function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
   Result := '';
   if not ExitRunningInstances(ExpandConstant('{app}\DrillPaper.exe')) then
-    Result := '無法自動結束執行中的 DrillPaper。請從系統匣圖示選擇「結束 DrillPaper」後再重新執行安裝。';
+    Result := '無法自動結束執行中的 DrillPaper。請從系統匣圖示選擇「結束 DrillPaper」，並關閉以預覽模式開啟的 DrillPaper 視窗後，再重新執行安裝。';
 end;
 
 { 解除安裝前正式結束執行中的實例。 }
@@ -121,7 +127,7 @@ function InitializeUninstall(): Boolean;
 begin
   Result := ExitRunningInstances(ExpandConstant('{app}\DrillPaper.exe'));
   if not Result then
-    SuppressibleMsgBox('無法自動結束執行中的 DrillPaper。請從系統匣圖示選擇「結束 DrillPaper」後再解除安裝。',
+    SuppressibleMsgBox('無法自動結束執行中的 DrillPaper。請從系統匣圖示選擇「結束 DrillPaper」，並關閉以預覽模式開啟的 DrillPaper 視窗後，再解除安裝。',
       mbError, MB_OK, IDOK);
 end;
 
@@ -141,7 +147,8 @@ begin
     Log('靜默解除安裝，保留使用者資料：' + DataDir);
     exit;
   end;
-  { 按鈕直接標示動作，避免與前一題「確定要移除？」的「是」混淆；第一個（預設）按鈕為保留。 }
+  { 按鈕直接標示動作，避免與前一題「確定要移除？」的「是」混淆。IDYES＝第一個按鈕「保留資料」，
+    TaskDialog 預設選第一個按鈕；最後一個參數 0 是 ShieldButton（不顯示盾牌），與預設按鈕無關。 }
   if TaskDialogMsgBox('要保留 DrillPaper 的使用者資料嗎？',
       '程式已移除。使用者資料包含設定、匯入的主題與日誌：' + #13#10 + DataDir + #13#10#13#10 +
       '保留資料後重新安裝可繼續使用；刪除後無法復原。',

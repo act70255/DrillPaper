@@ -49,6 +49,20 @@ if ($mismatch.Code -eq 0 -or $mismatch.Output -notlike '*試用包驗證失敗*'
 if (Test-Path (Join-Path $session 'out-mismatch/*.exe')) { throw '驗證失敗時不得留下安裝檔。' }
 Write-Output 'PASS：試用包未通過白名單／來源驗證時拒絕產生安裝檔。'
 
+# 在合法 ZIP 中塞入白名單以外的檔案，安裝檔不得把它帶進去。
+$tampered = Join-Path $session 'tampered.zip'
+Copy-Item -LiteralPath $zip -Destination $tampered
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$handle = [IO.Compression.ZipFile]::Open($tampered, 'Update')
+try {
+    $entry = $handle.CreateEntry('extra-not-whitelisted.dll')
+    $stream = $entry.Open(); try { $stream.WriteByte(1) } finally { $stream.Dispose() }
+} finally { $handle.Dispose() }
+$extra = Invoke-Builder (@{ ArchivePath = $tampered; SourceCommit = $commit; OutputDirectory = (Join-Path $session 'out-tampered') } + $compilerArguments)
+if ($extra.Code -eq 0 -or $extra.Output -notlike '*試用包驗證失敗*') { throw "含白名單以外檔案的試用包應拒絕：$($extra.Output)" }
+if (Test-Path (Join-Path $session 'out-tampered/*.exe')) { throw '白名單不符時不得留下安裝檔。' }
+Write-Output 'PASS：試用包含白名單以外的檔案時拒絕產生安裝檔。'
+
 $output = Join-Path $session 'out'
 $built = Invoke-Builder (@{ ArchivePath = $zip; SourceCommit = $commit; OutputDirectory = $output } + $compilerArguments)
 if ($built.Code -ne 0) { throw "有效試用包應產生安裝檔：$($built.Output)" }
