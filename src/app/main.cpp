@@ -143,17 +143,23 @@ void RunVersion() {
     }
 }
 
+/** `--exit-running` 的結束碼；安裝程式只把 kExitRunningDone 視為可繼續。 */
+constexpr int kExitRunningDone = 0;
+constexpr int kExitRunningNoSelfPath = 1;
+constexpr int kExitRunningStillRunning = 2;
+/** 等待同路徑實例正式結束的上限。 */
+constexpr std::chrono::seconds kExitRunningTimeout{15};
+
 /** 要求同一 EXE 路徑的其他執行中實例正式結束；供安裝程式覆蓋安裝或解除安裝前呼叫。
  * Returns:
- *     0 表示沒有實例或全部已結束；2 表示 15 秒內仍有實例未結束；1 表示無法取得自身路徑。
+ *     kExitRunningDone 表示沒有實例或全部已結束；kExitRunningStillRunning 表示仍有實例逾時未結束、
+ *     命令送不出去，或沒有管理視窗而無法正式結束；kExitRunningNoSelfPath 表示無法取得自身路徑。
  */
 int RunExitRunning() {
-    std::wstring self(32768, L'\0');
-    const DWORD length = GetModuleFileNameW(nullptr, self.data(), static_cast<DWORD>(self.size()));
-    if (length == 0 || length >= self.size()) return 1;
-    self.resize(length);
-    const auto result = win::RequestExitOfInstances(self, GetCurrentProcessId(), std::chrono::seconds(15));
-    return result.remaining == 0 ? 0 : 2;
+    const auto self = win::CurrentExecutablePath();
+    if (self.empty()) return kExitRunningNoSelfPath;
+    const auto result = win::RequestExitOfInstances(self, GetCurrentProcessId(), kExitRunningTimeout);
+    return result.AllExited() ? kExitRunningDone : kExitRunningStillRunning;
 }
 
 /** 顯示原生架構及實際 WebView2 Runtime 版本。 */

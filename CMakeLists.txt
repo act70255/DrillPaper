@@ -223,6 +223,7 @@ if(BUILD_TESTING)
     endif()
     add_executable(DrillPaperExitInstanceFixture WIN32 tests/integration/exit_instance_fixture.cpp)
     target_compile_definitions(DrillPaperExitInstanceFixture PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+    target_link_libraries(DrillPaperExitInstanceFixture PRIVATE desktopmonitor_core)
     add_executable(DrillPaperRunningInstancesIntegrationTests
         tests/integration/running_instances_test.cpp src/platform/windows/running_instances.cpp)
     target_compile_definitions(DrillPaperRunningInstancesIntegrationTests PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
