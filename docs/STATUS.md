@@ -3,7 +3,7 @@
 - Branch：`feature/rc-18-release-0.1.0`（base main 97b767e）。決策：Pre-release、檔名不標示 trial／unsigned、由 GitHub Actions 依 tag 建置、`package.ps1` RC blocker 保留並改走已驗證打包流程。
 - 變更：產品版本 0.1.0（CMake 為唯一來源，CLI 輸出可導向）；打包支援正式版號與命名；`release.yml`；[0.1.0 Release notes](release-notes/0.1.0.md)；包內 README 改寫。
 - 驗證：完整測試 CTest 61/61、node／SDK fail 0；本機演練 0.1.0 打包、驗證、版本與安裝顯示名稱皆通過。
-- 發布：PR 合併 main 後打 `v0.1.0` tag，由 release workflow 建立 Pre-release（結果見票 18）。repo 為 PRIVATE。產物未簽章。
+- 發布：PR #4 合併 main（06a2641），tag `v0.1.0`，release workflow run 41593027416 成功，建立 Pre-release https://github.com/act70255/DrillPaper/releases/tag/v0.1.0 （repo PRIVATE）。下載驗證 SHA256SUMS、白名單、metadata、靜態 CRT 與 `--version` 皆通過。產物未簽章。
 
 ## 2026-11-03 票 17 — Inno Setup 使用者層級安裝檔（implemented）
 
