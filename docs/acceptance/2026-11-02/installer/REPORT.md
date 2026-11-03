@@ -50,3 +50,4 @@
 | --- | --- | --- | --- |
 | I1 精靈安裝（cmd 啟動，`TEMP` 導向非 Temp） | 繁中顯示正常；預設位置為 `AppData\Local\Programs\DrillPaper`；沒有 UAC；沒有 SmartScreen 或防毒警告。完成時取消「立即啟動」 | 11:15:53「Installation process succeeded」。白名單 55 檔 hash 全部相符。HKCU 解除安裝項目為「DrillPaper（試用版）」0.1.0-trial.9，InstallLocation 為預設位置；HKLM 沒有項目。開始功能表捷徑已建立。沒有啟動程式。註：使用者第一次回報時精靈仍停在前幾頁，請使用者完成後才核對 | PASS |
 | I2 從開始功能表啟動 | 管理視窗出現；主螢幕出現 Minimal 桌布（首次預設）；系統匣有圖示；沒有錯誤，也沒有防毒警告 | PID 50056 於 11:17:34 由 `C:\Users\James\AppData\Local\Programs\DrillPaper\DrillPaper.exe --management` 啟動（捷徑參數正確）。Apex One `AEGIS_BM.log` 仍為 41998 bytes／2026-11-01T09:42:36，沒有新增攔截 | PASS |
+| I3 執行中覆蓋安裝 | 安裝時 DrillPaper 自動結束（桌布消失、圖示不見）；沒有「檔案使用中」等錯誤；安裝完成 | 安裝日誌 11:25:24.847「DrillPaper --exit-running 結束碼：0」，表示正式結束了 PID 50056；11:25:30「Installation process succeeded」「Need to restart Windows? No」。之後沒有 DrillPaper 程序，也沒有該 profile 的 WebView2 子程序。覆蓋後 55 檔 hash 全部相符。註：第一次產生的啟動批次檔是 LF 換行，cmd 無法執行，改為 CRLF 後重新啟動 | PASS |
