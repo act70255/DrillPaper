@@ -22,6 +22,13 @@ Blocked by: 無
 
 ## Comments
 
+- 2026-11-03 實作（Claude）：
+  - `6d819ef`：產品版本以 CMake `project(VERSION)` 為唯一來源（產生 `desktopmonitor/version.h`），`--version` 與握手 `hostVersion` 改為 0.1.0；CLI 輸出被導向時以 UTF-8 寫入。CTest `DrillPaperVersionCli` 先 Red 再 Green。
+  - `fc57050`：打包接受 `X.Y.Z` 與 `X.Y.Z-trial.N`；正式版 kind=release，檔名不帶 trial／unsigned；驗證腳本檢查 kind 與版號一致；安裝檔顯示名稱依版本類型區分；入口訊息中性化。兩支契約測試與入口測試先 Red 再 Green。
+  - `93c9310`：`.github/workflows/release.yml`、`docs/release-notes/0.1.0.md`、包內 README 改寫、安裝檔說明。
+  - 本機演練（從 `93c9310` 乾淨建置 0.1.0）：ZIP 通過白名單與 hash 驗證，EXE 回報 `DrillPaper 0.1.0`，產出 `DrillPaper-0.1.0-win-x64.zip`／`.json`、`DrillPaper-0.1.0-Setup.exe`／`.json`；靜默安裝後「設定 → 應用程式」顯示「DrillPaper」0.1.0，靜默解除安裝無殘留。
+  - 完整測試：CTest 61/61，node／SDK 測試 fail 0。
+
 - 2026-11-03 決策（使用者確認）：
   1. 版本設定為 0.1.0 並在 GitHub 發布。
   2. Release 類型：Pre-release。
