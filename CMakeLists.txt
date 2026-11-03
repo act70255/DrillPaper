@@ -158,7 +158,8 @@ if(BUILD_TESTING)
         -File "${PROJECT_SOURCE_DIR}/scripts/test-theme-cli.ps1" -ApplicationPath "$<TARGET_FILE:DrillPaper>")
     set_tests_properties(DrillPaperThemeCli PROPERTIES TIMEOUT 60)
     # 靜態連結 CRT 後，執行檔不得再依賴 VC++ 可轉散發套件或 UCRT DLL。
-    add_test(NAME DrillPaperStaticCrt COMMAND node "${PROJECT_SOURCE_DIR}/scripts/check-pe-imports.mjs" "$<TARGET_FILE:DrillPaper>")
+    add_test(NAME DrillPaperStaticCrt COMMAND node "${PROJECT_SOURCE_DIR}/scripts/check-pe-imports.mjs"
+        "$<TARGET_FILE:DrillPaper>" "$<TARGET_FILE_DIR:DrillPaper>/WebView2Loader.dll")
     # 安裝程式在覆蓋安裝與解除安裝前呼叫；沒有同路徑實例時必須立即成功結束，不得啟動 UI。
     add_test(NAME DrillPaperExitRunningCli COMMAND "$<TARGET_FILE:DrillPaper>" --exit-running)
     set_tests_properties(DrillPaperExitRunningCli PROPERTIES TIMEOUT 20)

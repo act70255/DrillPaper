@@ -26,7 +26,7 @@ try {
     $compiler = [regex]::Match((Get-Content -Raw $compilerFile.FullName),'set\(CMAKE_CXX_COMPILER_VERSION "([^"]+)"\)').Groups[1].Value
     if ($compiler -notmatch '^19\.(\d+)\.') { throw '無法識別 MSVC 版本，停止封裝。' }
     # 靜態連結 CRT：建置結果不得依賴 VC++／UCRT DLL，否則停止封裝（票 17）。
-    & node (Join-Path $PSScriptRoot 'check-pe-imports.mjs') (Join-Path $build 'Release/DrillPaper.exe')
+    & node (Join-Path $PSScriptRoot 'check-pe-imports.mjs') (Join-Path $build 'Release/DrillPaper.exe') (Join-Path $build 'Release/WebView2Loader.dll')
     if ($LASTEXITCODE -ne 0) { throw 'Release app 仍依賴 VC++ 執行環境，停止封裝。' }
     @{sourceCommit=$SourceCommit; compiler=$compiler; crt='static'; command='MSVC x64 Release; BUILD_TESTING=OFF';
         executableSha256=(Get-FileHash (Join-Path $build 'Release/DrillPaper.exe')).Hash} |
